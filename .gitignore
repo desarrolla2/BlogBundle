@@ -1,0 +1,13 @@
+# Configuration files
+/composer.lock
+/build
+/nbproject/*
+/vendor
+*.swp
+*.swo
+*~
+*.*~
+.vimrc
+.local.*.vimrc
+.DS_Store
+Thumbs.db

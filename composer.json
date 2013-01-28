@@ -1,0 +1,19 @@
+{
+    "name": "desarrolla2/blog-bundle",
+    "type": "symfony-bundle",
+    "description": "This Bundle provides a simple blog site features.",
+    "keywords": ["blog", "cms"],
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "authors": 
+    [{
+        "name": "Daniel González",
+        "homepage": "http://desarrolla2.com/"
+    }],
+    "autoload": {
+        "psr-0": {
+            "Desarrolla2\\Bundle\\BlogBundle": ""
+        }
+    },
+    "target-dir": "Desarrolla2/Bundle/BlogBundle"
+}
