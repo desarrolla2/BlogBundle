@@ -1,0 +1,42 @@
+<h2>Dejanos tu comentario</h2>
+<form id="post-comment" action="{{ path('_comment_create', { 'post_id' : post.id }) }}" method="post" {{ form_enctype(form) }}>
+    <div class="row-fluid clearfix" >        
+        {% if form_errors(form) %} 
+            <div class="alert alert-error">{{ form_errors(form) }}</div>
+        {% endif %}
+        <div class="span7">        
+            <p>
+                <label for="">Comentario(*)</label>
+                {% if form_errors(form.content) %} 
+                    <div class="alert alert-error">{{ form_errors(form.content) }}</div>
+                {% endif %}                
+                {{ form_widget(form.content) }}
+            </p>
+        </div>
+        <div class="span5">
+            <p>
+                <label for="">Nombre(*)</label>
+                {% if form_errors(form.userName) %} 
+                    <div class="alert alert-error">{{ form_errors(form.userName) }}</div>
+                {% endif %}                
+                {{ form_widget(form.userName) }}
+            </p>
+            <p>
+                <label for="">Correo</label>
+                {% if form_errors(form.userEmail) %} 
+                    <div class="alert alert-error">{{ form_errors(form.userEmail) }}</div>
+                {% endif %}                
+                {{ form_widget(form.userEmail) }}
+            </p>
+            <p>
+                <label for="">Web</label>
+                {% if form_errors(form.userWeb) %} 
+                    <div class="alert alert-error">{{ form_errors(form.userWeb) }}</div>
+                {% endif %}                
+                {{ form_widget(form.userWeb) }}
+            </p>
+        </div>                    
+    </div>
+    <button class="btn" type="submit">Enviar</button>
+    {{ form_rest(form) }}
+</form>

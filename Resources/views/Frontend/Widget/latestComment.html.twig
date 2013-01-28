@@ -1,0 +1,12 @@
+<ul>
+    {% for comment in comments %}
+        <li>
+            <a href="{{ url('_view', { 'slug' : comment.post.slug }) }}">{{ comment | striptags | truncate(160)}}</a>
+            <small> el <time datetime="{{ comment.createdAt | date('c') }}">
+            {{ comment.createdAt | localeDate('long') }}</time>
+            </small>
+        </li>
+    {% else %}
+        <li>No hay elementos</li>
+    {% endfor %}
+</ul>

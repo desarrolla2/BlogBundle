@@ -1,0 +1,14 @@
+{% extends "::frontend.html.twig" %}
+{% block content %}
+<article class="post">
+        <header>
+            <h2>Gracias</h2>            
+        </header>    
+    <p>
+        Hemos recibido tu comentario, un administrador lo examinará para 
+        aprobarlo lo antes posible, puedes continuar navegando por los últimos 
+        elementos publicados en el sitio.
+    </p>
+    {% render 'BlogBundle:Frontend\\Widget:latestPost' %}
+</article>
+{% endblock %}

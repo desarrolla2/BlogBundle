@@ -1,0 +1,5 @@
+<small>etiquetas: 
+    {% for tag in tags %}
+        <a href="{{ url('_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a>
+    {% endfor %}
+</small>

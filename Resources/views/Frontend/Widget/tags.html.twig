@@ -1,0 +1,7 @@
+<ul id="tags">
+    {% for tag in tags %}
+        <li><a href="{{ url('_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a></li>
+    {% else %}
+        <li>No hay elementos</li>
+    {% endfor %}
+</ul>

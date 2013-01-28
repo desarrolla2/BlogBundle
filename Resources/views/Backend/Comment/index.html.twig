@@ -1,0 +1,37 @@
+{% extends "::backend.html.twig" %}
+
+{% block content %}
+{% include 'BlogBundle:Backend/Comment:index.filter.html.twig' with {'filterForm': filterForm } %}          
+<div class="span12">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Content</th>
+                <th>Text ( name / email / web )</th>
+                <th>Status</th>      
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in pagination %}
+            <tr>
+                <td>{{ entity.post.name | raw }}</td>
+                <td>{{ entity.content | raw }} ( {{ entity.userName }} / {{ entity.userEmail }} / {{ entity.userWeb}} )</td>
+                <td>
+                    {% if entity.status == 1 %}<i class="icon-ok"></i>{% endif %}
+                    {% if entity.status == 2 %}<i class="icon-remove"></i>{% endif %}
+                </td>
+                <td>                    
+                    <a class="bnt btn-mini" href="{{ path('comment_publish', { 'id': entity.id }) }}" title="publish"><i class="icon-ok"></i></a>
+                    <a class="bnt btn-mini" href="{{ path('comment_unpublish', { 'id': entity.id }) }}" title="unpublish"><i class="icon-remove"></i></a>
+                    <a class="bnt btn-mini" href="{{ path('comment_edit', { 'id': entity.id }) }}" title="edit"><i class="icon-edit"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+        {{ pagination.render()|raw }}
+    </div>    
+</div>
+{% endblock %}

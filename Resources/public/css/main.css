@@ -1,0 +1,180 @@
+* ################## HTML  ################## */
+@font-face {
+    font-family: 'Courgette';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Courgette Regular'), local('Courgette-Regular'), url(/fonts/courgette.woff) format('woff');
+}
+
+body{  
+    background: -webkit-linear-gradient(#EBEBEB 40%, #FFFFFF);
+    background: -moz-linear-gradient(#EBEBEB 40%, #FFFFFF);
+    background: -o-linear-gradient(#EBEBEB 40%, #FFFFFF);
+    background: linear-gradient(#EBEBEB 40%, #FFFFFF);    
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 27px;
+}
+
+li{
+    list-style: element;
+    line-height: 27px;
+}
+
+h1, h2, h3, h4, a, a:hover, a:visited{
+    color: #C80000;
+    text-decoration: none;
+    margin: 15px 5px 5px 0;
+}
+
+pre{
+    margin: 15px auto;
+    border-radius: 8px; 
+}
+
+small {
+    color: #999999;
+    font-size: 11px;
+}
+
+input, input[type="url"], input[type="text"], textarea, label {
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 27px;
+    width: 100%;
+}
+
+input, input[type="url"], input[type="text"], label {
+    height: 25px;
+}
+
+textarea{
+    height: 192px;
+}
+
+/* ################## \HTML  ################## */
+
+
+/* ################## HEADER  ################## */
+header#header{
+    background: #2B2B2B;
+    height: 80px;
+    font-family: 'Courgette', cursive;
+    color: #E4E4E4;
+    padding: 10px 0 0 0;
+    margin: 0 0 10px 0;
+}
+
+header#header h1 a,header#header h1 a:hover, header#header h1 a:visited {    
+    color: #E4E4E4;
+    text-decoration: none;    
+}
+header#header h1{
+    margin: 0;
+}
+
+header#header span{
+    font-size: 11px;
+}
+div.bar{
+    background: #C80000;
+    height: 8px;
+
+}
+div#brand{
+    width: 300px;
+    float: left;
+}
+ul#network{
+    width: 300px;
+    float: right;
+}
+ul#network li{ 
+    display: inline-block; 
+    list-style: none;
+}
+
+/* ################## \HEADER  ################## */
+
+/* ################## CONTENT  ################## */
+
+div.container header h2 {
+ font-size: 28px;   
+}
+div.container p{
+    margin: 3px 0px 12px 0px;
+}
+
+div.container pre{
+    margin: 15px 0px 25px 0px;   
+}
+section#comments h3{
+    margin: 20px 5px 5px 0;
+}
+section#comments article{
+    margin: 0 0 20px 0;
+}
+article.comment img{    
+    float: left; 
+    margin: 0 20px 20px 0;
+    width: 80px; 
+}
+/* ################## \CONTENT  ################## */
+
+/* ################## SIDEBAR  ################## */
+div#sidebar .block{ 
+    color: #c3c3c3;
+    display: block;
+    background: #242424;
+    margin: 0 0 15px 0;
+    border-radius: 10px; 
+    padding: 3px;
+}
+
+div#sidebar h2{
+    position: relative;
+    left: -10px;
+    top: 10px;
+    background: -webkit-linear-gradient(#C50000, #8C0000);
+    background: -moz-linear-gradient(#C50000, #8C0000);
+    background: -o-linear-gradient(#C50000, #8C0000);   
+    background: linear-gradient(#C50000, #8C0000);
+    border-radius: 10px; 
+    margin: 0 0 20px 0 ;
+    padding: 6px 6px 6px 10px;
+    font-size: 18px;    
+    color: #c3c3c3;
+}
+
+div#sidebar p, div#sidebar li{
+    margin: 10px;
+    line-height: 22px
+}
+
+div#sidebar a, div#sidebar a:visited{
+    color: #C3C3C3;
+}
+
+div#sidebar a:hover{
+    color: #C80000;
+}
+
+div#sidebar ul{
+    margin: 0;
+    list-style: none;    
+}
+
+div#sidebar ul#tags{
+    margin: 10px;
+}
+
+div#sidebar ul#tags li{
+    display: inline-block; 
+    margin: 2px;
+}
+/* ################## \SIDEBAR  ################## */
+
+
+div.alert ul li{
+    list-style: none;
+}

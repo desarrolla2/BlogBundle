@@ -1,0 +1,14 @@
+{% extends "::frontend.html.twig" %}
+{% block title %} {{ title }} {% endblock%}
+{% block content %}
+    {% for post in pagination %}
+        {% include 'BlogBundle:Frontend/Post:item.html.twig' with {'post': post} %}
+    {% else %}
+        <p>No hay elementos</p>
+    {% endfor %}
+
+<div class="navigation">
+    {{ pagination.render()|raw }}
+</div>    
+{% endblock %}
+

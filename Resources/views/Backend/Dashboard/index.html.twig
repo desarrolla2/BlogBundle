@@ -1,0 +1,54 @@
+{% extends "::backend.html.twig" %}
+{% block content %}
+<div class="row-fluid">
+    <div class="span6">
+        {% render 'BlogBundle:Backend\\Dashboard:status' %}        
+        </div>
+        <div class="span6">
+            <h2>TO DO</h2>            
+            <ul>
+                <li>Twitter en comentarios</li>
+                <li>Imagen de twitter en comentarios</li>
+                <li>Refactor del blogBundle y del resto del proyecto.</li>
+                <li>Errores en el editor + diccionario + pegar texto plano</li>
+                <li>Subir imagenes</li>
+                <li>Borrado de elementos POST</li>
+                <li>Histórico de POSTS con un evento.</li>
+                <li>Version completa en el RSS</li>
+                <li>RSS de los tags</li>
+                <li>Se descuadra el titulo.</li>
+                <li>404 y 500</li>
+                <li>robot.txt</li>
+                <li>Mejorar el WF de comentario, queda muy triste</li>
+                <li>espacios y NL en comentarios / http://desarrolla2.local/app_dev.php/post/introduccion-a-la-orientacion-a-objetos-en-php-objetos-clases-y-herencia</li>
+                <li>Fechas en comentarios, que están en inglés.</li>
+                <li>http cache</li>
+                <li>
+                    Vista del artículo
+                    <ul>
+                        <li>Últimos post ( relacionados )</li>
+                        <li>Últimos comentarios ( relacionados )</li>
+                        <li>Dar mayor enfasis a los tags</li>
+                    </ul>                    
+                </li>
+                <li>Los últimos post, quedan muy mal</li>
+                <li>Logo D2.</li>
+                <li>Mensajes FLASH.</li>
+                <li>Recordarme del login de admin</li>        
+                <li>FOSUser y usuarios a la base de datos.</li>
+                <li>Notificar al publicar un comentario, Validar el sistema de comentarios.</li>
+                <li>KnPMenuBundle</li> 
+            </ul>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6">
+            <h2>Pending Contents</h2>
+        {% render 'BlogBundle:Backend\\Dashboard:content' %}            
+        </div>
+        <div class="span6">
+            <h2>Pending Comments</h2>
+        {% render 'BlogBundle:Backend\\Dashboard:comment' %}
+        </div>
+    </div>
+{% endblock %}

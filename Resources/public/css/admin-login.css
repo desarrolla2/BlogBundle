@@ -1,0 +1,31 @@
+/* 
+    Document   : admin-login
+    Created on : Aug 16, 2012, 6:18:27 PM
+    Author     : Daniel González <daniel.gonzalez@freelancemadrid.es>
+    Description:
+       Admin login styles
+*/
+
+body {
+    background-color: #eee;
+    font-size: 20px;
+    padding-top: 140px;  
+}
+.form {
+    width: 350px;
+}
+
+/* The white background content wrapper */
+.form {
+    background-color: #fff;
+    padding: 20px;
+    margin: auto;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.form input{
+    font-size: 20px;
+    height: 28px;    
+}

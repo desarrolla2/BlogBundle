@@ -1,0 +1,26 @@
+{% extends "::backend.html.twig" %}
+{% block content %}
+<h1>Author edit</h1>
+
+<form action="{{ path('author_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    {{ form_widget(edit_form) }}
+    <p>
+        <button type="submit">Edit</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('author') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('author_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button data-toggle="modal" href="#confirm-delete" class="btn btn-danger">Delete</button>
+            {% include 'BlogBundle:Backend/Modal:confirm-delete.html.twig' %}
+        </form>
+    </li>
+</ul>
+{% endblock %}

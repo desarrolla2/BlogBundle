@@ -1,0 +1,16 @@
+<section id="comments">
+    <header>
+        <h3>Comentarios</h3>
+    </header>
+    {% for comment in comments %}
+        <article class="comment" id="comment-{{ comment.id }}">
+            <img src="{{ comment.avatarUrl}}&?d=http%3A%2F%2Fdesarrolla2.com%2Fbundles%2Fblog%2Fimg%2Fdefault.png&s=80" />
+            {{ comment }}
+            <small>{{ comment.userName }} <time datetime="{{ comment.createdAt|date('c') }}">{{ comment.createdAt|date('l, F j, Y') }}</time></small>
+        </article>
+    {% else %}
+        <p>No hay comentarios, sé el primero!  ... </p>
+    {% endfor %}
+        <div class="clear_fix"></div>
+    {% include 'BlogBundle:Frontend/Comment:new.html.twig' with {'form': form, 'post': post } %}
+</section>

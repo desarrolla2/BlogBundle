@@ -1,0 +1,19 @@
+{% if form_errors(form) %}
+    <div class="alert alert-block alert-error fade in form-errors">
+    {{ form_errors(form) }}
+    </div>
+{% endif %}
+<p>
+    <label for="">Nombre</label>
+    {% if form_errors(form.name) %}
+        <div class="alert alert-block alert-error fade in form-errors">
+        {{ form_errors(form.name) }}
+        </div>
+    {% endif %}
+    {{ form_widget(form.name) }}
+</p> 
+<p>
+    <button class="btn" type="submit">Save</button>
+    <a class="btn" href="{{ path('post') }}">Cancel</a>
+</p>
+{{ form_rest(form) }}
