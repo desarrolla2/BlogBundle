@@ -2,7 +2,7 @@
 {% block content %}
 <div class="row-fluid">
     <div class="span6">
-        {% render 'BlogBundle:Backend\\Dashboard:status' %}        
+        {{ render(controller('BlogBundle:Backend\\Dashboard:status')) }}
         </div>
         <div class="span6">
             <h2>TO DO</h2>            
@@ -43,11 +43,11 @@
     <div class="row-fluid">
         <div class="span6">
             <h2>Pending Contents</h2>
-        {% render 'BlogBundle:Backend\\Dashboard:content' %}            
+            {{ render(controller('BlogBundle:Backend\\Dashboard:content')) }} 
         </div>
         <div class="span6">
             <h2>Pending Comments</h2>
-        {% render 'BlogBundle:Backend\\Dashboard:comment' %}
+            {{ render(controller('BlogBundle:Backend\\Dashboard:comment')) }}
         </div>
     </div>
 {% endblock %}

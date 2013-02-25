@@ -27,7 +27,7 @@
     </table>
     <div><a class="btn " href="{{ path('tag_new') }}">new entry</a></div>
     <div class="navigation">
-        {{ pagination.render()|raw }}
+        {{ knp_pagination_render(pagination) }}
     </div>    
 </div>
 {% endblock %}

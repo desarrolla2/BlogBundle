@@ -9,6 +9,6 @@
         aprobarlo lo antes posible, puedes continuar navegando por los últimos 
         elementos publicados en el sitio.
     </p>
-    {% render 'BlogBundle:Frontend\\Widget:latestPost' %}
+    {{ render(controller('BlogBundle:Frontend\\Widget:latestPost')) }}
 </article>
 {% endblock %}
