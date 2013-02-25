@@ -5,15 +5,15 @@
 {% endif %}
 <p>
     <label for="">Nombre</label>
-    {% if form_errors(form.name) %}
+    {% if form_errors(form.file) %}
         <div class="alert alert-block alert-error fade in form-errors">
-        {{ form_errors(form.name) }}
+        {{ form_errors(form.file) }}
         </div>
     {% endif %}
-    {{ form_widget(form.name) }}
+    {{ form_widget(form.file) }}
 </p> 
 <p>
     <button class="btn" type="submit">Save</button>
-    <a class="btn" href="{{ path('tag') }}">Cancel</a>
+    <a class="btn" href="{{ path('image') }}">Cancel</a>
 </p>
 {{ form_rest(form) }}
