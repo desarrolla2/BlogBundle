@@ -20,17 +20,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class WidgetController extends Controller
 {
-
-    /**
-     * @Template()
-     */
-    public function lastTwitAction()
-    {
-        $twitterClient = $this->container->get('twitter_client');
-        return array(
-            'twit' => $twitterClient->fetchOne()
-        );
-    }
     
         /**
      * @Template()
