@@ -17,6 +17,7 @@ namespace Desarrolla2\Bundle\BlogBundle\Controller\Frontend;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 
 class WidgetController extends Controller {
 
@@ -34,6 +35,17 @@ class WidgetController extends Controller {
     /**
      * @Template()
      */
+    public function latestCommentRelatedAction(Post $post) {
+        return array(
+            'comments' =>
+                    $this->getDoctrine()->getEntityManager()
+                    ->getRepository('BlogBundle:Comment')->getLatestRelated($post, 4)
+        );
+    }
+
+    /**
+     * @Template()
+     */
     public function latestPostAction() {
         return array(
             'posts' =>
@@ -45,8 +57,18 @@ class WidgetController extends Controller {
     /**
      * @Template()
      */
+    public function latestPostRelatedAction(Post $post) {
+        return array(
+            'posts' =>
+                    $this->getDoctrine()->getEntityManager()
+                    ->getRepository('BlogBundle:Post')->getLatestRelated($post, 4)
+        );
+    }
+
+    /**
+     * @Template()
+     */
     public function tagsAction() {
-        // order by RAND()
         return array(
             'tags' =>
                     $this->getDoctrine()->getEntityManager()

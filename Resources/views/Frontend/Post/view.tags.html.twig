@@ -1,5 +1,5 @@
-<small>etiquetas: 
+<div class="row">
     {% for tag in tags %}
-        <a href="{{ url('_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a>
+        <strong><a href="{{ url('_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a></strong> 
     {% endfor %}
-</small>
+</div>

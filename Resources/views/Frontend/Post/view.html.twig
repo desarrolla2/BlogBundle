@@ -16,3 +16,11 @@
 </article>
     {% include 'BlogBundle:Frontend/Post:view.comment.html.twig' with {'form': form, 'comments': comments } %}
 {% endblock %}
+
+{% block latesPosts %}
+    {{ render(controller('BlogBundle:Frontend\\Widget:latestPostRelated', { 'post': post })) }}
+{% endblock %}
+
+{% block latesComments %}
+    {{ render(controller('BlogBundle:Frontend\\Widget:latestCommentRelated', { 'post': post })) }}
+{% endblock %}
