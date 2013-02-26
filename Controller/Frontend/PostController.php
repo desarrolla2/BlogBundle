@@ -12,16 +12,14 @@ use Desarrolla2\Bundle\BlogBundle\Entity\Comment;
 use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Type\CommentType;
 use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model\CommentModel;
 
-class PostController extends Controller
-{
+class PostController extends Controller {
 
     /**
      * @Route("/{page}", name="_default", requirements={"page" = "\d{1,3}"}, defaults={"page" = "1" })
      * @Method({"GET"})
      * @Template()
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $paginator = $this->get('knp_paginator');
         $query = $this->getDoctrine()->getEntityManager()
                         ->getRepository('BlogBundle:Post')->getQueryForGet();
@@ -32,8 +30,8 @@ class PostController extends Controller
         );
 
         return array(
-            'pagination'  => $pagination,
-            'title'       => $this->container->getParameter('blog.title'),
+            'pagination' => $pagination,
+            'title' => $this->container->getParameter('blog.title'),
             'description' => $this->container->getParameter('blog.description'),
         );
     }
@@ -43,8 +41,7 @@ class PostController extends Controller
      * @Method({"GET"})
      * @Template()
      */
-    public function tagAction(Request $request)
-    {
+    public function tagAction(Request $request) {
 
         $paginator = $this->get('knp_paginator');
         $tag = $request->get('slug', '');
@@ -57,7 +54,7 @@ class PostController extends Controller
 
         return array(
             'pagination' => $pagination,
-            'title'      => $tag,
+            'title' => $tag,
         );
     }
 
@@ -67,20 +64,21 @@ class PostController extends Controller
      * @Method({"GET"})
      * @Template()
      */
-    public function viewAction(Request $request)
-    {
+    public function viewAction(Request $request) {
         $post = $this->getDoctrine()->getEntityManager()
                         ->getRepository('BlogBundle:Post')->getOneBySlug($request->get('slug', false));
-
+        if (!$post) {
+            throw $this->createNotFoundException('The post does not exist');
+        }
         $comments = $this->getDoctrine()->getEntityManager()
                         ->getRepository('BlogBundle:Comment')->getForPost($post);
 
         $form = $this->createForm(new CommentType(), new CommentModel($this->createCommentForPost($post)));
 
         return array(
-            'post'     => $post,
+            'post' => $post,
             'comments' => $comments,
-            'form'     => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -89,8 +87,7 @@ class PostController extends Controller
      * @param \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
      * @return \Desarrolla2\Bundle\BlogBundle\Entity\Comment
      */
-    protected function createCommentForPost(Post $post)
-    {
+    protected function createCommentForPost(Post $post) {
         $comment = new Comment();
         $comment->setPost($post);
         return $comment;

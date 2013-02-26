@@ -17,8 +17,7 @@ use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Handler\CommentHandler;
  *  
  * @Route("/comment")
  */
-class CommentController extends Controller
-{
+class CommentController extends Controller {
 
     /**
      * Creates a new Comment entity.
@@ -26,8 +25,7 @@ class CommentController extends Controller
      * @Route("/create/{post_id}", name="_comment_create", requirements={"post_id" = "\d+"}, defaults={"post_id" = "1" })
      * @Template()
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
 
         $em = $this->getDoctrine()->getEntityManager();
         $post = $em->getRepository('BlogBundle:Post')->find($request->get('post_id', false));
@@ -35,7 +33,7 @@ class CommentController extends Controller
         if (!$post) {
             throw $this->createNotFoundException('Unable to find post.');
         }
-        
+
         $comment = new Comment();
         $comment->setPost($post);
 
@@ -62,8 +60,7 @@ class CommentController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function messageAction(Request $request)
-    {
+    public function messageAction(Request $request) {
         
     }
 
