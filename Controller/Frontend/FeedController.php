@@ -23,23 +23,21 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @author : Daniel González <daniel.gonzalez@freelancemadrid.es> 
  */
-class FeedController extends Controller
-{
+class FeedController extends Controller {
 
     /**
      * @Route("/feed/", name="_feed")
      * @Route("/feed.{_format}")
      * @Method({"GET"})
      */
-    public function indexAction(Request $request)
-    {
+    public function indexAction(Request $request) {
         $items = $this->getDoctrine()->getEntityManager()
                         ->getRepository('BlogBundle:Post')->get(16);
 
         return $this->render(
                         'BlogBundle:Frontend/Feed:index.xml.twig', array(
                     'items' => $items,
-                ));
+        ));
     }
 
     /**
@@ -48,8 +46,7 @@ class FeedController extends Controller
      * * @Route("/sitemap.xml.gz")
      * @Method({"GET"})
      */
-    public function sitemapAction(Request $request)
-    {
+    public function sitemapAction(Request $request) {
         $items = array();
         $tags = $this->getDoctrine()->getEntityManager()
                         ->getRepository('BlogBundle:Tag')->get(50);
@@ -61,7 +58,7 @@ class FeedController extends Controller
         return $this->render(
                         'BlogBundle:Frontend/Feed:sitemap.xml.twig', array(
                     'items' => $items,
-                ));
+        ));
     }
 
 }
