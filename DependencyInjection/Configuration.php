@@ -19,16 +19,30 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $treeBuilder->root('blog')
+                ->addDefaultsIfNotSet()
                 ->children()
-                    ->scalarNode('title')
-                    ->defaultValue('my Custom title')
+                    ->scalarNode('title')->defaultValue('my Custom title')->end()
+                    ->scalarNode('description')->defaultValue('my Custom description')->end()
+                    ->scalarNode('items')->defaultValue(12)->end()             
+                
+                    ->arrayNode('rss')
+                        ->addDefaultsIfNotSet()
+                        ->children()
+                            ->scalarNode('name')->defaultValue('my Custom RSS Nanem')->end()
+                            ->scalarNode('items')->defaultValue(16)->end()             
+                        ->end()
                     ->end()
-                    
-                    ->scalarNode('description')
-                    ->defaultValue('my Custom description')
+                
+                    ->arrayNode('sitemap')
+                        ->addDefaultsIfNotSet()
+                        ->children()
+                            ->scalarNode('items')->defaultValue(50)->end()             
+                        ->end()
                     ->end()
+                
                 ->end();
 
         return $treeBuilder;
     }
+    
 }

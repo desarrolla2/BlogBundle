@@ -31,11 +31,38 @@ class FeedController extends Controller {
      * @Method({"GET"})
      */
     public function indexAction(Request $request) {
+        $request->setRequestFormat('xml');
         $items = $this->getDoctrine()->getEntityManager()
-                        ->getRepository('BlogBundle:Post')->get(16);
+                        ->getRepository('BlogBundle:Post')->get(
+                $this->container->getParameter('blog.rss.items')
+        );
 
         return $this->render(
                         'BlogBundle:Frontend/Feed:index.xml.twig', array(
+                    'title' => $this->container->getParameter('blog.rss.name'),
+                    'items' => $items,
+        ));
+    }
+
+    /**
+     * @Route("/feed/{slug}/", name="_feed_tag", requirements={"slug" = "[\w\d\-]+"})
+     * @Method({"GET"})
+     */
+    public function tagAction(Request $request) {
+        $request->setRequestFormat('xml');
+        $tag = $this->getDoctrine()->getEntityManager()
+                        ->getRepository('BlogBundle:Tag')->getOneBySlug($request->get('slug', false));
+        if (!$tag) {
+            throw $this->createNotFoundException('The tag does not exist');
+        }
+        $items = $this->getDoctrine()->getEntityManager()
+                        ->getRepository('BlogBundle:Post')->getByTag(
+                $tag, $this->container->getParameter('blog.rss.items')
+        );
+
+        return $this->render(
+                        'BlogBundle:Frontend/Feed:index.xml.twig', array(
+                    'title' => $this->container->getParameter('blog.rss.name') . ' :: ' . $tag->getName(),
                     'items' => $items,
         ));
     }
@@ -43,13 +70,16 @@ class FeedController extends Controller {
     /**
      * @Route("/sitemap/", name="_sitemap")
      * @Route("/sitemap.{_format}")
-     * * @Route("/sitemap.xml.gz")
+     * @Route("/sitemap.xml.gz")
      * @Method({"GET"})
      */
     public function sitemapAction(Request $request) {
+        $request->setRequestFormat('xml');
         $items = array();
         $tags = $this->getDoctrine()->getEntityManager()
-                        ->getRepository('BlogBundle:Tag')->get(50);
+                        ->getRepository('BlogBundle:Tag')->get(
+                $this->container->getParameter('blog.sitemap.items')
+        );
 
         foreach ($tags as $tag) {
             $items[] = $this->generateUrl('_tag', array('slug' => $tag->getSlug()), true);

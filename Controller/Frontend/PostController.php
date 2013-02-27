@@ -26,35 +26,13 @@ class PostController extends Controller {
 
 
         $pagination = $paginator->paginate(
-                $query, $request->get('page', 1), 12
+                $query, $request->get('page', 1), $this->container->getParameter('blog.items')
         );
 
         return array(
             'pagination' => $pagination,
             'title' => $this->container->getParameter('blog.title'),
             'description' => $this->container->getParameter('blog.description'),
-        );
-    }
-
-    /**
-     * @Route("/tag/{slug}/{page}", name="_tag", requirements={"slug" = "[\w\d\-]+", "page" = "\d{1,3}"}, defaults={"page" = "1" })
-     * @Method({"GET"})
-     * @Template()
-     */
-    public function tagAction(Request $request) {
-
-        $paginator = $this->get('knp_paginator');
-        $tag = $request->get('slug', '');
-        $query = $this->getDoctrine()->getEntityManager()
-                        ->getRepository('BlogBundle:Post')->getQueryForGetByTagSlug($tag);
-
-        $pagination = $paginator->paginate(
-                $query, $request->get('page', false), 12
-        );
-
-        return array(
-            'pagination' => $pagination,
-            'title' => $tag,
         );
     }
 
@@ -79,6 +57,31 @@ class PostController extends Controller {
             'post' => $post,
             'comments' => $comments,
             'form' => $form->createView(),
+        );
+    }
+
+    /**
+     * @Route("/tag/{slug}/{page}", name="_tag", requirements={"slug" = "[\w\d\-]+", "page" = "\d{1,3}"}, defaults={"page" = "1" })
+     * @Method({"GET"})
+     * @Template()
+     */
+    public function tagAction(Request $request) {
+        $paginator = $this->get('knp_paginator');
+        $tag = $this->getDoctrine()->getEntityManager()
+                        ->getRepository('BlogBundle:Tag')->getOneBySlug($request->get('slug', false));
+        if (!$tag) {
+            throw $this->createNotFoundException('The tag does not exist');
+        }
+        $query = $this->getDoctrine()->getEntityManager()
+                        ->getRepository('BlogBundle:Post')->getQueryForGetByTag($tag);
+
+        $pagination = $paginator->paginate(
+                $query, $request->get('page', 1), $this->container->getParameter('blog.items')
+        );
+
+        return array(
+            'pagination' => $pagination,
+            'tag' => $tag,
         );
     }
 

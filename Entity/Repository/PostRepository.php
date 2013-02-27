@@ -2,8 +2,9 @@
 
 namespace Desarrolla2\Bundle\BlogBundle\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
-use Desarrolla2\Bundle\BlogBundle\Entity\Post;
+use \Doctrine\ORM\EntityRepository;
+use \Desarrolla2\Bundle\BlogBundle\Entity\Post;
+use \Desarrolla2\Bundle\BlogBundle\Entity\Tag;
 
 /**
  * PostRepository
@@ -14,35 +15,6 @@ use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 class PostRepository extends EntityRepository {
 
     const POST_PER_PAGE = 6;
-
-    /**
-     * 
-     * @param type $slug
-     * @return array
-     */
-    public function getByTagSlug($slug = '') {
-        $query = $this->getQueryForGetByTagSlug($slug);
-        return $query->getResult();
-    }
-
-    /**
-     * 
-     * @param string $slug
-     * @return \Doctrine\ORM\Query
-     */
-    public function getQueryForGetByTagSlug($slug = '') {
-        $em = $this->getEntityManager();
-        $query = $em->createQuery(
-                        ' SELECT p FROM BlogBundle:Post p ' .
-                        ' JOIN p.tags t ' .
-                        ' WHERE p.isPublished = 1 ' .
-                        ' AND t.slug = :slug ' .
-                        ' ORDER BY p.createdAt DESC '
-                )
-                ->setParameter('slug', $slug)
-        ;
-        return $query;
-    }
 
     /**
      * 
@@ -60,6 +32,19 @@ class PostRepository extends EntityRepository {
                 ->setParameter('slug', $slug)
         ;
         return $query->getOneOrNullResult();
+    }
+
+    /**
+     * 
+     * @param string $slug
+     * @return \Doctrine\ORM\Query
+     */
+    public function getByTag(Tag $tag, $limit = self::POST_PER_PAGE) {
+        $limit = (int) $limit;
+        $query = $this->getQueryForGetByTag($tag, $limit)
+                ->setMaxResults($limit)
+        ;
+        return $query->getResult();
     }
 
     /**
@@ -86,6 +71,54 @@ class PostRepository extends EntityRepository {
                 ' WHERE p.isPublished = 1 ' .
                 ' ORDER BY p.createdAt DESC '
                 )
+        ;
+        return $query;
+    }
+
+    /**
+     * 
+     * @param type $slug
+     * @return array
+     */
+    public function getByTagSlug($slug = '') {
+        $query = $this->getQueryForGetByTagSlug($slug);
+        return $query->getResult();
+    }
+
+    /**
+     * 
+     * @param string $slug
+     * @return \Doctrine\ORM\Query
+     */
+    public function getQueryForGetByTag(Tag $tag) {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+                        ' SELECT p FROM BlogBundle:Post p ' .
+                        ' JOIN p.tags t ' .
+                        ' WHERE p.isPublished = 1 ' .
+                        ' AND t.slug  = :slug ' .
+                        ' ORDER BY p.createdAt DESC '
+                )
+                ->setParameter('slug', $tag->getSlug())
+        ;
+        return $query;
+    }
+
+    /**
+     * 
+     * @param string $slug
+     * @return \Doctrine\ORM\Query
+     */
+    public function getQueryForGetByTagSlug($slug = '') {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+                        ' SELECT p FROM BlogBundle:Post p ' .
+                        ' JOIN p.tags t ' .
+                        ' WHERE p.isPublished = 1 ' .
+                        ' AND t.slug = :slug ' .
+                        ' ORDER BY p.createdAt DESC '
+                )
+                ->setParameter('slug', $slug)
         ;
         return $query;
     }

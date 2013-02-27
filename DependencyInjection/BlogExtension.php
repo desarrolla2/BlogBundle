@@ -23,10 +23,15 @@ class BlogExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-
+        
         $container->setParameter('blog.title', $config['title']);
         $container->setParameter('blog.description', $config['description']);
-
+        $container->setParameter('blog.items', $config['items']);
+        
+        $container->setParameter('blog.rss.name', $config['rss']['name']);
+        $container->setParameter('blog.rss.items', $config['rss']['items']);
+        
+        $container->setParameter('blog.sitemap.items', $config['sitemap']['items']);
         
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');

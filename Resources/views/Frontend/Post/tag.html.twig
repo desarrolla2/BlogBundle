@@ -1,5 +1,5 @@
 {% extends "::frontend.html.twig" %}
-{% block title %} {{ title }} {% endblock%}
+{% block title %} {{ tag }} {% endblock%}
 {% block content %}
     {% for post in pagination %}
         {% include 'BlogBundle:Frontend/Post:item.html.twig' with {'post': post} %}
@@ -10,5 +10,9 @@
 <div class="navigation">
     {{ knp_pagination_render(pagination) }}
 </div>    
+{% endblock %}
+        
+{% block rss %}
+    <link rel="alternate" type="application/rss+xml" title="{{ tag }} RSS Feed" href="{{ path('_feed_tag', { 'slug' : tag.slug }) }}" />
 {% endblock %}
 
