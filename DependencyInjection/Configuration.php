@@ -40,6 +40,13 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 
+                    ->arrayNode('archive')
+                        ->addDefaultsIfNotSet()
+                        ->children()
+                            ->scalarNode('title')->defaultValue('my Custom title')->end()
+                            ->scalarNode('description')->defaultValue('my Custom description')->end()             
+                        ->end()
+                    ->end()
                 ->end();
 
         return $treeBuilder;

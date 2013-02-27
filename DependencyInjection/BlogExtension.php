@@ -33,6 +33,9 @@ class BlogExtension extends Extension
         
         $container->setParameter('blog.sitemap.items', $config['sitemap']['items']);
         
+        $container->setParameter('blog.archive.title', $config['archive']['title']);
+        $container->setParameter('blog.archive.description', $config['archive']['description']);
+        
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
 

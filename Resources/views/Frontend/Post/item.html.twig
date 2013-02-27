@@ -1,6 +1,6 @@
 <article class="post">
     <header>
-        <h2><a href="{{ url('_view', { 'slug' : post.slug }) }}">{{ post }}</a></h2>            
+        <h2><a href="{{ path('_view', { 'slug' : post.slug }) }}">{{ post }}</a></h2>            
     </header>
     {{ post.intro | raw }} 
     <small>

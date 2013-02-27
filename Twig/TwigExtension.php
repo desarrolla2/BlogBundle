@@ -23,8 +23,7 @@ use IntlDateFormatter;
  * @file : TwigExtension.php , UTF-8
  * @date : Oct 15, 2012 , 9:54:55 PM
  */
-class TwigExtension extends \Twig_Extension
-{
+class TwigExtension extends \Twig_Extension {
 
     /**
      * @var string
@@ -34,8 +33,7 @@ class TwigExtension extends \Twig_Extension
     /**
      * @param string $locale
      */
-    public function __construct($locale = null)
-    {
+    public function __construct($locale = null) {
         if ($locale) {
             $this->locale = (string) $locale;
         } else {
@@ -46,22 +44,20 @@ class TwigExtension extends \Twig_Extension
     /**
      * @return array
      */
-    public function getFilters()
-    {
+    public function getFilters() {
         return array(
             'localeDate' => new \Twig_Filter_Method($this, 'localeDate'),
+            'localeCustomDate' => new \Twig_Filter_Method($this, 'localeCustomDate'),
         );
     }
 
-    /**
-     * 
-     * @return string
-     */
-    public function localeDate($date, $datetype = 'medium', $timetype = 'none')
-    {
-        $datetype = $this->getDateType($datetype);
-        $timetype = $this->getTimeType($timetype);
-        $dateFormater = IntlDateFormatter::create($this->locale, $datetype, $timetype);
+    public function localeCustomDate($date, $format) {
+        $datetype = $this->getDateType('full');
+        $timetype = $this->getTimeType('full');
+        $dateFormater = IntlDateFormatter::create(
+                        $this->locale, $datetype, $timetype, \IntlDateFormatter::GREGORIAN
+        );
+        $dateFormater->setPattern('MMMM \'de\' yyyy');
         return $dateFormater->format($date);
     }
 
@@ -69,8 +65,20 @@ class TwigExtension extends \Twig_Extension
      * 
      * @return string
      */
-    public function getName()
-    {
+    public function localeDate($date, $datetype = 'medium', $timetype = 'none') {
+        $datetype = $this->getDateType($datetype);
+        $timetype = $this->getTimeType($timetype);
+        $dateFormater = IntlDateFormatter::create(
+                        $this->locale, $datetype, $timetype
+        );
+        return $dateFormater->format($date);
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function getName() {
         return 'blog_extension';
     }
 
@@ -79,8 +87,7 @@ class TwigExtension extends \Twig_Extension
      * @param type $timetype
      * @return type
      */
-    protected function getTimeType($timetype)
-    {
+    protected function getTimeType($timetype) {
         switch (strtolower($timetype)) {
             case 'none':
                 return IntlDateFormatter::NONE;
@@ -108,8 +115,7 @@ class TwigExtension extends \Twig_Extension
      * @param type $datetype
      * @return type
      */
-    protected function getDateType($datetype)
-    {
+    protected function getDateType($datetype) {
         switch (strtolower($datetype)) {
             case 'none':
                 return IntlDateFormatter::NONE;

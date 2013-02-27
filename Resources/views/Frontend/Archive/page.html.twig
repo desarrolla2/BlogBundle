@@ -1,0 +1,20 @@
+{% extends "::frontend.html.twig" %}
+{% block title %}{{ title }}{% endblock%}
+{% block description %}{{ description }}{% endblock%}
+{% block content %}
+    <h1>{{ title }}</h1>
+    <section>
+    {% for post in pagination %}
+        <article class="post">
+                <p>
+                    <a href="{{ path('_view', { 'slug' : post.slug }) }}">{{ post }}</a>
+                <small>
+                Publicado el <time datetime="{{ post.createdAt | date('c') }}">{{ post.createdAt | localeDate('full') }}</time>.
+            </small></p>            
+        </article>
+    {% else %}
+        <p>No hay elementos</p>
+    {% endfor %}
+    </section>
+{% endblock %}
+
