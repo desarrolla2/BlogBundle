@@ -27,7 +27,7 @@ class WidgetController extends Controller {
     public function latestCommentAction() {
         return array(
             'comments' =>
-                    $this->getDoctrine()->getEntityManager()
+                    $this->getDoctrine()->getManager()
                     ->getRepository('BlogBundle:Comment')->getLatest(4)
         );
     }
@@ -38,7 +38,7 @@ class WidgetController extends Controller {
     public function latestCommentRelatedAction(Post $post) {
         return array(
             'comments' =>
-                    $this->getDoctrine()->getEntityManager()
+                    $this->getDoctrine()->getManager()
                     ->getRepository('BlogBundle:Comment')->getLatestRelated($post, 4)
         );
     }
@@ -49,7 +49,7 @@ class WidgetController extends Controller {
     public function latestPostAction() {
         return array(
             'posts' =>
-                    $this->getDoctrine()->getEntityManager()
+                    $this->getDoctrine()->getManager()
                     ->getRepository('BlogBundle:Post')->getLatest(4)
         );
     }
@@ -60,7 +60,7 @@ class WidgetController extends Controller {
     public function latestPostRelatedAction(Post $post) {
         return array(
             'posts' =>
-                    $this->getDoctrine()->getEntityManager()
+                    $this->getDoctrine()->getManager()
                     ->getRepository('BlogBundle:Post')->getLatestRelated($post, 4)
         );
     }
@@ -71,7 +71,7 @@ class WidgetController extends Controller {
     public function tagsAction() {
         return array(
             'tags' =>
-                    $this->getDoctrine()->getEntityManager()
+                    $this->getDoctrine()->getManager()
                     ->getRepository('BlogBundle:Tag')->get()
         );
     }

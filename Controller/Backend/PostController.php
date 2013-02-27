@@ -33,7 +33,7 @@ class PostController extends Controller
         $paginator = $this->get('knp_paginator');
         $request = $this->getRequest();
         $session = $request->getSession();
-        $qb = $this->getDoctrine()->getEntityManager()
+        $qb = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Post')->getQueryBuilderForFilter();
         $query = $qb->getQuery();
         $filterForm = $this->createForm(new PostFilterType(), new PostFilterModel($request));

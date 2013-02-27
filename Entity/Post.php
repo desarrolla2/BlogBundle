@@ -11,8 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="Desarrolla2\Bundle\BlogBundle\Entity\Repository\PostRepository")
  */
-class Post
-{
+class Post {
 
     /**
      * @var integer $id
@@ -75,6 +74,13 @@ class Post
     private $comments;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     * 
+     * @ORM\OneToMany(targetEntity="PostHistory", mappedBy="post", cascade={"remove"}) 
+     */
+    private $history;
+
+    /**
      * @var Author
      * 
      * @ORM\ManyToOne(targetEntity="Author") 
@@ -111,6 +117,7 @@ class Post
         $this->isPublished = false;
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->history = $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -383,6 +390,36 @@ class Post
      */
     public function getPublishedAt() {
         return $this->publishedAt;
+    }
+
+    /**
+     * Add history
+     *
+     * @param \Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history
+     * @return Post
+     */
+    public function addHistory(\Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history) {
+        $this->history[] = $history;
+
+        return $this;
+    }
+
+    /**
+     * Remove history
+     *
+     * @param \Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history
+     */
+    public function removeHistory(\Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history) {
+        $this->history->removeElement($history);
+    }
+
+    /**
+     * Get history
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getHistory() {
+        return $this->history;
     }
 
 }

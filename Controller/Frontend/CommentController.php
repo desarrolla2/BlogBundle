@@ -27,7 +27,7 @@ class CommentController extends Controller {
      */
     public function createAction(Request $request) {
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $post = $em->getRepository('BlogBundle:Post')->find($request->get('post_id', false));
 
         if (!$post) {

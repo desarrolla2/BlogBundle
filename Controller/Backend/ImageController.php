@@ -31,7 +31,7 @@ class ImageController extends Controller {
         $paginator = $this->get('knp_paginator');
         $request = $this->getRequest();
         $session = $request->getSession();
-        $qb = $this->getDoctrine()->getEntityManager()
+        $qb = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Image')->getQueryBuilderForFilter();
         $query = $qb->getQuery();
         $filterForm = $this->createForm(new ImageFilterType(), new ImageFilterModel($request));

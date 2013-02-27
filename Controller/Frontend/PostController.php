@@ -21,12 +21,12 @@ class PostController extends Controller {
      */
     public function indexAction(Request $request) {
         $paginator = $this->get('knp_paginator');
-        $query = $this->getDoctrine()->getEntityManager()
+        $query = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Post')->getQueryForGet();
 
 
         $pagination = $paginator->paginate(
-                $query, $request->get('page', 1), $this->container->getParameter('blog.items')
+                $query, $this->getPage(), $this->container->getParameter('blog.items')
         );
 
         return array(
@@ -43,12 +43,12 @@ class PostController extends Controller {
      * @Template()
      */
     public function viewAction(Request $request) {
-        $post = $this->getDoctrine()->getEntityManager()
+        $post = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Post')->getOneBySlug($request->get('slug', false));
         if (!$post) {
             throw $this->createNotFoundException('The post does not exist');
         }
-        $comments = $this->getDoctrine()->getEntityManager()
+        $comments = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Comment')->getForPost($post);
 
         $form = $this->createForm(new CommentType(), new CommentModel($this->createCommentForPost($post)));
@@ -67,16 +67,16 @@ class PostController extends Controller {
      */
     public function tagAction(Request $request) {
         $paginator = $this->get('knp_paginator');
-        $tag = $this->getDoctrine()->getEntityManager()
+        $tag = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Tag')->getOneBySlug($request->get('slug', false));
         if (!$tag) {
             throw $this->createNotFoundException('The tag does not exist');
         }
-        $query = $this->getDoctrine()->getEntityManager()
+        $query = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Post')->getQueryForGetByTag($tag);
 
         $pagination = $paginator->paginate(
-                $query, $request->get('page', 1), $this->container->getParameter('blog.items')
+                $query, $this->getPage(), $this->container->getParameter('blog.items')
         );
 
         return array(
@@ -94,6 +94,15 @@ class PostController extends Controller {
         $comment = new Comment();
         $comment->setPost($post);
         return $comment;
+    }
+
+    protected function getPage() {
+        $request = $this->getRequest();
+        $page = (int) $request->get('page', 1);
+        if ($page < 1) {
+            $this->createNotFoundException('Page number is not valid' . $page);
+        }
+        return $page;
     }
 
 }

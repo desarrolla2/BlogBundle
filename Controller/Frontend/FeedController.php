@@ -32,7 +32,7 @@ class FeedController extends Controller {
      */
     public function indexAction(Request $request) {
         $request->setRequestFormat('xml');
-        $items = $this->getDoctrine()->getEntityManager()
+        $items = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Post')->get(
                 $this->container->getParameter('blog.rss.items')
         );
@@ -50,12 +50,12 @@ class FeedController extends Controller {
      */
     public function tagAction(Request $request) {
         $request->setRequestFormat('xml');
-        $tag = $this->getDoctrine()->getEntityManager()
+        $tag = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Tag')->getOneBySlug($request->get('slug', false));
         if (!$tag) {
             throw $this->createNotFoundException('The tag does not exist');
         }
-        $items = $this->getDoctrine()->getEntityManager()
+        $items = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Post')->getByTag(
                 $tag, $this->container->getParameter('blog.rss.items')
         );
@@ -76,7 +76,7 @@ class FeedController extends Controller {
     public function sitemapAction(Request $request) {
         $request->setRequestFormat('xml');
         $items = array();
-        $tags = $this->getDoctrine()->getEntityManager()
+        $tags = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Tag')->get(
                 $this->container->getParameter('blog.sitemap.items')
         );
