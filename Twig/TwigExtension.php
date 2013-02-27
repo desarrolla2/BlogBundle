@@ -55,10 +55,10 @@ class TwigExtension extends \Twig_Extension {
         $datetype = $this->getDateType('full');
         $timetype = $this->getTimeType('full');
         $dateFormater = IntlDateFormatter::create(
-                        $this->locale, $datetype, $timetype, \IntlDateFormatter::GREGORIAN
+                        $this->locale, $datetype, $timetype
         );
-        $dateFormater->setPattern('MMMM \'de\' yyyy');
-        return $dateFormater->format($date);
+        $dateFormater->setPattern('MMMM  yyyy');
+        return $dateFormater->format($date); 
     }
 
     /**

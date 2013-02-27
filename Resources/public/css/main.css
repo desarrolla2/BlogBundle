@@ -175,6 +175,7 @@ div#sidebar ul#tags li{
 /* ################## \SIDEBAR  ################## */
 div.alert ul li{
     list-style: none;
+    margin: 15px;
 }
 
 /* ################## FOOTER  ################## */
