@@ -3,7 +3,13 @@
 {% block description %}{{ description }}{% endblock%}
 {% block content %}
     {% for item in items %}
-        {% include 'BlogBundle:Frontend/Post:item.html.twig' with {'post': post} %}
+        <article class="post">    
+            <p>
+                <a href="{{ path('_archive_page' , 
+                { 'year' : item.date.format('Y'), 'month': item.date.format('m') }) }}"
+                >{{ item.date | localeCustomDate('short') | capitalize }}</a> {{ item.n }} elementos. 
+            </p>        
+    </article>
     {% else %}
         <p>No hay elementos</p>
     {% endfor %}

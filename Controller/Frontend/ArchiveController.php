@@ -43,16 +43,16 @@ class ArchiveController extends Controller {
                 ' GROUP BY year, month ' .
                 ' ORDER BY year DESC, month DESC '
         );
-        $items = $query->getResult();
-        $results = array();
-        foreach ($items as $item) {
-            array_push($results, array(
+        $results = $query->getResult();
+        $items = array();
+        foreach ($results as $item) {
+            array_push($items, array(
                 'n' => $item['n'],
-                'date' => new \DateTime($item['year'] . '/' . $item['month'] . '/01')
+                'date' => new \DateTime($item['year'] . '-' . $item['month'] . '-01')
             ));
         }
         return array(
-            'results' => $results,
+            'items' => $items,
             'title' => $this->container->getParameter('blog.archive.title'),
             'description' => $this->container->getParameter('blog.archive.description'),
         );

@@ -99,7 +99,7 @@ ul#network li{
 /* ################## CONTENT  ################## */
 
 div.container header h2 {
- font-size: 28px;   
+    font-size: 28px;   
 }
 div.container p{
     margin: 3px 0px 12px 0px;
@@ -173,8 +173,19 @@ div#sidebar ul#tags li{
     margin: 2px;
 }
 /* ################## \SIDEBAR  ################## */
-
-
 div.alert ul li{
     list-style: none;
+    margin: 15px;
 }
+
+/* ################## FOOTER  ################## */
+
+footer{
+    background: #242424;
+    color: #C3C3C3;
+}
+footer li{
+    list-style: none;
+    display: inline-block;
+}
+/* ################## \FOOTER  ################## */
