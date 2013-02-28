@@ -11,6 +11,7 @@ Some Features include:
 * Very basic image upload and management
 * Comments management
 * Blog archive
+* HTTP cache support
 
 You can see a example for this blog in http://desarrolla2.com
 
@@ -27,6 +28,9 @@ Not ready yet :(, contributions here is apreciated.
 * Improve Comments workflow.
 * Social networks integration.
 * Search integration
+* Pingbaks
+* More documentation
+* Some tests
 
 ## Contact
 
