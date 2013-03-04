@@ -76,4 +76,15 @@ class WidgetController extends Controller {
         );
     }
 
+    /**
+     * @Template()
+     */
+    public function linksAction() {
+        return array(
+            'links' =>
+                    $this->getDoctrine()->getManager()
+                    ->getRepository('BlogBundle:Link')->getOrdered()
+        );
+    }
+
 }

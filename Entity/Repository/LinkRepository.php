@@ -36,5 +36,30 @@ class LinkRepository extends EntityRepository {
         ;
         return $query;
     }
+    
+        /**
+     * 
+     * @param type $limit
+     * @return array
+     */
+    public function getOrdered() {
+        $query = $this->getQueryForGetOrdered();
+        return $query->getResult();
+    }
+
+    /**
+     * 
+     * @return \Doctrine\ORM\Query
+     */
+    public function getQueryForGetOrdered() {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+                ' SELECT l FROM BlogBundle:Link l ' .
+                ' WHERE l.isPublished = 1 ' .
+                ' ORDER BY l.name ASC '
+                )
+        ;
+        return $query;
+    }
 
 }

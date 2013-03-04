@@ -1,0 +1,7 @@
+<ul id="links">
+    {% for link in links %}
+        <li><a href="{{ link.url }}" target="_blank">{{ link }}</a></li>
+    {% else %}
+        <li>No hay elementos</li>
+    {% endfor %}
+</ul>

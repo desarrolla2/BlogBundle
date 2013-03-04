@@ -40,14 +40,34 @@ class Link {
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
-    
-    
-        /**
-     * @var string $name
+
+    /**
+     * @var string $url
      *
-     * @ORM\Column(name="url", type="string", length=255)
+     * @ORM\Column(name="url", type="string", length=255, unique=true)
      */
     private $url;
+
+    /**
+     * @var string $rss
+     *
+     * @ORM\Column(name="rss", type="string", length=255, unique=true, nullable=true)
+     */
+    private $rss;
+
+    /**
+     * @var string $content
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+    /**
+     * @var string $isPublished
+     *
+     * @ORM\Column(name="is_published", type="boolean")
+     */
+    private $isPublished;
 
     /**
      * @var \DateTime $created_at
@@ -56,13 +76,6 @@ class Link {
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
-
-    /**
-     * @var string $isPublished
-     *
-     * @ORM\Column(name="is_published", type="boolean")
-     */
-    private $isPublished;
 
     /**
      * @var \DateTime $updated_at
@@ -77,16 +90,19 @@ class Link {
      */
     public function __construct() {
         $this->isPublished = false;
+        $this->rss = null;
     }
-
+    
+    public function __toString() {
+        return $this->getName();
+    }
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -96,10 +112,9 @@ class Link {
      * @param string $name
      * @return Link
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-    
+
         return $this;
     }
 
@@ -108,8 +123,7 @@ class Link {
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -119,10 +133,9 @@ class Link {
      * @param \DateTime $createdAt
      * @return Link
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
@@ -131,8 +144,7 @@ class Link {
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -142,10 +154,9 @@ class Link {
      * @param boolean $isPublished
      * @return Link
      */
-    public function setIsPublished($isPublished)
-    {
+    public function setIsPublished($isPublished) {
         $this->isPublished = $isPublished;
-    
+
         return $this;
     }
 
@@ -154,8 +165,7 @@ class Link {
      *
      * @return boolean 
      */
-    public function getIsPublished()
-    {
+    public function getIsPublished() {
         return $this->isPublished;
     }
 
@@ -165,10 +175,9 @@ class Link {
      * @param \DateTime $updatedAt
      * @return Link
      */
-    public function setUpdatedAt($updatedAt)
-    {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
-    
+
         return $this;
     }
 
@@ -177,8 +186,7 @@ class Link {
      *
      * @return \DateTime 
      */
-    public function getUpdatedAt()
-    {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
@@ -188,8 +196,7 @@ class Link {
      * @param string $url
      * @return Link
      */
-    public function setUrl($url)
-    {
+    public function setUrl($url) {
         $this->url = $url;
 
         return $this;
@@ -200,8 +207,53 @@ class Link {
      *
      * @return string 
      */
-    public function getUrl()
-    {
+    public function getUrl() {
         return $this->url;
     }
+
+    /**
+     * Set rss
+     *
+     * @param string $rss
+     * @return Link
+     */
+    public function setRss($rss) {
+        if (!$rss) {
+            $rss = null;
+        }
+        $this->rss = $rss;
+
+        return $this;
+    }
+
+    /**
+     * Get rss
+     *
+     * @return string 
+     */
+    public function getRss() {
+        return $this->rss;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Link
+     */
+    public function setDescription($description) {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription() {
+        return $this->description;
+    }
+
 }
