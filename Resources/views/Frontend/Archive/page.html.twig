@@ -5,13 +5,7 @@
     <h1>{{ title }}</h1>
     <section>
     {% for post in pagination %}
-        <article class="post">
-                <p>
-                    <a href="{{ path('_view', { 'slug' : post.slug }) }}">{{ post }}</a>
-                <small>
-                Publicado el <time datetime="{{ post.createdAt | date('c') }}">{{ post.createdAt | localeDate('full') }}</time>.
-            </small></p>            
-        </article>
+            {% include 'BlogBundle:Frontend/Post:item.html.twig' with {'post': post} %}
     {% else %}
         <p>No hay elementos</p>
     {% endfor %}
