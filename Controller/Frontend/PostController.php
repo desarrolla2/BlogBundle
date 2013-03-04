@@ -15,7 +15,7 @@ use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model\CommentModel;
 class PostController extends Controller {
 
     /**
-     * @Route("/{page}", name="_default", requirements={"page" = "\d{1,3}"}, defaults={"page" = "1" })
+     * @Route("/{page}", name="_default", requirements={"page" = "\d{1,4}"}, defaults={"page" = "1" })
      * @Method({"GET"})
      * @Template()
      */
@@ -61,7 +61,7 @@ class PostController extends Controller {
     }
 
     /**
-     * @Route("/tag/{slug}/{page}", name="_tag", requirements={"slug" = "[\w\d\-]+", "page" = "\d{1,3}"}, defaults={"page" = "1" })
+     * @Route("/tag/{slug}/{page}", name="_tag", requirements={"slug" = "[\w\d\-]+", "page" = "\d{1,4}"}, defaults={"page" = "1" })
      * @Method({"GET"})
      * @Template()
      */

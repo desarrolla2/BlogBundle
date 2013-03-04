@@ -5,7 +5,6 @@ namespace Desarrolla2\Bundle\BlogBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use Desarrolla2\Bundle\BlogBundle\Entity\Comment;
@@ -18,6 +17,7 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
     protected $input;
     protected $db;
     protected $source;
+    protected $em;
 
     /**
      * @access protected
@@ -64,52 +64,17 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
         $n_post = 0;
         $n_comment = 0;
 
+        $this->cleanDatabase();
+        $ids = $this->getWPpostIds();
+        foreach ($ids as $id) {
+            $p = $this->getWPpost($id);
 
-        $sql = ' SELECT ID AS id, ' .
-                ' post_title AS post_title, ' .
-                ' post_content AS post_content, ' .
-                ' post_excerpt AS post_excerpt, ' .
-                ' post_date AS post_date , ' .
-                ' post_modified AS post_modified, ' .
-                ' post_status AS status, ' .
-                ' FROM wp_posts ' .
-                ' WHERE post_parent = 0 ' .
-                ' AND ( post_type = \'page\' OR post_type = \'post\' ) ' .
-                ' AND ( post_status = \'publish\' ) ';
-
-        $posts = $this->db->fetch_objects($sql);
-
-        foreach ($posts as $p) {
             $output->writeln($p->id . ' <info>' . $p->post_title . '</info>');
-
-            $post = new Post();
-            $post->setName($p->post_title);
-            $post->setContent($p->post_content);
-            $post->setIntro($p->post_excerpt);
-            $post->setCreatedAt(new \DateTime($p->post_date));
-            $post->setUpdatedAt(new \DateTime($p->post_modified));
-            $post->setPublishedAt(new \DateTime($p->post_date));
-            $post->setIsPublished(true);
-
-            $sql = ' SELECT comment_author AS comment_author, ' .
-                    ' comment_author_email AS comment_author_email,  ' .
-                    ' comment_date AS comment_date,' .
-                    ' comment_content AS comment_content, ' .
-                    ' comment_author_url AS comment_author_url ' .
-                    ' FROM wp_comments ' .
-                    ' WHERE comment_post_ID = ' . $p->id .
-                    ' AND comment_approved  = 1 ';
-
-            $comments = $this->db->fetch_objects($sql);
+            $post = $this->createEntityPost($p);
+            $comments = $this->getWPComments($p);
             foreach ($comments as $c) {
                 $output->writeln($p->id . ' <comment>' . $c->comment_content . '</comment>');
-                $comment = new Comment();
-                $comment->setUserName($c->comment_author);
-                $comment->setUserEmail($c->comment_author_email);
-                $comment->setUserWeb($c->comment_author_url);
-                $comment->setContent($c->comment_content);
-                $comment->setCreatedAt(new \DateTime($c->comment_date));
-                $comment->setStatus(1);
+                $comment = $this->createEntityComment($c);
                 $comment->setPost($post);
                 $this->em->persist($comment);
                 $n_comment++;
@@ -123,14 +88,79 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
         $output->writeln('Comments <info>' . $n_comment . '</info>');
     }
 
-    /**
-     * 
-     * @param type $sql
-     * @return type
-     */
-    protected function query($sql) {
-        $this->output->writeln('SQL <comment>' . $sql . '</comment>');
-        return mysql_query($sql);
+    protected function cleanDatabase() {
+        $entities = array('Comment', 'Post');
+        foreach ($entities as $entity) {
+            $query = $this->em->createQuery("DELETE FROM BlogBundle:" . $entity);
+            $query->execute();
+        }
+    }
+
+    protected function cleanEncode($item) {
+        foreach ($item as $key => $value) {
+            $item->$key = utf8_encode($value);
+        }
+        return $item;
+    }
+
+    protected function createEntityComment($c) {
+        $c = $this->cleanEncode($c);
+        $comment = new Comment();
+        $comment->setUserName($c->comment_author);
+        $comment->setUserEmail($c->comment_author_email);
+        $comment->setUserWeb($c->comment_author_url);
+        $comment->setContent($c->comment_content);
+        $comment->setCreatedAt(new \DateTime($c->comment_date));
+        $comment->setStatus(1);
+        return $comment;
+    }
+
+    protected function createEntityPost($p) {
+        $c = $this->cleanEncode($p);
+        $post = new Post();
+        $post->setName($p->post_title);
+        $post->setContent($p->post_content);
+        $post->setIntro($p->post_excerpt);
+        $post->setCreatedAt(new \DateTime($p->post_date));
+        $post->setUpdatedAt(new \DateTime($p->post_modified));
+        $post->setPublishedAt(new \DateTime($p->post_date));
+        $post->setIsPublished(true);
+        return $post;
+    }
+
+    protected function getWPComments($p) {
+        $sql = ' SELECT comment_author AS comment_author, ' .
+                ' comment_author_email AS comment_author_email,  ' .
+                ' comment_date AS comment_date,' .
+                ' comment_content AS comment_content, ' .
+                ' comment_author_url AS comment_author_url ' .
+                ' FROM wp_comments ' .
+                ' WHERE comment_post_ID = ' . $p->id .
+                ' AND comment_approved  = 1 ';
+
+        return $this->db->fetch_objects($sql);
+    }
+
+    protected function getWPpostIds() {
+        $sql = ' SELECT ID AS id FROM wp_posts ' .
+                ' WHERE post_parent = 0 ' .
+                ' AND ( post_type = \'page\' OR post_type = \'post\' ) ' .
+                ' AND ( post_status = \'publish\' ) ';
+
+        return $this->db->fetch_objects($sql);
+    }
+
+    protected function getWPpost($id) {
+        $sql = ' SELECT ID AS id, ' .
+                ' post_title AS post_title, ' .
+                ' post_content AS post_content, ' .
+                ' post_excerpt AS post_excerpt, ' .
+                ' post_date AS post_date , ' .
+                ' post_modified AS post_modified, ' .
+                ' post_status AS status ' .
+                ' FROM wp_posts ' .
+                ' WHERE id = ' . $id->id;
+        return $this->db->fetch_object($sql);
     }
 
 }
