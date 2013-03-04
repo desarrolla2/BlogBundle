@@ -46,7 +46,12 @@ class CommentRepository extends EntityRepository {
                 ->setParameter('post', $post)
                 ->setMaxResults($limit)
         ;
-        return $query->getResult();
+        $related = $query->getResult();        
+        if (count($related)) {
+            return $related;
+        } else {
+            return $this->getLatest($limit);
+        }
     }
 
     /**

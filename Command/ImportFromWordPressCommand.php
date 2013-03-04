@@ -64,11 +64,29 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
         $n_post = 0;
         $n_comment = 0;
 
+<<<<<<< HEAD
         $this->cleanDatabase();
         $ids = $this->getWPpostIds();
         foreach ($ids as $id) {
             $p = $this->getWPpost($id);
 
+=======
+        $sql = ' SELECT ID AS id, ' .
+                ' post_title AS post_title, ' .
+                ' post_content AS post_content, ' .
+                ' post_excerpt AS post_excerpt, ' .
+                ' post_date AS post_date , ' .
+                ' post_modified AS post_modified, ' .
+                ' post_status AS status, ' .
+                ' FROM wp_posts ' .
+                ' WHERE post_parent = 0 ' .
+                ' AND ( post_type = \'page\' OR post_type = \'post\' ) ' .
+                ' AND ( post_status = \'publish\' ) ';
+
+        $posts = $this->db->fetch_objects($sql);
+
+        foreach ($posts as $p) {
+>>>>>>> 14fcfa5428cafd0eecf3258ad8a3713a8d0a0182
             $output->writeln($p->id . ' <info>' . $p->post_title . '</info>');
             $post = $this->createEntityPost($p);
             $comments = $this->getWPComments($p);

@@ -27,7 +27,7 @@ class PostRepository extends EntityRepository {
                         ' SELECT p FROM BlogBundle:Post p ' .
                         ' WHERE p.slug = :slug ' .
                         ' AND p.isPublished = 1 ' .
-                        ' ORDER BY p.createdAt DESC '
+                        ' ORDER BY p.publishedAt DESC '
                 )
                 ->setParameter('slug', $slug)
         ;
@@ -69,7 +69,7 @@ class PostRepository extends EntityRepository {
         $query = $em->createQuery(
                 ' SELECT p FROM BlogBundle:Post p ' .
                 ' WHERE p.isPublished = 1 ' .
-                ' ORDER BY p.createdAt DESC '
+                ' ORDER BY p.publishedAt DESC '
                 )
         ;
         return $query;
@@ -97,7 +97,7 @@ class PostRepository extends EntityRepository {
                         ' JOIN p.tags t ' .
                         ' WHERE p.isPublished = 1 ' .
                         ' AND t.slug  = :slug ' .
-                        ' ORDER BY p.createdAt DESC '
+                        ' ORDER BY p.publishedAt DESC '
                 )
                 ->setParameter('slug', $tag->getSlug())
         ;
@@ -116,7 +116,7 @@ class PostRepository extends EntityRepository {
                         ' JOIN p.tags t ' .
                         ' WHERE p.isPublished = 1 ' .
                         ' AND t.slug = :slug ' .
-                        ' ORDER BY p.createdAt DESC '
+                        ' ORDER BY p.publishedAt DESC '
                 )
                 ->setParameter('slug', $slug)
         ;
@@ -137,12 +137,17 @@ class PostRepository extends EntityRepository {
                         ' JOIN t.posts p1 ' .
                         ' WHERE p.isPublished = 1 ' .
                         ' AND p1 = :post ' .
-                        ' ORDER BY p.createdAt DESC '
+                        ' ORDER BY p.publishedAt DESC '
                 )
                 ->setParameter('post', $post)
                 ->setMaxResults($limit)
         ;
-        return $query->getResult();
+        $related = $query->getResult();
+        if (count($related)) {
+            return $related;
+        } else {
+            return $this->getLatest($limit);
+        }
     }
 
     /**

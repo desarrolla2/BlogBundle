@@ -10,8 +10,8 @@
         <tr>
             <td>{{ item.name }}</td>
             <td>
-                <a class="bnt btn-mini" href="{{ path('post_edit', { 'id': item.id }) }}" title="edit"> <i class="icon-edit"></i> </a>
-                <a class="bnt btn-mini" href="{{ path('post_preview', { 'id': item.id }) }}" title="preview" target="_blank"> <i class="icon-eye-open"></i> </a>
+                <a class="bnt btn-mini" href="{{ url('post_edit', { 'id': item.id }) }}" title="edit"> <i class="icon-edit"></i> </a>
+                <a class="bnt btn-mini" href="{{ url('post_preview', { 'id': item.id }) }}" title="preview" target="_blank"> <i class="icon-eye-open"></i> </a>
             </td>
         </tr>
     {% else %}

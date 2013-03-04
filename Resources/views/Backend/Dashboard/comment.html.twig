@@ -10,8 +10,8 @@
         <tr>
             <td>{{ item }}</td>
             <td>
-                <a class="bnt btn-mini" href="{{ path('comment_publish', { 'id': item.id }) }}" title="publish"><i class="icon-ok"></i></a>
-                    <a class="bnt btn-mini" href="{{ path('comment_unpublish', { 'id': item.id }) }}" title="unpublish"><i class="icon-remove"></i></a>
+                <a class="bnt btn-mini" href="{{ url('comment_publish', { 'id': item.id }) }}" title="publish"><i class="icon-ok"></i></a>
+                    <a class="bnt btn-mini" href="{{ url('comment_unpublish', { 'id': item.id }) }}" title="unpublish"><i class="icon-remove"></i></a>
             </td>
         </tr>
     {% else %}
