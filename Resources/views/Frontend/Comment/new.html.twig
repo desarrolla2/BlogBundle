@@ -1,5 +1,5 @@
 <h2>Dejanos tu comentario</h2>
-<form id="post-comment" action="{{ path('_comment_create', { 'post_id' : post.id }) }}" method="post" {{ form_enctype(form) }}>
+<form id="post-comment" action="{{ url('_comment_create', { 'post_id' : post.id }) }}" method="post" {{ form_enctype(form) }}>
     <div class="row-fluid clearfix" >        
         {% if form_errors(form) %} 
             <div class="alert alert-error">{{ form_errors(form) }}</div>

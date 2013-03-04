@@ -64,7 +64,6 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
         $n_post = 0;
         $n_comment = 0;
 
-
         $sql = ' SELECT ID AS id, ' .
                 ' post_title AS post_title, ' .
                 ' post_content AS post_content, ' .

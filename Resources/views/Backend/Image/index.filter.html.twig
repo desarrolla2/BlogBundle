@@ -4,7 +4,7 @@
         {{ form_errors(filterForm) }}
         </div>
     {% endif %}
-    <form class="well" action="{{ path('tag') }}" method="post" {{ form_enctype(filterForm) }}>
+    <form class="well" action="{{ url('tag') }}" method="post" {{ form_enctype(filterForm) }}>
         <div id="filters" class="row-fluid clearfix ">
             <div class="span3">
                 <label>Name: </label>

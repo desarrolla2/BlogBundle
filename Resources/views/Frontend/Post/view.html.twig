@@ -8,7 +8,7 @@
     </header>
             {{ post.content | raw }}        
     <small>
-        Publicado el <time datetime="{{ post.createdAt | date('c') }}">{{ post.createdAt | localeDate('full') }}</time>,
+        Publicado el <time datetime="{{ post.publishedAt | date('c') }}">{{ post.publishedAt | localeDate('full') }}</time>,
         modificado por última vez el <time datetime="{{ post.updatedAt | date('c') }}">{{ post.updatedAt | localeDate('full') }}</time>.
     </small>
         {% include 'BlogBundle:Frontend/Post:view.social.html.twig' with {'url': url('_view', { 'slug' : post.slug }) } %}    

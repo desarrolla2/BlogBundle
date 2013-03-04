@@ -15,17 +15,17 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('author_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td><a href="{{ url('author_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
             <td>{{ entity.name }}</td>
             <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
             <td>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
             <td>
                 <ul>
                     <li>
-                        <a href="{{ path('author_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ url('author_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('author_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ url('author_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
             </td>
@@ -36,7 +36,7 @@
 
 <ul>
     <li>
-        <a href="{{ path('author_new') }}">
+        <a href="{{ url('author_new') }}">
             Create a new entry
         </a>
     </li>

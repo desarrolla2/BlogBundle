@@ -181,4 +181,27 @@ class Link {
     {
         return $this->updatedAt;
     }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return Link
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string 
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
 }

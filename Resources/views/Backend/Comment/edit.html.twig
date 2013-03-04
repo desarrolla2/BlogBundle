@@ -1,10 +1,10 @@
 {% extends 'BlogBundle:Backend/Comment:new.html.twig' %}
 
 {% block content %}
-<form class="well" action="{{ path('comment_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+<form class="well" action="{{ url('comment_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
     {% include 'BlogBundle:Backend/Comment:edit.form.html.twig' with {'form': form } %}  
 </form>
-<form action="{{ path('comment_delete', { 'id': entity.id }) }}" method="post">
+<form action="{{ url('comment_delete', { 'id': entity.id }) }}" method="post">
     {{ form_widget(delete_form) }}
     <button data-toggle="modal" href="#confirm-delete" class="btn btn-danger">Delete</button>
     {% include 'BlogBundle:Backend/Modal:confirm-delete.html.twig' %}

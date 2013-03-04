@@ -5,7 +5,7 @@
     {% for item in items %}
         <article class="post">    
             <p>
-                <a href="{{ path('_archive_page' , 
+                <a href="{{ url('_archive_page' , 
                 { 'year' : item.date.format('Y'), 'month': item.date.format('m') }) }}"
                 >{{ item.date | localeCustomDate('short') | capitalize }}</a> {{ item.n }} elementos. 
             </p>        
