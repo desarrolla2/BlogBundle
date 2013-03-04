@@ -40,6 +40,14 @@ class Link {
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+    
+    
+        /**
+     * @var string $name
+     *
+     * @ORM\Column(name="url", type="string", length=255)
+     */
+    private $url;
 
     /**
      * @var \DateTime $created_at
