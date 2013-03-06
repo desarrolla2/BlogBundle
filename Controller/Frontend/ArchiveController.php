@@ -86,7 +86,7 @@ class ArchiveController extends Controller {
             array_push($items, $result['item']);
         }
         return array(
-            'pagination' => $items,
+            'items' => $items,
             'title' => $this->container->getParameter('blog.archive.title'),
             'description' => $this->container->getParameter('blog.archive.description'),
         );

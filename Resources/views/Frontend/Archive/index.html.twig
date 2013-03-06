@@ -2,19 +2,22 @@
 {% block title %}{{ title }}{% endblock%}
 {% block description %}{{ description }}{% endblock%}
 {% block content %}
+<article class="post">
     <header>
         <h2><a href="{{ url('_archive') }}" title="{{ title }}">{{ title }}</a></h2>            
     </header>
-    {% for item in items %}
-    <article class="post">    
-        <p>
+    <p>{{ description }}</p>
+    <ul id="archive">
+    {% for item in items %}        
+        <li>
             <a href="{{ url('_archive_page' , 
             { 'year' : item.date.format('Y'), 'month': item.date.format('m') }) }}"
-            title="{{ item.date }}"
+            title="{{ title }} {{ item.date | localeCustomDate('short')}}"
             >{{ item.date | localeCustomDate('short') | capitalize }}</a> {{ item.n }} elementos. 
-        </p>        
-    </article>
-{% else %}
-    <p>No hay elementos</p>
-{% endfor %}
+        </li>        
+    {% else %}
+        <li>No hay elementos</li>
+    {% endfor %}
+    </ul>
+</article>
 {% endblock %}
