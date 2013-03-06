@@ -30,6 +30,9 @@ class BlogExtension extends Extension
         
         $container->setParameter('blog.rss.title', $config['rss']['title']);
         $container->setParameter('blog.rss.items', $config['rss']['items']);
+        $container->setParameter('blog.rss.description', $config['rss']['description']);
+        $container->setParameter('blog.rss.language', $config['rss']['language']);
+        $container->setParameter('blog.rss.ttl', $config['rss']['ttl']);
         
         $container->setParameter('blog.sitemap.items', $config['sitemap']['items']);
         

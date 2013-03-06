@@ -3,13 +3,14 @@
 {% block description %}{{ description }}{% endblock%}
 {% block content %}
     <header>
-        <h2><a href="{{ url('_archive') }}">{{ title }}</a></h2>            
+        <h2><a href="{{ url('_archive') }}" title="{{ title }}">{{ title }}</a></h2>            
     </header>
     {% for item in items %}
     <article class="post">    
         <p>
             <a href="{{ url('_archive_page' , 
             { 'year' : item.date.format('Y'), 'month': item.date.format('m') }) }}"
+            title="{{ item.date }}"
             >{{ item.date | localeCustomDate('short') | capitalize }}</a> {{ item.n }} elementos. 
         </p>        
     </article>

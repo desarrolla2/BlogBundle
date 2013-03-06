@@ -3,12 +3,13 @@
     <channel>
         <title>{{ title }}</title>
         <link>{{ url('_default') }}</link>
-        <description></description>
-        <language>es_ES</language>
+        <description>{{ description }}</description>
+        <language>{{ language }}</language>
         <pubDate>{{ 'now'|date('r') }}</pubDate>
         <lastBuildDate>{{ 'now'|date('r') }}</lastBuildDate>
-        <generator>Desarrolla2 BlogBundle</generator>
-        <atom:link href="{{ url('_feed') }}" rel="self" type="application/rss+xml" />        
+        <generator>BlogBundle</generator>
+        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+        <ttl>{{ ttl }}</ttl>
         {% for item in items %}        
         <item>
             <title>{{ item.name }}</title>

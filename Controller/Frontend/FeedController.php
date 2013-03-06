@@ -40,6 +40,9 @@ class FeedController extends Controller {
         return $this->render(
                         'BlogBundle:Frontend/Feed:index.xml.twig', array(
                     'title' => $this->container->getParameter('blog.rss.title'),
+                    'description' => $this->container->getParameter('blog.rss.description'),
+                            'language' => $this->container->getParameter('blog.rss.language'),
+                            'ttl' => $this->container->getParameter('blog.rss.ttl'),
                     'items' => $items,
         ));
     }

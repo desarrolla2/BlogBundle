@@ -28,8 +28,11 @@ class Configuration implements ConfigurationInterface
                     ->arrayNode('rss')
                         ->addDefaultsIfNotSet()
                         ->children()
-                            ->scalarNode('title')->defaultValue('my RSS Nane')->end()
+                            ->scalarNode('title')->defaultValue('RSS')->end()
+                            ->scalarNode('description')->defaultValue('')->end()
+                            ->scalarNode('language')->defaultValue('en')->end()                
                             ->scalarNode('items')->defaultValue(16)->end()             
+                            ->scalarNode('ttl')->defaultValue(60)->end()             
                         ->end()
                     ->end()
                 

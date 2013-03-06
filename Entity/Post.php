@@ -52,6 +52,13 @@ class Post {
     private $slug;
 
     /**
+     * @var string $source
+     *
+     * @ORM\Column(name="source", type="string", length=255)
+     */
+    private $source;
+
+    /**
      * @var string $isPublished
      *
      * @ORM\Column(name="is_published", type="boolean")
@@ -420,6 +427,34 @@ class Post {
      */
     public function getHistory() {
         return $this->history;
+    }
+
+    /**
+     * Set source
+     *
+     * @param string $source
+     * @return Post
+     */
+    public function setSource($source) {
+        $this->source = $source;
+
+        return $this;
+    }
+
+    /**
+     * Get source
+     *
+     * @return string 
+     */
+    public function getSource() {
+        return $this->source;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasSource() {
+        return (bool) $this->getSource();
     }
 
 }

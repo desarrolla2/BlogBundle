@@ -1,5 +1,5 @@
 <div class="row">
     {% for tag in tags %}
-        <strong><a href="{{ url('_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a></strong> 
+        <strong><a href="{{ url('_tag', { 'slug' : tag.slug }) }}" title="{{ tag }}">{{ tag }}</a></strong> 
     {% endfor %}
 </div>
