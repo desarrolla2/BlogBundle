@@ -39,7 +39,7 @@ class FeedController extends Controller {
 
         return $this->render(
                         'BlogBundle:Frontend/Feed:index.xml.twig', array(
-                    'title' => $this->container->getParameter('blog.rss.name'),
+                    'title' => $this->container->getParameter('blog.rss.title'),
                     'items' => $items,
         ));
     }
@@ -62,7 +62,7 @@ class FeedController extends Controller {
 
         return $this->render(
                         'BlogBundle:Frontend/Feed:index.xml.twig', array(
-                    'title' => $this->container->getParameter('blog.rss.name') . ' :: ' . $tag->getName(),
+                    'title' => $this->container->getParameter('blog.rss.title') . ' :: ' . $tag->getName(),
                     'items' => $items,
         ));
     }
@@ -80,11 +80,9 @@ class FeedController extends Controller {
                         ->getRepository('BlogBundle:Tag')->get(
                 $this->container->getParameter('blog.sitemap.items')
         );
-
         foreach ($tags as $tag) {
             $items[] = $this->generateUrl('_tag', array('slug' => $tag->getSlug()), true);
         }
-
         return $this->render(
                         'BlogBundle:Frontend/Feed:sitemap.xml.twig', array(
                     'items' => $items,
