@@ -12,8 +12,7 @@ namespace Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model;
 use Symfony\Component\Validator\Constraints as Assert;
 use Desarrolla2\Bundle\BlogBundle\Entity\Comment;
 
-class CommentModel
-{
+class CommentModel {
 
     /**
      * @var integer $id
@@ -52,13 +51,44 @@ class CommentModel
      */
     public $userWeb;
 
-    public function __construct(Comment $comment)
-    {
+    public function __construct(Comment $comment) {
         $this->id = $comment->getId();
-        $this->content = (string) $comment->getContent();
-        $this->userName = (string) $comment->getUserName();
-        $this->userEmail = (string) $comment->getUserEmail();
-        $this->userWeb = (string) $comment->getUserWeb();
+        $this->setContent($comment->getContent());
+        $this->setUserName($comment->getUserName());
+        $this->setUserEmail($comment->getUserEmail());
+        $this->setUserWeb($comment->getUserWeb());
+    }
+
+    public function getContent() {
+        return $this->content;
+    }
+
+    public function setContent($content) {
+        $this->content = $content;
+    }
+
+    public function getUserName() {
+        return $this->userName;
+    }
+
+    public function setUserName($userName) {
+        $this->userName = $userName;
+    }
+
+    public function getUserEmail() {
+        return $this->userEmail;
+    }
+
+    public function setUserEmail($userEmail) {
+        $this->userEmail = $userEmail;
+    }
+
+    public function getUserWeb() {
+        return $this->userWeb;
+    }
+
+    public function setUserWeb($userWeb) {
+        $this->userWeb = $userWeb;
     }
 
 }

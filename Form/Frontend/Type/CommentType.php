@@ -11,7 +11,7 @@ class CommentType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('content', 'textarea', array(
-                    'required' => true,
+                    'required' => false,
                     'trim' => true,
                 ))
                 ->add('userName', 'text', array(
@@ -25,7 +25,12 @@ class CommentType extends AbstractType {
                 ->add('userWeb', 'text', array(
                     'required' => false,
                     'trim' => true,
-                ))
+                ))->add('captcha', 'captcha', array(
+            'distortion' => false,
+            'charset' => '1234567890',
+            'length' => 3,
+            'invalid_message' => 'Codigo erroneo',
+        ))
         ;
     }
 

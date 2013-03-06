@@ -13,35 +13,33 @@ use Symfony\Component\DependencyInjection\Definition;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class BlogExtension extends Extension
-{
+class BlogExtension extends Extension {
 
     /**
      * {@inheritDoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
-    {
+    public function load(array $configs, ContainerBuilder $container) {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-        
+
         $container->setParameter('blog.title', $config['title']);
         $container->setParameter('blog.description', $config['description']);
         $container->setParameter('blog.items', $config['items']);
         
+        $container->setParameter('blog.archive.title', $config['archive']['title']);
+        $container->setParameter('blog.archive.description', $config['archive']['description']);
+
         $container->setParameter('blog.rss.title', $config['rss']['title']);
         $container->setParameter('blog.rss.items', $config['rss']['items']);
         $container->setParameter('blog.rss.description', $config['rss']['description']);
         $container->setParameter('blog.rss.language', $config['rss']['language']);
         $container->setParameter('blog.rss.ttl', $config['rss']['ttl']);
-        
+
         $container->setParameter('blog.sitemap.items', $config['sitemap']['items']);
         
-        $container->setParameter('blog.archive.title', $config['archive']['title']);
-        $container->setParameter('blog.archive.description', $config['archive']['description']);
-        
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.xml');
-
+        $loader->load('twig.xml');
+        $loader->load('sanitizer.xml');
     }
 
 }
