@@ -19,8 +19,8 @@
     "autoload": {
         "psr-0": {
             "Desarrolla2\\Bundle\\BlogBundle": ""
-        }
+        },
+        "classmap": ["Search/vendor"]
     },
-    "classmap": ["Search/vendor"],
     "target-dir": "Desarrolla2/Bundle/BlogBundle"
 }
