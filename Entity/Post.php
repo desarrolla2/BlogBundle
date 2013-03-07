@@ -56,14 +56,14 @@ class Post {
      *
      * @ORM\Column(name="source", type="string", length=255)
      */
-    private $source;
+    private $source = '';
 
     /**
      * @var string $isPublished
      *
      * @ORM\Column(name="is_published", type="boolean")
      */
-    private $isPublished;
+    private $isPublished = false;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -121,7 +121,6 @@ class Post {
      * Constructor
      */
     public function __construct() {
-        $this->isPublished = false;
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->history = $this->comments = new \Doctrine\Common\Collections\ArrayCollection();

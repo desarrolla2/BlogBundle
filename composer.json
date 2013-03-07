@@ -21,5 +21,6 @@
             "Desarrolla2\\Bundle\\BlogBundle": ""
         }
     },
+    "classmap": ["Search/vendor"],
     "target-dir": "Desarrolla2/Bundle/BlogBundle"
 }
