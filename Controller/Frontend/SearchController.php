@@ -14,14 +14,13 @@ namespace Desarrolla2\Bundle\BlogBundle\Controller\Frontend;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * 
  * Description of SearchController
  *
- * @author : Daniel González Cerviño <daniel.gonzalez@externos.seap.minhap.es>  
- * @file : SearchController.php , UTF-8
- * @date : Mar 7, 2013 , 6:02:14 PM
  */
 class SearchController extends Controller {
 
