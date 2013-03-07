@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * 
@@ -30,15 +31,36 @@ class SearchController extends Controller {
      * @Template()
      */
     public function indexAction(Request $request) {
-        $paginator = $this->get('knp_paginator');
-        
-        $query = $this->getDoctrine()->getManager()
-                        ->getRepository('BlogBundle:Post')->getQueryForGet();
+        $query = $request->get('q', '');
+        $handler = new \SphinxClient();
+        $handler->SetServer("desarrolla2.com", 9312);
+        $handler->SetMaxQueryTime(3000);
+        $handler->SetMatchMode(SPH_MATCH_ANY);
+        $handler->SetSortMode(SPH_SORT_RELEVANCE);
+        $handler->SetFieldWeights(array(
+            'name' => 5,
+            'intro' => 1,
+            'content' => 1
+        ));
+        $result = $handler->Query($query, 'planetubuntu_idx');
+        if ($result === false) {
+            echo "Query failed: " . $handler->GetLastError() . ".\n";
+        } else {
+            if ($handler->GetLastWarning()) {
+                echo "WARNING: " . $handler->GetLastWarning() . "
+";
+            }
 
+            if (!empty($result["matches"])) {
+                foreach ($result["matches"] as $doc => $docinfo) {
+                   ladybug_dump($doc);
+                }
 
-        $pagination = $paginator->paginate(
-                $query, $this->getPage(), $this->container->getParameter('blog.items')
-        );
+            }
+        }
+
+        die();
+
 
         return array(
             'pagination' => $pagination,
