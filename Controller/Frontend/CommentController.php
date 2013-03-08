@@ -22,22 +22,19 @@ class CommentController extends Controller {
     /**
      * Creates a new Comment entity.
      *
-     * @Route("/create/{post_id}", name="_comment_create", requirements={"post_id" = "\d+"}, defaults={"post_id" = "1" })
+     * @Route("/{post_id}", name="_comment_create", requirements={"post_id" = "\d+"}, defaults={"post_id" = "1" })
      * @Template()
      */
-    public function createAction(Request $request) {
+    public function indexAction(Request $request) {
 
         $em = $this->getDoctrine()->getManager();
         $post = $em->getRepository('BlogBundle:Post')->find($request->get('post_id', false));
-
         if (!$post) {
             throw $this->createNotFoundException('Unable to find post.');
         }
 
         $comment = new Comment();
         $comment->setPost($post);
-
-
         $form = $this->createForm(new CommentType(), new CommentModel($comment));
         if ($request->getMethod() == 'POST') {
             $formHandler = new CommentHandler($form, $request, $comment, $em, $this->container->get('blog.sanitizer'));

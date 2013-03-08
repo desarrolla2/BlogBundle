@@ -17,6 +17,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Type\SearchType;
+use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model\SearchModel;
+use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Handler\SearchHandler;
 
 /**
  * 
@@ -31,6 +34,19 @@ class SearchController extends Controller {
      * @Template()
      */
     public function indexAction(Request $request) {
+        $items = array();
+        $form = $this->createForm(new SearchType(), new SearchModel());
+        if ($query = $request->get('q', false)) {
+            $form->bind($request);
+            if ($form->isValid()) {
+                $query = $form->getData()->getQuery();
+            }
+        }
+        return array(
+            'form' => $form->createView(),
+            'items' => $items,
+            'query' => $query
+        );
         $query = $request->get('q', '');
         $handler = new \SphinxClient();
         $handler->SetServer("desarrolla2.com", 9312);
@@ -53,9 +69,8 @@ class SearchController extends Controller {
 
             if (!empty($result["matches"])) {
                 foreach ($result["matches"] as $doc => $docinfo) {
-                   ladybug_dump($doc);
+                    ladybug_dump($doc);
                 }
-
             }
         }
 

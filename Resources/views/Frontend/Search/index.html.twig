@@ -1,0 +1,16 @@
+{% extends "::frontend.html.twig" %}
+{% block title %}Buscar {{ query }}{% endblock%}
+{% block content %}
+<article class="post">
+    <header>
+        <h2><a href="{{ url('_search') }}">Buscar en PlanetUbuntu</a></h2>            
+    </header>
+    {% include 'BlogBundle:Frontend/Search:form.html.twig' with {'form': form} %}
+    {% for item in items %}
+    {% else %}
+        {% if query %}
+            <p>No se han encontrado resultados de para la búsqueda</p>
+        {% endif %}
+    {% endfor %}            
+</article>
+{% endblock %}

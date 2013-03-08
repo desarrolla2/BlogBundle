@@ -4,6 +4,7 @@ namespace Desarrolla2\Bundle\BlogBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
@@ -18,13 +19,47 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('blog')
-                ->addDefaultsIfNotSet()
+        $rootNode = $treeBuilder->root('blog');
+        $rootNode
                 ->children()
                     ->scalarNode('title')->defaultValue('my blog title')->end()
                     ->scalarNode('description')->defaultValue('my blog description')->end()
-                    ->scalarNode('items')->defaultValue(12)->end()             
-                
+                    ->scalarNode('items')->defaultValue(12)->end()                             
+                ->end();
+
+        $this->addSiteMapSection($rootNode);
+        $this->addRSSSection($rootNode);
+        $this->addArchiveSection($rootNode);
+        return $treeBuilder;
+    }
+    
+        private function addSearchSection(ArrayNodeDefinition $node){
+        $node
+                ->children()
+                    ->arrayNode('sitemap')
+                        ->addDefaultsIfNotSet()
+                        ->children()
+                            ->scalarNode('items')->defaultValue(50)->end()             
+                        ->end()
+                    ->end()             
+                ->end();
+    }
+    
+    private function addSiteMapSection(ArrayNodeDefinition $node){
+        $node
+                ->children()
+                    ->arrayNode('sitemap')
+                        ->addDefaultsIfNotSet()
+                        ->children()
+                            ->scalarNode('items')->defaultValue(50)->end()             
+                        ->end()
+                    ->end()             
+                ->end();
+    }
+    
+    private function addRSSSection(ArrayNodeDefinition $node){
+        $node
+                ->children()
                     ->arrayNode('rss')
                         ->addDefaultsIfNotSet()
                         ->children()
@@ -35,14 +70,13 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('ttl')->defaultValue(60)->end()             
                         ->end()
                     ->end()
-                
-                    ->arrayNode('sitemap')
-                        ->addDefaultsIfNotSet()
-                        ->children()
-                            ->scalarNode('items')->defaultValue(50)->end()             
-                        ->end()
-                    ->end()
-                
+                ->end();
+    }
+    
+    
+    private function addArchiveSection(ArrayNodeDefinition $node){
+        $node
+                ->children()
                     ->arrayNode('archive')
                         ->addDefaultsIfNotSet()
                         ->children()
@@ -51,8 +85,6 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end();
-
-        return $treeBuilder;
     }
     
 }
