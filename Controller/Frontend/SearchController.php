@@ -4,7 +4,7 @@
  * This file is part of the planetubuntu proyect.
  * 
  * Copyright (c)
- * Daniel González Cerviño <daniel.gonzalez@externos.seap.minhap.es>  
+ * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>  
  * 
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
@@ -19,7 +19,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Type\SearchType;
 use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model\SearchModel;
-use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Handler\SearchHandler;
 
 /**
  * 
@@ -36,51 +35,19 @@ class SearchController extends Controller {
     public function indexAction(Request $request) {
         $items = array();
         $form = $this->createForm(new SearchType(), new SearchModel());
-        if ($query = $request->get('q', false)) {
+        $query = $request->get('q', false);
+        if ($query) {
             $form->bind($request);
             if ($form->isValid()) {
                 $query = $form->getData()->getQuery();
+                $search = $this->get('blog.search');
+                $items = $search->search($query);
             }
         }
         return array(
             'form' => $form->createView(),
             'items' => $items,
             'query' => $query
-        );
-        $query = $request->get('q', '');
-        $handler = new \SphinxClient();
-        $handler->SetServer("desarrolla2.com", 9312);
-        $handler->SetMaxQueryTime(3000);
-        $handler->SetMatchMode(SPH_MATCH_ANY);
-        $handler->SetSortMode(SPH_SORT_RELEVANCE);
-        $handler->SetFieldWeights(array(
-            'name' => 5,
-            'intro' => 1,
-            'content' => 1
-        ));
-        $result = $handler->Query($query, 'planetubuntu_idx');
-        if ($result === false) {
-            echo "Query failed: " . $handler->GetLastError() . ".\n";
-        } else {
-            if ($handler->GetLastWarning()) {
-                echo "WARNING: " . $handler->GetLastWarning() . "
-";
-            }
-
-            if (!empty($result["matches"])) {
-                foreach ($result["matches"] as $doc => $docinfo) {
-                    ladybug_dump($doc);
-                }
-            }
-        }
-
-        die();
-
-
-        return array(
-            'pagination' => $pagination,
-            'title' => $this->container->getParameter('blog.title'),
-            'description' => $this->container->getParameter('blog.description'),
         );
     }
 

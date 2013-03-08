@@ -16,6 +16,19 @@ class PostRepository extends EntityRepository {
 
     const POST_PER_PAGE = 6;
 
+    public function getByIds(array $ids) {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            ' SELECT p FROM BlogBundle:Post p ' .
+            ' WHERE p.id IN (:ids) ' .
+            ' AND p.isPublished = 1 '
+        )
+        ->setParameter('ids', $ids);
+                
+                
+        return $query->getResult();
+    }
+
     /**
      * 
      * @param string $slug

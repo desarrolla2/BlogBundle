@@ -30,16 +30,23 @@ class Configuration implements ConfigurationInterface
         $this->addSiteMapSection($rootNode);
         $this->addRSSSection($rootNode);
         $this->addArchiveSection($rootNode);
+        $this->addSearchSection($rootNode);
         return $treeBuilder;
     }
     
         private function addSearchSection(ArrayNodeDefinition $node){
         $node
                 ->children()
-                    ->arrayNode('sitemap')
+                    ->arrayNode('search')
                         ->addDefaultsIfNotSet()
                         ->children()
-                            ->scalarNode('items')->defaultValue(50)->end()             
+                            ->arrayNode('sphinx')
+                                ->children()
+                                    ->scalarNode('host')->defaultValue('localhost')->end()             
+                                    ->scalarNode('port')->defaultValue(9312)->end()
+                                    ->scalarNode('index')->defaultValue('planetubuntu_idx')->end()
+                                ->end()    
+                            ->end()    
                         ->end()
                     ->end()             
                 ->end();

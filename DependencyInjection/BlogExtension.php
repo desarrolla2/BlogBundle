@@ -23,11 +23,11 @@ class BlogExtension extends Extension {
 
         foreach ($config as $key => $value) {
             $this->parseNode($container, 'blog.' . $key, $value);
-        }
-
+        }        
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('twig.xml');
         $loader->load('sanitizer.xml');
+        $loader->load('sphinx.xml');
     }
 
     protected function parseNode($container, $name, $value) {
