@@ -19,7 +19,7 @@ class CommentRepository extends EntityRepository {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
                 ' SELECT c FROM BlogBundle:Comment c ' .
-                ' WHERE c.status = 1 ' .
+                ' WHERE c.status <= 1 ' .
                 ' ORDER BY c.createdAt DESC '
                 )
         ;
