@@ -11,8 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="tag")
  * @ORM\Entity(repositoryClass="Desarrolla2\Bundle\BlogBundle\Entity\Repository\TagRepository")
  */
-class Tag
-{
+class Tag {
 
     /**
      * @var integer $id
@@ -69,8 +68,7 @@ class Tag
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->items = 0;
         $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -79,8 +77,7 @@ class Tag
      * 
      * @return string
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->getName();
     }
 
@@ -89,8 +86,7 @@ class Tag
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -100,11 +96,8 @@ class Tag
      * @param string $name
      * @return Tag
      */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
+    public function setName($name) {
+        $this->name = strtolower($name);
     }
 
     /**
@@ -112,8 +105,7 @@ class Tag
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -123,11 +115,8 @@ class Tag
      * @param \DateTime $createdAt
      * @return Tag
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
-
-        return $this;
     }
 
     /**
@@ -135,8 +124,7 @@ class Tag
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -146,11 +134,8 @@ class Tag
      * @param \DateTime $updatedAt
      * @return Tag
      */
-    public function setUpdatedAt($updatedAt)
-    {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
     /**
@@ -158,8 +143,7 @@ class Tag
      *
      * @return \DateTime 
      */
-    public function getUpdatedAt()
-    {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
@@ -169,11 +153,8 @@ class Tag
      * @param string $slug
      * @return Tag
      */
-    public function setSlug($slug)
-    {
+    public function setSlug($slug) {
         $this->slug = $slug;
-
-        return $this;
     }
 
     /**
@@ -181,8 +162,7 @@ class Tag
      *
      * @return string 
      */
-    public function getSlug()
-    {
+    public function getSlug() {
         return $this->slug;
     }
 
@@ -192,11 +172,9 @@ class Tag
      * @param Desarrolla2\Bundle\BlogBundle\Entity\Post $post
      * @return Tag
      */
-    public function addPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post)
-    {
+    public function addPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post) {
         $post->addTag($this);
         $this->posts[] = $posts;
-        return $this;
     }
 
     /**
@@ -204,8 +182,7 @@ class Tag
      *
      * @param Desarrolla2\Bundle\BlogBundle\Entity\Post $post
      */
-    public function removePost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post)
-    {
+    public function removePost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post) {
         $this->posts->removeElement($post);
     }
 
@@ -214,8 +191,7 @@ class Tag
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getPosts()
-    {
+    public function getPosts() {
         return $this->posts;
     }
 
@@ -225,11 +201,8 @@ class Tag
      * @param int $items
      * @return Tag
      */
-    public function setItems($items)
-    {
+    public function setItems($items) {
         $this->items = (int) $items;
-
-        return $this;
     }
 
     /**
@@ -237,8 +210,7 @@ class Tag
      *
      * @return int 
      */
-    public function getItems()
-    {
+    public function getItems() {
         return $this->items;
     }
 

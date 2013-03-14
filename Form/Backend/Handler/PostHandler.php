@@ -19,8 +19,7 @@ use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use Desarrolla2\Bundle\BlogBundle\Entity\PostHistory;
 use Doctrine\ORM\EntityManager;
 
-class PostHandler
-{
+class PostHandler {
 
     /**
      * @var  \Symfony\Component\Form\Form 
@@ -77,7 +76,7 @@ class PostHandler
             }
             $this->em->persist($this->entity);
             $this->createHistory();
-            $this->updateTags();
+            $this->updateTags($this->entity->getTags);
             $this->em->flush();
             return true;
         }
@@ -103,8 +102,11 @@ class PostHandler
     /**
      * update tags
      */
-    protected function updateTags() {
-        $this->em->getRepository('BlogBundle:Tag')->countItemsForTags();
+    protected function updateTags($tags) {
+        foreach($tags as $tag){
+            $this->em->getRepository('BlogBundle:Tag')->indexTagItemsForTag($tag);
+        }
+        
     }
 
 }
