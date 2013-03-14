@@ -56,6 +56,13 @@ class Link {
     private $rss;
 
     /**
+     * @var string $mail
+     *
+     * @ORM\Column(name="mail", type="string", length=255, unique=true, nullable=true)
+     */
+    private $mail;
+
+    /**
      * @var string $content
      *
      * @ORM\Column(name="description", type="text")
@@ -91,8 +98,9 @@ class Link {
     public function __construct() {
         $this->isPublished = false;
         $this->rss = null;
+        $this->mail = null;
     }
-    
+
     public function __toString() {
         return $this->getName();
     }
@@ -254,6 +262,14 @@ class Link {
      */
     public function getDescription() {
         return $this->description;
+    }
+
+    public function getMail() {
+        return $this->mail;
+    }
+
+    public function setMail($mail) {
+        $this->mail = $mail;
     }
 
 }

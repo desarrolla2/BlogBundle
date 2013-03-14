@@ -1,0 +1,42 @@
+{% extends "::backend.html.twig" %}
+
+{% block content %}
+{% include 'BlogBundle:Backend/Link:index.filter.html.twig' with {'filterForm': filterForm } %}          
+<div class="span12">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>            
+                <th>URL</th>
+                <th>RSS</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in pagination %}
+            <tr>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.description | raw }}</td>
+                <td>{{ entity.url }}</td>
+                <td>{{ entity.rss }}</td>                
+                <td>
+                    {% if entity.isPublished %}<i class="icon-ok"></i> {% endif %}
+                    {% if not entity.isPublished %}<i class="icon-remove"></i> {% endif %}
+                </td>
+                <td>
+                    <a class="bnt btn-mini" href="{{ url('link_publish', { 'id': entity.id }) }}" title="publish"><i class="icon-ok"></i></a>
+                    <a class="bnt btn-mini" href="{{ url('link_unpublish', { 'id': entity.id }) }}" title="unpublish"><i class="icon-remove"></i></a>
+                    <a class="bnt btn-mini" href="{{ url('link_edit', { 'id': entity.id }) }}" title="edit"> <i class="icon-edit"></i> </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div><a class="btn " href="{{ url('link_new') }}">new entry</a></div>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>    
+</div>
+{% endblock %}

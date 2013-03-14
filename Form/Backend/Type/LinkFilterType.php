@@ -48,7 +48,7 @@ class LinkFilterType extends AbstractType
      */
     public function getName()
     {
-        return 'desarrolla2_bundle_blogbundle_post_filter_type';
+        return 'desarrolla2_bundle_blogbundle_link_filter_type';
     }
 
 }

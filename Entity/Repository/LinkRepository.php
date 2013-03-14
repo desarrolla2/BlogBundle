@@ -61,5 +61,20 @@ class LinkRepository extends EntityRepository {
         ;
         return $query;
     }
+    
+        /**
+     * 
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getQueryBuilderForFilter() {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+                ->select('p')
+                ->from('BlogBundle:Link', 'p')
+                ->orderBy('p.updatedAt', 'DESC')
+        ;
+        return $qb;
+    }
 
 }

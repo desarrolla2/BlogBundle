@@ -37,10 +37,7 @@ class CommentModel {
 
     /**
      * @var string $userEmail
-     * @Assert\Email(
-     *     message = "'{{ value }}' no es un email válido.",
-     *     checkMX = true
-     * )
+     * @Assert\Email(checkMX = true)
      */
     public $userEmail;
 
