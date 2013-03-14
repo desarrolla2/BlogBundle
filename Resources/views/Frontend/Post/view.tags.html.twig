@@ -1,5 +1,7 @@
-<div class="row">
+<p>Etiquetas: 
     {% for tag in tags %}
         <strong><a href="{{ url('_tag', { 'slug' : tag.slug }) }}" title="{{ tag }}">{{ tag }}</a></strong> 
-    {% endfor %}
-</div>
+    {% else %}
+        No tiene etiquetas.
+    {% endfor %}            
+</p>            
