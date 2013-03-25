@@ -11,6 +11,7 @@
     {% if post.hasSource %}
     <p>Enlace a la fuente original: <a href="{{ post.source }}" target="_blank" title="{{ post }}">{{ post }}</a></p>
     {% endif %}            
+        {% include 'BlogBundle:Frontend/Post:view.planet.html.twig' with {'post': post } %}
         {% include 'BlogBundle:Frontend/Post:view.social.html.twig' with {'url': url('_view', { 'slug' : post.slug }) } %}    
         {% include 'BlogBundle:Frontend/Post:view.tags.html.twig' with {'tags': post.tags } %}            
 
@@ -18,14 +19,23 @@
         Publicado el <time datetime="{{ post.publishedAt | date('c') }}">{{ post.publishedAt | localeDate('full') }}</time>,
         modificado por última vez el <time datetime="{{ post.updatedAt | date('c') }}">{{ post.updatedAt | localeDate('full') }}</time>.
     </small>
-</article>
-    {% include 'BlogBundle:Frontend/Post:view.comment.html.twig' with {'form': form, 'comments': comments } %}
+</article>    
+    {% include 'BlogBundle:Frontend/Post:view.comment.html.twig' with {'form': form, 'comments': comments } %}    
 {% endblock %}
 
-{% block latesPosts %}
+{% block sidebar %}
+<div class="block">
+    <h2>Últimas entradas</h2>
+    {{ render(controller('BlogBundle:Frontend\\Widget:latestPost', { 'post': post })) }}
+</div> 
+
+<div class="block">
+    <h2>Entradas relacionadas</h2>
     {{ render(controller('BlogBundle:Frontend\\Widget:latestPostRelated', { 'post': post })) }}
-{% endblock %}
+</div> 
 
-{% block latesComments %}
-    {{ render(controller('BlogBundle:Frontend\\Widget:latestCommentRelated', { 'post': post })) }}
+<div class="block">
+    <h2>Últimos comentarios</h2>
+    {{ render(controller('BlogBundle:Frontend\\Widget:latestComment', { 'post': post })) }}
+</div>    
 {% endblock %}

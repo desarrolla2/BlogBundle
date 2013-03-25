@@ -1,0 +1,20 @@
+{% extends "::frontend.html.twig" %}
+{% block content %}
+<article class="post">
+    <header>
+        <h2><a href="{{ url('_stats')}}" title="stats">Stats</a></h2>            
+    </header>
+    <h3>Estadisticas de los últimos 30 días</h3>
+    <ul>
+        <li>100 Entradas públicadas</li>
+        <li>100 Comentarios públicadas</li>            
+    </ul>
+    <h3>Estadisticas totales</h3>
+    <ul>
+        <li>100 Entradas públicadas</li>
+        <li>100 Comentarios públicadas</li>            
+        <li>100 Blogs miembros</li>
+    </ul>
+    
+</article>
+{% endblock %}

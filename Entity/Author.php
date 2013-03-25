@@ -9,10 +9,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Desarrolla2\Bundle\BlogBundle\Entity\Author
  *
  * @ORM\Table(name="author")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Desarrolla2\Bundle\BlogBundle\Entity\Repository\AuthorRepository")
  */
-class Author
-{
+class Author {
 
     /**
      * @var integer $id
@@ -29,6 +28,13 @@ class Author
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var string $email
+     *
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
+     */
+    private $email;
 
     /**
      * @var string $slug
@@ -65,13 +71,11 @@ class Author
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
-    public function __toString()
-    {
+
+    public function __toString() {
         return $this->getName();
     }
 
@@ -80,8 +84,7 @@ class Author
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -91,8 +94,7 @@ class Author
      * @param string $name
      * @return Author
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -103,8 +105,7 @@ class Author
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -114,8 +115,7 @@ class Author
      * @param \DateTime $createdAt
      * @return Author
      */
-    public function setCreatedAt($createdAt)
-    {
+    public function setCreatedAt($createdAt) {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -126,8 +126,7 @@ class Author
      *
      * @return \DateTime 
      */
-    public function getCreatedAt()
-    {
+    public function getCreatedAt() {
         return $this->createdAt;
     }
 
@@ -137,8 +136,7 @@ class Author
      * @param \DateTime $updatedAt
      * @return Author
      */
-    public function setUpdatedAt($updatedAt)
-    {
+    public function setUpdatedAt($updatedAt) {
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -149,8 +147,7 @@ class Author
      *
      * @return \DateTime 
      */
-    public function getUpdatedAt()
-    {
+    public function getUpdatedAt() {
         return $this->updatedAt;
     }
 
@@ -160,8 +157,7 @@ class Author
      * @param Desarrolla2\Bundle\BlogBundle\Entity\Post $posts
      * @return Author
      */
-    public function addPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $posts)
-    {
+    public function addPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $posts) {
         $this->posts[] = $posts;
 
         return $this;
@@ -172,8 +168,7 @@ class Author
      *
      * @param Desarrolla2\Bundle\BlogBundle\Entity\Post $posts
      */
-    public function removePost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $posts)
-    {
+    public function removePost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $posts) {
         $this->posts->removeElement($posts);
     }
 
@@ -182,11 +177,9 @@ class Author
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getPosts()
-    {
+    public function getPosts() {
         return $this->posts;
     }
-
 
     /**
      * Set slug
@@ -194,10 +187,9 @@ class Author
      * @param string $slug
      * @return Author
      */
-    public function setSlug($slug)
-    {
+    public function setSlug($slug) {
         $this->slug = $slug;
-    
+
         return $this;
     }
 
@@ -206,8 +198,16 @@ class Author
      *
      * @return string 
      */
-    public function getSlug()
-    {
+    public function getSlug() {
         return $this->slug;
     }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+
 }

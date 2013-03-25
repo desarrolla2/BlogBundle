@@ -8,16 +8,20 @@
     </header>
     <p>{{ description }}</p>
     <ul id="archive">
-    {% for item in items %}        
+    {% for item in pagination %}                
+    {% set item = item.item %}
         <li>
-            <a href="{{ url('_view', { 'slug' : item.slug }) }}" title="{{ item }}">{{ item }}</a>, 
+            <a href="{{ url('_view', { 'slug' : item.slug }) }}" title="{{ item }}">{{ item }}</a>
+            {{ item.intro | striptags | raw | truncate(160) }} [..]
             el <time datetime="{{ item.publishedAt | date('c') }}">{{ item.publishedAt | localeDate('full') }}</time>.
-        </li>        
+        </li>   
     {% else %}
         <li>No hay elementos</li>
     {% endfor %}
     </ul>
 </article>    
+
+<div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+    </div>    
 {% endblock %}
-    
-    
