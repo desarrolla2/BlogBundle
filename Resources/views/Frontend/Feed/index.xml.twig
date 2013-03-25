@@ -12,10 +12,19 @@
         <ttl>{{ ttl }}</ttl>
         {% for item in items %}        
         <item>
-            <title>{{ item.name }}</title>
-            <link>{{ url('_view', { 'slug' : item.slug }) }}</link>
+            <title>{{ item.name }}</title>            
+            {% if post.hasSource %}
+                <link>{{ post.source }}</link>
+            {% else %}
+                <link>{{ url('_view', { 'slug' : item.slug }) }}</link>
+            {% endif %}            
             <description>
-                <![CDATA[{{ item.content | raw }}]]>
+                <![CDATA[
+                {{ item.content | raw }}
+                {% if post.hasSource %}
+                    <p>Enlace a la fuente original: <a href="{{ post.source }}" target="_blank" title="{{ post }}">{{ post }}</a></p>
+                {% endif %}
+                ]]>
             </description>
             <guid>{{ url('_view', { 'slug' : item.slug }) }}</guid>
             <pubDate>{{ item.createdAt | date('r') }}</pubDate>

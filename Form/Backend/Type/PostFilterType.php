@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class LinkFilterType extends AbstractType
+class PostFilterType extends AbstractType
 {
 
     /**
@@ -18,6 +18,10 @@ class LinkFilterType extends AbstractType
 
         $builder
                 ->add('name', 'text', array(
+                    'required' => false,
+                    'trim'     => true,
+                ))
+                ->add('text', 'text', array(
                     'required' => false,
                     'trim'     => true,
                 ))
@@ -38,7 +42,7 @@ class LinkFilterType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'      => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\LinkFilterModel',
+            'data_class'      => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\PostFilterModel',
             'csrf_protection' => false,
         ));
     }

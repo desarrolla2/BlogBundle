@@ -22,10 +22,19 @@
     {% include 'BlogBundle:Frontend/Post:view.comment.html.twig' with {'form': form, 'comments': comments } %}
 {% endblock %}
 
-{% block latesPosts %}
-    {{ render(controller('BlogBundle:Frontend\\Widget:latestPostRelated', { 'post': post })) }}
-{% endblock %}
+{% block sidebar %}
+<div class="block">
+    <h2>Últimas entradas</h2>
+    {{ render(controller('BlogBundle:Frontend\\Widget:latestPost', { 'post': post })) }}
+</div> 
 
-{% block latesComments %}
-    {{ render(controller('BlogBundle:Frontend\\Widget:latestCommentRelated', { 'post': post })) }}
+<div class="block">
+    <h2>Entradas relacionadas</h2>
+    {{ render(controller('BlogBundle:Frontend\\Widget:latestPostRelated', { 'post': post })) }}
+</div> 
+
+<div class="block">
+    <h2>Últimos comentarios</h2>
+    {{ render(controller('BlogBundle:Frontend\\Widget:latestComment', { 'post': post })) }}
+</div>    
 {% endblock %}
