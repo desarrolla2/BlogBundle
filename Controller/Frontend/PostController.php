@@ -61,31 +61,6 @@ class PostController extends Controller {
     }
 
     /**
-     * @Route("/tag/{slug}/{page}", name="_tag", requirements={"slug" = "[\w\d\-]+", "page" = "\d{1,4}"}, defaults={"page" = "1" })
-     * @Method({"GET"})
-     * @Template()
-     */
-    public function tagAction(Request $request) {
-        $paginator = $this->get('knp_paginator');
-        $tag = $this->getDoctrine()->getManager()
-                        ->getRepository('BlogBundle:Tag')->getOneBySlug($request->get('slug', false));
-        if (!$tag) {
-            throw $this->createNotFoundException('The tag does not exist');
-        }
-        $query = $this->getDoctrine()->getManager()
-                        ->getRepository('BlogBundle:Post')->getQueryForGetByTag($tag);
-
-        $pagination = $paginator->paginate(
-                $query, $this->getPage(), $this->container->getParameter('blog.items')
-        );
-
-        return array(
-            'pagination' => $pagination,
-            'tag' => $tag,
-        );
-    }
-
-    /**
      * 
      * @param \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
      * @return \Desarrolla2\Bundle\BlogBundle\Entity\Comment
@@ -96,6 +71,10 @@ class PostController extends Controller {
         return $comment;
     }
 
+    /**
+     * 
+     * @return type
+     */
     protected function getPage() {
         $request = $this->getRequest();
         $page = (int) $request->get('page', 1);
