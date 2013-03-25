@@ -59,12 +59,13 @@ class ArchiveController extends Controller {
     }
 
     /**
-     * @Route("/{year}/{month}", name="_archive_page", requirements={"year"="\d{4}", "month"="\d{1,2}"})
+     * @Route("/{year}/{month}/{page}", name="_archive_page", requirements={"year"="\d{4}", "month"="\d{1,2}", "page" = "\d{1,4}"}, defaults={"page" = "1" })
+     * @Route("/{year}/{month}", requirements={"year"="\d{4}", "month"="\d{1,2}"})
      * @Method({"GET"})
      * @Template()
      */
     public function pageAction(Request $request) {
-        $items = array();
+        $paginator = $this->get('knp_paginator');
         $year = $request->get('year');
         $month = $request->get('month');
         $query = $this->getDoctrine()
@@ -81,15 +82,23 @@ class ArchiveController extends Controller {
                 ->setParameter('year', $year)
                 ->setParameter('month', $month)
         ;
-        $results = $query->getResult();
-        foreach ($results as $result) {
-            array_push($items, $result['item']);
-        }
+        $pagination = $paginator->paginate(
+                $query, $this->getPage(), $this->container->getParameter('blog.items')
+        );
         return array(
-            'items' => $items,
+            'pagination' => $pagination,
             'title' => $this->container->getParameter('blog.archive.title'),
             'description' => $this->container->getParameter('blog.archive.description'),
         );
+    }
+
+    protected function getPage() {
+        $request = $this->getRequest();
+        $page = (int) $request->get('page', 1);
+        if ($page < 1) {
+            $this->createNotFoundException('Page number is not valid' . $page);
+        }
+        return $page;
     }
 
 }
