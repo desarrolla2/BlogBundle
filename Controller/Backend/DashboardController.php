@@ -73,7 +73,7 @@ class DashboardController extends Controller
     public function commentAction()
     {
         return array(
-            'items' => $this->getDoctrine()->getRepository('BlogBundle:Comment')->getUnApproved(),
+            'items' => $this->getDoctrine()->getRepository('BlogBundle:Comment')->getPending(),
         );
     }
 

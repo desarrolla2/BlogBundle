@@ -42,7 +42,7 @@ class Sphinx implements SearchInterface {
         $this->sphinx->SetServer($this->host, $this->port);
         $this->sphinx->SetMaxQueryTime(3000);
         $this->sphinx->SetLimits(0, 100);
-        $this->sphinx->SetMatchMode(SPH_MATCH_ANY);
+        $this->sphinx->SetMatchMode(SPH_MATCH_ALL);
         $this->sphinx->SetSortMode(SPH_SORT_RELEVANCE);
         $this->sphinx->SetFieldWeights(array(
             'name' => 5,

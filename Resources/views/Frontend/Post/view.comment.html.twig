@@ -4,6 +4,7 @@
     </header>
     {% for comment in comments %}
     <article class="comment" id="comment-{{ comment.id }}">
+    <a name="#comment-{{ comment.id }}"></a>
         <div class="row-fluid">
             <div class="span2">
                 <img src="{{ comment.avatarUrl}}&?d=http%3A%2F%2Fdesarrolla2.com%2Fbundles%2Fblog%2Fimg%2Fdefault.png&s=100" width="100" height="100"/>
