@@ -128,6 +128,10 @@ class Post {
         $this->source = '';
     }
 
+    public function getStatus() {
+        return (int) $this->getIsPublished();
+    }
+
     /**
      * @return string
      */

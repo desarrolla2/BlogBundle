@@ -11,6 +11,8 @@ use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use Desarrolla2\Bundle\BlogBundle\Entity\Comment;
 use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Type\CommentType;
 use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model\CommentModel;
+use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class PostController extends Controller {
 
@@ -48,8 +50,9 @@ class PostController extends Controller {
         if (!$post) {
             throw $this->createNotFoundException('The post does not exist');
         }
-        
-        if($post->getStatus()!= )
+        if ($post->getStatus() != PostStatus::PUBLISHED) {
+            return new RedirectResponse($this->generateUrl('_default'), 302);
+        }
         $comments = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Comment')->getForPost($post);
 
