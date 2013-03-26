@@ -5,7 +5,7 @@
  * 
  * Description of LinkType
  *
- * @author : Daniel González Cerviño <daniel.gonzalez@externos.seap.minhap.es>  
+ * @author : Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>  
  * @file : LinkType.php , UTF-8
  * @date : Mar 14, 2013 , 4:37:37 PM
  */

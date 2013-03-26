@@ -3,6 +3,7 @@
 namespace Desarrolla2\Bundle\BlogBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Desarrolla2\Bundle\BlogBundle\Model\LinkStatus;
 
 /**
  * LinkRepository
@@ -17,8 +18,8 @@ class LinkRepository extends EntityRepository {
      * @param type $limit
      * @return array
      */
-    public function get() {
-        $query = $this->getQueryForGet();
+    public function getActive() {
+        $query = $this->getQueryForGetActive();
         return $query->getResult();
     }
 
@@ -26,24 +27,24 @@ class LinkRepository extends EntityRepository {
      * 
      * @return \Doctrine\ORM\Query
      */
-    public function getQueryForGet() {
+    public function getQueryForGetActive() {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
                 ' SELECT l FROM BlogBundle:Link l ' .
-                ' WHERE l.isPublished = 1 ' .
+                ' WHERE l.isPublished = ' . LinkStatus::PUBLISHED .
                 ' ORDER BY l.createdAt DESC '
                 )
         ;
         return $query;
     }
-    
-        /**
+
+    /**
      * 
      * @param type $limit
      * @return array
      */
-    public function getOrdered() {
-        $query = $this->getQueryForGetOrdered();
+    public function getActiveOrdered() {
+        $query = $this->getQueryForGetActiveOrdered();
         return $query->getResult();
     }
 
@@ -51,18 +52,18 @@ class LinkRepository extends EntityRepository {
      * 
      * @return \Doctrine\ORM\Query
      */
-    public function getQueryForGetOrdered() {
+    public function getQueryForGetActiveOrdered() {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
                 ' SELECT l FROM BlogBundle:Link l ' .
-                ' WHERE l.isPublished = 1 ' .
+                ' WHERE l.isPublished = ' . LinkStatus::PUBLISHED .
                 ' ORDER BY l.name ASC '
                 )
         ;
         return $query;
     }
-    
-        /**
+
+    /**
      * 
      * @return \Doctrine\ORM\QueryBuilder
      */
