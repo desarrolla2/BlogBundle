@@ -83,7 +83,7 @@ class WidgetController extends Controller {
         return array(
             'links' =>
                     $this->getDoctrine()->getManager()
-                    ->getRepository('BlogBundle:Link')->getOrdered()
+                    ->getRepository('BlogBundle:Link')->getActiveOrdered()
         );
     }
 
