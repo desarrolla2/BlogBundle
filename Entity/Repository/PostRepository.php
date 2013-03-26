@@ -39,7 +39,6 @@ class PostRepository extends EntityRepository {
         $query = $em->createQuery(
                         ' SELECT p FROM BlogBundle:Post p ' .
                         ' WHERE p.slug = :slug ' .
-                        ' AND p.isPublished = 1 ' .
                         ' ORDER BY p.publishedAt DESC '
                 )
                 ->setParameter('slug', $slug)

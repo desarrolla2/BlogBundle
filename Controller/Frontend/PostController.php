@@ -48,6 +48,8 @@ class PostController extends Controller {
         if (!$post) {
             throw $this->createNotFoundException('The post does not exist');
         }
+        
+        if($post->getStatus()!= )
         $comments = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Comment')->getForPost($post);
 
