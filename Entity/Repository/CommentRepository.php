@@ -77,8 +77,7 @@ class CommentRepository extends EntityRepository {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
                         ' SELECT c FROM BlogBundle:Comment c ' .
-                        ' WHERE c.status = ' . CommentStatus::PENDING .
-                        ' OR c.status = ' . CommentStatus::APPROVED .
+                        ' WHERE ( c.status = ' . CommentStatus::PENDING . ' OR c.status = ' . CommentStatus::APPROVED . ' ) ' .
                         ' AND c.post = :post ' .
                         ' ORDER BY c.createdAt ASC '
                 )

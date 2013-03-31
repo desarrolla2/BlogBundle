@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class PostController extends Controller {
 
     /**
-     * @Route("/{page}", name="_default", requirements={"page" = "\d{1,4}"}, defaults={"page" = "1" })
+     * @Route("/{page}", name="_default", requirements={"page" = "\d{1,6}"}, defaults={"page" = "1" })
      * @Method({"GET"})
      * @Template()
      */
