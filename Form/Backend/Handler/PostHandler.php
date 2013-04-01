@@ -76,7 +76,7 @@ class PostHandler {
             }
             $this->em->persist($this->entity);
             $this->createHistory();
-            $this->updateTags($this->entity->getTags);
+            $this->updateTags($this->entity->getTags());
             $this->em->flush();
             return true;
         }

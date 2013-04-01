@@ -46,12 +46,27 @@ class TagRepository extends EntityRepository {
 
     /**
      * 
+     * @param type $limit
+     * @return type
+     */
+    public function getQueryBuilderForGet($limit = self::TAGS_PER_PAGE) {
+        $limit = (int) $limit;
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder()
+                ->select('t')
+                ->from('BlogBundle:Tag', 't')
+                ->orderBy('t.items', 'DESC')
+                ->setMaxResults($limit);
+        return $qb;
+    }
+
+    /**
+     * 
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function getQueryBuilderForFilter() {
         $em = $this->getEntityManager();
-        $qb = $em->createQueryBuilder();
-        $qb
+        $qb = $em->createQueryBuilder()
                 ->select('t')
                 ->from('BlogBundle:Tag', 't')
                 ->orderBy('t.items', 'DESC')
