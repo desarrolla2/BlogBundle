@@ -149,6 +149,7 @@ class PostRepository extends EntityRepository {
                         ' JOIN t.posts p1 ' .
                         ' WHERE p.isPublished = 1 ' .
                         ' AND p1 = :post ' .
+                        ' AND p != :post ' .
                         ' ORDER BY p.publishedAt DESC '
                 )
                 ->setParameter('post', $post)
