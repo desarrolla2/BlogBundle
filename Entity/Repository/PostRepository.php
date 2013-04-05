@@ -5,6 +5,7 @@ namespace Desarrolla2\Bundle\BlogBundle\Entity\Repository;
 use \Doctrine\ORM\EntityRepository;
 use \Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use \Desarrolla2\Bundle\BlogBundle\Entity\Tag;
+use \DateTime;
 
 /**
  * PostRepository
@@ -19,13 +20,13 @@ class PostRepository extends EntityRepository {
     public function getByIds(array $ids) {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT p FROM BlogBundle:Post p ' .
-            ' WHERE p.id IN (:ids) ' .
-            ' AND p.isPublished = 1 '
-        )
-        ->setParameter('ids', $ids);
-                
-                
+                        ' SELECT p FROM BlogBundle:Post p ' .
+                        ' WHERE p.id IN (:ids) ' .
+                        ' AND p.isPublished = 1 '
+                )
+                ->setParameter('ids', $ids);
+
+
         return $query->getResult();
     }
 
@@ -228,6 +229,24 @@ class PostRepository extends EntityRepository {
                 )
         ;
         return $query->getResult();
+    }
+
+    /**
+     * Count published elements from date
+     * 
+     * @param DateTime $date
+     * @return int
+     */
+    public function countFromDate(DateTime $date) {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+                        ' SELECT COUNT(p) FROM BlogBundle:Post p ' .
+                        ' WHERE p.isPublished = 1 ' .
+                        ' AND p.createdAt >= :date '
+                )
+                ->setParameter('date', $date)
+        ;
+        return $query->getSingleScalarResult();
     }
 
 }

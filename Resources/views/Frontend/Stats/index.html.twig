@@ -4,17 +4,40 @@
     <header>
         <h2><a href="{{ url('_stats')}}" title="stats">Stats</a></h2>            
     </header>
-    <h3>Estadisticas de los últimos 30 días</h3>
-    <ul>
-        <li>100 Entradas públicadas</li>
-        <li>100 Comentarios públicadas</li>            
-    </ul>
-    <h3>Estadisticas totales</h3>
-    <ul>
-        <li>100 Entradas públicadas</li>
-        <li>100 Comentarios públicadas</li>            
-        <li>100 Blogs miembros</li>
-    </ul>
-    
+    <h3>Entradas publicadas</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Post</th>
+                <th>Comentarios</th>
+                <th>Enlaces</th>
+            </tr>        
+        </thead>
+        <tr>
+            <td>Ultima semana</td>
+            <td>{{ post.last_week}}</td>
+            <td>{{ comment.last_week}}</td>
+            <td>{{ link.last_week}}</td>
+        </tr>    
+        <tr>
+            <td>Ultimo mes</td>
+            <td>{{ post.last_month}}</td>
+            <td>{{ comment.last_month}}</td>
+            <td>{{ link.last_month}}</td>
+        </tr>    
+        <tr>
+            <td>Ultimo año</td>
+            <td>{{ post.last_year}}</td>
+            <td>{{ comment.last_year}}</td>
+            <td>{{ link.last_year}}</td>
+        </tr>
+        <tr>
+            <td>Total</td>
+            <td>{{ post.total}}</td>
+            <td>{{ comment.total}}</td>
+            <td>{{ link.total}}</td>
+        </tr>
+    </table>
 </article>
 {% endblock %}

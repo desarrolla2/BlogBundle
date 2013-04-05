@@ -17,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use DateTime;
 
 /**
  * 
@@ -24,15 +25,55 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @Route("/stats")
  */
-class StatsController extends Controller {
+class StatsController extends Controller
+{
 
     /**
      * @Route("/", name="_stats")
      * @Method({"GET"})
      * @Template()
      */
-    public function indexAction(Request $request) {
-        
+    public function indexAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $week_ago = new DateTime('-1 week');
+        $month_ago = new DateTime('-1 month');
+        $year_ago = new DateTime('-1 year');
+        $first_time = new DateTime('1th January 1970 00:00:00 (UTC)');
+
+        return array(
+            'post' => array(
+                'last_week' => $em->getRepository('BlogBundle:Post')
+                        ->countFromDate($week_ago),
+                'last_month' => $em->getRepository('BlogBundle:Post')
+                        ->countFromDate($month_ago),
+                'last_year' => $em->getRepository('BlogBundle:Post')
+                        ->countFromDate($year_ago),
+                'total' => $em->getRepository('BlogBundle:Post')
+                        ->countFromDate($first_time),
+            ),
+            'comment' => array(
+                'last_week' => $em->getRepository('BlogBundle:Comment')
+                        ->countFromDate($week_ago),
+                'last_month' => $em->getRepository('BlogBundle:Comment')
+                        ->countFromDate($month_ago),
+                'last_year' => $em->getRepository('BlogBundle:Comment')
+                        ->countFromDate($year_ago),
+                'total' => $em->getRepository('BlogBundle:Comment')
+                        ->countFromDate($first_time),
+            ),
+            'link' => array(
+                'last_week' => $em->getRepository('BlogBundle:Link')
+                        ->countFromDate($week_ago),
+                'last_month' => $em->getRepository('BlogBundle:Link')
+                        ->countFromDate($month_ago),
+                'last_year' => $em->getRepository('BlogBundle:Link')
+                        ->countFromDate($year_ago),
+                'total' => $em->getRepository('BlogBundle:Link')
+                        ->countFromDate($first_time),
+            ),
+        );
     }
 
 }
