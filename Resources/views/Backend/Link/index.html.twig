@@ -19,8 +19,8 @@
             <tr>
                 <td>{{ entity.name }}</td>
                 <td>{{ entity.description | raw }}</td>
-                <td><a href="{{ entity.url }}">{{ entity.url }}</a></td>
-                <td><a href="{{ entity.rss }}">{{ entity.rss }}</a></td>                
+                <td><a href="{{ entity.url }}" target="_blank">{{ entity.url }}</a></td>
+                <td><a href="{{ entity.rss }}" target="_blank">{{ entity.rss }}</a></td>                
                 <td>
                     {% if entity.isPublished %}<i class="icon-ok"></i> {% endif %}
                     {% if not entity.isPublished %}<i class="icon-remove"></i> {% endif %}

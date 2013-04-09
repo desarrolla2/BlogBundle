@@ -40,7 +40,7 @@ class DashboardController extends Controller
      *
      * @Template()
      */
-    public function statusAction()
+    public function resumeAction()
     {
         $postRepository = $this->getDoctrine()->getRepository('BlogBundle:Post');
         $tagRepository = $this->getDoctrine()->getRepository('BlogBundle:Tag');
@@ -54,12 +54,18 @@ class DashboardController extends Controller
             'comment_approved_number' => $commentRepository->countApproved(),
         );
     }
+    
+    public function unrelatedAction(){
+        return array(
+            'items' => $this->getDoctrine()->getRepository('PlanetBundle:Unrelated')->getPost(),
+        );
+    }
 
     /**
      *
      * @Template()
      */
-    public function contentAction()
+    public function pendingContentAction()
     {
         return array(
             'items' => $this->getDoctrine()->getRepository('BlogBundle:Post')->getUnpublished(),
@@ -70,7 +76,7 @@ class DashboardController extends Controller
      *
      * @Template()
      */
-    public function commentAction()
+    public function pendingCommentAction()
     {
         return array(
             'items' => $this->getDoctrine()->getRepository('BlogBundle:Comment')->getPending(),

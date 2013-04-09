@@ -2,41 +2,23 @@
 {% block content %}
 <div class="row-fluid">
     <div class="span6">
-        {{ render(controller('BlogBundle:Backend\\Dashboard:status')) }}
+        <div class="block">
+            <h2>Resume</h2>
+        {{ render(controller('BlogBundle:Backend\\Dashboard:resume')) }}
+        </div>
+        <div class="block">
+            <h2>Pending Contents</h2>
+        {{ render(controller('BlogBundle:Backend\\Dashboard:pendingContent')) }} 
+        </div>
+        <div class="block">
+            <h2>Pending Comments</h2>
+            {{ render(controller('BlogBundle:Backend\\Dashboard:pendingComment')) }}    
+        </div>
     </div>
     <div class="span6">
-        <h2>TO DO</h2>            
-        <ul>                                    
-            <li>Pingback ( Jueves )</li>
-            
-            <li>PlanetBundle( Sábado )</li>
-            <li>SphinxSearch ( Domingo )</li>
-            
-            <li>Mejorar el WF de comentario, queda muy triste</li>
-            <li>Notificar al publicar un comentario, Validar el sistema de comentarios.</li>
-            
-            <li>espacios y NL en comentarios / http://desarrolla2.local/app_dev.php/post/introduccion-a-la-orientacion-a-objetos-en-php-objetos-clases-y-herencia</li>
-            <li>Fechas en comentarios, que están en inglés.</li>
-            
-            <li>Errores en el editor + diccionario + pegar texto plano.</li>      
-            <li>Los últimos post, quedan mal</li>
-            <li>Logo D2.</li>
-            <li>404 y 500</li>
-            <li>Recordarme del login de admin.</li>        
-            <li>FOSUser y usuarios a la base de datos.</li>            
-            <li>Ordenar el backend de POSTs.</li>
-            <li>KnPMenuBundle</li>
-        </ul>
-    </div>
-</div>
-<div class="row-fluid">
-    <div class="span6">
-        <h2>Pending Contents</h2>
-        {{ render(controller('BlogBundle:Backend\\Dashboard:content')) }} 
-    </div>
-    <div class="span6">
-        <h2>Pending Comments</h2>
-        {{ render(controller('BlogBundle:Backend\\Dashboard:comment')) }}
+        <div class="block">
+            <h2>Unrelated</h2>
+        </div>
     </div>
 </div>
 {% endblock %}
