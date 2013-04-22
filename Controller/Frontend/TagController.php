@@ -52,6 +52,7 @@ class TagController extends Controller {
                             'slug' => $tag->getSlug(),
                         )), 301);
             }
+            throw $e;
         }
 
 
