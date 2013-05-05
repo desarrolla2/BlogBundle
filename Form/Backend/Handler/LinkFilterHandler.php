@@ -58,16 +58,16 @@ class LinkFilterHandler
         if ($this->form->isValid()) {
             $formData = $this->form->getData();
             if ($name = (string) $formData->name) {
-                $this->qb->andWhere($this->qb->expr()->like('p.name', ':name'))
+                $this->qb->andWhere($this->qb->expr()->like('l.name', ':name'))
                         ->setParameter('name', '%' . $name . '%');
             }
             if ($isPublished = (string) $formData->isPublished) {
                 if ($isPublished == 'yes') {
-                    $this->qb->andWhere($this->qb->expr()->like('p.isPublished', ':isPublished'))
+                    $this->qb->andWhere($this->qb->expr()->like('l.isPublished', ':isPublished'))
                             ->setParameter('isPublished', 1);
                 }
                 if ($isPublished == 'no') {
-                    $this->qb->andWhere($this->qb->expr()->like('p.isPublished', ':isPublished'))
+                    $this->qb->andWhere($this->qb->expr()->like('l.isPublished', ':isPublished'))
                             ->setParameter('isPublished', 0);
                 }
             }            

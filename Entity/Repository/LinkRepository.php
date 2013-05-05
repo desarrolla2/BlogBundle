@@ -80,7 +80,7 @@ class LinkRepository extends EntityRepository
         $qb
                 ->select('l')
                 ->from('BlogBundle:Link', 'l')
-                ->orderBy('p.updatedAt', 'DESC')
+                ->orderBy('l.updatedAt', 'DESC')
         ;
         return $qb;
     }
