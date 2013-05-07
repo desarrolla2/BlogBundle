@@ -1,5 +1,5 @@
 {% extends "::frontend.html.twig" %}
-{% block title %} {{ title }} {% endblock%}
+{% block title %} {{ title }} {% if page != 1 %} | Página {{ page }} {% endif %}{% endblock%}
 {% block content %}
     {% for post in pagination %}
         {% include 'BlogBundle:Frontend/Post:item.html.twig' with {'post': post} %}

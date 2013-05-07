@@ -23,14 +23,16 @@ use Symfony\Component\HttpFoundation\Request;
  * Description of TagController
  *
  */
-class TagController extends Controller {
+class TagController extends Controller
+{
 
     /**
      * @Route("/tag/{slug}/{page}", name="_tag", requirements={"slug" = "[\w\d\-]+", "page" = "\d{1,6}"}, defaults={"page" = "1" })
      * @Method({"GET"})
      * @Template()
      */
-    public function indexAction(Request $request) {
+    public function indexAction(Request $request)
+    {
         $paginator = $this->get('knp_paginator');
         $tag = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Tag')->getOneBySlug($request->get('slug', false));
@@ -45,6 +47,7 @@ class TagController extends Controller {
         );
 
         return array(
+            'page' => $this->getPage(),
             'pagination' => $pagination,
             'tag' => $tag,
         );
@@ -55,7 +58,8 @@ class TagController extends Controller {
      * @Method({"GET"})
      * @Template()
      */
-    public function allAction(Request $request) {
+    public function allAction(Request $request)
+    {
         $paginator = $this->get('knp_paginator');
 
         $query = $this->getDoctrine()->getManager()
@@ -74,7 +78,8 @@ class TagController extends Controller {
      * 
      * @return type
      */
-    protected function getPage() {
+    protected function getPage()
+    {
         $request = $this->getRequest();
         $page = (int) $request->get('page', 1);
         if ($page < 1) {

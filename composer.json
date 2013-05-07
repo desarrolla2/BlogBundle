@@ -13,7 +13,7 @@
         "php": ">=5.3.2",
         "symfony/framework-bundle": ">=2.0.0",
         "gregwar/captcha-bundle": "dev-master",
-        "desarrolla2/rss-client-bundle": "dev-master",
+        "desarrolla2/rss-client-bundle": "2.*",
         "desarrolla2/db": "*"
     },
     "autoload": {

@@ -32,6 +32,7 @@ class PostController extends Controller {
         );
 
         return array(
+            'page' => $this->getPage(),
             'pagination' => $pagination,
             'title' => $this->container->getParameter('blog.title'),
             'description' => $this->container->getParameter('blog.description'),
