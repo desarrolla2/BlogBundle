@@ -20,10 +20,22 @@ namespace Desarrolla2\Bundle\BlogBundle\Model;
  * @file : LinkStatus.php , UTF-8
  * @date : Mar 26, 2013 , 7:00:15 PM
  */
-class LinkStatus {
+class LinkStatus
+{
+    /**
+     * The entity was created
+     */
 
     const CREATED = 0;
+
+    /**
+     * The entity was publised
+     */
     const PUBLISHED = 1;
-    const BANED = 2;
+
+    /**
+     * 
+     */
+    const REMOVED = 50;
 
 }

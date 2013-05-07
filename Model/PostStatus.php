@@ -20,10 +20,27 @@ namespace Desarrolla2\Bundle\BlogBundle\Model;
  * @file : PostStatus.php , UTF-8
  * @date : Mar 26, 2013 , 12:25:41 AM
  */
-class PostStatus {
+class PostStatus
+{
+    /**
+     * The entity was created
+     */
 
     const CREATED = 0;
+
+    /**
+     * The entity was publised
+     */
     const PUBLISHED = 1;
-    const BANED = 2;
+
+    /**
+     * The entity is waiting for publish
+     */
+    const PRE_PUBLISHED = 2;
+
+    /**
+     * 
+     */
+    const REMOVED = 50;
 
 }

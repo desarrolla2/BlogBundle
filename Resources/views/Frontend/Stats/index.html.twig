@@ -11,25 +11,31 @@
         <thead>
             <tr>
                 <th></th>
-                <th>Post</th>
+                <th>Entradas</th>
                 <th>Comentarios</th>
                 <th>Enlaces</th>
             </tr>        
         </thead>
         <tr>
-            <td>Ultima semana</td>
+            <td>Última dia</td>
+            <td>{{ post.last_day}}</td>
+            <td>{{ comment.last_day}}</td>
+            <td>{{ link.last_day}}</td>
+        </tr>
+        <tr>
+            <td>Última semana</td>
             <td>{{ post.last_week}}</td>
             <td>{{ comment.last_week}}</td>
             <td>{{ link.last_week}}</td>
         </tr>    
         <tr>
-            <td>Ultimo mes</td>
+            <td>Último mes</td>
             <td>{{ post.last_month}}</td>
             <td>{{ comment.last_month}}</td>
             <td>{{ link.last_month}}</td>
         </tr>    
         <tr>
-            <td>Ultimo año</td>
+            <td>Último año</td>
             <td>{{ post.last_year}}</td>
             <td>{{ comment.last_year}}</td>
             <td>{{ link.last_year}}</td>

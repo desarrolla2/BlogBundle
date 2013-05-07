@@ -4,6 +4,7 @@ namespace Desarrolla2\Bundle\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 
 /**
  * Desarrolla2\Bundle\BlogBundle\Entity\Post
@@ -11,7 +12,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="Desarrolla2\Bundle\BlogBundle\Entity\Repository\PostRepository")
  */
-class Post {
+class Post
+{
 
     /**
      * @var integer $id
@@ -59,11 +61,18 @@ class Post {
     private $source;
 
     /**
-     * @var string $isPublished
+     * @var bool $isPublished
      *
      * @ORM\Column(name="is_published", type="boolean")
      */
     private $isPublished;
+
+    /**
+     * @var int $status
+     *
+     * @ORM\Column(name="status", type="integer")
+     */
+    private $status;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -120,7 +129,8 @@ class Post {
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->history = $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
@@ -128,14 +138,11 @@ class Post {
         $this->source = '';
     }
 
-    public function getStatus() {
-        return (int) $this->getIsPublished();
-    }
-
     /**
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getName();
     }
 
@@ -144,7 +151,8 @@ class Post {
      *
      * @return integer 
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -154,7 +162,8 @@ class Post {
      * @param string $content
      * @return Post
      */
-    public function setContent($content) {
+    public function setContent($content)
+    {
         $this->content = (string) $content;
 
         return $this;
@@ -165,7 +174,8 @@ class Post {
      *
      * @return string 
      */
-    public function getContent() {
+    public function getContent()
+    {
         return $this->content;
     }
 
@@ -175,7 +185,8 @@ class Post {
      * @param string $slug
      * @return Post
      */
-    protected function setSlug($slug) {
+    protected function setSlug($slug)
+    {
         $this->slug = $slug;
 
         return $this;
@@ -186,7 +197,8 @@ class Post {
      *
      * @return string 
      */
-    public function getSlug() {
+    public function getSlug()
+    {
         return $this->slug;
     }
 
@@ -196,7 +208,8 @@ class Post {
      * @param \DateTime $createdAt
      * @return Post
      */
-    public function setCreatedAt($createdAt) {
+    public function setCreatedAt($createdAt)
+    {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -207,7 +220,8 @@ class Post {
      *
      * @return \DateTime 
      */
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
@@ -217,7 +231,8 @@ class Post {
      * @param \DateTime $updatedAt
      * @return Post
      */
-    public function setUpdatedAt($updatedAt) {
+    public function setUpdatedAt($updatedAt)
+    {
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -228,7 +243,8 @@ class Post {
      *
      * @return \DateTime 
      */
-    public function getUpdatedAt() {
+    public function getUpdatedAt()
+    {
         return $this->updatedAt;
     }
 
@@ -238,7 +254,8 @@ class Post {
      * @param Desarrolla2\Bundle\BlogBundle\Entity\Author $author
      * @return Post
      */
-    public function setAuthor(\Desarrolla2\Bundle\BlogBundle\Entity\Author $author = null) {
+    public function setAuthor(\Desarrolla2\Bundle\BlogBundle\Entity\Author $author = null)
+    {
         $this->author = $author;
 
         return $this;
@@ -249,7 +266,8 @@ class Post {
      *
      * @return Desarrolla2\Bundle\BlogBundle\Entity\Author 
      */
-    public function getAuthor() {
+    public function getAuthor()
+    {
         return $this->author;
     }
 
@@ -259,7 +277,8 @@ class Post {
      * @param boolean $isPublished
      * @return Post
      */
-    public function setIsPublished($isPublished) {
+    public function setIsPublished($isPublished)
+    {
         $this->isPublished = $isPublished;
 
         return $this;
@@ -270,8 +289,22 @@ class Post {
      *
      * @return boolean 
      */
-    public function getIsPublished() {
-        return $this->isPublished;
+    public function getIsPublished()
+    {
+        if ($this->status == PostStatus::PUBLISHED) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Get isPublished
+     *
+     * @return boolean 
+     */
+    public function isPublished()
+    {
+        return $this->getIsPublished();
     }
 
     /**
@@ -280,7 +313,8 @@ class Post {
      * @param string $name
      * @return Post
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -291,7 +325,8 @@ class Post {
      *
      * @return string 
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -301,7 +336,8 @@ class Post {
      * @param Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags
      * @return Post
      */
-    public function addTag(\Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags) {
+    public function addTag(\Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags)
+    {
         $this->tags[] = $tags;
 
         return $this;
@@ -312,14 +348,16 @@ class Post {
      *
      * @param Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags
      */
-    public function removeTag(\Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags) {
+    public function removeTag(\Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags)
+    {
         $this->tags->removeElement($tags);
     }
 
     /**
      * Clear Tags
      */
-    public function removeTags() {
+    public function removeTags()
+    {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -328,7 +366,8 @@ class Post {
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getTags() {
+    public function getTags()
+    {
         return $this->tags;
     }
 
@@ -338,7 +377,8 @@ class Post {
      * @param Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments
      * @return Post
      */
-    public function addComment(\Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments) {
+    public function addComment(\Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments)
+    {
         $this->comments[] = $comments;
 
         return $this;
@@ -349,7 +389,8 @@ class Post {
      *
      * @param Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments
      */
-    public function removeComment(\Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments) {
+    public function removeComment(\Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments)
+    {
         $this->comments->removeElement($comments);
     }
 
@@ -358,7 +399,8 @@ class Post {
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getComments() {
+    public function getComments()
+    {
         return $this->comments;
     }
 
@@ -368,7 +410,8 @@ class Post {
      * @param string $intro
      * @return Post
      */
-    public function setIntro($intro) {
+    public function setIntro($intro)
+    {
         $this->intro = (string) $intro;
 
         return $this;
@@ -379,7 +422,8 @@ class Post {
      *
      * @return string 
      */
-    public function getIntro() {
+    public function getIntro()
+    {
         return $this->intro;
     }
 
@@ -389,7 +433,8 @@ class Post {
      * @param \DateTime $publishedAt
      * @return Post
      */
-    public function setPublishedAt($publishedAt) {
+    public function setPublishedAt($publishedAt)
+    {
         $this->publishedAt = $publishedAt;
 
         return $this;
@@ -400,7 +445,8 @@ class Post {
      *
      * @return \DateTime 
      */
-    public function getPublishedAt() {
+    public function getPublishedAt()
+    {
         return $this->publishedAt;
     }
 
@@ -410,7 +456,8 @@ class Post {
      * @param \Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history
      * @return Post
      */
-    public function addHistory(\Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history) {
+    public function addHistory(\Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history)
+    {
         $this->history[] = $history;
 
         return $this;
@@ -421,7 +468,8 @@ class Post {
      *
      * @param \Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history
      */
-    public function removeHistory(\Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history) {
+    public function removeHistory(\Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history)
+    {
         $this->history->removeElement($history);
     }
 
@@ -430,7 +478,8 @@ class Post {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getHistory() {
+    public function getHistory()
+    {
         return $this->history;
     }
 
@@ -440,7 +489,8 @@ class Post {
      * @param string $source
      * @return Post
      */
-    public function setSource($source) {
+    public function setSource($source)
+    {
         $this->source = $source;
 
         return $this;
@@ -451,15 +501,28 @@ class Post {
      *
      * @return string 
      */
-    public function getSource() {
+    public function getSource()
+    {
         return $this->source;
     }
 
     /**
      * @return bool
      */
-    public function hasSource() {
+    public function hasSource()
+    {
         return (bool) $this->getSource();
     }
 
+    public function getStatus()
+    {
+        return (int) $this->getIsPublished();
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
 }
+
