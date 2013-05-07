@@ -17,6 +17,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\Query\QueryException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * 
@@ -42,9 +44,19 @@ class TagController extends Controller
         $query = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Post')->getQueryForGetByTag($tag);
 
-        $pagination = $paginator->paginate(
-                $query, $this->getPage(), $this->container->getParameter('blog.items')
-        );
+        try {
+            $pagination = $paginator->paginate(
+                    $query, $this->getPage(), $this->container->getParameter('blog.items')
+            );
+        } catch (QueryException $e) {
+            if ($e->getMessage() == 'Invalid parameter number: number of bound variables does not match number of tokens') {
+                return new RedirectResponse($this->generateUrl('_tag', array(
+                            'slug' => $tag->getSlug(),
+                        )), 301);
+            }
+            throw $e;
+        }
+
 
         return array(
             'page' => $this->getPage(),
