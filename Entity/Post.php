@@ -516,7 +516,7 @@ class Post
 
     public function getStatus()
     {
-        return (int) $this->getIsPublished();
+        return $this->status;
     }
 
     public function setStatus($status)
