@@ -135,6 +135,7 @@ class Post
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->history = $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isPublished = false;
+        $this->status = 0;
         $this->source = '';
     }
 
