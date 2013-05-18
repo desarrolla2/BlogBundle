@@ -13,6 +13,7 @@ use Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\PostModel;
 use Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\PostFilterModel;
 use \Desarrolla2\Bundle\BlogBundle\Form\Backend\Handler\PostHandler;
 use Desarrolla2\Bundle\BlogBundle\Form\Backend\Handler\PostFilterHandler;
+use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 
 /**
  * Post controller.
@@ -208,7 +209,7 @@ class PostController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
-        $entity->setIsPublished(true);
+        $entity->setStatus(PostStatus::PUBLISHED);
         $entity->setPublishedAt(new \DateTime());
         $em->persist($entity);
         $em->flush();
@@ -227,7 +228,7 @@ class PostController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
-        $entity->setIsPublished(false);
+        $entity->setStatus(PostStatus::CREATED);
         $em->persist($entity);
         $em->flush();
         return $this->redirect($this->generateUrl('post'));

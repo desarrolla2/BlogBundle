@@ -12,6 +12,7 @@
 
 namespace Desarrolla2\Bundle\BlogBundle\Controller\Frontend;
 
+use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -24,14 +25,16 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @Route("/archive")
  */
-class ArchiveController extends Controller {
+class ArchiveController extends Controller
+{
 
     /**
      * @Route("/", name="_archive")
      * @Method({"GET"})
      * @Template()
      */
-    public function indexAction(Request $request) {
+    public function indexAction(Request $request)
+    {
         $query = $this->getDoctrine()
                 ->getManager()
                 ->createQuery(
@@ -39,7 +42,7 @@ class ArchiveController extends Controller {
                 ' SUBSTRING(p.publishedAt, 1, 4) as year, ' .
                 ' SUBSTRING(p.publishedAt, 6, 2) as month ' .
                 ' FROM BlogBundle:Post p ' .
-                ' WHERE p.isPublished = 1 ' .
+                ' WHERE p.status = ' . PostStatus::PUBLISHED .
                 ' GROUP BY year, month ' .
                 ' ORDER BY year DESC, month DESC '
         );
@@ -64,7 +67,8 @@ class ArchiveController extends Controller {
      * @Method({"GET"})
      * @Template()
      */
-    public function pageAction(Request $request) {
+    public function pageAction(Request $request)
+    {
         $paginator = $this->get('knp_paginator');
         $year = $request->get('year');
         $month = $request->get('month');
@@ -75,7 +79,7 @@ class ArchiveController extends Controller {
                         ' SUBSTRING(p.publishedAt, 1, 4) as year, ' .
                         ' SUBSTRING(p.publishedAt, 6, 2) as month ' .
                         ' FROM BlogBundle:Post p ' .
-                        ' WHERE p.isPublished = 1 ' .
+                        ' WHERE p.status = ' . PostStatus::PUBLISHED .
                         ' HAVING year = :year ' .
                         ' AND month = :month '
                 )
@@ -92,7 +96,8 @@ class ArchiveController extends Controller {
         );
     }
 
-    protected function getPage() {
+    protected function getPage()
+    {
         $request = $this->getRequest();
         $page = (int) $request->get('page', 1);
         if ($page < 1) {

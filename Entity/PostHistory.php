@@ -180,7 +180,6 @@ class PostHistory
         $this->setName($post->getName());
         $this->setIntro($post->getIntro());
         $this->setContent($post->getContent());
-
         return $this;
     }
 

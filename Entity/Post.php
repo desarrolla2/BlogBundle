@@ -61,13 +61,6 @@ class Post
     private $source;
 
     /**
-     * @var bool $isPublished
-     *
-     * @ORM\Column(name="is_published", type="boolean")
-     */
-    private $isPublished;
-
-    /**
      * @var int $status
      *
      * @ORM\Column(name="status", type="integer")
@@ -134,7 +127,6 @@ class Post
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->history = $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->isPublished = false;
         $this->status = 0;
         $this->source = '';
     }
@@ -272,41 +264,6 @@ class Post
         return $this->author;
     }
 
-    /**
-     * Set isPublished
-     *
-     * @param boolean $isPublished
-     * @return Post
-     */
-    public function setIsPublished($isPublished)
-    {
-        $this->isPublished = $isPublished;
-
-        return $this;
-    }
-
-    /**
-     * Get isPublished
-     *
-     * @return boolean 
-     */
-    public function getIsPublished()
-    {
-        if ($this->status == PostStatus::PUBLISHED) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Get isPublished
-     *
-     * @return boolean 
-     */
-    public function isPublished()
-    {
-        return $this->getIsPublished();
-    }
 
     /**
      * Set name
@@ -515,15 +472,25 @@ class Post
         return (bool) $this->getSource();
     }
 
+    /**
+     * 
+     * @return type
+     */
     public function getStatus()
     {
         return $this->status;
     }
 
+    /**
+     * 
+     * @param type $status
+     */
     public function setStatus($status)
     {
         $this->status = $status;
     }
+    
+    
 
 }
 

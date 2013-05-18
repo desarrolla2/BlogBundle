@@ -29,14 +29,14 @@ class PostStatus
     const CREATED = 0;
 
     /**
-     * The entity was publised
-     */
-    const PUBLISHED = 1;
-
-    /**
      * The entity is waiting for publish
      */
     const PRE_PUBLISHED = 2;
+
+    /**
+     * The entity was publised
+     */
+    const PUBLISHED = 1;
 
     /**
      * 

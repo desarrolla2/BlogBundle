@@ -53,8 +53,6 @@ class LinkModel {
     /**
      * @var string $content
      * 
-     * @Assert\NotBlank()
-     * @Assert\MinLength( limit=15 )
      */
     public $description;
 

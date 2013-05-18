@@ -4,6 +4,7 @@ namespace Desarrolla2\Bundle\BlogBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Desarrolla2\Bundle\BlogBundle\Entity\Tag;
+use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 
 /**
  * TagRepository
@@ -84,7 +85,7 @@ class TagRepository extends EntityRepository {
         $query = $em->createQuery(
                         ' SELECT COUNT(p) FROM BlogBundle:Post p ' .
                         ' JOIN p.tags t ' .
-                        ' WHERE p.isPublished = 1 ' .
+                        ' WHERE p.status = ' . PostStatus::PUBLISHED .
                         ' AND t = :t ' .
                         ' ORDER BY p.createdAt DESC '
                 )

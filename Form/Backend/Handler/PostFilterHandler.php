@@ -34,7 +34,6 @@ class PostFilterHandler
      */
     protected $qb;
 
-
     /**
      * 
      * @param \Symfony\Component\Form\Form $form
@@ -57,22 +56,25 @@ class PostFilterHandler
         $this->form->bind($this->request);
         if ($this->form->isValid()) {
             $formData = $this->form->getData();
-            if ($name = (string) $formData->name) {
+            $name = (string) $formData->name;
+            if ($name) {
                 $this->qb->andWhere($this->qb->expr()->like('p.name', ':name'))
                         ->setParameter('name', '%' . $name . '%');
             }
-            if ($text = (string) $formData->text) {
+            $text = (string) $formData->text;
+            if ($text) {
                 $this->qb->andWhere(
                                 $this->qb->expr()->orx(
                                         $this
                                         ->qb->expr()->like('p.intro', ':intro'), $this
                                         ->qb->expr()->like('p.content', ':content')
-                                ))
+                        ))
                         ->setParameter('intro', '%' . $text . '%')
                         ->setParameter('content', '%' . $text . '%');
             }
 
-            if ($isPublished = (string) $formData->isPublished) {
+            $isPublished = (string) $formData->isPublished;
+            if ($isPublished) {
                 if ($isPublished == 'yes') {
                     $this->qb->andWhere($this->qb->expr()->like('p.isPublished', ':isPublished'))
                             ->setParameter('isPublished', 1);
@@ -81,7 +83,7 @@ class PostFilterHandler
                     $this->qb->andWhere($this->qb->expr()->like('p.isPublished', ':isPublished'))
                             ->setParameter('isPublished', 0);
                 }
-            }            
+            }
             return true;
         }
         return false;
@@ -104,11 +106,12 @@ class PostFilterHandler
     {
         return $this->qb->getQuery();
     }
-    
+
     /**
      * @return mixed
      */
-    public function getData(){
+    public function getData()
+    {
         return $this->form->getData();
     }
 
