@@ -28,6 +28,7 @@ class BlogExtension extends Extension {
         $loader->load('twig.xml');
         $loader->load('sanitizer.xml');
         $loader->load('sphinx.xml');
+        $loader->load('post.xml');
     }
 
     protected function parseNode($container, $name, $value) {

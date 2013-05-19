@@ -266,5 +266,32 @@ class PostRepository extends EntityRepository
         return $query->getSingleScalarResult();
     }
 
+    /**
+     * 
+     * @return array
+     */
+    public function getPrePublished($limit = 50)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+                        ' SELECT p FROM BlogBundle:Post p ' .
+                        ' WHERE p.status = ' . PostStatus::PRE_PUBLISHED .
+                        ' ORDER BY p.createdAt DESC '
+                )
+                ->setMaxResults($limit)
+        ;
+        return $query->getResult();
+    }
+
+    public function getOneRandomPrePublished()
+    {
+        $items = $this->getPrePublished();
+        if ($items) {
+            shuffle($items);
+            return array_pop($items);
+        }
+        return false;
+    }
+
 }
 
