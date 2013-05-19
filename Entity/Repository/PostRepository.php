@@ -240,7 +240,7 @@ class PostRepository extends EntityRepository
         $em = $this->getEntityManager();
         $query = $em->createQuery(
                 ' SELECT p FROM BlogBundle:Post p ' .
-                ' WHERE p.status = ' . PostStatus::PUBLISHED .
+                ' WHERE p.status != ' . PostStatus::PUBLISHED .
                 ' ORDER BY p.createdAt DESC '
                 )
                 ->setMaxResults($limit)
