@@ -68,7 +68,7 @@ class DashboardController extends Controller
     public function pendingContentAction()
     {
         return array(
-            'items' => $this->getDoctrine()->getRepository('BlogBundle:Post')->getUnpublished(),
+            'items' => $this->getDoctrine()->getRepository('BlogBundle:Post')->getUnpublished(10),
         );
     }
 

@@ -235,7 +235,7 @@ class PostRepository extends EntityRepository
      * 
      * @return type
      */
-    public function getUnPublished()
+    public function getUnPublished($limit = 50)
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
@@ -243,6 +243,7 @@ class PostRepository extends EntityRepository
                 ' WHERE p.status = ' . PostStatus::PUBLISHED .
                 ' ORDER BY p.createdAt DESC '
                 )
+                ->setMaxResults($limit)
         ;
         return $query->getResult();
     }
