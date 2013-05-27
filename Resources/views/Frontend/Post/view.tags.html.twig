@@ -1,7 +1,7 @@
-<p>Etiquetas: 
+<ul id="tags">
     {% for tag in tags %}
-        <strong><a href="{{ url('_tag', { 'slug' : tag.slug }) }}" title="{{ tag }}">{{ tag }}</a></strong> 
+        <li><a href="{{ url('_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a></li>
     {% else %}
-        No tiene etiquetas.
-    {% endfor %}            
-</p>
+        <li>No tiene etiquetas</li>
+    {% endfor %}
+</ul>
