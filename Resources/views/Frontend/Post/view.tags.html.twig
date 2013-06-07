@@ -1,4 +1,4 @@
-<ul id="tags">
+<ul class="tags">
     {% for tag in tags %}
         <li><a href="{{ url('_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a></li>
     {% else %}
