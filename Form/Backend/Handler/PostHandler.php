@@ -19,7 +19,8 @@ use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use Desarrolla2\Bundle\BlogBundle\Entity\PostHistory;
 use Doctrine\ORM\EntityManager;
 
-class PostHandler {
+class PostHandler
+{
 
     /**
      * @var  \Symfony\Component\Form\Form 
@@ -48,7 +49,8 @@ class PostHandler {
      * @param \Desarrolla2\Bundle\BlogBundle\Entity\Post $entity
      * @param \Doctrine\ORM\EntityManager $em
      */
-    public function __construct(Form $form, Request $request, Post $entity, EntityManager $em) {
+    public function __construct(Form $form, Request $request, Post $entity, EntityManager $em)
+    {
         $this->form = $form;
         $this->request = $request;
         $this->entity = $entity;
@@ -59,15 +61,17 @@ class PostHandler {
      * 
      * @return boolean
      */
-    public function process() {
+    public function process()
+    {
         $this->form->bind($this->request);
         if ($this->form->isValid()) {
             $entityModel = $this->form->getData();
-            $this->entity->setName((string) $entityModel->name);
-            $this->entity->setIntro((string) $entityModel->intro);
-            $this->entity->setContent((string) $entityModel->content);
-            $this->entity->setIsPublished((bool) $entityModel->isPublished);
-            if ($this->entity->getIsPublished() && !$this->entity->getPublishedAt()) {
+            $this->entity->setName((string) $entityModel->getName());
+            $this->entity->setIntro((string) $entityModel->getIntro());
+            $this->entity->setContent((string) $entityModel->getContent());
+            $this->entity->setImage((string) $entityModel->getImage());
+            $this->entity->setStatus((bool) $entityModel->getStatus());
+            if ($this->entity->isPublished() && !$this->entity->getPublishedAt()) {
                 $this->entity->setPublishedAt(new DateTime());
             }
             $this->entity->removeTags();
@@ -86,14 +90,16 @@ class PostHandler {
     /**
      * @return mixed
      */
-    public function getData() {
+    public function getData()
+    {
         return $this->form->getData();
     }
 
     /**
      * create History
      */
-    protected function createHistory() {
+    protected function createHistory()
+    {
         $history = new PostHistory();
         $history->setPost($this->entity);
         $this->em->persist($history);
@@ -102,11 +108,11 @@ class PostHandler {
     /**
      * update tags
      */
-    protected function updateTags($tags) {
-        foreach($tags as $tag){
+    protected function updateTags($tags)
+    {
+        foreach ($tags as $tag) {
             $this->em->getRepository('BlogBundle:Tag')->indexTagItemsForTag($tag);
         }
-        
     }
 
 }

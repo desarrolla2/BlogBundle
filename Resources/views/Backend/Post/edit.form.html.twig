@@ -13,6 +13,15 @@
     {{ form_widget(form.name, { 'attr': {'class': 'w100'} }) }}
 </p>
 <p>
+    <label for="">Image</label>
+    {% if form_errors(form.image) %}
+        <div class="alert alert-block alert-error fade in form-errors">
+        {{ form_errors(form.image) }}
+        </div>
+    {% endif %}
+    {{ form_widget(form.image, { 'attr': {'class': 'w100'} }) }}
+</p>
+<p>
     <label for="">Intro</label>
     {% if form_errors(form.intro) %}
         <div class="alert alert-block alert-error fade in form-errors">
@@ -40,13 +49,13 @@
     {{ form_widget(form.tags) }}
 </p>
 <p>
-    <label for="">Is Published</label>
-    {% if form_errors(form.isPublished) %}
+    <label for="">Status</label>
+    {% if form_errors(form.status) %}
         <div class="alert alert-block alert-error fade in form-errors">
-        {{ form_errors(form.isPublished) }}
+        {{ form_errors(form.status) }}
         </div>
     {% endif %}
-    {{ form_widget(form.isPublished) }}
+    {{ form_widget(form.status) }}
 </p> 
 <p>
     <button class="btn" type="submit">Save</button>

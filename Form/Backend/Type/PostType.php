@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Desarrolla2\Bundle\BlogBundle\Entity\Repository\TagRepository;
+use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 
 class PostType extends AbstractType {
 
@@ -18,6 +19,10 @@ class PostType extends AbstractType {
         $builder
                 ->add('name', 'text', array(
                     'required' => true,
+                    'trim' => true,
+                ))
+                ->add('image', 'text', array(
+                    'required' => false,
                     'trim' => true,
                 ))
                 ->add('intro', 'textarea', array(
@@ -37,12 +42,13 @@ class PostType extends AbstractType {
                         return $repository->getQueryBuilderForGet(100);
                     },
                 ))
-                ->add('isPublished', 'choice', array(
-                    'required' => false,
+                ->add('status', 'choice', array(
+                    'required' => true,
                     'trim' => true,
                     'choices' => array(
-                        0 => 'no',
-                        1 => 'yes',
+                        PostStatus::CREATED => 'created',
+                        PostStatus::PUBLISHED => 'published',
+                        PostStatus::PRE_PUBLISHED => 'pre published',
                     ),
                 ))
         ;

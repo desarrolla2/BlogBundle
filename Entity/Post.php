@@ -32,6 +32,13 @@ class Post
     private $name;
 
     /**
+     * @var string $image
+     *
+     * @ORM\Column(name="image", type="string", length=255)
+     */
+    private $image;
+
+    /**
      * @var string $intro
      *
      * @ORM\Column(name="intro", type="text")
@@ -264,7 +271,6 @@ class Post
         return $this->author;
     }
 
-
     /**
      * Set name
      *
@@ -473,8 +479,9 @@ class Post
     }
 
     /**
+     * Get Status
      * 
-     * @return type
+     * @return int
      */
     public function getStatus()
     {
@@ -482,15 +489,49 @@ class Post
     }
 
     /**
+     * Set Status
      * 
-     * @param type $status
+     * @param int $status
+     * @return Post
      */
     public function setStatus($status)
     {
         $this->status = $status;
+
+        return $this;
     }
-    
-    
+
+    /**
+     * Get Image
+     * 
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set Image
+     * 
+     * @param string $image
+     * @return Post
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * Retrieve if is published
+     * 
+     * @return bool
+     */
+    public function isPublished()
+    {
+        return (bool) ( $this->status == PostStatus::PUBLISHED );
+    }
 
 }
 

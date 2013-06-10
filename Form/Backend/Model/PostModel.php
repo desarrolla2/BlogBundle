@@ -25,6 +25,14 @@ class PostModel
     public $name;
 
     /**
+     * @var string $image
+     * @Assert\Url()
+     * @Assert\MaxLength( limit=250 )
+     *
+     */
+    public $image;
+
+    /**
      * @var string $intro
      * @Assert\MinLength( limit=3 )
      *
@@ -41,10 +49,10 @@ class PostModel
 
     /**
      * @var string $isPublished
-     * @Assert\Choice(choices = {"0", "1"})
+     * @Assert\Choice(choices = {"0", "1", "2"})
      */
-    public $isPublished;
-    
+    public $status;
+
     /**
      * @var Doctrine\Common\Collections\Collection 
      */
@@ -53,10 +61,71 @@ class PostModel
     public function __construct(Post $entity)
     {
         $this->name = $entity->getName();
+        $this->image = $entity->getImage();
         $this->intro = $entity->getIntro();
         $this->content = $entity->getContent();
-        $this->isPublished = $entity->getIsPublished();
+        $this->status = $entity->getStatus();
         $this->tags = $entity->getTags();
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    public function getIntro()
+    {
+        return $this->intro;
+    }
+
+    public function setIntro($intro)
+    {
+        $this->intro = $intro;
+    }
+
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    public function setTags(Doctrine\Common\Collections\Collection $tags)
+    {
+        $this->tags = $tags;
     }
 
 }
