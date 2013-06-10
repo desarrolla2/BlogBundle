@@ -533,5 +533,15 @@ class Post
         return (bool) ( $this->status == PostStatus::PUBLISHED );
     }
 
+    /**
+     * Retrieve if has image
+     * 
+     * @return bool
+     */
+    public function hasImage()
+    {
+        return (bool) count($this->getImage());
+    }
+
 }
 

@@ -1,7 +1,4 @@
 {% extends "::frontend.html.twig" %}
-{% block title %} {{ post }} {% endblock%}
-{% block meta_description %} {{ post.intro | striptags | raw | truncate(160) }} {% endblock %}
-{% block meta_keywords %} {% for tag in post.tags %} {{ tag }} {% endfor %} {% endblock %}
 {% block content %}
 <article class="post">
     <header>
@@ -38,4 +35,18 @@
     <h2>Últimos comentarios</h2>
     {{ render(controller('BlogBundle:Frontend\\Widget:latestComment', { 'post': post })) }}
 </div>    
+{% endblock %}
+
+{% block title %} {{ post }} {% endblock%}
+{% block meta_description %} {{ post.intro | striptags | raw | truncate(160) }} {% endblock %}
+{% block meta_keywords %} {% for tag in post.tags %} {{ tag }} {% endfor %} {% endblock %}
+{% block meta %}
+<link rel="canonical" href="{{ url('_view', { 'slug' : post.slug }) }}" />
+<meta property="og:title" content="{{ post }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ url('_view', { 'slug' : post.slug }) }}" />
+<meta property="og:description" content="{{ post.intro | striptags | raw | truncate(160) }}" />
+    {% if post.hasImage %}
+    <meta property="og:image" content="{{ post.image }}" />
+    {% endif %}
 {% endblock %}

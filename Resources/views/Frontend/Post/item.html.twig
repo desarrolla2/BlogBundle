@@ -2,6 +2,11 @@
     <header>
         <h2><a href="{{ url('_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a></h2>            
     </header>
+    {% if post.hasImage %}
+        <div style="float: left; margin: 10px; max-width: 200px">
+            <img src="{{ post.image }}"/>
+        </div>
+    {% endif %}
     {{ post.intro | raw }}         
     {% if post.hasSource %}
         <p>Enlace a la fuente original: <a href="{{ post.source }}" target="_blank" title="{{ post }}">{{ post }}</a></p>
