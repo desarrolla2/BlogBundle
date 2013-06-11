@@ -6,7 +6,8 @@ use Doctrine\ORM\EntityManager;
 use Desarrolla2\Bundle\BlogBundle\Search\SearchInterface;
 use SphinxClient;
 
-class Sphinx implements SearchInterface {
+class Sphinx implements SearchInterface
+{
 
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -33,7 +34,8 @@ class Sphinx implements SearchInterface {
      */
     private $sphinx;
 
-    public function __construct(EntityManager $em, $host, $port, $index) {
+    public function __construct(EntityManager $em, $host, $port, $index)
+    {
         $this->em = $em;
         $this->host = $host;
         $this->port = $port;
@@ -43,7 +45,8 @@ class Sphinx implements SearchInterface {
         $this->sphinx->SetMaxQueryTime(3000);
         $this->sphinx->SetLimits(0, 100);
         $this->sphinx->SetMatchMode(SPH_MATCH_ALL);
-        $this->sphinx->SetSortMode(SPH_SORT_RELEVANCE);
+        $this->sphinx->SetSortMode(SPH_SORT_EXPR, " @weight * 1000 + published_at "
+        );
         $this->sphinx->SetFieldWeights(array(
             'name' => 5,
             'intro' => 1,
@@ -51,7 +54,8 @@ class Sphinx implements SearchInterface {
         ));
     }
 
-    public function search($query) {
+    public function search($query)
+    {
         $ids = array();
         $query = $this->sphinx->escapeString($query);
         $result = $this->sphinx->Query($query, $this->index);
