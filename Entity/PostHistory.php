@@ -58,7 +58,7 @@ class PostHistory
      * @var Post
      * 
      * @ORM\ManyToOne(targetEntity="Post", cascade={"remove"})
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $post;
 
