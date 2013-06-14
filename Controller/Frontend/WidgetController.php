@@ -19,12 +19,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 
-class WidgetController extends Controller {
+class WidgetController extends Controller
+{
 
     /**
      * @Template()
      */
-    public function latestCommentAction() {
+    public function latestCommentAction()
+    {
         return array(
             'comments' =>
                     $this->getDoctrine()->getManager()
@@ -35,18 +37,20 @@ class WidgetController extends Controller {
     /**
      * @Template()
      */
-    public function latestCommentRelatedAction(Post $post) {
+    public function latestCommentRelatedAction(Post $post, $items = 3)
+    {
         return array(
             'comments' =>
                     $this->getDoctrine()->getManager()
-                    ->getRepository('BlogBundle:Comment')->getLatestRelated($post, 4)
+                    ->getRepository('BlogBundle:Comment')->getLatestRelated($post, $items)
         );
     }
 
     /**
      * @Template()
      */
-    public function latestPostAction() {
+    public function latestPostAction()
+    {
         return array(
             'posts' =>
                     $this->getDoctrine()->getManager()
@@ -57,7 +61,8 @@ class WidgetController extends Controller {
     /**
      * @Template()
      */
-    public function latestPostRelatedAction(Post $post) {
+    public function latestPostRelatedAction(Post $post)
+    {
         return array(
             'posts' =>
                     $this->getDoctrine()->getManager()
@@ -68,7 +73,8 @@ class WidgetController extends Controller {
     /**
      * @Template()
      */
-    public function tagsAction() {
+    public function tagsAction()
+    {
         return array(
             'tags' =>
                     $this->getDoctrine()->getManager()
@@ -79,11 +85,24 @@ class WidgetController extends Controller {
     /**
      * @Template()
      */
-    public function linksAction() {
+    public function linksAction()
+    {
         return array(
             'links' =>
                     $this->getDoctrine()->getManager()
                     ->getRepository('BlogBundle:Link')->getActiveOrdered()
+        );
+    }
+
+    /**
+     * @Template()
+     */
+    public function postViewRelatedAction($post, $items = 3)
+    {
+        return array(
+            'posts' =>
+                    $this->getDoctrine()->getManager()
+                    ->getRepository('BlogBundle:Post')->getLatestRelated($post, $items)
         );
     }
 

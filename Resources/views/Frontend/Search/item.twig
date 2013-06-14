@@ -1,9 +1,0 @@
-<article class="post">
-    <header>
-        <h2><a href="{{ url('_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a></h2>            
-    </header>
-    {{ post.intro | raw }} 
-    <small>
-        Publicado el <time datetime="{{ post.publishedAt | date('c') }}">{{ post.publishedAt | localeDate('full') }}</time>.
-    </small>
-</article>

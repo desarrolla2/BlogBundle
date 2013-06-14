@@ -11,7 +11,9 @@
         {% for item in items %}
             <li>
                 <a href="{{ url('_view', { 'slug' : item.slug }) }}" title="{{ item }}">{{ item }}</a>, 
+                {{ item.intro | striptags | raw | truncate(160) }} [..]
                 el <time datetime="{{ item.publishedAt | date('c') }}">{{ item.publishedAt | localeDate('full') }}</time>.
+                
             </li>          
         {% else %}
             <li>No se han encontrado resultados de para la búsqueda</li>

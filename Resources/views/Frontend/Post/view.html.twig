@@ -16,6 +16,7 @@
     {% include 'BlogBundle:Frontend/Post:view.tags.html.twig' with {'tags': post.tags } %}
 </article>        
     {% include 'BlogBundle:Frontend/Post:view.social.html.twig' with {'url': url('_view', { 'slug' : post.slug }) } %}        
+    {% include 'BlogBundle:Frontend/Post:view.related.html.twig' with {'post': post  } %}        
     {% include 'BlogBundle:Frontend/Post:view.botton.html.twig' with {'post': post } %}
     {% include 'BlogBundle:Frontend/Post:view.comment.html.twig' with {'form': form, 'comments': comments } %}    
 {% endblock %}

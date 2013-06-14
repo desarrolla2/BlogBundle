@@ -14,14 +14,16 @@ use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model\CommentModel;
 use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class PostController extends Controller {
+class PostController extends Controller
+{
 
     /**
      * @Route("/{page}", name="_default", requirements={"page" = "\d{1,6}"}, defaults={"page" = "1" })
      * @Method({"GET"})
      * @Template()
      */
-    public function indexAction(Request $request) {
+    public function indexAction(Request $request)
+    {
         $paginator = $this->get('knp_paginator');
         $query = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Post')->getQueryForGet();
@@ -45,7 +47,8 @@ class PostController extends Controller {
      * @Method({"GET"})
      * @Template()
      */
-    public function viewAction(Request $request) {
+    public function viewAction(Request $request)
+    {
         $post = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Post')->getOneBySlug($request->get('slug', false));
         if (!$post) {
@@ -59,10 +62,14 @@ class PostController extends Controller {
 
         $form = $this->createForm(new CommentType(), new CommentModel($this->createCommentForPost($post)));
 
+        $search = $this->get('blog.search');
+        $related = $search->related($post->getName(), 3);        
+
         return array(
             'post' => $post,
             'comments' => $comments,
             'form' => $form->createView(),
+            'related' => $related,
         );
     }
 
@@ -71,7 +78,8 @@ class PostController extends Controller {
      * @param \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
      * @return \Desarrolla2\Bundle\BlogBundle\Entity\Comment
      */
-    protected function createCommentForPost(Post $post) {
+    protected function createCommentForPost(Post $post)
+    {
         $comment = new Comment();
         $comment->setPost($post);
         return $comment;
@@ -81,7 +89,8 @@ class PostController extends Controller {
      * 
      * @return type
      */
-    protected function getPage() {
+    protected function getPage()
+    {
         $request = $this->getRequest();
         $page = (int) $request->get('page', 1);
         if ($page < 1) {
