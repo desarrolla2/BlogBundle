@@ -1,8 +1,8 @@
 <div class="row-fluid">
-    {% for post in posts %}
+    {% for post in related %}
         <div class="span4">
             {% if post.hasImage %}
-                <img src="{{ post.image }}"
+                <img src="{{ post.image }}" />
             {% endif %}
             <a href="{{ url('_view', { 'slug' : post.slug }) }}">{{ post }}</a>
         </div>

@@ -99,10 +99,10 @@ class WidgetController extends Controller
      */
     public function postViewRelatedAction($post, $items = 3)
     {
+        $search = $this->get('blog.search');
+        $related = $search->related($post->getTagsAsString(), 3);
         return array(
-            'posts' =>
-                    $this->getDoctrine()->getManager()
-                    ->getRepository('BlogBundle:Post')->getLatestRelated($post, $items)
+            'related' => $related,
         );
     }
 

@@ -336,6 +336,19 @@ class Post
     }
 
     /**
+     * 
+     * @return string
+     */
+    public function getTagsAsString()
+    {
+        $tags = '';
+        foreach ($this->tags as $tag) {
+            $tags .= $tag->getName() . ' ';
+        }
+        return trim($tags);
+    }
+
+    /**
      * Add comments
      *
      * @param Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments

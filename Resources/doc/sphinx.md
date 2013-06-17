@@ -12,13 +12,19 @@ source planetubuntu
 	sql_port		= 3306
 
 	sql_query		= \
-		SELECT id AS id, \
-		TO_SECONDS(published_at) AS published_at, \
-		name AS name, \
-		intro AS intro, \
-		content AS content \
-		FROM post \
-		WHERE status = 1 
+                SELECT p.id, \
+                p.id AS id, \
+                p.name AS name, \
+                GROUP_CONCAT(t.name) tags, \
+                p.source AS source, \
+                p.intro AS intro, \
+                p.content AS content, \
+                TO_SECONDS(p.published_at) AS published_at \
+                FROM post p \
+                JOIN post_tag pt ON (p.id = pt.post_id) \
+                JOIN tag t ON (t.id = pt.tag_id) \
+                WHERE status = 1  \
+                GROUP BY id
 
 	sql_attr_uint 		= id
 	sql_attr_timestamp	= published_at

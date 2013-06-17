@@ -52,6 +52,8 @@ class Sphinx implements SearchInterface
         $this->sphinx->SetMaxQueryTime(3000);
         $this->sphinx->SetFieldWeights(array(
             'name' => 3,
+            'tags' => 2,
+            'source' => 1,
             'intro' => 1,
             'content' => 1
         ));
@@ -132,7 +134,7 @@ class Sphinx implements SearchInterface
      */
     protected function configureRelated()
     {
-        $this->sphinx->SetMatchMode(SPH_MATCH_FULLSCAN);
+        $this->sphinx->SetMatchMode(SPH_MATCH_ANY);
     }
 
 }

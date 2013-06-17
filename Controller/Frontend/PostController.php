@@ -61,15 +61,11 @@ class PostController extends Controller
                         ->getRepository('BlogBundle:Comment')->getForPost($post);
 
         $form = $this->createForm(new CommentType(), new CommentModel($this->createCommentForPost($post)));
-
-        $search = $this->get('blog.search');
-        $related = $search->related($post->getName(), 3);        
-
+               
         return array(
             'post' => $post,
             'comments' => $comments,
             'form' => $form->createView(),
-            'related' => $related,
         );
     }
 
