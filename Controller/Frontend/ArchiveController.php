@@ -49,6 +49,12 @@ class ArchiveController extends Controller
         $results = $query->getResult();
         $items = array();
         foreach ($results as $item) {
+            if(!$item['year']){
+                continue;
+            }
+            if(!$item['month']){
+                continue;
+            }
             array_push($items, array(
                 'n' => $item['n'],
                 'date' => new \DateTime($item['year'] . '-' . $item['month'] . '-01')
