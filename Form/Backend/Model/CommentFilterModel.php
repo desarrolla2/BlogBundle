@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the desarrolla2 proyect.
- * 
+ * This file is part of the desarrolla2 project.
+ *
  * Description of PostModel
  *
  */
@@ -17,8 +17,7 @@ class CommentFilterModel
 
     /**
      * @var string $text
-     * @Assert\MinLength( limit=3 )
-     * @Assert\MaxLength( limit=50 )
+     * @Assert\Length( min=3, max=50 )
      *
      */
     public $text;
@@ -31,8 +30,7 @@ class CommentFilterModel
 
     public function __construct(Request $request)
     {
-        $this->text = (string) $request->get('text', '');
-        $this->status = (string) $request->get('choices', '');
+        $this->text = (string)$request->get('text', '');
+        $this->status = (string)$request->get('choices', '');
     }
-
 }

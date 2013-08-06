@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the desarrolla2 proyect.
+ * This file is part of the desarrolla2 project.
  * 
  * Description of TagModel
  *
@@ -18,9 +18,7 @@ class TagModel
     /**
      * @var string $name
      * @Assert\NotBlank()
-     * @Assert\MinLength( limit=3 )
-     * @Assert\MaxLength( limit=250 )
-     *
+     * @Assert\Length( min=3, max=250 )
      */
     public $name;
 

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the desarrolla2 proyect.
- * 
+ * This file is part of the desarrolla2 project.
+ *
  * Description of CommentModel
  *
  */
@@ -18,14 +18,14 @@ class CommentModel
     /**
      * @var string $content
      * @Assert\NotBlank()
-     * @Assert\MinLength( limit=5 )
+     * @Assert\Length( min=5 )
      */
     public $content;
 
     /**
      * @var string $userName
      * @Assert\NotBlank()
-     * @Assert\MinLength( limit=3 )
+     * @Assert\Length( min=3 )
      *
      */
     public $userName;
@@ -42,7 +42,7 @@ class CommentModel
     /**
      * @var string $userWeb
      * @Assert\Url()
-     * 
+     *
      */
     public $userWeb;
 
@@ -54,11 +54,10 @@ class CommentModel
 
     public function __construct(Comment $entity)
     {
-        $this->content = (string) $entity->getContent();
-        $this->userName = (string) $entity->getUserName();
-        $this->userEmail = (string) $entity->getUserEmail();
-        $this->userWeb = (string) $entity->getUserWeb();
-        $this->status = (int) $entity->getStatus();
+        $this->content = (string)$entity->getContent();
+        $this->userName = (string)$entity->getUserName();
+        $this->userEmail = (string)$entity->getUserEmail();
+        $this->userWeb = (string)$entity->getUserWeb();
+        $this->status = (int)$entity->getStatus();
     }
-
 }

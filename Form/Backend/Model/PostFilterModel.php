@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the desarrolla2 proyect.
- * 
+ * This file is part of the desarrolla2 project.
+ *
  * Description of PostModel
  *
  */
@@ -17,17 +17,13 @@ class PostFilterModel
 
     /**
      * @var string $name
-     * @Assert\MinLength( limit=3 )
-     * @Assert\MaxLength( limit=50 )
-     *
+     * @Assert\Length( min=3, max=50 )
      */
     public $name;
 
     /**
      * @var string $text
-     * @Assert\MinLength( limit=3 )
-     * @Assert\MaxLength( limit=50 )
-     *
+     * @Assert\Length( min=3, max=60 )
      */
     public $text;
 
@@ -39,9 +35,8 @@ class PostFilterModel
 
     public function __construct(Request $request)
     {
-        $this->name = (string) $request->get('name', '');
-        $this->text = (string) $request->get('text', '');
-        $this->isPublished = (string) $request->get('choices', 'whatever');
+        $this->name = (string)$request->get('name', '');
+        $this->text = (string)$request->get('text', '');
+        $this->isPublished = (string)$request->get('choices', 'whatever');
     }
-
 }

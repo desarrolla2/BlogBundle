@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the planetubuntu proyect.
+ * This file is part of the planetubuntu project.
  * 
  * Copyright (c)
  * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>  
@@ -25,9 +25,7 @@ class LinkModel {
     /**
      * @var string $name
      * @Assert\NotBlank()
-     * @Assert\MinLength( limit=3 )
-     * @Assert\MaxLength( limit=250 )
-     *
+     * @Assert\Length( min=3, max=250 )
      */
     public $name;
 

@@ -1,5 +1,5 @@
 /*
- * This file is part of the desarrolla2 blog proyect.
+ * This file is part of the desarrolla2 blog project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.

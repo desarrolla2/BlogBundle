@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the desarrolla2 proyect.
- * 
+ * This file is part of the desarrolla2 project.
+ *
  * Description of LinkModel
  *
  */
@@ -17,9 +17,7 @@ class LinkFilterModel
 
     /**
      * @var string $name
-     * @Assert\MinLength( limit=3 )
-     * @Assert\MaxLength( limit=50 )
-     *
+     * @Assert\Length( min=3, max=50 )
      */
     public $name;
 
@@ -31,8 +29,7 @@ class LinkFilterModel
 
     public function __construct(Request $request)
     {
-        $this->name = (string) $request->get('name', '');
-        $this->isPublished = (string) $request->get('choices', 'whatever');
+        $this->name = (string)$request->get('name', '');
+        $this->isPublished = (string)$request->get('choices', 'whatever');
     }
-
 }

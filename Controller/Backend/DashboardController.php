@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the desarrolla2 proyect.
+ * This file is part of the desarrolla2 project.
  * 
  * Copyright (c)
  * Daniel González <daniel.gonzalez@freelancemadrid.es> 

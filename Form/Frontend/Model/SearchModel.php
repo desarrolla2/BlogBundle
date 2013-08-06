@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the desarrolla2 proyect.
- * 
+ * This file is part of the desarrolla2 project.
+ *
  * Description of CommentFormClass
  *
  */
@@ -11,30 +11,33 @@ namespace Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class SearchModel {
+class SearchModel
+{
 
     /**
      * @var string $content
      * @Assert\NotBlank()
-     * @Assert\MinLength( limit=3 )
-     * @Assert\MaxLength( limit=100 )
+     * @Assert\Length( min=3, max=100 )
      */
     public $q;
 
-    public function getQuery() {
+    public function getQuery()
+    {
         return $this->q;
     }
 
-    public function setQuery($query) {
+    public function setQuery($query)
+    {
         $this->q = $query;
     }
 
-    public function getQ() {
+    public function getQ()
+    {
         return $this->q;
     }
 
-    public function setQ($q) {
+    public function setQ($q)
+    {
         $this->q = $q;
     }
-
 }

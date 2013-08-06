@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the planetubuntu proyect.
+ * This file is part of the planetubuntu project.
  * 
  * Copyright (c)
  * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>  
