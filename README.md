@@ -1,7 +1,7 @@
 # BlogBundle
 
 This is the most complete bundle you can find to start creating your blog, 
-actualy this blogBundle is running on Symfony2.2
+actualy this blogBundle is running on Symfony2.3
 
 Some Features include:
 
