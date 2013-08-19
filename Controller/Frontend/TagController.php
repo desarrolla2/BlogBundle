@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the planetubuntu project.
- * 
+ *
  * Copyright (c)
- * Daniel González <daniel.gonzalez@freelancemadrid.es> 
- * 
+ * Daniel González <daniel.gonzalez@freelancemadrid.es>
+ *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
  */
@@ -21,7 +21,7 @@ use Doctrine\ORM\Query\QueryException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * 
+ *
  * Description of TagController
  *
  */
@@ -57,7 +57,6 @@ class TagController extends Controller
             throw $e;
         }
 
-
         return array(
             'page' => $this->getPage(),
             'pagination' => $pagination,
@@ -87,7 +86,7 @@ class TagController extends Controller
     }
 
     /**
-     * 
+     *
      * @return type
      */
     protected function getPage()
@@ -97,6 +96,7 @@ class TagController extends Controller
         if ($page < 1) {
             $this->createNotFoundException('Page number is not valid' . $page);
         }
+
         return $page;
     }
 

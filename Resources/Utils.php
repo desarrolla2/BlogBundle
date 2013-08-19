@@ -7,27 +7,25 @@ class Utils
 
     /**
      * slugify a string
-     * 
-     * @param type $text
-     * @return type 
+     *
+     * @param  type $text
+     * @param  int  $limit
+     * @return type
      */
-    static public function slugify($text, $limit = 100)
+    public static function slugify($text, $limit = 100)
     {
         $limit = (int) $limit;
         $text = preg_replace('#[^\\pL\d]+#u', '-', $text);
         $text = trim($text, '-');
-        if (function_exists('iconv'))
-        {
+        if (function_exists('iconv')) {
             $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
         }
         $text = strtolower($text);
         $text = preg_replace('#[^-\w]+#', '', $text);
-        if (empty($text))
-        {
+        if (empty($text)) {
             return 'n-a';
         }
+
         return substr($text, 0, $limit);
     }
-
 }
-

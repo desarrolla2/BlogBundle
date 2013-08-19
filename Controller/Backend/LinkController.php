@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the planetubuntu project.
- * 
+ *
  * Copyright (c)
- * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>  
- * 
+ * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>
+ *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
  */
@@ -25,19 +25,20 @@ use Desarrolla2\Bundle\BlogBundle\Form\Backend\Handler\LinkFilterHandler;
 use Desarrolla2\Bundle\BlogBundle\Form\Backend\Handler\LinkHandler;
 
 /**
- * 
+ *
  * Description of LinkController
  *
  */
-class LinkController extends Controller {
-
+class LinkController extends Controller
+{
     /**
      * Lists all Link entities.
      *
      * @Route("/link", name="link")
      * @Template()
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $paginator = $this->get('knp_paginator');
         $request = $this->getRequest();
         $session = $request->getSession();
@@ -85,8 +86,10 @@ class LinkController extends Controller {
      * @Route("/new", name="link_new")
      * @Template()
      */
-    public function newAction() {
+    public function newAction()
+    {
         $form = $this->createForm(new LinkType(), new LinkModel(new Link()));
+
         return array(
             'form' => $form->createView(),
         );
@@ -99,7 +102,8 @@ class LinkController extends Controller {
      * @Method("POST")
      * @Template("BlogBundle:Backend/Link:new.html.twig")
      */
-    public function createAction() {
+    public function createAction()
+    {
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
 
@@ -120,7 +124,8 @@ class LinkController extends Controller {
      * @Route("/{id}/edit", name="link_edit")
      * @Template()
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BlogBundle:Link')->find($id);
         if (!$entity) {
@@ -143,7 +148,8 @@ class LinkController extends Controller {
      * @Method("POST")
      * @Template("BlogBundle:Backend/Link:edit.html.twig")
      */
-    public function updateAction($id) {
+    public function updateAction($id)
+    {
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BlogBundle:Link')->find($id);
@@ -170,7 +176,8 @@ class LinkController extends Controller {
      * @Route("/{id}/delete", name="link_delete")
      * @Method("POST")
      */
-    public function deleteAction($id) {
+    public function deleteAction($id)
+    {
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
@@ -191,7 +198,8 @@ class LinkController extends Controller {
         return $this->redirect($this->generateUrl('link'));
     }
 
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder(array('id' => $id))
                         ->add('id', 'hidden')
                         ->getForm()
@@ -203,7 +211,8 @@ class LinkController extends Controller {
      *
      * @Route("/{id}/publish", name="link_publish")
      */
-    public function publishAction($id) {
+    public function publishAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BlogBundle:Link')->find($id);
         if (!$entity) {
@@ -212,6 +221,7 @@ class LinkController extends Controller {
         $entity->setIsPublished(true);
         $em->persist($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('link'));
     }
 
@@ -220,7 +230,8 @@ class LinkController extends Controller {
      *
      * @Route("/{id}/unpublish", name="link_unpublish")
      */
-    public function unPublishAction($id) {
+    public function unPublishAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BlogBundle:Link')->find($id);
         if (!$entity) {
@@ -229,21 +240,24 @@ class LinkController extends Controller {
         $entity->setIsPublished(false);
         $em->persist($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('link'));
     }
 
     /**
-     * 
+     *
      * @Route("/{id}/preview" , name="link_preview")
      * @Method({"GET"})
      * @Template()
      */
-    public function viewAction($id) {
+    public function viewAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BlogBundle:Link')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Link entity.');
         }
+
         return array(
             'link' => $entity,
         );

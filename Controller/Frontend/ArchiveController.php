@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the desarrolla2 project.
- * 
+ *
  * Copyright (c)
- * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>  
- * 
+ * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>
+ *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
  */
@@ -20,7 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * 
+ *
  * Description of ArchiveController
  *
  * @Route("/archive")
@@ -49,10 +49,10 @@ class ArchiveController extends Controller
         $results = $query->getResult();
         $items = array();
         foreach ($results as $item) {
-            if(!$item['year']){
+            if (!$item['year']) {
                 continue;
             }
-            if(!$item['month']){
+            if (!$item['month']) {
                 continue;
             }
             array_push($items, array(
@@ -60,6 +60,7 @@ class ArchiveController extends Controller
                 'date' => new \DateTime($item['year'] . '-' . $item['month'] . '-01')
             ));
         }
+
         return array(
             'items' => $items,
             'title' => $this->container->getParameter('blog.archive.title'),
@@ -95,6 +96,7 @@ class ArchiveController extends Controller
         $pagination = $paginator->paginate(
                 $query, $this->getPage(), $this->container->getParameter('blog.items')
         );
+
         return array(
             'pagination' => $pagination,
             'title' => $this->container->getParameter('blog.archive.title'),
@@ -109,6 +111,7 @@ class ArchiveController extends Controller
         if ($page < 1) {
             $this->createNotFoundException('Page number is not valid' . $page);
         }
+
         return $page;
     }
 

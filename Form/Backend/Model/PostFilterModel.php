@@ -35,8 +35,8 @@ class PostFilterModel
 
     public function __construct(Request $request)
     {
-        $this->name = (string)$request->get('name', '');
-        $this->text = (string)$request->get('text', '');
-        $this->isPublished = (string)$request->get('choices', 'whatever');
+        $this->name = (string) $request->get('name', '');
+        $this->text = (string) $request->get('text', '');
+        $this->isPublished = (string) $request->get('choices', 'whatever');
     }
 }

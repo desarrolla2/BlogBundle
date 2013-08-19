@@ -10,14 +10,14 @@
         <generator>BlogBundle</generator>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <ttl>{{ ttl }}</ttl>
-        {% for item in items %}        
+        {% for item in items %}
         <item>
-            <title>{{ item.name }}</title>            
+            <title>{{ item.name }}</title>
             {% if item.hasSource %}
                 <link>{{ item.source }}</link>
             {% else %}
                 <link>{{ url('_view', { 'slug' : item.slug }) }}</link>
-            {% endif %}            
+            {% endif %}
             <description>
                 <![CDATA[
                 {{ item.content | raw }}

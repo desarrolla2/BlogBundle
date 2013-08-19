@@ -162,7 +162,7 @@ class CommentController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->getRepository('BlogBundle:Comment')->delete($id);           
+            $em->getRepository('BlogBundle:Comment')->delete($id);
         }
 
         return $this->redirect($this->generateUrl('comment'));
@@ -191,6 +191,7 @@ class CommentController extends Controller
         $entity->setStatus(1);
         $em->persist($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('comment'));
     }
 
@@ -209,6 +210,7 @@ class CommentController extends Controller
         $entity->setStatus(2);
         $em->persist($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('comment'));
     }
 

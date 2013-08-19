@@ -11,9 +11,9 @@
             </div>
             <div class="span10 comment_content">
             {{ comment | raw }}
-            <small>{{ comment.userName }}, el <time datetime="{{ comment.createdAt|date('c') }}">{{ comment.createdAt|localeDate('full') }}</time></small> 
-            </div>            
-        </div>                
+            <small>{{ comment.userName }}, el <time datetime="{{ comment.createdAt|date('c') }}">{{ comment.createdAt|localeDate('full') }}</time></small>
+            </div>
+        </div>
     </article>
     {% else %}
     <p>No hay comentarios, sé el primero!  ... </p>

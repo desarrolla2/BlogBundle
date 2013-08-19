@@ -24,17 +24,19 @@ class Configuration implements ConfigurationInterface
                 ->children()
                     ->scalarNode('title')->defaultValue('my blog title')->end()
                     ->scalarNode('description')->defaultValue('my blog description')->end()
-                    ->scalarNode('items')->defaultValue(12)->end()                             
+                    ->scalarNode('items')->defaultValue(12)->end()
                 ->end();
 
         $this->addSiteMapSection($rootNode);
         $this->addRSSSection($rootNode);
         $this->addArchiveSection($rootNode);
         $this->addSearchSection($rootNode);
+
         return $treeBuilder;
     }
-    
-        private function addSearchSection(ArrayNodeDefinition $node){
+
+        private function addSearchSection(ArrayNodeDefinition $node)
+        {
         $node
                 ->children()
                     ->arrayNode('search')
@@ -42,29 +44,31 @@ class Configuration implements ConfigurationInterface
                         ->children()
                             ->arrayNode('sphinx')
                                 ->children()
-                                    ->scalarNode('host')->defaultValue('localhost')->end()             
+                                    ->scalarNode('host')->defaultValue('localhost')->end()
                                     ->scalarNode('port')->defaultValue(9312)->end()
                                     ->scalarNode('index')->defaultValue('planetubuntu_idx')->end()
-                                ->end()    
-                            ->end()    
+                                ->end()
+                            ->end()
                         ->end()
-                    ->end()             
+                    ->end()
                 ->end();
     }
-    
-    private function addSiteMapSection(ArrayNodeDefinition $node){
+
+    private function addSiteMapSection(ArrayNodeDefinition $node)
+    {
         $node
                 ->children()
                     ->arrayNode('sitemap')
                         ->addDefaultsIfNotSet()
                         ->children()
-                            ->scalarNode('items')->defaultValue(50)->end()             
+                            ->scalarNode('items')->defaultValue(50)->end()
                         ->end()
-                    ->end()             
+                    ->end()
                 ->end();
     }
-    
-    private function addRSSSection(ArrayNodeDefinition $node){
+
+    private function addRSSSection(ArrayNodeDefinition $node)
+    {
         $node
                 ->children()
                     ->arrayNode('rss')
@@ -72,26 +76,26 @@ class Configuration implements ConfigurationInterface
                         ->children()
                             ->scalarNode('title')->defaultValue('RSS')->end()
                             ->scalarNode('description')->defaultValue('')->end()
-                            ->scalarNode('language')->defaultValue('en')->end()                
-                            ->scalarNode('items')->defaultValue(16)->end()             
-                            ->scalarNode('ttl')->defaultValue(60)->end()             
+                            ->scalarNode('language')->defaultValue('en')->end()
+                            ->scalarNode('items')->defaultValue(16)->end()
+                            ->scalarNode('ttl')->defaultValue(60)->end()
                         ->end()
                     ->end()
                 ->end();
     }
-    
-    
-    private function addArchiveSection(ArrayNodeDefinition $node){
+
+    private function addArchiveSection(ArrayNodeDefinition $node)
+    {
         $node
                 ->children()
                     ->arrayNode('archive')
                         ->addDefaultsIfNotSet()
                         ->children()
                             ->scalarNode('title')->defaultValue('Blog Archive')->end()
-                            ->scalarNode('description')->defaultValue('my archive description')->end()             
+                            ->scalarNode('description')->defaultValue('my archive description')->end()
                         ->end()
                     ->end()
                 ->end();
     }
-    
+
 }

@@ -12,18 +12,19 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class BlogExtension extends Extension {
-
+class BlogExtension extends Extension
+{
     /**
      * {@inheritDoc}
      */
-    public function load(array $configs, ContainerBuilder $container) {
+    public function load(array $configs, ContainerBuilder $container)
+    {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
         foreach ($config as $key => $value) {
             $this->parseNode($container, 'blog.' . $key, $value);
-        }        
+        }
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('twig.xml');
         $loader->load('sanitizer.xml');
@@ -31,19 +32,23 @@ class BlogExtension extends Extension {
         $loader->load('post.xml');
     }
 
-    protected function parseNode($container, $name, $value) {
+    protected function parseNode($container, $name, $value)
+    {
         if (is_string($value)) {
             $container->setParameter($name, $value);
+
             return;
         }
         if (is_integer($value)) {
             $container->setParameter($name, $value);
+
             return;
         }
         if (is_array($value)) {
             foreach ($value as $newKey => $newValue) {
                 $this->parseNode($container, $name . '.' . $newKey, $newValue);
             }
+
             return;
         }
         throw new \Exception(gettype($value) . ' not support');

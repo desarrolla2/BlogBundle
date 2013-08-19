@@ -12,14 +12,14 @@ use Desarrolla2\Bundle\BlogBundle\Entity\Link;
 use Desarrolla2\DB\DB;
 use Desarrolla2\DB\Adapter\MySQL;
 
-class ImportFromWordPressCommand extends ContainerAwareCommand {
-
+class ImportFromWordPressCommand extends ContainerAwareCommand
+{
     protected $output;
     protected $input;
     protected $db;
     protected $source;
     protected $em;
-    
+
     private $n_links = 0;
     private $n_posts = 0;
     private $n_comments = 0;
@@ -28,7 +28,8 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
      * @access protected
      * @return void
      */
-    protected function configure() {
+    protected function configure()
+    {
         $this
                 ->setName('blog:import:from-wordpress')
                 ->setDescription('Import Post and Comments from wordpress')
@@ -40,11 +41,12 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
     }
 
     /**
-     * 
-     * @param \Symfony\Component\Console\Input\InputInterface $input
+     *
+     * @param \Symfony\Component\Console\Input\InputInterface   $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    protected function initialize(InputInterface $input, OutputInterface $output) {
+    protected function initialize(InputInterface $input, OutputInterface $output)
+    {
         parent::initialize($input, $output);
         $this->input = $input;
         $this->output = $output;
@@ -65,16 +67,18 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
      * @param InputInterface  $input  Inpunt arguments
      * @param OutputInterface $output Output stream
      */
-    protected function execute(InputInterface $input, OutputInterface $output) {        
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $this->cleanDatabase();
         //$this->migrateLinks();
-        $this->migratePosts();        
+        $this->migratePosts();
         $output->writeln('Link <info>' . $this->n_links . '</info>');
         $output->writeln('Post <info>' . $this->n_posts . '</info>');
         $output->writeln('Comments <info>' . $this->n_comments . '</info>');
     }
 
-    protected function migrateLinks() {        
+    protected function migrateLinks()
+    {
         $links = $this->getWPLinks();
         foreach ($links as $l) {
             $link = $this->createEntityLink($l);
@@ -85,7 +89,8 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
         }
     }
 
-    protected function migratePosts() {        
+    protected function migratePosts()
+    {
         $ids = $this->getWPpostIds();
         foreach ($ids as $id) {
             $p = $this->getWPpost($id);
@@ -105,7 +110,8 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
         }
     }
 
-    protected function cleanDatabase() {
+    protected function cleanDatabase()
+    {
         $entities = array('Comment', 'Post', 'Link');
         $entities = array('Comment', 'Post');
         foreach ($entities as $entity) {
@@ -114,14 +120,17 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
         }
     }
 
-    protected function cleanEncode($item) {
+    protected function cleanEncode($item)
+    {
         foreach ($item as $key => $value) {
             $item->$key = utf8_encode($value);
         }
+
         return $item;
     }
 
-    protected function createEntityComment($c) {
+    protected function createEntityComment($c)
+    {
         $c = $this->cleanEncode($c);
         $comment = new Comment();
         $comment->setUserName($c->comment_author);
@@ -130,10 +139,12 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
         $comment->setContent($c->comment_content);
         $comment->setCreatedAt(new \DateTime($c->comment_date));
         $comment->setStatus(1);
+
         return $comment;
     }
 
-    protected function createEntityPost($p) {
+    protected function createEntityPost($p)
+    {
         $c = $this->cleanEncode($p);
         $post = new Post();
         $post->setName($p->post_title);
@@ -143,10 +154,12 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
         $post->setUpdatedAt(new \DateTime($p->post_modified));
         $post->setPublishedAt(new \DateTime($p->post_date));
         $post->setIsPublished(true);
+
         return $post;
     }
 
-    protected function createEntityLink($l) {
+    protected function createEntityLink($l)
+    {
         $link = new Link();
         $link->setName($l->link_name);
         $link->setRss($l->link_rss);
@@ -155,13 +168,15 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
         if ($l->link_visible == 'Y') {
             $link->setIsPublished(true);
         }
+
         return $link;
     }
 
-    protected function getWPLinks() {
+    protected function getWPLinks()
+    {
         $sql = ' SELECT ' .
                 ' DISTINCT(link_url) AS link_url, ' .
-                ' link_id AS id, ' .                
+                ' link_id AS id, ' .
                 ' link_name AS link_name,  ' .
                 ' link_description AS link_description,' .
                 ' link_visible AS link_visible, ' .
@@ -171,7 +186,8 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
         return $this->db->fetch_objects($sql);
     }
 
-    protected function getWPComments($p) {
+    protected function getWPComments($p)
+    {
         $sql = ' SELECT ' .
                 ' comment_author AS comment_author, ' .
                 ' comment_author_email AS comment_author_email,  ' .
@@ -185,7 +201,8 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
         return $this->db->fetch_objects($sql);
     }
 
-    protected function getWPpostIds() {
+    protected function getWPpostIds()
+    {
         $sql = ' SELECT ' .
                 ' ID AS id ' .
                 'FROM wp_posts ' .
@@ -196,7 +213,8 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
         return $this->db->fetch_objects($sql);
     }
 
-    protected function getWPpost($id) {
+    protected function getWPpost($id)
+    {
         $sql = ' SELECT ' .
                 ' ID AS id, ' .
                 ' post_title AS post_title, ' .
@@ -207,6 +225,7 @@ class ImportFromWordPressCommand extends ContainerAwareCommand {
                 ' post_status AS status ' .
                 ' FROM wp_posts ' .
                 ' WHERE id = ' . $id->id;
+
         return $this->db->fetch_object($sql);
     }
 

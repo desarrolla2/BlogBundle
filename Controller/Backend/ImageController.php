@@ -19,15 +19,16 @@ use \Desarrolla2\Bundle\BlogBundle\Form\Backend\Handler\ImageFilterHandler;
  *
  * @Route("/image")
  */
-class ImageController extends Controller {
-
+class ImageController extends Controller
+{
     /**
      * Lists all Image entities.
      *
      * @Route("/", name="image")
      * @Template()
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $paginator = $this->get('knp_paginator');
         $request = $this->getRequest();
         $session = $request->getSession();
@@ -75,8 +76,10 @@ class ImageController extends Controller {
      * @Route("/new", name="image_new")
      * @Template()
      */
-    public function newAction() {
+    public function newAction()
+    {
         $form = $this->createForm(new ImageType(), new ImageModel(new Image()));
+
         return array(
             'form' => $form->createView(),
         );
@@ -89,7 +92,8 @@ class ImageController extends Controller {
      * @Method("POST")
      * @Template("BlogBundle:Backend/Image:new.html.twig")
      */
-    public function createAction() {
+    public function createAction()
+    {
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
 
@@ -111,7 +115,8 @@ class ImageController extends Controller {
      * @Route("/{id}/delete", name="image_delete")
      * @Method("POST")
      */
-    public function deleteAction($id) {
+    public function deleteAction($id)
+    {
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
@@ -132,7 +137,8 @@ class ImageController extends Controller {
         return $this->redirect($this->generateUrl('image'));
     }
 
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder(array('id' => $id))
                         ->add('id', 'hidden')
                         ->getForm()

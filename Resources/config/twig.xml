@@ -4,7 +4,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="blog.twig.extension.class">Desarrolla2\Bundle\BlogBundle\Twig\TwigExtension</parameter>        
+        <parameter key="blog.twig.extension.class">Desarrolla2\Bundle\BlogBundle\Twig\TwigExtension</parameter>
     </parameters>
 
     <services>
@@ -12,5 +12,5 @@
             <argument>%locale%</argument>
             <tag name="twig.extension" />
         </service>
-    </services>    
+    </services>
 </container>

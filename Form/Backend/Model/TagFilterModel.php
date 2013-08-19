@@ -22,9 +22,8 @@ class TagFilterModel
      */
     public $name;
 
-
     public function __construct(Request $request)
     {
-        $this->name = (string)$request->get('name', '');
+        $this->name = (string) $request->get('name', '');
     }
 }

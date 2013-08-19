@@ -2,12 +2,11 @@
 
 {% block content %}
 <form class="well" action="{{ url('link_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
-    {% include 'BlogBundle:Backend/Link:edit.form.html.twig' with {'form': form } %}  
+    {% include 'BlogBundle:Backend/Link:edit.form.html.twig' with {'form': form } %}
 </form>
 <form action="{{ url('link_delete', { 'id': entity.id }) }}" method="post">
     {{ form_widget(delete_form) }}
     <button data-toggle="modal" href="#confirm-delete" class="btn btn-danger">Delete</button>
-    {% include 'BlogBundle:Backend/Modal:confirm-delete.html.twig' %}  
+    {% include 'BlogBundle:Backend/Modal:confirm-delete.html.twig' %}
 </form>
 {% endblock %}
-

@@ -128,7 +128,7 @@ class Link
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return Link
      */
     public function setName($name)
@@ -151,7 +151,7 @@ class Link
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime $createdAt
      * @return Link
      */
     public function setCreatedAt($createdAt)
@@ -174,7 +174,7 @@ class Link
     /**
      * Set isPublished
      *
-     * @param boolean $isPublished
+     * @param  boolean $isPublished
      * @return Link
      */
     public function setIsPublished($isPublished)
@@ -197,7 +197,7 @@ class Link
     /**
      * Set updatedAt
      *
-     * @param \DateTime $updatedAt
+     * @param  \DateTime $updatedAt
      * @return Link
      */
     public function setUpdatedAt($updatedAt)
@@ -220,7 +220,7 @@ class Link
     /**
      * Set url
      *
-     * @param string $url
+     * @param  string $url
      * @return Link
      */
     public function setUrl($url)
@@ -243,7 +243,7 @@ class Link
     /**
      * Set rss
      *
-     * @param string $rss
+     * @param  string $rss
      * @return Link
      */
     public function setRss($rss)
@@ -269,7 +269,7 @@ class Link
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string $description
      * @return Link
      */
     public function setDescription($description)

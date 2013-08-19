@@ -11,8 +11,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="image")
  * @ORM\Entity(repositoryClass="Desarrolla2\Bundle\BlogBundle\Entity\Repository\ImageRepository")
  */
-class Image {
-
+class Image
+{
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -44,19 +44,21 @@ class Image {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set file
      *
-     * @param string $file
+     * @param  string $file
      * @return Image
      */
-    public function setFile($file) {
+    public function setFile($file)
+    {
         $this->file = $file;
 
         return $this;
@@ -65,30 +67,30 @@ class Image {
     /**
      * Get file
      *
-     * @return string 
+     * @return string
      */
-    public function getFile() {
+    public function getFile()
+    {
         return $this->file;
     }
-
 
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime $createdAt
      * @return Image
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -98,20 +100,20 @@ class Image {
     /**
      * Set updatedAt
      *
-     * @param \DateTime $updatedAt
+     * @param  \DateTime $updatedAt
      * @return Image
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-    
+
         return $this;
     }
 
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {

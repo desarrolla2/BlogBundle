@@ -11,8 +11,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="author")
  * @ORM\Entity(repositoryClass="Desarrolla2\Bundle\BlogBundle\Entity\Repository\AuthorRepository")
  */
-class Author {
-
+class Author
+{
     /**
      * @var integer $id
      *
@@ -45,9 +45,9 @@ class Author {
     private $slug;
 
     /**
-     * 
+     *
      * @var \Doctrine\Common\Collections\Collection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="Post", mappedBy="author")
      */
     private $posts;
@@ -71,30 +71,34 @@ class Author {
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getName();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return Author
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -103,19 +107,21 @@ class Author {
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
      * Set created_at
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime $createdAt
      * @return Author
      */
-    public function setCreatedAt($createdAt) {
+    public function setCreatedAt($createdAt)
+    {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -124,19 +130,21 @@ class Author {
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
     /**
      * Set updated_at
      *
-     * @param \DateTime $updatedAt
+     * @param  \DateTime $updatedAt
      * @return Author
      */
-    public function setUpdatedAt($updatedAt) {
+    public function setUpdatedAt($updatedAt)
+    {
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -145,19 +153,21 @@ class Author {
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getUpdatedAt() {
+    public function getUpdatedAt()
+    {
         return $this->updatedAt;
     }
 
     /**
      * Add posts
      *
-     * @param Desarrolla2\Bundle\BlogBundle\Entity\Post $posts
+     * @param  Desarrolla2\Bundle\BlogBundle\Entity\Post $posts
      * @return Author
      */
-    public function addPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $posts) {
+    public function addPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $posts)
+    {
         $this->posts[] = $posts;
 
         return $this;
@@ -168,26 +178,29 @@ class Author {
      *
      * @param Desarrolla2\Bundle\BlogBundle\Entity\Post $posts
      */
-    public function removePost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $posts) {
+    public function removePost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $posts)
+    {
         $this->posts->removeElement($posts);
     }
 
     /**
      * Get posts
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
-    public function getPosts() {
+    public function getPosts()
+    {
         return $this->posts;
     }
 
     /**
      * Set slug
      *
-     * @param string $slug
+     * @param  string $slug
      * @return Author
      */
-    public function setSlug($slug) {
+    public function setSlug($slug)
+    {
         $this->slug = $slug;
 
         return $this;
@@ -196,17 +209,20 @@ class Author {
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
-    public function getSlug() {
+    public function getSlug()
+    {
         return $this->slug;
     }
 
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
     }
 

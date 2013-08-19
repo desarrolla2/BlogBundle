@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the desarrolla2 project.
- * 
+ *
  * Description of CommentHandler
  *
- * @author : Daniel González <daniel.gonzalez@freelancemadrid.es> 
+ * @author : Daniel González <daniel.gonzalez@freelancemadrid.es>
  * @date : Aug 20, 2012 , 7:38:25 PM
  */
 
@@ -17,15 +17,15 @@ use Desarrolla2\Bundle\BlogBundle\Entity\Comment;
 use Doctrine\ORM\EntityManager;
 use Desarrolla2\RSSClient\Handler\Sanitizer\SanitizerHandler;
 
-class CommentHandler {
-
+class CommentHandler
+{
     /**
-     * @var  \Symfony\Component\Form\Form 
+     * @var  \Symfony\Component\Form\Form
      */
     protected $form;
 
     /**
-     * @var \Symfony\Component\HttpFoundation\Request 
+     * @var \Symfony\Component\HttpFoundation\Request
      */
     protected $request;
 
@@ -46,13 +46,14 @@ class CommentHandler {
     protected $sanitizer;
 
     /**
-     * 
-     * @param \Symfony\Component\Form\Form $form
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Comment $comment
+     *
+     * @param \Symfony\Component\Form\Form                              $form
+     * @param \Symfony\Component\HttpFoundation\Request                 $request
+     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Comment             $comment
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      */
-    public function __construct(Form $form, Request $request, Comment $comment, EntityManager $em, SanitizerHandler $sanitizer) {
+    public function __construct(Form $form, Request $request, Comment $comment, EntityManager $em, SanitizerHandler $sanitizer)
+    {
         $this->form = $form;
         $this->request = $request;
         $this->entity = $comment;
@@ -63,7 +64,8 @@ class CommentHandler {
     /**
      * @return boolean
      */
-    public function process() {
+    public function process()
+    {
         $this->form->bind($this->request);
 
         if ($this->form->isValid()) {
@@ -88,8 +90,10 @@ class CommentHandler {
 
             $this->em->persist($this->entity);
             $this->em->flush();
+
             return true;
         }
+
         return false;
     }
 

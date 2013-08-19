@@ -1,9 +1,6 @@
-/* 
-    Document   : textarea
-    Created on : Aug 17, 2012, 10:16:20 AM
-    Author     : Daniel González Cerviño <daniel.gonzalez@ideup.com>
-    Description:
-        textarea styles
+/*
+    Author     : Daniel González <daniel.gonzalez@freelancemadrid.es>
+    Description: TextArea styles
 */
 
 body {
@@ -11,10 +8,12 @@ body {
     font-weight: 200;
     line-height: 27px;
 }
+
 body, td {
     color: #000000;
     font-family: Verdana,Arial,Helvetica,sans-serif;
 }
+
 pre {    
     font-size: 16px;
     border-radius: 8px; 
@@ -24,6 +23,7 @@ pre {
     padding: 15px;
     margin: 15px auto;
 }
+
 pre code{
     white-space: pre;
     font-size: 16px;

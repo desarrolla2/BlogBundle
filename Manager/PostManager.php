@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the planetubuntu project.
- * 
+ *
  * Copyright (c)
- * Daniel González <daniel.gonzalez@freelancemadrid.es> 
- * 
+ * Daniel González <daniel.gonzalez@freelancemadrid.es>
+ *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
  */
@@ -18,10 +18,10 @@ use Doctrine\ORM\EntityManager;
 use \DateTime;
 
 /**
- * 
+ *
  * Description of PostManager
  *
- * @author : Daniel González <daniel.gonzalez@freelancemadrid.es> 
+ * @author : Daniel González <daniel.gonzalez@freelancemadrid.es>
  * @file : PostManager.php , UTF-8
  * @date : May 19, 2013 , 11:51:36 PM
  */
@@ -30,12 +30,12 @@ class PostManager
 
     /**
      *
-     * @var \Doctrine\ORM\EntityManager; 
+     * @var \Doctrine\ORM\EntityManager;
      */
     protected $em;
 
     /**
-     * 
+     *
      * @param \Doctrine\ORM\EntityManager $em
      */
     public function __construct(EntityManager $em)

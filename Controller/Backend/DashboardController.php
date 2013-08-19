@@ -2,24 +2,22 @@
 
 /**
  * This file is part of the desarrolla2 project.
- * 
+ *
  * Copyright (c)
- * Daniel González <daniel.gonzalez@freelancemadrid.es> 
- * 
+ * Daniel González <daniel.gonzalez@freelancemadrid.es>
+ *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
  */
 
 namespace Desarrolla2\Bundle\BlogBundle\Controller\Backend;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * 
+ *
  * Description of DashboardController
  *
  */
@@ -54,8 +52,9 @@ class DashboardController extends Controller
             'comment_approved_number' => $commentRepository->countApproved(),
         );
     }
-    
-    public function unrelatedAction(){
+
+    public function unrelatedAction()
+    {
         return array(
             'items' => $this->getDoctrine()->getRepository('PlanetBundle:Unrelated')->getPost(),
         );

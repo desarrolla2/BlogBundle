@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the desarrolla2 project.
- * 
+ *
  * Copyright (c)
- * dgonzalez 
- * 
+ * dgonzalez
+ *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
  */
@@ -18,22 +18,22 @@ use Desarrolla2\Bundle\BlogBundle\Entity\Image;
 use Doctrine\ORM\EntityManager;
 
 /**
- * 
+ *
  * Description of ImageHandler
  *
- * @author : dgonzalez 
+ * @author : dgonzalez
  * @file : ImageHandler.php , UTF-8
  * @date : Feb 25, 2013 , 1:52:40 PM
  */
-class ImageHandler {
-
+class ImageHandler
+{
     /**
-     * @var  \Symfony\Component\Form\Form 
+     * @var  \Symfony\Component\Form\Form
      */
     protected $form;
 
     /**
-     * @var \Symfony\Component\HttpFoundation\Request 
+     * @var \Symfony\Component\HttpFoundation\Request
      */
     protected $request;
 
@@ -53,14 +53,15 @@ class ImageHandler {
     protected $uploadPath;
 
     /**
-     * 
-     * @param \Symfony\Component\Form\Form $form
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @param \Symfony\Component\Form\Form                $form
+     * @param \Symfony\Component\HttpFoundation\Request   $request
      * @param \Desarrolla2\Bundle\BlogBundle\Entity\Image $entity
-     * @param \Doctrine\ORM\EntityManager $em
-     * @param string $uploadPath
+     * @param \Doctrine\ORM\EntityManager                 $em
+     * @param string                                      $uploadPath
      */
-    public function __construct(Form $form, Request $request, Image $entity, EntityManager $em, $uploadPath) {
+    public function __construct(Form $form, Request $request, Image $entity, EntityManager $em, $uploadPath)
+    {
         $this->form = $form;
         $this->request = $request;
         $this->entity = $entity;
@@ -69,10 +70,11 @@ class ImageHandler {
     }
 
     /**
-     * 
+     *
      * @return boolean
      */
-    public function process() {
+    public function process()
+    {
         $this->form->bind($this->request);
         if ($this->form->isValid()) {
             $entityModel = $this->form->getData();
@@ -82,19 +84,23 @@ class ImageHandler {
             $this->entity->setFile($fileName);
             $this->em->persist($this->entity);
             $this->em->flush();
+
             return true;
         }
+
         return false;
     }
 
     /**
      * @return mixed
      */
-    public function getData() {
+    public function getData()
+    {
         return $this->form->getData();
     }
 
-    protected function getName() {
+    protected function getName()
+    {
         return sha1(time());
     }
 

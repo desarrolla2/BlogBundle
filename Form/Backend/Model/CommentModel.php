@@ -54,10 +54,10 @@ class CommentModel
 
     public function __construct(Comment $entity)
     {
-        $this->content = (string)$entity->getContent();
-        $this->userName = (string)$entity->getUserName();
-        $this->userEmail = (string)$entity->getUserEmail();
-        $this->userWeb = (string)$entity->getUserWeb();
-        $this->status = (int)$entity->getStatus();
+        $this->content = (string) $entity->getContent();
+        $this->userName = (string) $entity->getUserName();
+        $this->userEmail = (string) $entity->getUserEmail();
+        $this->userWeb = (string) $entity->getUserWeb();
+        $this->status = (int) $entity->getStatus();
     }
 }

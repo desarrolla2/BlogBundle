@@ -14,19 +14,19 @@ use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Handler\CommentHandler;
 
 /**
  * Comment controller.
- *  
+ *
  * @Route("/comment")
  */
-class CommentController extends Controller {
-
+class CommentController extends Controller
+{
     /**
      * Creates a new Comment entity.
      *
      * @Route("/{post_id}", name="_comment_create", requirements={"post_id" = "\d+"}, defaults={"post_id" = "1" })
      * @Template()
      */
-    public function indexAction(Request $request) {
-
+    public function indexAction(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $post = $em->getRepository('BlogBundle:Post')->find($request->get('post_id', false));
         if (!$post) {
@@ -44,7 +44,6 @@ class CommentController extends Controller {
             }
         }
 
-
         return array(
             'form' => $form->createView(),
             'post' => $post,
@@ -57,8 +56,8 @@ class CommentController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function messageAction(Request $request) {
-        
+    public function messageAction(Request $request)
+    {
     }
 
 }

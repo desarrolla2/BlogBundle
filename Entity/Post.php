@@ -76,30 +76,30 @@ class Post
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * 
-     * @ORM\ManyToMany(targetEntity="Tag",inversedBy="tags") 
+     *
+     * @ORM\ManyToMany(targetEntity="Tag",inversedBy="tags")
      * @ORM\JoinTable(name="post_tag")
      */
     private $tags;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * 
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post", cascade={"remove"}) 
+     *
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post", cascade={"remove"})
      */
     private $comments;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * 
-     * @ORM\OneToMany(targetEntity="PostHistory", mappedBy="post", cascade={"remove"}) 
+     *
+     * @ORM\OneToMany(targetEntity="PostHistory", mappedBy="post", cascade={"remove"})
      */
     private $history;
 
     /**
      * @var Author
-     * 
-     * @ORM\ManyToOne(targetEntity="Author") 
+     *
+     * @ORM\ManyToOne(targetEntity="Author")
      */
     private $author;
 
@@ -149,7 +149,7 @@ class Post
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -159,7 +159,7 @@ class Post
     /**
      * Set content
      *
-     * @param string $content
+     * @param  string $content
      * @return Post
      */
     public function setContent($content)
@@ -172,7 +172,7 @@ class Post
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {
@@ -182,7 +182,7 @@ class Post
     /**
      * Set slug
      *
-     * @param string $slug
+     * @param  string $slug
      * @return Post
      */
     protected function setSlug($slug)
@@ -195,7 +195,7 @@ class Post
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -205,7 +205,7 @@ class Post
     /**
      * Set created_at
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime $createdAt
      * @return Post
      */
     public function setCreatedAt($createdAt)
@@ -218,7 +218,7 @@ class Post
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -228,7 +228,7 @@ class Post
     /**
      * Set updated_at
      *
-     * @param \DateTime $updatedAt
+     * @param  \DateTime $updatedAt
      * @return Post
      */
     public function setUpdatedAt($updatedAt)
@@ -241,7 +241,7 @@ class Post
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -251,7 +251,7 @@ class Post
     /**
      * Set author
      *
-     * @param Desarrolla2\Bundle\BlogBundle\Entity\Author $author
+     * @param  Desarrolla2\Bundle\BlogBundle\Entity\Author $author
      * @return Post
      */
     public function setAuthor(\Desarrolla2\Bundle\BlogBundle\Entity\Author $author = null)
@@ -264,7 +264,7 @@ class Post
     /**
      * Get author
      *
-     * @return Desarrolla2\Bundle\BlogBundle\Entity\Author 
+     * @return Desarrolla2\Bundle\BlogBundle\Entity\Author
      */
     public function getAuthor()
     {
@@ -274,7 +274,7 @@ class Post
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return Post
      */
     public function setName($name)
@@ -287,7 +287,7 @@ class Post
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -297,7 +297,7 @@ class Post
     /**
      * Add tags
      *
-     * @param Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags
+     * @param  Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags
      * @return Post
      */
     public function addTag(\Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags)
@@ -328,7 +328,7 @@ class Post
     /**
      * Get tags
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getTags()
     {
@@ -336,7 +336,7 @@ class Post
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getTagsAsString()
@@ -345,13 +345,14 @@ class Post
         foreach ($this->tags as $tag) {
             $tags .= $tag->getName() . ' ';
         }
+
         return trim($tags);
     }
 
     /**
      * Add comments
      *
-     * @param Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments
+     * @param  Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments
      * @return Post
      */
     public function addComment(\Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments)
@@ -374,7 +375,7 @@ class Post
     /**
      * Get comments
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getComments()
     {
@@ -384,7 +385,7 @@ class Post
     /**
      * Set intro
      *
-     * @param string $intro
+     * @param  string $intro
      * @return Post
      */
     public function setIntro($intro)
@@ -397,7 +398,7 @@ class Post
     /**
      * Get intro
      *
-     * @return string 
+     * @return string
      */
     public function getIntro()
     {
@@ -407,7 +408,7 @@ class Post
     /**
      * Set publishedAt
      *
-     * @param \DateTime $publishedAt
+     * @param  \DateTime $publishedAt
      * @return Post
      */
     public function setPublishedAt($publishedAt)
@@ -420,7 +421,7 @@ class Post
     /**
      * Get publishedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getPublishedAt()
     {
@@ -430,7 +431,7 @@ class Post
     /**
      * Add history
      *
-     * @param \Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history
+     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history
      * @return Post
      */
     public function addHistory(\Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history)
@@ -453,7 +454,7 @@ class Post
     /**
      * Get history
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getHistory()
     {
@@ -463,7 +464,7 @@ class Post
     /**
      * Set source
      *
-     * @param string $source
+     * @param  string $source
      * @return Post
      */
     public function setSource($source)
@@ -476,7 +477,7 @@ class Post
     /**
      * Get source
      *
-     * @return string 
+     * @return string
      */
     public function getSource()
     {
@@ -493,7 +494,7 @@ class Post
 
     /**
      * Get Status
-     * 
+     *
      * @return int
      */
     public function getStatus()
@@ -503,8 +504,8 @@ class Post
 
     /**
      * Set Status
-     * 
-     * @param int $status
+     *
+     * @param  int  $status
      * @return Post
      */
     public function setStatus($status)
@@ -516,7 +517,7 @@ class Post
 
     /**
      * Get Image
-     * 
+     *
      * @return string
      */
     public function getImage()
@@ -526,19 +527,20 @@ class Post
 
     /**
      * Set Image
-     * 
-     * @param string $image
+     *
+     * @param  string $image
      * @return Post
      */
     public function setImage($image)
     {
         $this->image = $image;
+
         return $this;
     }
 
     /**
      * Retrieve if is published
-     * 
+     *
      * @return bool
      */
     public function isPublished()
@@ -548,7 +550,7 @@ class Post
 
     /**
      * Retrieve if has image
-     * 
+     *
      * @return bool
      */
     public function hasImage()
@@ -557,4 +559,3 @@ class Post
     }
 
 }
-

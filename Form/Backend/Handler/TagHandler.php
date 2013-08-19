@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the desarrolla2 project.
- * 
+ *
  * Description of TagHandler
  *
- * @author : Daniel González <daniel.gonzalez@freelancemadrid.es> 
+ * @author : Daniel González <daniel.gonzalez@freelancemadrid.es>
  * @file : TagHandler.php , UTF-8
  * @date : Aug 22, 2012 , 5:03:37 PM
  */
@@ -21,12 +21,12 @@ class TagHandler
 {
 
     /**
-     * @var  \Symfony\Component\Form\Form 
+     * @var  \Symfony\Component\Form\Form
      */
     protected $form;
 
     /**
-     * @var \Symfony\Component\HttpFoundation\Request 
+     * @var \Symfony\Component\HttpFoundation\Request
      */
     protected $request;
 
@@ -41,11 +41,11 @@ class TagHandler
     protected $em;
 
     /**
-     * 
-     * @param \Symfony\Component\Form\Form $form
+     *
+     * @param \Symfony\Component\Form\Form              $form
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Desarrolla2\Bundle\BlogBundle\Entity\Tag $entity
-     * @param \Doctrine\ORM\EntityManager $em
+     * @param \Doctrine\ORM\EntityManager               $em
      */
     public function __construct(Form $form, Request $request, Tag $entity, EntityManager $em)
     {
@@ -56,7 +56,7 @@ class TagHandler
     }
 
     /**
-     * 
+     *
      * @return boolean
      */
     public function process()
@@ -69,8 +69,10 @@ class TagHandler
 
             $this->em->persist($this->entity);
             $this->em->flush();
+
             return true;
         }
+
         return false;
     }
 

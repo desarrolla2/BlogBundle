@@ -13,5 +13,5 @@
             <argument type="string">%blog.search.sphinx.port%</argument>
             <argument type="string">%blog.search.sphinx.index%</argument>
         </service>
-    </services>    
+    </services>
 </container>

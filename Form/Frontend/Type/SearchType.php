@@ -6,9 +6,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class SearchType extends AbstractType {
-
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+class SearchType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder
                 ->add('q', 'text', array(
                     'required' => true,
@@ -17,14 +18,16 @@ class SearchType extends AbstractType {
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
         $resolver->setDefaults(array(
             'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model\SearchModel',
             'csrf_protection' => false,
         ));
     }
 
-    public function getName() {
+    public function getName()
+    {
         return '';
     }
 

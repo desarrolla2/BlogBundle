@@ -81,6 +81,7 @@ class TagController extends Controller
     public function newAction()
     {
         $form = $this->createForm(new TagType(), new TagModel(new Tag()));
+
         return array(
             'form' => $form->createView(),
         );

@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the desarrolla2 project.
- * 
+ *
  * Description of PostHandler
  *
- * @author : Daniel González <daniel.gonzalez@freelancemadrid.es> 
+ * @author : Daniel González <daniel.gonzalez@freelancemadrid.es>
  * @file : PostHandler.php , UTF-8
  * @date : Aug 22, 2012 , 5:03:37 PM
  */
@@ -23,12 +23,12 @@ class PostHandler
 {
 
     /**
-     * @var  \Symfony\Component\Form\Form 
+     * @var  \Symfony\Component\Form\Form
      */
     protected $form;
 
     /**
-     * @var \Symfony\Component\HttpFoundation\Request 
+     * @var \Symfony\Component\HttpFoundation\Request
      */
     protected $request;
 
@@ -43,11 +43,11 @@ class PostHandler
     protected $em;
 
     /**
-     * 
-     * @param \Symfony\Component\Form\Form $form
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @param \Symfony\Component\Form\Form               $form
+     * @param \Symfony\Component\HttpFoundation\Request  $request
      * @param \Desarrolla2\Bundle\BlogBundle\Entity\Post $entity
-     * @param \Doctrine\ORM\EntityManager $em
+     * @param \Doctrine\ORM\EntityManager                $em
      */
     public function __construct(Form $form, Request $request, Post $entity, EntityManager $em)
     {
@@ -58,7 +58,7 @@ class PostHandler
     }
 
     /**
-     * 
+     *
      * @return boolean
      */
     public function process()
@@ -82,8 +82,10 @@ class PostHandler
             $this->createHistory();
             $this->updateTags($this->entity->getTags());
             $this->em->flush();
+
             return true;
         }
+
         return false;
     }
 

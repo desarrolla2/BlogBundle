@@ -2,13 +2,13 @@
 
 /*
  * This file is part of the desarrolla2 package.
- * 
- * Short description   
+ *
+ * Short description
  *
  * @author Daniel González <daniel.gonzalez@freelancemadrid.es>
  * @date Aug 9, 2012, 1:40:22 AM
  * @file WidgetsController.php , UTF-8
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -101,6 +101,7 @@ class WidgetController extends Controller
     {
         $search = $this->get('blog.search');
         $related = $search->related($post->getTagsAsString(), 3);
+
         return array(
             'related' => $related,
         );

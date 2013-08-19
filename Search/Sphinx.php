@@ -35,11 +35,11 @@ class Sphinx implements SearchInterface
     private $sphinx;
 
     /**
-     * 
+     *
      * @param \Doctrine\ORM\EntityManager $em
-     * @param string $host
-     * @param string $port
-     * @param string $index
+     * @param string                      $host
+     * @param string                      $port
+     * @param string                      $index
      */
     public function __construct(EntityManager $em, $host, $port, $index)
     {
@@ -63,32 +63,34 @@ class Sphinx implements SearchInterface
     }
 
     /**
-     * 
-     * @param string $query
+     *
+     * @param  string            $query
      * @return array
      * @throws \RuntimeException
      */
     public function search($query, $limit = 100)
     {
         $this->configureSearch();
+
         return $this->__search($query, $limit);
     }
 
     /**
-     * 
-     * @param string $query
+     *
+     * @param  string            $query
      * @return array
      * @throws \RuntimeException
      */
     public function related($query, $limit = 10)
     {
         $this->configureRelated();
+
         return $this->__search($query, $limit);
     }
 
     /**
-     * 
-     * @param type $query
+     *
+     * @param  type              $query
      * @return type
      * @throws \RuntimeException
      */
@@ -118,6 +120,7 @@ class Sphinx implements SearchInterface
                 }
             }
         }
+
         return $result;
     }
 

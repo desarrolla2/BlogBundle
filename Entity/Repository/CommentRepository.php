@@ -28,12 +28,13 @@ class CommentRepository extends EntityRepository
                 ' ORDER BY c.createdAt DESC '
                 )
         ;
+
         return $query;
     }
 
     /**
-     * 
-     * @param int $limit
+     *
+     * @param  int   $limit
      * @return array
      */
     public function getLatestRelated(Post $post, $limit = self::POST_PER_PAGE)
@@ -62,8 +63,8 @@ class CommentRepository extends EntityRepository
     }
 
     /**
-     * 
-     * @param int $limit
+     *
+     * @param  int   $limit
      * @return array
      */
     public function getLatest($limit = self::COMMENTS_PER_PAGE)
@@ -71,11 +72,12 @@ class CommentRepository extends EntityRepository
         $limit = (int) $limit;
         $query = $this->getQueryForGet($limit);
         $query->setMaxResults($limit);
+
         return $query->getResult();
     }
 
     /**
-     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
+     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
      * @return \Doctrine\ORM\Query
      */
     public function getQueryForGetForPost(Post $post)
@@ -89,22 +91,24 @@ class CommentRepository extends EntityRepository
                 )
                 ->setParameter('post', $post)
         ;
+
         return $query;
     }
 
     /**
-     * 
-     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
+     *
+     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
      * @return array
      */
     public function getForPost(Post $post)
     {
         $query = $this->getQueryForGetForPost($post);
+
         return $query->getResult();
     }
 
     /**
-     * 
+     *
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function getQueryBuilderForFilter()
@@ -116,6 +120,7 @@ class CommentRepository extends EntityRepository
                 ->from('BlogBundle:Comment', 'c')
                 ->orderBy('c.createdAt', 'DESC')
         ;
+
         return $qb;
     }
 
@@ -126,6 +131,7 @@ class CommentRepository extends EntityRepository
                 ' SELECT COUNT(c) FROM BlogBundle:Comment c '
                 )
         ;
+
         return $query->getSingleScalarResult();
     }
 
@@ -137,11 +143,12 @@ class CommentRepository extends EntityRepository
                 ' WHERE c.status = ' . CommentStatus::APPROVED
                 )
         ;
+
         return $query->getSingleScalarResult();
     }
 
     /**
-     * 
+     *
      * @return type
      */
     public function getPending()
@@ -153,12 +160,13 @@ class CommentRepository extends EntityRepository
                 ' ORDER BY c.createdAt DESC '
                 )
         ;
+
         return $query->getResult();
     }
 
     /**
-     * Delete entity from database 
-     * 
+     * Delete entity from database
+     *
      * @param int $id
      */
     public function delete($id)
@@ -175,8 +183,8 @@ class CommentRepository extends EntityRepository
 
     /**
      * Count published elements from date
-     * 
-     * @param DateTime $date
+     *
+     * @param  DateTime $date
      * @return int
      */
     public function countFromDate(DateTime $date)
@@ -189,6 +197,7 @@ class CommentRepository extends EntityRepository
         )
         ->setParameter('date', $date)
         ;
+
         return $query->getSingleScalarResult();
     }
 

@@ -60,9 +60,9 @@ class Comment
     private $status;
 
     /**
-     * 
+     *
      * @var Post
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
@@ -103,7 +103,7 @@ class Comment
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -113,7 +113,7 @@ class Comment
     /**
      * Set content
      *
-     * @param string $content
+     * @param  string  $content
      * @return Comment
      */
     public function setContent($content)
@@ -126,7 +126,7 @@ class Comment
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {
@@ -136,7 +136,7 @@ class Comment
     /**
      * Set published
      *
-     * @param boolean $published
+     * @param  boolean $published
      * @return Comment
      */
     public function setPublished($published)
@@ -149,7 +149,7 @@ class Comment
     /**
      * Get published
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPublished()
     {
@@ -159,7 +159,7 @@ class Comment
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime $createdAt
      * @return Comment
      */
     public function setCreatedAt($createdAt)
@@ -172,7 +172,7 @@ class Comment
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -182,7 +182,7 @@ class Comment
     /**
      * Set updatedAt
      *
-     * @param \DateTime $updatedAt
+     * @param  \DateTime $updatedAt
      * @return Comment
      */
     public function setUpdatedAt($updatedAt)
@@ -195,7 +195,7 @@ class Comment
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -205,7 +205,7 @@ class Comment
     /**
      * Set post
      *
-     * @param Desarrolla2\Bundle\BlogBundle\Entity\Post $post
+     * @param  Desarrolla2\Bundle\BlogBundle\Entity\Post $post
      * @return Comment
      */
     public function setPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post = null)
@@ -218,7 +218,7 @@ class Comment
     /**
      * Get post
      *
-     * @return Desarrolla2\Bundle\BlogBundle\Entity\Post 
+     * @return Desarrolla2\Bundle\BlogBundle\Entity\Post
      */
     public function getPost()
     {
@@ -228,7 +228,7 @@ class Comment
     /**
      * Set userEmail
      *
-     * @param string $userEmail
+     * @param  string  $userEmail
      * @return Comment
      */
     public function setUserEmail($userEmail)
@@ -241,7 +241,7 @@ class Comment
     /**
      * Get userEmail
      *
-     * @return string 
+     * @return string
      */
     public function getUserEmail()
     {
@@ -251,7 +251,7 @@ class Comment
     /**
      * Set user
      *
-     * @param string $user
+     * @param  string  $user
      * @return Comment
      */
     public function setUserName($userName)
@@ -264,7 +264,7 @@ class Comment
     /**
      * Get user
      *
-     * @return string 
+     * @return string
      */
     public function getUserName()
     {
@@ -274,7 +274,7 @@ class Comment
     /**
      * Set userWeb
      *
-     * @param string $userWeb
+     * @param  string  $userWeb
      * @return Comment
      */
     public function setUserWeb($userWeb)
@@ -287,43 +287,43 @@ class Comment
     /**
      * Get userWeb
      *
-     * @return string 
+     * @return string
      */
     public function getUserWeb()
     {
         return $this->userWeb;
     }
 
-
     /**
      * Set status
      *
-     * @param integer $status
+     * @param  integer $status
      * @return Comment
      */
     public function setStatus($status)
     {
         $this->status = $status;
-    
+
         return $this;
     }
 
     /**
      * Get status
      *
-     * @return integer 
+     * @return integer
      */
     public function getStatus()
     {
         return $this->status;
     }
-    
+
     /**
      * get Avatar URL
-     * 
+     *
      * @return string
      */
-    public function getAvatarUrl() {
+    public function getAvatarUrl()
+    {
         return Gravatar::URL . md5(strtolower(trim($this->getUserEmail())));
     }
 }

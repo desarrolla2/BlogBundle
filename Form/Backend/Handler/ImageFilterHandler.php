@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the desarrolla2 project.
- * 
+ *
  * Copyright (c)
- * dgonzalez 
- * 
+ * dgonzalez
+ *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
  */
@@ -17,22 +17,22 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * 
+ *
  * Description of ImageFilterHandler
  *
- * @author : dgonzalez 
+ * @author : dgonzalez
  * @file : ImageFilterHandler.php , UTF-8
  * @date : Feb 25, 2013 , 12:59:38 PM
  */
-class ImageFilterHandler {
-
+class ImageFilterHandler
+{
     /**
-     * @var  \Symfony\Component\Form\Form 
+     * @var  \Symfony\Component\Form\Form
      */
     protected $form;
 
     /**
-     * @var \Symfony\Component\HttpFoundation\Request 
+     * @var \Symfony\Component\HttpFoundation\Request
      */
     protected $request;
 
@@ -42,22 +42,24 @@ class ImageFilterHandler {
     protected $qb;
 
     /**
-     * 
-     * @param \Symfony\Component\Form\Form $form
+     *
+     * @param \Symfony\Component\Form\Form              $form
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Doctrine\ORM\QueryBuilder $qb
+     * @param \Doctrine\ORM\QueryBuilder                $qb
      */
-    public function __construct(Form $form, Request $request, QueryBuilder $qb) {
+    public function __construct(Form $form, Request $request, QueryBuilder $qb)
+    {
         $this->form = $form;
         $this->request = $request;
         $this->qb = $qb;
     }
 
     /**
-     * 
+     *
      * @return boolean
      */
-    public function process() {
+    public function process()
+    {
         $this->form->bind($this->request);
         if ($this->form->isValid()) {
             $formData = $this->form->getData();
@@ -65,31 +67,36 @@ class ImageFilterHandler {
                 $this->qb->andWhere($this->qb->expr()->like('t.name', ':name'))
                         ->setParameter('name', '%' . $name . '%');
             }
+
             return true;
         }
+
         return false;
     }
 
     /**
-     * 
-     * @return \Symfony\Component\Form\Form 
+     *
+     * @return \Symfony\Component\Form\Form
      */
-    public function getFilter() {
+    public function getFilter()
+    {
         return $this->form;
     }
 
     /**
-     * 
+     *
      * @return \Doctrine\ORM\Query
      */
-    public function getQuery() {
+    public function getQuery()
+    {
         return $this->qb->getQuery();
     }
 
     /**
      * @return mixed
      */
-    public function getData() {
+    public function getData()
+    {
         return $this->form->getData();
     }
 

@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the desarrolla2 project.
- * 
+ *
  * Copyright (c)
- * Daniel González <daniel.gonzalez@freelancemadrid.es> 
- * 
+ * Daniel González <daniel.gonzalez@freelancemadrid.es>
+ *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
  */
@@ -16,10 +16,10 @@ use Locale;
 use IntlDateFormatter;
 
 /**
- * 
+ *
  * Description of TwigExtension
  *
- * @author : Daniel González <daniel.gonzalez@freelancemadrid.es> 
+ * @author : Daniel González <daniel.gonzalez@freelancemadrid.es>
  * @file : TwigExtension.php , UTF-8
  * @date : Oct 15, 2012 , 9:54:55 PM
  */
@@ -55,9 +55,9 @@ class TwigExtension extends \Twig_Extension
     }
 
     /**
-     * 
-     * @param type $date
-     * @param type $format
+     *
+     * @param  type $date
+     * @param  type $format
      * @return type
      */
     public function localeCustomDate($date, $format)
@@ -68,11 +68,12 @@ class TwigExtension extends \Twig_Extension
                         $this->locale, $datetype, $timetype
         );
         $dateFormater->setPattern('MMMM  yyyy');
+
         return $dateFormater->format($date);
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function localeDate($date, $datetype = 'medium', $timetype = 'none')
@@ -82,11 +83,12 @@ class TwigExtension extends \Twig_Extension
         $dateFormater = IntlDateFormatter::create(
                         $this->locale, $datetype, $timetype
         );
+
         return $dateFormater->format($date);
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getName()
@@ -95,8 +97,8 @@ class TwigExtension extends \Twig_Extension
     }
 
     /**
-     * 
-     * @param type $timetype
+     *
+     * @param  type $timetype
      * @return type
      */
     protected function getTimeType($timetype)
@@ -124,8 +126,8 @@ class TwigExtension extends \Twig_Extension
     }
 
     /**
-     * 
-     * @param type $datetype
+     *
+     * @param  type $datetype
      * @return type
      */
     protected function getDateType($datetype)

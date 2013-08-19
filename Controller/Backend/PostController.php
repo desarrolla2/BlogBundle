@@ -60,7 +60,7 @@ class PostController extends Controller
                 }
             }
         }
-        $filterForm = $formHandler->getFilter();        
+        $filterForm = $formHandler->getFilter();
 
         $pagination = $paginator->paginate(
                 $query, $request->get('page', 1), 12
@@ -81,6 +81,7 @@ class PostController extends Controller
     public function newAction()
     {
         $form = $this->createForm(new PostType(), new PostModel(new Post()));
+
         return array(
             'form' => $form->createView(),
         );
@@ -213,6 +214,7 @@ class PostController extends Controller
         $entity->setPublishedAt(new \DateTime());
         $em->persist($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('post'));
     }
 
@@ -231,11 +233,12 @@ class PostController extends Controller
         $entity->setStatus(PostStatus::CREATED);
         $em->persist($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('post'));
     }
 
     /**
-     * 
+     *
      * @Route("/{id}/preview" , name="post_preview")
      * @Method({"GET"})
      * @Template()
@@ -247,6 +250,7 @@ class PostController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
+
         return array(
             'post' => $entity,
         );

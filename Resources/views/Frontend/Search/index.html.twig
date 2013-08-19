@@ -3,21 +3,21 @@
 {% block content %}
 <article class="post">
     <header>
-        <h2><a href="{{ url('_search') }}">Buscar en PlanetUbuntu</a></h2>            
+        <h2><a href="{{ url('_search') }}">Buscar en PlanetUbuntu</a></h2>
     </header>
     {% include 'BlogBundle:Frontend/Search:form.html.twig' with {'form': form} %}
-    {% if query %}                    
+    {% if query %}
         <ul>
         {% for item in items %}
             <li>
-                <a href="{{ url('_view', { 'slug' : item.slug }) }}" title="{{ item }}">{{ item }}</a>, 
+                <a href="{{ url('_view', { 'slug' : item.slug }) }}" title="{{ item }}">{{ item }}</a>,
                 {{ item.intro | striptags | raw | truncate(160) }} [..]
                 el <time datetime="{{ item.publishedAt | date('c') }}">{{ item.publishedAt | localeDate('full') }}</time>.
-                
-            </li>          
+
+            </li>
         {% else %}
             <li>No se han encontrado resultados de para la búsqueda</li>
-        {% endfor %}            
+        {% endfor %}
         </ul>
     {% endif %}
 </article>

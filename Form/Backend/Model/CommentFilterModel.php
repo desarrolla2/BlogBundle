@@ -30,7 +30,7 @@ class CommentFilterModel
 
     public function __construct(Request $request)
     {
-        $this->text = (string)$request->get('text', '');
-        $this->status = (string)$request->get('choices', '');
+        $this->text = (string) $request->get('text', '');
+        $this->status = (string) $request->get('choices', '');
     }
 }

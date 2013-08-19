@@ -54,9 +54,9 @@ class PostHistory
     private $createdAt;
 
     /**
-     * 
+     *
      * @var Post
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="Post", cascade={"remove"})
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -65,33 +65,36 @@ class PostHistory
     /**
      * Constructor
      */
-    public function __construct() {
-        
+    public function __construct()
+    {
     }
 
     /**
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getName();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string      $name
      * @return PostHistory
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -100,19 +103,21 @@ class PostHistory
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
      * Set intro
      *
-     * @param string $intro
+     * @param  string      $intro
      * @return PostHistory
      */
-    public function setIntro($intro) {
+    public function setIntro($intro)
+    {
         $this->intro = $intro;
 
         return $this;
@@ -121,19 +126,21 @@ class PostHistory
     /**
      * Get intro
      *
-     * @return string 
+     * @return string
      */
-    public function getIntro() {
+    public function getIntro()
+    {
         return $this->intro;
     }
 
     /**
      * Set content
      *
-     * @param string $content
+     * @param  string      $content
      * @return PostHistory
      */
-    public function setContent($content) {
+    public function setContent($content)
+    {
         $this->content = $content;
 
         return $this;
@@ -142,19 +149,21 @@ class PostHistory
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
-    public function getContent() {
+    public function getContent()
+    {
         return $this->content;
     }
 
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime   $createdAt
      * @return PostHistory
      */
-    public function setCreatedAt($createdAt) {
+    public function setCreatedAt($createdAt)
+    {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -163,32 +172,36 @@ class PostHistory
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
     /**
      * Set post
      *
-     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
+     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
      * @return PostHistory
      */
-    public function setPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post = null) {
+    public function setPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post = null)
+    {
         $this->post = $post;
         $this->setName($post->getName());
         $this->setIntro($post->getIntro());
         $this->setContent($post->getContent());
+
         return $this;
     }
 
     /**
      * Get post
      *
-     * @return \Desarrolla2\Bundle\BlogBundle\Entity\Post 
+     * @return \Desarrolla2\Bundle\BlogBundle\Entity\Post
      */
-    public function getPost() {
+    public function getPost()
+    {
         return $this->post;
     }
 

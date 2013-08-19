@@ -1,13 +1,13 @@
 {% extends "::backend.html.twig" %}
 
 {% block content %}
-{% include 'BlogBundle:Backend/Link:index.filter.html.twig' with {'filterForm': filterForm } %}          
+{% include 'BlogBundle:Backend/Link:index.filter.html.twig' with {'filterForm': filterForm } %}
 <div class="span12">
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Description</th>            
+                <th>Description</th>
                 <th>URL</th>
                 <th>RSS</th>
                 <th>Status</th>
@@ -20,7 +20,7 @@
                 <td>{{ entity.name }}</td>
                 <td>{{ entity.description | raw }}</td>
                 <td><a href="{{ entity.url }}" target="_blank">{{ entity.url }}</a></td>
-                <td><a href="{{ entity.rss }}" target="_blank">{{ entity.rss }}</a></td>                
+                <td><a href="{{ entity.rss }}" target="_blank">{{ entity.rss }}</a></td>
                 <td>
                     {% if entity.isPublished %}<i class="icon-ok"></i> {% endif %}
                     {% if not entity.isPublished %}<i class="icon-remove"></i> {% endif %}
@@ -37,6 +37,6 @@
     <div><a class="btn " href="{{ url('link_new') }}">new entry</a></div>
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
-    </div>    
+    </div>
 </div>
 {% endblock %}

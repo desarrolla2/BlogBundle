@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the planetubuntu project.
- * 
+ *
  * Copyright (c)
- * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>  
- * 
+ * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>
+ *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
  */
@@ -21,18 +21,19 @@ use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Type\SearchType;
 use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model\SearchModel;
 
 /**
- * 
+ *
  * Description of SearchController
  *
  */
-class SearchController extends Controller {
-
+class SearchController extends Controller
+{
     /**
      * @Route("/search", name="_search")
      * @Method({"GET"})
      * @Template()
      */
-    public function indexAction(Request $request) {
+    public function indexAction(Request $request)
+    {
         $items = array();
         $form = $this->createForm(new SearchType(), new SearchModel());
         $query = $request->get('q', false);
@@ -44,6 +45,7 @@ class SearchController extends Controller {
                 $items = $search->search($query);
             }
         }
+
         return array(
             'form' => $form->createView(),
             'items' => $items,

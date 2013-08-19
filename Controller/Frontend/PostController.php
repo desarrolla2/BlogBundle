@@ -28,7 +28,6 @@ class PostController extends Controller
         $query = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Post')->getQueryForGet();
 
-
         $pagination = $paginator->paginate(
                 $query, $this->getPage(), $this->container->getParameter('blog.items')
         );
@@ -42,7 +41,7 @@ class PostController extends Controller
     }
 
     /**
-     * 
+     *
      * @Route("/post/{slug}" , name="_view", requirements={"slug" = "[\w\d\-]+"})
      * @Method({"GET"})
      * @Template()
@@ -61,7 +60,7 @@ class PostController extends Controller
                         ->getRepository('BlogBundle:Comment')->getForPost($post);
 
         $form = $this->createForm(new CommentType(), new CommentModel($this->createCommentForPost($post)));
-               
+
         return array(
             'post' => $post,
             'comments' => $comments,
@@ -70,19 +69,20 @@ class PostController extends Controller
     }
 
     /**
-     * 
-     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
+     *
+     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Post    $post
      * @return \Desarrolla2\Bundle\BlogBundle\Entity\Comment
      */
     protected function createCommentForPost(Post $post)
     {
         $comment = new Comment();
         $comment->setPost($post);
+
         return $comment;
     }
 
     /**
-     * 
+     *
      * @return type
      */
     protected function getPage()
@@ -92,6 +92,7 @@ class PostController extends Controller
         if ($page < 1) {
             $this->createNotFoundException('Page number is not valid' . $page);
         }
+
         return $page;
     }
 

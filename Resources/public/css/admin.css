@@ -1,29 +1,33 @@
-/* 
-    Document   : admin
-    Created on : Aug 6, 2012, 2:24:33 PM
-    Author     : Daniel González Cerviño <daniel.gonzalez@ideup.com>
-    Description:
-        CSS Admin styles
+/*
+    Author     : Daniel González <daniel.gonzalez@freelancemadrid.es>
+    Description: CSS Admin styles
 */
 body {
     padding-top: 60px;
 }
-.w100{
+
+.w100 {
     width: 100%;
 }
-textarea.h300{
+
+textarea.h300 {
     height: 300px;
 }
-textarea.h500{
+
+textarea.h500 {
     height: 500px;
 }
-div#desarrolla2_bundle_blogbundle_post_type_tags label{
-    display: inline-block; margin: 3px 15px 3px 3px;
+
+div#desarrolla2_bundle_blogbundle_post_type_tags label {
+    display: inline-block;
+    margin: 3px 15px 3px 3px;
 }
-.hide{
+
+.hide {
     display: none;
 }
+
 [class^="icon-"],
 [class*=" icon-"] {
-  background-image: url("/bundles/blog/img/glyphicons-halflings.png")!important;
+    background-image: url("/bundles/blog/img/glyphicons-halflings.png") !important;
 }

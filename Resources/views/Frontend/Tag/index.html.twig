@@ -9,10 +9,10 @@
 
 <div class="navigation">
     {{ knp_pagination_render(pagination) }}
-</div>    
+</div>
 {% endblock %}
-        
+
 {% block rss %}
-    <link rel="alternate" type="application/rss+xml" title="{{ tag }} RSS Feed" 
+    <link rel="alternate" type="application/rss+xml" title="{{ tag }} RSS Feed"
           href="{{ url('_feed_tag', { 'slug' : tag.slug }) }}" />
 {% endblock %}

@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the desarrolla2 project.
- * 
+ *
  * Copyright (c)
- * Daniel González <daniel.gonzalez@freelancemadrid.es> 
- * 
+ * Daniel González <daniel.gonzalez@freelancemadrid.es>
+ *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
  */
@@ -18,19 +18,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * 
+ *
  * Description of FeedController
  *
- * @author : Daniel González <daniel.gonzalez@freelancemadrid.es> 
+ * @author : Daniel González <daniel.gonzalez@freelancemadrid.es>
  */
-class FeedController extends Controller {
-
+class FeedController extends Controller
+{
     /**
      * @Route("/feed/", name="_feed")
      * @Route("/feed.{_format}")
      * @Method({"GET"})
      */
-    public function indexAction(Request $request) {
+    public function indexAction(Request $request)
+    {
         $request->setRequestFormat('xml');
         $items = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Post')->get(
@@ -51,7 +52,8 @@ class FeedController extends Controller {
      * @Route("/feed/{slug}/", name="_feed_tag", requirements={"slug" = "[\w\d\-]+"})
      * @Method({"GET"})
      */
-    public function tagAction(Request $request) {
+    public function tagAction(Request $request)
+    {
         $request->setRequestFormat('xml');
         $tag = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Tag')->getOneBySlug($request->get('slug', false));
@@ -76,7 +78,8 @@ class FeedController extends Controller {
      * @Route("/sitemap.xml.gz")
      * @Method({"GET"})
      */
-    public function sitemapAction(Request $request) {
+    public function sitemapAction(Request $request)
+    {
         $request->setRequestFormat('xml');
         $items = array();
         $tags = $this->getDoctrine()->getManager()
@@ -86,6 +89,7 @@ class FeedController extends Controller {
         foreach ($tags as $tag) {
             $items[] = $this->generateUrl('_tag', array('slug' => $tag->getSlug()), true);
         }
+
         return $this->render(
                         'BlogBundle:Frontend/Feed:sitemap.xml.twig', array(
                     'items' => $items,

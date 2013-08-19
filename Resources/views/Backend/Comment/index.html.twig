@@ -1,14 +1,14 @@
 {% extends "::backend.html.twig" %}
 
 {% block content %}
-{% include 'BlogBundle:Backend/Comment:index.filter.html.twig' with {'filterForm': filterForm } %}          
+{% include 'BlogBundle:Backend/Comment:index.filter.html.twig' with {'filterForm': filterForm } %}
 <div class="span12">
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Content</th>
                 <th>Text ( name / email / web )</th>
-                <th>Status</th>      
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -21,7 +21,7 @@
                     {% if entity.status == 1 %}<i class="icon-ok"></i>{% endif %}
                     {% if entity.status == 2 %}<i class="icon-remove"></i>{% endif %}
                 </td>
-                <td>                    
+                <td>
                     <a class="bnt btn-mini" href="{{ url('comment_publish', { 'id': entity.id }) }}" title="publish"><i class="icon-ok"></i></a>
                     <a class="bnt btn-mini" href="{{ url('comment_unpublish', { 'id': entity.id }) }}" title="unpublish"><i class="icon-remove"></i></a>
                     <a class="bnt btn-mini" href="{{ url('comment_edit', { 'id': entity.id }) }}" title="edit"><i class="icon-edit"></i></a>
@@ -32,6 +32,6 @@
     </table>
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
-    </div>    
+    </div>
 </div>
 {% endblock %}

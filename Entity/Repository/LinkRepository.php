@@ -16,18 +16,19 @@ class LinkRepository extends EntityRepository
 {
 
     /**
-     * 
-     * @param type $limit
+     *
+     * @param  type  $limit
      * @return array
      */
     public function getActive()
     {
         $query = $this->getQueryForGetActive();
+
         return $query->getResult();
     }
 
     /**
-     * 
+     *
      * @return \Doctrine\ORM\Query
      */
     public function getQueryForGetActive()
@@ -39,22 +40,24 @@ class LinkRepository extends EntityRepository
                 ' ORDER BY l.createdAt DESC '
                 )
         ;
+
         return $query;
     }
 
     /**
-     * 
-     * @param type $limit
+     *
+     * @param  type  $limit
      * @return array
      */
     public function getActiveOrdered()
     {
         $query = $this->getQueryForGetActiveOrdered();
+
         return $query->getResult();
     }
 
     /**
-     * 
+     *
      * @return \Doctrine\ORM\Query
      */
     public function getQueryForGetActiveOrdered()
@@ -66,11 +69,12 @@ class LinkRepository extends EntityRepository
                 ' ORDER BY l.name ASC '
                 )
         ;
+
         return $query;
     }
 
     /**
-     * 
+     *
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function getQueryBuilderForFilter()
@@ -82,13 +86,14 @@ class LinkRepository extends EntityRepository
                 ->from('BlogBundle:Link', 'l')
                 ->orderBy('l.updatedAt', 'DESC')
         ;
+
         return $qb;
     }
 
     /**
      * Count published elements from date
-     * 
-     * @param DateTime $date
+     *
+     * @param  DateTime $date
      * @return int
      */
     public function countFromDate(DateTime $date)
@@ -101,12 +106,13 @@ class LinkRepository extends EntityRepository
                 )
                 ->setParameter('date', $date)
         ;
+
         return $query->getSingleScalarResult();
     }
 
     /**
-     * 
-     * @param DateTime $date
+     *
+     * @param  DateTime $date
      * @return type
      */
     public function getMoreActiveFromDate(DateTime $date, $limit = 10)
@@ -124,7 +130,6 @@ class LinkRepository extends EntityRepository
                 ->setParameter('date', $date)
                 ->setMaxResults($limit)
         ;
-
 
         ld($query->getSQL());
         ldd($query->getResult());

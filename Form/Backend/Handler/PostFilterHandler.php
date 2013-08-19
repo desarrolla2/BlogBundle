@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the desarrolla2 project.
- * 
+ *
  * Description of PostHandler
  *
- * @author : Daniel González <daniel.gonzalez@freelancemadrid.es> 
+ * @author : Daniel González <daniel.gonzalez@freelancemadrid.es>
  * @file : PostHandler.php , UTF-8
  * @date : Aug 22, 2012 , 5:03:37 PM
  */
@@ -20,12 +20,12 @@ class PostFilterHandler
 {
 
     /**
-     * @var  \Symfony\Component\Form\Form 
+     * @var  \Symfony\Component\Form\Form
      */
     protected $form;
 
     /**
-     * @var \Symfony\Component\HttpFoundation\Request 
+     * @var \Symfony\Component\HttpFoundation\Request
      */
     protected $request;
 
@@ -35,10 +35,10 @@ class PostFilterHandler
     protected $qb;
 
     /**
-     * 
-     * @param \Symfony\Component\Form\Form $form
+     *
+     * @param \Symfony\Component\Form\Form              $form
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Doctrine\ORM\QueryBuilder $qb
+     * @param \Doctrine\ORM\QueryBuilder                $qb
      */
     public function __construct(Form $form, Request $request, QueryBuilder $qb)
     {
@@ -48,7 +48,7 @@ class PostFilterHandler
     }
 
     /**
-     * 
+     *
      * @return boolean
      */
     public function process()
@@ -84,14 +84,16 @@ class PostFilterHandler
                             ->setParameter('isPublished', 0);
                 }
             }
+
             return true;
         }
+
         return false;
     }
 
     /**
-     * 
-     * @return \Symfony\Component\Form\Form 
+     *
+     * @return \Symfony\Component\Form\Form
      */
     public function getFilter()
     {
@@ -99,7 +101,7 @@ class PostFilterHandler
     }
 
     /**
-     * 
+     *
      * @return \Doctrine\ORM\Query
      */
     public function getQuery()

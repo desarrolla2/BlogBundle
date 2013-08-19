@@ -29,7 +29,7 @@ class LinkFilterModel
 
     public function __construct(Request $request)
     {
-        $this->name = (string)$request->get('name', '');
-        $this->isPublished = (string)$request->get('choices', 'whatever');
+        $this->name = (string) $request->get('name', '');
+        $this->isPublished = (string) $request->get('choices', 'whatever');
     }
 }

@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the desarrolla2 project.
- * 
+ *
  * Description of LinkHandler
  *
- * @author : Daniel González <daniel.gonzalez@freelancemadrid.es> 
+ * @author : Daniel González <daniel.gonzalez@freelancemadrid.es>
  * @file : LinkHandler.php , UTF-8
  * @date : Aug 22, 2012 , 5:03:37 PM
  */
@@ -20,12 +20,12 @@ class LinkFilterHandler
 {
 
     /**
-     * @var  \Symfony\Component\Form\Form 
+     * @var  \Symfony\Component\Form\Form
      */
     protected $form;
 
     /**
-     * @var \Symfony\Component\HttpFoundation\Request 
+     * @var \Symfony\Component\HttpFoundation\Request
      */
     protected $request;
 
@@ -34,12 +34,11 @@ class LinkFilterHandler
      */
     protected $qb;
 
-
     /**
-     * 
-     * @param \Symfony\Component\Form\Form $form
+     *
+     * @param \Symfony\Component\Form\Form              $form
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Doctrine\ORM\QueryBuilder $qb
+     * @param \Doctrine\ORM\QueryBuilder                $qb
      */
     public function __construct(Form $form, Request $request, QueryBuilder $qb)
     {
@@ -49,7 +48,7 @@ class LinkFilterHandler
     }
 
     /**
-     * 
+     *
      * @return boolean
      */
     public function process()
@@ -70,15 +69,17 @@ class LinkFilterHandler
                     $this->qb->andWhere($this->qb->expr()->like('l.isPublished', ':isPublished'))
                             ->setParameter('isPublished', 0);
                 }
-            }            
+            }
+
             return true;
         }
+
         return false;
     }
 
     /**
-     * 
-     * @return \Symfony\Component\Form\Form 
+     *
+     * @return \Symfony\Component\Form\Form
      */
     public function getFilter()
     {
@@ -86,18 +87,19 @@ class LinkFilterHandler
     }
 
     /**
-     * 
+     *
      * @return \Doctrine\ORM\Query
      */
     public function getQuery()
     {
         return $this->qb->getQuery();
     }
-    
+
     /**
      * @return mixed
      */
-    public function getData(){
+    public function getData()
+    {
         return $this->form->getData();
     }
 

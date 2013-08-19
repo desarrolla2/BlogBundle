@@ -6,9 +6,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CommentType extends AbstractType {
-
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+class CommentType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder
                 ->add('content', 'textarea', array(
                     'required' => false,
@@ -34,14 +35,16 @@ class CommentType extends AbstractType {
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
         $resolver->setDefaults(array(
             'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model\CommentModel',
             'csrf_protection' => true,
         ));
     }
 
-    public function getName() {
+    public function getName()
+    {
         return 'comment';
     }
 

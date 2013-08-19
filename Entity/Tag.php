@@ -11,8 +11,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="tag")
  * @ORM\Entity(repositoryClass="Desarrolla2\Bundle\BlogBundle\Entity\Repository\TagRepository")
  */
-class Tag {
-
+class Tag
+{
     /**
      * @var integer $id
      *
@@ -39,13 +39,13 @@ class Tag {
 
     /**
      * @var int $items
-     * 
+     *
      * @ORM\Column(name="items", type="integer")
      */
     private $items;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags") 
+     * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
      */
     private $posts;
 
@@ -68,111 +68,123 @@ class Tag {
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->items = 0;
         $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * 
+     *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getName();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return Tag
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = strtolower($name);
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
      * Set created_at
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime $createdAt
      * @return Tag
      */
-    public function setCreatedAt($createdAt) {
+    public function setCreatedAt($createdAt)
+    {
         $this->createdAt = $createdAt;
     }
 
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
     /**
      * Set updated_at
      *
-     * @param \DateTime $updatedAt
+     * @param  \DateTime $updatedAt
      * @return Tag
      */
-    public function setUpdatedAt($updatedAt) {
+    public function setUpdatedAt($updatedAt)
+    {
         $this->updatedAt = $updatedAt;
     }
 
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getUpdatedAt() {
+    public function getUpdatedAt()
+    {
         return $this->updatedAt;
     }
 
     /**
      * Set slug
      *
-     * @param string $slug
+     * @param  string $slug
      * @return Tag
      */
-    public function setSlug($slug) {
+    public function setSlug($slug)
+    {
         $this->slug = $slug;
     }
 
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
-    public function getSlug() {
+    public function getSlug()
+    {
         return $this->slug;
     }
 
     /**
      * Add posts
      *
-     * @param Desarrolla2\Bundle\BlogBundle\Entity\Post $post
+     * @param  Desarrolla2\Bundle\BlogBundle\Entity\Post $post
      * @return Tag
      */
-    public function addPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post) {
+    public function addPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post)
+    {
         $post->addTag($this);
         $this->posts[] = $posts;
     }
@@ -182,35 +194,39 @@ class Tag {
      *
      * @param Desarrolla2\Bundle\BlogBundle\Entity\Post $post
      */
-    public function removePost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post) {
+    public function removePost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post)
+    {
         $this->posts->removeElement($post);
     }
 
     /**
      * Get posts
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
-    public function getPosts() {
+    public function getPosts()
+    {
         return $this->posts;
     }
 
     /**
      * Set items
      *
-     * @param int $items
+     * @param  int $items
      * @return Tag
      */
-    public function setItems($items) {
+    public function setItems($items)
+    {
         $this->items = (int) $items;
     }
 
     /**
      * Get items
      *
-     * @return int 
+     * @return int
      */
-    public function getItems() {
+    public function getItems()
+    {
         return $this->items;
     }
 
