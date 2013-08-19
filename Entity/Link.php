@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the planetubuntu project.
+ * This file is part of the BlogBundle project.
  *
  * Copyright (c)
  * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>
@@ -54,35 +54,35 @@ class Link
      *
      * @ORM\Column(name="rss", type="string", length=255, unique=true, nullable=true)
      */
-    private $rss;
+    private $rss = null;
 
     /**
      * @var string $mail
      *
      * @ORM\Column(name="mail", type="string", length=255, unique=true, nullable=true)
      */
-    private $mail;
+    private $mail = null;
 
     /**
      * @var string $description
      *
      * @ORM\Column(name="description", type="text")
      */
-    private $description;
+    private $description = '';
 
     /**
      * @var string $content
      *
      * @ORM\Column(name="notes", type="text")
      */
-    private $notes;
+    private $notes = '';
 
     /**
      * @var string $isPublished
      *
      * @ORM\Column(name="is_published", type="boolean")
      */
-    private $isPublished;
+    private $isPublished = false;
 
     /**
      * @var \DateTime $created_at
@@ -105,9 +105,6 @@ class Link
      */
     public function __construct()
     {
-        $this->isPublished = false;
-        $this->rss = null;
-        $this->mail = null;
     }
 
     public function __toString()
@@ -274,7 +271,7 @@ class Link
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->description = (string)$description;
 
         return $this;
     }
@@ -310,7 +307,7 @@ class Link
      */
     public function setNotes($notes)
     {
-        $this->notes = $notes;
+        $this->notes = (string)$notes;
     }
 
     /**

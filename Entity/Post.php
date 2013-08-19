@@ -65,14 +65,14 @@ class Post
      *
      * @ORM\Column(name="source", type="string", length=255)
      */
-    private $source;
+    private $source = '';
 
     /**
      * @var int $status
      *
      * @ORM\Column(name="status", type="integer")
      */
-    private $status;
+    private $status = 0;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -133,9 +133,7 @@ class Post
     {
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->history = $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->status = 0;
-        $this->source = '';
+        $this->history = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -164,7 +162,7 @@ class Post
      */
     public function setContent($content)
     {
-        $this->content = (string) $content;
+        $this->content = (string)$content;
 
         return $this;
     }
@@ -390,7 +388,7 @@ class Post
      */
     public function setIntro($intro)
     {
-        $this->intro = (string) $intro;
+        $this->intro = (string)$intro;
 
         return $this;
     }
@@ -489,7 +487,7 @@ class Post
      */
     public function hasSource()
     {
-        return (bool) $this->getSource();
+        return (bool)$this->getSource();
     }
 
     /**
@@ -505,7 +503,7 @@ class Post
     /**
      * Set Status
      *
-     * @param  int  $status
+     * @param  int $status
      * @return Post
      */
     public function setStatus($status)
@@ -545,7 +543,7 @@ class Post
      */
     public function isPublished()
     {
-        return (bool) ( $this->status == PostStatus::PUBLISHED );
+        return (bool)($this->status == PostStatus::PUBLISHED);
     }
 
     /**
@@ -555,7 +553,6 @@ class Post
      */
     public function hasImage()
     {
-        return (bool) count($this->getImage());
+        return (bool)count($this->getImage());
     }
-
 }

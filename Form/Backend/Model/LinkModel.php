@@ -41,31 +41,31 @@ class LinkModel
      * @var string $name
      * @Assert\Url()
      */
-    public $rss;
+    public $rss = null;
 
     /**
      * @var string $name
      * @Assert\Email(checkMX = true)
      */
-    public $mail;
+    public $mail = null;
 
     /**
      * @var string $description
      *
      */
-    public $description;
+    public $description = '';
 
     /**
      * @var string $notes
      *
      */
-    public $notes;
+    public $notes = '';
 
     /**
      * @var string $isPublished
      * @Assert\Choice(choices = {"0", "1"})
      */
-    public $isPublished;
+    public $isPublished = 0;
 
     /**
      * @param Link $entity
@@ -75,8 +75,8 @@ class LinkModel
         $this->name = $entity->getName();
         $this->isPublished = $entity->getIsPublished();
         $this->description = $entity->getDescription();
-        $this->mail = $entity->getMail();
         $this->notes = $entity->getNotes();
+        $this->mail = $entity->getMail();
         $this->url = $entity->getUrl();
         $this->rss = $entity->getRss();
     }
