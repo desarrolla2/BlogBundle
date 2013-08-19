@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the planetubuntu project.
- * 
+ *
  * Copyright (c)
- * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>  
- * 
+ * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>
+ *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
  */
@@ -16,14 +16,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * 
+ *
  * Description of Link
- * 
+ *
  * @ORM\Table(name="link")
  * @ORM\Entity(repositoryClass="Desarrolla2\Bundle\BlogBundle\Entity\Repository\LinkRepository")
  *
  */
-class Link {
+class Link
+{
 
     /**
      * @var integer $id
@@ -63,11 +64,18 @@ class Link {
     private $mail;
 
     /**
-     * @var string $content
+     * @var string $description
      *
      * @ORM\Column(name="description", type="text")
      */
     private $description;
+
+    /**
+     * @var string $content
+     *
+     * @ORM\Column(name="notes", type="text")
+     */
+    private $notes;
 
     /**
      * @var string $isPublished
@@ -95,22 +103,25 @@ class Link {
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->isPublished = false;
         $this->rss = null;
         $this->mail = null;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getName();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -120,7 +131,8 @@ class Link {
      * @param string $name
      * @return Link
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -129,9 +141,10 @@ class Link {
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -141,7 +154,8 @@ class Link {
      * @param \DateTime $createdAt
      * @return Link
      */
-    public function setCreatedAt($createdAt) {
+    public function setCreatedAt($createdAt)
+    {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -150,9 +164,10 @@ class Link {
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->createdAt;
     }
 
@@ -162,7 +177,8 @@ class Link {
      * @param boolean $isPublished
      * @return Link
      */
-    public function setIsPublished($isPublished) {
+    public function setIsPublished($isPublished)
+    {
         $this->isPublished = $isPublished;
 
         return $this;
@@ -171,9 +187,10 @@ class Link {
     /**
      * Get isPublished
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getIsPublished() {
+    public function getIsPublished()
+    {
         return $this->isPublished;
     }
 
@@ -183,7 +200,8 @@ class Link {
      * @param \DateTime $updatedAt
      * @return Link
      */
-    public function setUpdatedAt($updatedAt) {
+    public function setUpdatedAt($updatedAt)
+    {
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -192,9 +210,10 @@ class Link {
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getUpdatedAt() {
+    public function getUpdatedAt()
+    {
         return $this->updatedAt;
     }
 
@@ -204,7 +223,8 @@ class Link {
      * @param string $url
      * @return Link
      */
-    public function setUrl($url) {
+    public function setUrl($url)
+    {
         $this->url = $url;
 
         return $this;
@@ -213,9 +233,10 @@ class Link {
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->url;
     }
 
@@ -225,7 +246,8 @@ class Link {
      * @param string $rss
      * @return Link
      */
-    public function setRss($rss) {
+    public function setRss($rss)
+    {
         if (!$rss) {
             $rss = null;
         }
@@ -237,9 +259,10 @@ class Link {
     /**
      * Get rss
      *
-     * @return string 
+     * @return string
      */
-    public function getRss() {
+    public function getRss()
+    {
         return $this->rss;
     }
 
@@ -249,7 +272,8 @@ class Link {
      * @param string $description
      * @return Link
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
 
         return $this;
@@ -258,18 +282,42 @@ class Link {
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
-    public function getMail() {
-        return $this->mail;
-    }
-
-    public function setMail($mail) {
+    /**
+     * @param string $mail
+     */
+    public function setMail($mail)
+    {
         $this->mail = $mail;
     }
 
+    /**
+     * @return string
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * @param string $notes
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
 }

@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the planetubuntu project.
- * 
+ *
  * Copyright (c)
- * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>  
- * 
+ * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>
+ *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
  */
@@ -18,19 +18,20 @@ use Desarrolla2\Bundle\BlogBundle\Entity\Link;
 use Doctrine\ORM\EntityManager;
 
 /**
- * 
+ *
  * Description of LinkHandler
  *
  */
-class LinkHandler {
+class LinkHandler
+{
 
     /**
-     * @var  \Symfony\Component\Form\Form 
+     * @var  \Symfony\Component\Form\Form
      */
     protected $form;
 
     /**
-     * @var \Symfony\Component\HttpFoundation\Request 
+     * @var \Symfony\Component\HttpFoundation\Request
      */
     protected $request;
 
@@ -45,13 +46,14 @@ class LinkHandler {
     protected $em;
 
     /**
-     * 
-     * @param \Symfony\Component\Form\Form $form
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Post $entity
-     * @param \Doctrine\ORM\EntityManager $em
+     *
+     * @param \Symfony\Component\Form\Form                                                          $form
+     * @param \Symfony\Component\HttpFoundation\Request                                             $request
+     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Link|\Desarrolla2\Bundle\BlogBundle\Entity\Post $entity
+     * @param \Doctrine\ORM\EntityManager                                                           $em
      */
-    public function __construct(Form $form, Request $request, Link $entity, EntityManager $em) {
+    public function __construct(Form $form, Request $request, Link $entity, EntityManager $em)
+    {
         $this->form = $form;
         $this->request = $request;
         $this->entity = $entity;
@@ -59,10 +61,11 @@ class LinkHandler {
     }
 
     /**
-     * 
+     *
      * @return boolean
      */
-    public function process() {
+    public function process()
+    {
         $this->form->bind($this->request);
         if ($this->form->isValid()) {
             $entityModel = $this->form->getData();
@@ -72,18 +75,21 @@ class LinkHandler {
             $this->entity->setRss($entityModel->getRSS());
             $this->entity->setIsPublished($entityModel->getIsPublished());
             $this->entity->setMail($entityModel->getMail());
+            $this->entity->setNotes($entityModel->getNotes());
             $this->em->persist($this->entity);
             $this->em->flush();
+
             return true;
         }
+
         return false;
     }
 
     /**
      * @return mixed
      */
-    public function getData() {
+    public function getData()
+    {
         return $this->form->getData();
     }
-
 }

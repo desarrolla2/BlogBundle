@@ -45,6 +45,10 @@ class LinkType extends AbstractType {
                     'required' => false,
                     'trim' => true,
                 ))
+            ->add('notes', 'textarea', array(
+                    'required' => false,
+                    'trim' => true,
+                ))
                 ->add('isPublished', 'choice', array(
                     'required' => false,
                     'trim' => true,

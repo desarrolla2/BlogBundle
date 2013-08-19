@@ -2,10 +2,10 @@
 
 /**
  * This file is part of the planetubuntu project.
- * 
+ *
  * Copyright (c)
- * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>  
- * 
+ * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>
+ *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
  */
@@ -16,11 +16,12 @@ use Desarrolla2\Bundle\BlogBundle\Entity\Link;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * 
+ *
  * Description of LinkModel
  *
  */
-class LinkModel {
+class LinkModel
+{
 
     /**
      * @var string $name
@@ -49,10 +50,16 @@ class LinkModel {
     public $mail;
 
     /**
-     * @var string $content
-     * 
+     * @var string $description
+     *
      */
     public $description;
+
+    /**
+     * @var string $notes
+     *
+     */
+    public $notes;
 
     /**
      * @var string $isPublished
@@ -60,60 +67,129 @@ class LinkModel {
      */
     public $isPublished;
 
-    public function __construct(Link $entity) {
+    /**
+     * @param Link $entity
+     */
+    public function __construct(Link $entity)
+    {
         $this->name = $entity->getName();
         $this->isPublished = $entity->getIsPublished();
         $this->description = $entity->getDescription();
+        $this->mail = $entity->getMail();
+        $this->notes = $entity->getNotes();
         $this->url = $entity->getUrl();
         $this->rss = $entity->getRss();
     }
 
-    public function getName() {
-        return $this->name;
-    }
-
-    public function setName($name) {
-        $this->name = $name;
-    }
-
-    public function getUrl() {
-        return $this->url;
-    }
-
-    public function setUrl($url) {
-        $this->url = $url;
-    }
-
-    public function getRss() {
-        return $this->rss;
-    }
-
-    public function setRss($rss) {
-        $this->rss = $rss;
-    }
-
-    public function getDescription() {
-        return $this->description;
-    }
-
-    public function setDescription($description) {
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
         $this->description = $description;
     }
 
-    public function getIsPublished() {
-        return $this->isPublished;
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
-    public function setIsPublished($isPublished) {
+    /**
+     * @param string $isPublished
+     */
+    public function setIsPublished($isPublished)
+    {
         $this->isPublished = $isPublished;
     }
 
-    public function getMail() {
-        return $this->mail;
+    /**
+     * @return string
+     */
+    public function getIsPublished()
+    {
+        return $this->isPublished;
     }
 
-    public function setMail($mail) {
+    /**
+     * @param string $mail
+     */
+    public function setMail($mail)
+    {
         $this->mail = $mail;
     }
 
+    /**
+     * @return string
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $notes
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * @param string $rss
+     */
+    public function setRss($rss)
+    {
+        $this->rss = $rss;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRss()
+    {
+        return $this->rss;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
 }

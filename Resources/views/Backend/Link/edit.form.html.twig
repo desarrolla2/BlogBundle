@@ -49,6 +49,15 @@
     {{ form_widget(form.description, { 'attr': {'class': 'w100 h300'} }) }}
 </p>
 <p>
+    <label for="">Notes</label>
+    {% if form_errors(form.notes) %}
+    <div class="alert alert-block alert-error fade in form-errors">
+        {{ form_errors(form.notes) }}
+    </div>
+{% endif %}
+    {{ form_widget(form.notes, { 'attr': {'class': 'w100 h300'} }) }}
+</p>
+<p>
     <label for="">Is Published</label>
     {% if form_errors(form.isPublished) %}
         <div class="alert alert-block alert-error fade in form-errors">
