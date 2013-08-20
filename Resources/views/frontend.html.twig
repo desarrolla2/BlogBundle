@@ -1,0 +1,77 @@
+{% extends "BlogBundle::base.html.twig" %}
+{% block body %}
+    <div class="container">
+        <header id="header">
+            <div class="row-fluid">
+                <nav class="span9">
+                    {% block menu_header %}
+                        <ul>
+                            <li><a href="{{ path('_default') }}">Inicio</a></li>
+                            <li><a href="{{ path('_archive') }}">Archivo</a></li>
+                            <li><a href="{{ path('_feed') }}">RSS</a></li>
+                        </ul>
+                    {% endblock %}
+                </nav>
+                <div class="span3">
+                    <h1><a href="{{ path('_default') }}">{% block blog_name %}BLOG NAME{% endblock %}</a></h1>
+                </div>
+            </div>
+        </header>
+        <div id="wrapper" class="row-fluid">
+            <div id="content" class="span8">{% block content %}{% endblock %}</div>
+            <div id="sidebar" class="span4">
+                <div class="block">
+                    <h2>Buscar</h2>
+
+                    <form id="search-widget" action="/search" method="get">
+                        <input type="text" id="q" name="q" required="required"/>
+                    </form>
+                </div>
+                {% block sidebar %}
+                    <div class="block">
+                        <h2>Etiquetas</h2>
+                        {{ render(controller('BlogBundle:Frontend\\Widget:tags')) }}
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+        <footer id="footer">
+            <div class="row-fluid">
+                {% block footer %}
+                    <div class="span2">
+                        <ul>
+                            <li><a href="{{ path('_default') }}">Inicio</a></li>
+                            <li><a href="{{ path('_about_us') }}">Acerca de</a></li>
+                            <li><a href="{{ path('_archive') }}">Archivo</a></li>
+                            <li><a href="{{ path('_feed') }}">RSS</a></li>
+                        </ul>
+                    </div>
+                {% endblock %}
+            </div>
+        </footer>
+    </div>
+{% endblock %}
+{% block analitycs %}
+    {% include "BlogBundle::frontend.analitycs.html.twig" %}
+{% endblock %}
+{% block rss %}
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ path('_feed') }}"/>
+{% endblock %}
+{% block stylesheets %}
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic'
+          rel='stylesheet' type='text/css'/>
+    {% stylesheets
+    'bundles/blog/css/main.css'
+    filter='?yui_css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="all"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="/bundles/blog/js/tiny_mce/tiny_mce.js"></script>
+    {% javascripts
+    'bundles/blog/js/blog.js'
+    filter='?yui_js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

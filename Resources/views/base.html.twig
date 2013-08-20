@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %} Welcome {% endblock %}{% block after_title %} | BLOG TITLE {% endblock %}</title>
+        <meta name="description" content="{% block description %}{% endblock %}" />
+        {% block meta %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('/favicon.png') }}" />                
+        {% block rss %}{% endblock %}
+        {% block stylesheets %}{% endblock%}
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        {% block javascripts %}{% endblock %}                
+    </head>
+    <body>    
+    {% block body %}{% endblock %}    
+    {% block modal %}{% endblock %}
+    {% block analitycs %}{% endblock %}
+    </body>
+</html>
