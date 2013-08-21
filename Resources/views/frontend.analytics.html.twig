@@ -1,7 +1,7 @@
 {% if env != 'dev' %}
     <script type="text/javascript">
         var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', '{% block analitycs_code %}ANALITICS-CODE{% endblock %}']);
+        _gaq.push(['_setAccount', '{{ analytics_code }}']);
         _gaq.push(['_trackPageview']);
         (function () {
             var ga = document.createElement('script');
