@@ -43,12 +43,22 @@ class PostManager
         $this->em = $em;
     }
 
+    /**
+     * @param Post $post
+     */
     public function publish(Post $post)
     {
         $post->setStatus(PostStatus::PUBLISHED);
         $post->setPublishedAt(new DateTime());
         $this->em->persist($post);
         $this->em->flush();
+    }
+
+    /**
+     *
+     */
+    private function notify(){
+
     }
 
 }

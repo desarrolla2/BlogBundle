@@ -33,7 +33,7 @@ class ImageController extends Controller
         $request = $this->getRequest();
         $session = $request->getSession();
         $qb = $this->getDoctrine()->getManager()
-                        ->getRepository('BlogBundle:Image')->getQueryBuilderForFilter();
+            ->getRepository('BlogBundle:Image')->getQueryBuilderForFilter();
         $query = $qb->getQuery();
         $filterForm = $this->createForm(new ImageFilterType(), new ImageFilterModel($request));
         $formHandler = new ImageFilterHandler($filterForm, $request, $qb);
@@ -51,7 +51,10 @@ class ImageController extends Controller
 
         if ($request->getMethod() == 'GET') {
             if ($session->has('ImageControllerFilter')) {
-                $filterForm = $this->createForm(new ImageFilterType(), new ImageFilterModel($session->get('ImageControllerFilter')));
+                $filterForm = $this->createForm(
+                    new ImageFilterType(),
+                    new ImageFilterModel($session->get('ImageControllerFilter'))
+                );
                 $formHandler = new ImageFilterHandler($filterForm, $session->get('ImageControllerFilter'), $qb);
                 if ($formHandler->process()) {
                     $query = $formHandler->getQuery();
@@ -61,7 +64,9 @@ class ImageController extends Controller
         $filterForm = $formHandler->getFilter();
 
         $pagination = $paginator->paginate(
-                $query, $request->get('page', 1), 12
+            $query,
+            $request->get('page', 1),
+            12
         );
 
         return array(
@@ -140,9 +145,7 @@ class ImageController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
-                        ->add('id', 'hidden')
-                        ->getForm()
-        ;
+            ->add('id', 'hidden')
+            ->getForm();
     }
-
 }
