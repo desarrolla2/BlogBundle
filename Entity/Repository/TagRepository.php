@@ -18,15 +18,14 @@ class TagRepository extends EntityRepository
 
     /**
      *
-     * @param  type  $limit
+     * @param  type $limit
      * @return array
      */
     public function get($limit = self::TAGS_PER_PAGE)
     {
-        $limit = (int) $limit;
+        $limit = (int)$limit;
         $query = $this->getQueryForGet($limit)
-                ->setMaxResults($limit)
-        ;
+            ->setMaxResults($limit);
 
         return $query->getResult();
     }
@@ -39,11 +38,10 @@ class TagRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                ' SELECT t FROM BlogBundle:Tag t ' .
-                ' WHERE t.items >= 1 ' .
-                ' ORDER BY t.items DESC '
-                )
-        ;
+            ' SELECT t FROM BlogBundle:Tag t ' .
+            ' WHERE t.items >= 1 ' .
+            ' ORDER BY t.items DESC '
+        );
 
         return $query;
     }
@@ -55,13 +53,13 @@ class TagRepository extends EntityRepository
      */
     public function getQueryBuilderForGet($limit = self::TAGS_PER_PAGE)
     {
-        $limit = (int) $limit;
+        $limit = (int)$limit;
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder()
-                ->select('t')
-                ->from('BlogBundle:Tag', 't')
-                ->orderBy('t.items', 'DESC')
-                ->setMaxResults($limit);
+            ->select('t')
+            ->from('BlogBundle:Tag', 't')
+            ->orderBy('t.items', 'DESC')
+            ->setMaxResults($limit);
 
         return $qb;
     }
@@ -74,10 +72,9 @@ class TagRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder()
-                ->select('t')
-                ->from('BlogBundle:Tag', 't')
-                ->orderBy('t.items', 'DESC')
-        ;
+            ->select('t')
+            ->from('BlogBundle:Tag', 't')
+            ->orderBy('t.items', 'DESC');
 
         return $qb;
     }
@@ -91,13 +88,13 @@ class TagRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                        ' SELECT COUNT(p) FROM BlogBundle:Post p ' .
-                        ' JOIN p.tags t ' .
-                        ' WHERE p.status = ' . PostStatus::PUBLISHED .
-                        ' AND t = :t ' .
-                        ' ORDER BY p.createdAt DESC '
-                )
-                ->setParameter('t', $t);
+            ' SELECT COUNT(p) FROM BlogBundle:Post p ' .
+            ' JOIN p.tags t ' .
+            ' WHERE p.status = ' . PostStatus::PUBLISHED .
+            ' AND t = :t ' .
+            ' ORDER BY p.createdAt DESC '
+        )
+            ->setParameter('t', $t);
 
         return $query;
     }
@@ -111,7 +108,7 @@ class TagRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $n = $this->getQueryForCountItemsForTag($tag)
-                ->getSingleScalarResult();
+            ->getSingleScalarResult();
         $tag->setItems($n);
         $em->persist($tag);
         $em->flush();
@@ -131,49 +128,60 @@ class TagRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                ' SELECT COUNT(t) FROM BlogBundle:Tag t '
-                )
-        ;
+            ' SELECT COUNT(t) FROM BlogBundle:Tag t '
+        );
 
         return $query->getSingleScalarResult();
     }
 
     /**
      *
-     * @param  string                                    $slug
+     * @param  string $slug
      * @return \Desarrolla2\Bundle\BlogBundle\Entity\Tag
      */
     public function getOneBySlug($slug)
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                        ' SELECT t FROM BlogBundle:Tag t ' .
-                        ' WHERE t.slug = :slug' .
-                        ' ORDER BY t.createdAt DESC '
-                )
-                ->setParameter('slug', $slug)
-        ;
+            ' SELECT t FROM BlogBundle:Tag t ' .
+            ' WHERE t.slug = :slug' .
+            ' ORDER BY t.createdAt DESC '
+        )
+            ->setParameter('slug', $slug);
 
         return $query->getOneOrNullResult();
     }
 
     /**
      *
-     * @param  string                                    $tagName
+     * @param  string $tagName
+     * @return \Desarrolla2\Bundle\BlogBundle\Entity\Tag
+     */
+    public function getOneByName($tagName)
+    {
+        $em = $this->getEntityManager();
+        $name = strtolower($tagName);
+        $query = $em->createQuery(
+            ' SELECT t FROM BlogBundle:Tag t ' .
+            ' WHERE t.name = :name'
+        )
+            ->setParameter('name', $name);
+        echo $query->getSQL() . ' : ' . $name . PHP_EOL;
+
+        return $query->getOneOrNullResult();
+    }
+
+    /**
+     *
+     * @param  string $tagName
      * @return \Desarrolla2\Bundle\BlogBundle\Entity\Tag
      */
     public function getOrCreateByName($tagName)
     {
-        $name = strtolower($tagName);
         $em = $this->getEntityManager();
-        $query = $em->createQuery(
-                        ' SELECT t FROM BlogBundle:Tag t ' .
-                        ' WHERE t.name = :name'
-                )
-                ->setParameter('name', $name)
-        ;
-        $tag = $query->getOneOrNullResult();
+        $tag = $this->getOneByName($tagName);
         if (!$tag) {
+            $name = strtolower($tagName);
             $tag = new Tag();
             $tag->setName($name);
             $em->persist($tag);
@@ -182,5 +190,4 @@ class TagRepository extends EntityRepository
 
         return $tag;
     }
-
 }
