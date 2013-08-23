@@ -3,205 +3,253 @@
     Description: CSS Main Styles
 */
 
-
-*{
+* {
     font-size: 15px;
     font-weight: 300;
 }
-h1, h1 a{
+
+h1, h1 a {
     font-size: 28px;
 }
-h2, h2 a{
+
+h2, h2 a {
     font-size: 24px;
 }
-a:hover{
+
+a:hover {
     text-decoration: underline;
 }
+
 p {
-    margin: 0 0 19px 0 ;
+    margin: 0 0 19px 0;
 }
-header#header{
+
+header#header {
     height: 58px;
 }
-header#header h1{
+
+header#header h1 {
     text-align: right;
     font-size: 24px;
     margin: 9px 20px 0 0;
 }
-header#header h1 a{
+
+header#header h1 a {
     font-size: 28px;
     color: #FFF;
     font-weight: bold;
 }
-header#header ul li{
+
+header#header ul li {
     list-style: none;
     display: inline-block;
     height: 58px;
 }
-header#header ul li a{
+
+header#header ul li a {
     padding: 18px 12px 8px 12px;
     display: block;
 }
-div#wrapper{
+
+div#wrapper {
     padding: 20px 0 30px 0;
     border: 1px solid;
 }
-div#content{
+
+div#content {
     padding: 0 20px 0 20px;
 }
-div#content article{
+
+div#content article {
     padding: 10px 3px 20px 3px;
 }
-div#content article{
+
+div#content article {
     margin-bottom: 40px;
     padding: 10px 15px;
 }
-div#content li, div#content ol{
+
+div#content li, div#content ol {
     margin: 15px;
     list-style: none;
 }
+
 div#content img:after {
     content: "\A ";
     white-space: pre;
 }
-div#content img{
+
+div#content img {
     display: block;
     margin: 0 auto 15px;
 }
-div#content ul.tags{
-    margin: 10px 0 0 0 ;
+
+div#content ul.tags {
+    margin: 10px 0 0 0;
 }
+
 div#content ul.tags li {
     display: inline-block;
     list-style: none;
     margin: 3px;
     padding: 5px;
 }
-div#sidebar ul{
+
+div#sidebar ul {
     margin: 10px 0 0 5px;
     padding: 0;
 }
-div#sidebar li{
+
+div#sidebar li {
     margin: 10px 0 0 0;
     padding: 0;
     list-style: none;
 }
-div#sidebar ul#tags{
+
+div#sidebar ul#tags {
     margin: 10px 0 0 5px;
 }
-div#sidebar ul#tags li{
+
+div#sidebar ul#tags li {
     display: inline-block;
     list-style: none;
     margin: 0 5px 5px;
     padding: 10px;
 }
-ul#archive{
-    margin: 0  0 9px 0;
+
+ul#archive {
+    margin: 0 0 9px 0;
 }
+
 article h2 {
     margin-bottom: 20px;
 }
+
 article h3 {
     margin-bottom: 16px;
 }
+
 article h4 {
     margin-bottom: 12px;
 }
-div.block{
-    background: #fff;
-    margin: 0 20px 20px 0 ;
+
+div.block {
+    margin: 0 20px 20px 0;
     padding: 0 0 10px 0;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
 }
-div.block h2{
+
+div.block h2 {
     font-size: 17px;
     padding: 5px;
     display: block;
 }
-div.block ul, div.block form{
+
+div.block ul, div.block form {
     margin: 20px 10px 5px;
 }
-footer#footer{
-    background-color: #efefef;
+
+footer#footer {
     padding: 30px 0 20px 0;
 }
+
 footer#footer li {
     list-style: none;
 }
-footer#footer p{
+
+footer#footer p {
     margin: 0 0 0 25px;
 }
-footer#footer a, footer#footer p{
+
+footer#footer a, footer#footer p {
     font-size: 13px;
 }
-div.alert{
+
+div.alert {
     width: 80%;
 }
-div.alert ul{
+
+div.alert ul {
     margin: 0 0 0 25px;
 }
-article.error{
+
+article.error {
     margin: 50px;
 }
-article.error h1{
+
+article.error h1 {
     margin: 0 0 50px 0;
 }
-article.error h2{
+
+article.error h2 {
     font-size: 120px;
     line-height: 120px;
 }
+
 div#content label {
     margin: 20px 0 10px 0;
     font-size: 20px;
     line-height: 20px;
 }
+
 div#content form {
     padding: 20px 0 0 0;
 }
-div#content input,textarea{
+
+div#content input, textarea {
     width: 80%;
     margin: 3px;
 }
-form#search input{
+
+form#search input {
     width: 95%;
 }
-div#content input, form#search-widget input{
+
+div#content input, form#search-widget input {
     height: 30px;
     font-size: 16px !important;
 }
-div#content textarea{
+
+div#content textarea {
     height: 220px;
     font-size: 16px !important;
 }
-div#content input[type="text"].captcha{
+
+div#content input[type="text"].captcha {
     width: 200px;
     margin: 0 0 0 10px;
 }
-form#post-comment input, form#post-comment textarea{
+
+form#post-comment input, form#post-comment textarea {
     width: 98%;
 }
-form#post-comment textarea{
+
+form#post-comment textarea {
     height: 220px;
 }
-ul#archive li{
-    margin: 20px 0 10px 0 ;
+
+ul#archive li {
+    margin: 20px 0 10px 0;
 }
-.btn, .btn:hover{
+
+.btn, .btn:hover {
     color: #fff;
     font-size: 18px;
-    text-shadow:none;
+    text-shadow: none;
     border: 0;
     box-shadow: none;
     -webkit-box-shadow: none;
     padding: 10px 12px;
 }
-.btn-mini, .btn-mini:hover{
+
+.btn-mini, .btn-mini:hover {
     font-size: 13px;
     padding: 7px 8px;
 }
-article.comment{
+
+article.comment {
     margin: 10px 0 0 0;
     padding: 10px 0 20px 0;
     border-bottom: 1px dotted #ccc;

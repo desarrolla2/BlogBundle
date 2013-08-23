@@ -26,8 +26,3 @@ div#desarrolla2_bundle_blogbundle_post_type_tags label {
 .hide {
     display: none;
 }
-
-[class^="icon-"],
-[class*=" icon-"] {
-    background-image: url("/bundles/blog/img/glyphicons-halflings.png") !important;
-}

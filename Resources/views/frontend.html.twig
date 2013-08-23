@@ -35,9 +35,9 @@
                 {% endblock %}
             </div>
         </div>
-        <footer id="footer">
-            <div class="row-fluid">
-                {% block footer %}
+        {% block footer %}
+            <footer id="footer">
+                <div class="row-fluid">
                     <div class="span2">
                         <ul>
                             <li><a href="{{ path('_default') }}">Inicio</a></li>
@@ -46,9 +46,9 @@
                             <li><a href="{{ path('_feed') }}">RSS</a></li>
                         </ul>
                     </div>
-                {% endblock %}
-            </div>
-        </footer>
+                </div>
+            </footer>
+        {% endblock %}
     </div>
 {% endblock %}
 {% block analitycs %}
@@ -58,7 +58,8 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ path('_feed') }}"/>
 {% endblock %}
 {% block stylesheets %}
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" media="all">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic'
           rel='stylesheet' type='text/css'/>
     {% stylesheets
@@ -68,7 +69,6 @@
     {% endstylesheets %}
 {% endblock %}
 {% block javascripts %}
-    <script type="text/javascript" src="/bundles/blog/js/tiny_mce/tiny_mce.js"></script>
     {% javascripts
     'bundles/blog/js/blog.js'
     filter='?yui_js' %}

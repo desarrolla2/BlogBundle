@@ -14,7 +14,7 @@ class Utils
      */
     public static function slugify($text, $limit = 100)
     {
-        $limit = (int) $limit;
+        $limit = (int)$limit;
         $text = preg_replace('#[^\\pL\d]+#u', '-', $text);
         $text = trim($text, '-');
         if (function_exists('iconv')) {

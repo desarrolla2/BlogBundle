@@ -11,12 +11,12 @@ body {
 
 body, td {
     color: #000000;
-    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
-pre {    
+pre {
     font-size: 16px;
-    border-radius: 8px; 
+    border-radius: 8px;
     display: block;
     background: black;
     color: #eaeaea !important;
@@ -24,7 +24,7 @@ pre {
     margin: 15px auto;
 }
 
-pre code{
+pre code {
     white-space: pre;
     font-size: 16px;
     color: #eaeaea !important;
