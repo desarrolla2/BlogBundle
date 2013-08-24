@@ -166,7 +166,6 @@ class TagRepository extends EntityRepository
             ' WHERE t.name = :name'
         )
             ->setParameter('name', $name);
-        echo $query->getSQL() . ' : ' . $name . PHP_EOL;
 
         return $query->getOneOrNullResult();
     }
