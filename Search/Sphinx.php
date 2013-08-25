@@ -2,6 +2,7 @@
 
 namespace Desarrolla2\Bundle\BlogBundle\Search;
 
+use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use Doctrine\ORM\EntityManager;
 use Desarrolla2\Bundle\BlogBundle\Search\SearchInterface;
 use SphinxClient;
@@ -58,40 +59,40 @@ class Sphinx implements SearchInterface
             'content' => 1
         ));
         $this->sphinx->SetSortMode(
-                SPH_SORT_EXPR, ' @weight * 1000 + published_at '
+            SPH_SORT_EXPR, ' @weight * 1000 + published_at '
         );
     }
 
     /**
+     * @param $query
+     * @param int $page
+     * @return type
      *
-     * @param  string            $query
-     * @return array
-     * @throws \RuntimeException
+     * @TODO: Refactor for pagination
      */
-    public function search($query, $limit = 100)
+    public function search($query, $page = 100)
     {
         $this->configureSearch();
 
-        return $this->__search($query, $limit);
+        return $this->__search($query, $page);
     }
 
     /**
-     *
-     * @param  string            $query
-     * @return array
-     * @throws \RuntimeException
+     * @param Post $post
+     * @param int $limit
+     * @return Post[]
      */
-    public function related($query, $limit = 10)
+    public function related(Post $post, $limit = 10)
     {
         $this->configureRelated();
 
-        return $this->__search($query, $limit);
+        return $this->__search($post->getTagsAsString(), $limit);
     }
 
     /**
-     *
-     * @param  type              $query
-     * @return type
+     * @param $query
+     * @param $limit
+     * @return Post[]
      * @throws \RuntimeException
      */
     protected function __search($query, $limit)

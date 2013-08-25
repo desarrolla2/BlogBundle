@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="blog.search.sphinx.class">Desarrolla2\Bundle\BlogBundle\Search\Sphinx</parameter>
+        <parameter key="blog.search.mysql.class">Desarrolla2\Bundle\BlogBundle\Search\MySQL</parameter>
+        <parameter key="blog.search.manager.class">Desarrolla2\Bundle\BlogBundle\Manager\SearchManager</parameter>
+    </parameters>
+
+    <services>
+        <service id="blog.search" alias="blog.search.manager" />
+        <service id="blog.search.manager" class="%blog.search.manager.class%">
+            <argument type="service" id="service_container" />
+        </service>
+        <service id="blog.search.sphinx" class="%blog.search.sphinx.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="string">%blog.search.sphinx.host%</argument>
+            <argument type="string">%blog.search.sphinx.port%</argument>
+            <argument type="string">%blog.search.sphinx.index%</argument>
+            <argument type="string">%blog.items%</argument>
+        </service>
+        <service id="blog.search.mysql" class="%blog.search.mysql.class%">
+            <argument type="service" id="doctrine" />
+            <argument type="string">%blog.search.mysql.connection%</argument>
+            <argument type="string">%blog.search.mysql.manager%</argument>
+            <argument type="string">%blog.items%</argument>
+        </service>
+    </services>
+</container>

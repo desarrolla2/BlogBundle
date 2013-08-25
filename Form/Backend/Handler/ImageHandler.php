@@ -80,7 +80,7 @@ class ImageHandler
             $entityModel = $this->form->getData();
             $file = $entityModel->getFile();
             $fileName = $this->getName() . '.' . $file->getClientOriginalExtension();
-            $file->move($this->uploadPath . DIRECTORY_SEPARATOR . $fileName);
+            $file->move($this->uploadPath, $fileName);
             $this->entity->setFile($fileName);
             $this->em->persist($this->entity);
             $this->em->flush();
