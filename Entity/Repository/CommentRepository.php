@@ -25,7 +25,7 @@ class CommentRepository extends EntityRepository
                 ' SELECT c FROM BlogBundle:Comment c ' .
                 ' WHERE c.status = ' . CommentStatus::PENDING .
                 ' OR c.status = ' . CommentStatus::APPROVED .
-                ' ORDER BY c.createdAt DESC '
+                ' ORDER BY c.publishedAt DESC '
                 )
         ;
 
@@ -50,7 +50,7 @@ class CommentRepository extends EntityRepository
                         ' WHERE c.status = ' . CommentStatus::PENDING .
                         ' OR c.status = ' . CommentStatus::APPROVED .
                         ' AND p1 = :post ' .
-                        ' ORDER BY c.createdAt DESC '
+                        ' ORDER BY c.publishedAt DESC '
                 )
                 ->setParameter('post', $post)
                 ->setMaxResults($limit)

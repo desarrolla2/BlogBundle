@@ -19,7 +19,11 @@ class PostRepository extends EntityRepository
 
     const POST_PER_PAGE = 6;
 
-    public function getByIds(array $ids)
+    /**
+     * @param array $ids
+     * @return \Doctrine\ORM\AbstractQuery
+     */
+    public function getQueryForGetByIds(array $ids)
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
@@ -29,7 +33,17 @@ class PostRepository extends EntityRepository
         )
             ->setParameter('ids', $ids);
 
-        return $query->getResult();
+        return $query;
+    }
+
+    /**
+     * @param array $ids
+     * @return array
+     */
+    public function getByIds(array $ids)
+    {
+        return $this->getQueryForGetByIds($ids)
+            ->getResult();
     }
 
     /**
@@ -52,7 +66,8 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param  string $slug
+     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Tag $tag
+     * @param int                                       $limit
      * @return \Doctrine\ORM\Query
      */
     public function getByTag(Tag $tag, $limit = self::POST_PER_PAGE)
@@ -66,7 +81,7 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param  type $limit
+     * @param  int $limit
      * @return array
      */
     public function get($limit = self::POST_PER_PAGE)

@@ -58,7 +58,7 @@ class SearchHandler
      */
     public function process()
     {
-        $this->form->bind($this->request);
+        $this->form->submit($this->request);
 
         if ($this->form->isValid()) {
             $query = $this->form->getData()->getQuery();

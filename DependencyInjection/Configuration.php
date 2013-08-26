@@ -47,6 +47,7 @@ class Configuration implements ConfigurationInterface
                                     ->scalarNode('host')->defaultValue('localhost')->end()
                                     ->scalarNode('port')->defaultValue(9312)->end()
                                     ->scalarNode('index')->defaultValue('planetubuntu_idx')->end()
+                                    ->scalarNode('items')->defaultValue(30)->end()
                                 ->end()
                             ->end()
                         ->end()
