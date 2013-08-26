@@ -38,11 +38,11 @@ class SearchController extends Controller
         $pagination = null;
         $form = $this->createForm(new SearchType(), new SearchModel());
         $query = $request->get('q', false);
-        $page = (int)$request->get('p', 1);
+        $page = (int)$request->get('page', 1);
         if ($query) {
             $form->submit($request);
             if ($form->isValid()) {
-                $query = $form->getData()->getQuery();
+                $query = $form->getData()->getQ();
                 $search = $this->get('blog.search');
                 $search->search($query, $page);
 

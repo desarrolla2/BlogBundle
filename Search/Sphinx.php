@@ -122,6 +122,8 @@ class Sphinx implements SearchInterface
             foreach ($response['matches'] as $doc => $docInfo) {
                 $ids[] = $doc;
             }
+
+
             $this->pagination = $this->paginator->paginate($ids, $page, $this->itemsPerPage);
             $items = $this->em->getRepository('BlogBundle:Post')->getByIds($this->pagination->getItems());
             foreach ($ids as $id) {

@@ -212,6 +212,22 @@ div#content input, form#search-widget input {
     font-size: 16px !important;
 }
 
+ul#search-results {
+    margin: 0;
+}
+
+ul#search-results li {
+    margin: 5px 5px 20px 0;
+}
+
+ul#search-results li {
+    margin: 5px 5px 20px 0;
+}
+
+ul#search-results h5 {
+    margin: 0;
+}
+
 div#content textarea {
     height: 220px;
     font-size: 16px !important;

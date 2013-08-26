@@ -11,10 +11,10 @@
         </header>
         {% include 'BlogBundle:Frontend/Search:form.html.twig' with {'form': form} %}
         {% if query %}
-            <ul>
+            <ul id="search-results">
                 {% for item in items %}
                     <li>
-                        <a href="{{ url('_view', { 'slug' : item.slug }) }}" title="{{ item }}">{{ item }}</a>,
+                        <h5><a href="{{ url('_view', { 'slug' : item.slug }) }}" title="{{ item }}">{{ item }}</a></h5>
                         {{ item.intro | striptags | raw | truncate(160) }} [..] el
                         <time datetime="{{ item.publishedAt | date('c') }}">
                             {{ item.publishedAt | localeDate('full') }}.
@@ -25,8 +25,10 @@
                 {% endfor %}
             </ul>
         {% endif %}
+        {% if pagination %}
         <div class="navigation">
             {{ knp_pagination_render(pagination) }}
         </div>
+        {% endif %}
     </article>
 {% endblock %}
