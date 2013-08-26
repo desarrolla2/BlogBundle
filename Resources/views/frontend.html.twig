@@ -20,6 +20,7 @@
         <div id="wrapper" class="row-fluid">
             <div id="content" class="span8">{% block content %}{% endblock %}</div>
             <div id="sidebar" class="span4">
+                {% block search_widget %}
                 <div class="block">
                     <h2>Buscar</h2>
 
@@ -27,6 +28,7 @@
                         <input type="text" id="q" name="q" required="required"/>
                     </form>
                 </div>
+                {% endblock %}
                 {% block sidebar %}
                     <div class="block">
                         <h2>Etiquetas</h2>

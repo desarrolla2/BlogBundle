@@ -212,6 +212,10 @@ div#content input, form#search-widget input {
     font-size: 16px !important;
 }
 
+form#search-widget input {
+    width: 300px !important;
+}
+
 ul#search-results {
     margin: 0;
 }
