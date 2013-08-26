@@ -14,8 +14,8 @@
             <ul id="search-results">
                 {% for item in items %}
                     <li>
-                        <h5><a href="{{ url('_view', { 'slug' : item.slug }) }}" title="{{ item }}">{{ item }}</a></h5>
-                        {{ item.intro | striptags | raw | truncate(160) }} [..] el
+                        <h5><a href="{{ url('_view', { 'slug' : item.slug }) }}" title="{{ item }}">{{ item | highlight(query) | raw }}</a></h5>
+                        {{ item.intro | striptags |  truncate(160) | highlight(query) | raw}} [..] el
                         <time datetime="{{ item.publishedAt | date('c') }}">
                             {{ item.publishedAt | localeDate('full') }}.
                         </time>
@@ -26,9 +26,7 @@
             </ul>
         {% endif %}
         {% if pagination %}
-        <div class="navigation">
-            {{ knp_pagination_render(pagination) }}
-        </div>
+            <div class="navigation">{{ knp_pagination_render(pagination) }}</div>
         {% endif %}
     </article>
 {% endblock %}
