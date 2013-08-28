@@ -62,6 +62,7 @@ div#content {
 
 div#content article {
     padding: 10px 3px 20px 3px;
+    border-bottom: 1px dotted #aea79f;
 }
 
 div#content article {

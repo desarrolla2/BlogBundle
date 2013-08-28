@@ -34,6 +34,10 @@
                         <h2>Etiquetas</h2>
                         {{ render(controller('BlogBundle:Frontend\\Widget:tags')) }}
                     </div>
+                    <div class="block">
+                        <h2>Enlaces</h2>
+                        {{ render(controller('BlogBundle:Frontend\\Widget:links')) }}
+                    </div>
                 {% endblock %}
             </div>
         </div>
@@ -53,6 +57,7 @@
         {% endblock %}
     </div>
 {% endblock %}
+
 {% block analitycs %}
     {% include "BlogBundle::frontend.analytics.html.twig" %}
 {% endblock %}
