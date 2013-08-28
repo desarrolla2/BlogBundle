@@ -49,7 +49,12 @@ class Sphinx implements SearchInterface
     /**
      * @var int
      */
-    protected $limitSearchResult = 1000;
+    protected $limitSearch = 1000;
+
+    /**
+     * @var int
+     */
+    protected $limitRelated = 3;
 
     /**
      * @var PaginationInterface
@@ -88,55 +93,25 @@ class Sphinx implements SearchInterface
     /**
      *
      * @param string $query
-     * @param int    $limit
      * @return array
      */
-    public function related($query, $limit = 10)
+    public function related($query)
     {
-        $this->configureRelated();
+        $this->configureForRelated();
 
-        return $this->__search($query, $limit);
+        return $this->__search($query);
     }
 
     /**
      *
      * @param string $query
-     * @param int    $page
-     * @throws \RuntimeException
      * @return array
      */
-    public function search($query, $page = 1)
+    public function search($query)
     {
-        $this->items = array();
-        $ids = array();
-        $this->sphinx->SetLimits(0, $this->limitSearchResult);
-        $this->sphinx->SetMatchMode(SPH_MATCH_ALL);
-        $query = $this->sphinx->escapeString($query);
-        $response = $this->sphinx->Query($query, $this->index);
-        if ($response === false) {
-            throw new \RuntimeException('Sphinx Query failed: ' . $this->sphinx->GetLastError());
-        } else {
-            if (empty($response['matches'])) {
-                return;
-            }
-            foreach ($response['matches'] as $doc => $docInfo) {
-                $ids[] = $doc;
-            }
+        $this->configureForSearch();
 
-
-            $this->pagination = $this->paginator->paginate($ids, $page, $this->itemsPerPage);
-            $items = $this->em->getRepository('BlogBundle:Post')->getByIds($this->pagination->getItems());
-            foreach ($ids as $id) {
-                foreach ($items as $key => $item) {
-                    if ($id != $item->getId()) {
-                        continue;
-                    }
-                    $this->items[] = $item;
-                    unset($items[$key]);
-                    break;
-                }
-            }
-        }
+        return $this->__search($query);
     }
 
     /**
@@ -172,9 +147,8 @@ class Sphinx implements SearchInterface
      */
     protected function __search($query)
     {
-        $result = array();
+        $this->items = array();
         $ids = array();
-        $this->sphinx->SetLimits(0, $this->limitSearchResult);
         $query = $this->sphinx->escapeString($query);
         $response = $this->sphinx->Query($query, $this->index);
         if ($response === false) {
@@ -186,31 +160,37 @@ class Sphinx implements SearchInterface
             foreach ($response['matches'] as $doc => $docInfo) {
                 $ids[] = $doc;
             }
-            $query = $this->em->getRepository('BlogBundle:Post')->getQueryForGetByIds($ids);
 
 
-            $items = $this->em->getRepository('BlogBundle:Post')->getByIds($ids);
+            $this->pagination = $this->paginator->paginate($ids, $page, $this->itemsPerPage);
+            $items = $this->em->getRepository('BlogBundle:Post')->getByIds($this->pagination->getItems());
             foreach ($ids as $id) {
                 foreach ($items as $key => $item) {
                     if ($id != $item->getId()) {
                         continue;
                     }
-                    $result[] = $item;
+                    $this->items[] = $item;
                     unset($items[$key]);
                     break;
                 }
             }
         }
-
-        return $result;
+        return $this->items;
     }
 
 
     /**
      * Configure for search
      */
-    protected function configureRelated()
+    protected function configureForRelated()
     {
+        $this->sphinx->SetLimits(0, $this->limitRelated);
         $this->sphinx->SetMatchMode(SPH_MATCH_ANY);
+    }
+
+    protected function configureForSearch()
+    {
+        $this->sphinx->SetLimits(0, $this->limitSearch);
+        $this->sphinx->SetMatchMode(SPH_MATCH_ALL);
     }
 }

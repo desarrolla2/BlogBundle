@@ -100,7 +100,7 @@ class WidgetController extends Controller
     public function postViewRelatedAction($post, $items = 3)
     {
         $search = $this->get('blog.search');
-        $related = $search->related($post->getTagsAsString(), 3);
+        $related = $search->related($post->getTagsAsString());
 
         return array(
             'related' => $related,
