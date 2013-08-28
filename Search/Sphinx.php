@@ -49,7 +49,12 @@ class Sphinx implements SearchInterface
     /**
      * @var int
      */
-    protected $limitSearchResult = 1000;
+    protected $limitSearch = 1000;
+
+    /**
+     * @var int
+     */
+    protected $limitRelated = 3;
 
     /**
      * @var PaginationInterface
@@ -88,15 +93,15 @@ class Sphinx implements SearchInterface
     /**
      *
      * @param string $query
-     * @param int    $limit
      * @return array
      */
+
     public function related($query, $limit = 3)
     {
         $this->sphinx->SetMatchMode(SPH_MATCH_ANY);
         $this->sphinx->SetLimits(0, $limit);
         $ids = $this->sphinxSearch($query);
-        if (!$ids){
+        if (!$ids) {
             return array();
         }
         $items = $this->em->getRepository('BlogBundle:Post')->getByIds($ids);
@@ -108,16 +113,15 @@ class Sphinx implements SearchInterface
     /**
      *
      * @param string $query
-     * @param int    $page
-     * @throws \RuntimeException
      * @return array
      */
-    public function search($query, $page = 1)
+    public function search($query)
     {
+
         $this->sphinx->SetLimits(0, $this->limitSearchResult);
         $this->sphinx->SetMatchMode(SPH_MATCH_ALL);
         $ids = $this->sphinxSearch($query);
-        if (!$ids){
+        if (!$ids) {
             return array();
         }
         $this->pagination = $this->paginator->paginate($ids, $page, $this->itemsPerPage);
@@ -207,9 +211,8 @@ class Sphinx implements SearchInterface
      */
     protected function __search($query, $limit)
     {
-        $result = array();
+        $this->items = array();
         $ids = array();
-        $this->sphinx->SetLimits(0, $this->limitSearchResult);
         $query = $this->sphinx->escapeString($query);
         $response = $this->sphinx->Query($query, $this->index);
         if ($response === false) {
@@ -221,23 +224,22 @@ class Sphinx implements SearchInterface
             foreach ($response['matches'] as $doc => $docInfo) {
                 $ids[] = $doc;
             }
-            $query = $this->em->getRepository('BlogBundle:Post')->getQueryForGetByIds($ids);
 
 
-            $items = $this->em->getRepository('BlogBundle:Post')->getByIds($ids);
+            $this->pagination = $this->paginator->paginate($ids, $page, $this->itemsPerPage);
+            $items = $this->em->getRepository('BlogBundle:Post')->getByIds($this->pagination->getItems());
             foreach ($ids as $id) {
                 foreach ($items as $key => $item) {
                     if ($id != $item->getId()) {
                         continue;
                     }
-                    $result[] = $item;
+                    $this->items[] = $item;
                     unset($items[$key]);
                     break;
                 }
             }
         }
 
-        return $result;
+        return $this->items;
     }
-
 }
