@@ -44,7 +44,7 @@ class Sphinx implements SearchInterface
     /**
      * @var int
      */
-    protected $itemsPerPage = 30;
+    protected $itemsPerPage = 12;
 
     /**
      * @var int
@@ -91,11 +91,18 @@ class Sphinx implements SearchInterface
      * @param int    $limit
      * @return array
      */
-    public function related($query, $limit = 10)
+    public function related($query, $limit = 3)
     {
-        $this->configureRelated();
+        $this->sphinx->SetMatchMode(SPH_MATCH_ANY);
+        $this->sphinx->SetLimits(0, $limit);
+        $ids = $this->sphinxSearch($query);
+        if (!$ids){
+            return array();
+        }
+        $items = $this->em->getRepository('BlogBundle:Post')->getByIds($ids);
+        $this->items = $this->orderResults($ids, $items);
 
-        return $this->__search($query, $limit);
+        return $this->items;
     }
 
     /**
@@ -107,10 +114,49 @@ class Sphinx implements SearchInterface
      */
     public function search($query, $page = 1)
     {
-        $this->items = array();
-        $ids = array();
         $this->sphinx->SetLimits(0, $this->limitSearchResult);
         $this->sphinx->SetMatchMode(SPH_MATCH_ALL);
+        $ids = $this->sphinxSearch($query);
+        if (!$ids){
+            return array();
+        }
+        $this->pagination = $this->paginator->paginate($ids, $page, $this->itemsPerPage);
+        $items = $this->em->getRepository('BlogBundle:Post')->getByIds($this->pagination->getItems());
+        $this->items = $this->orderResults($ids, $items);
+
+        return $this->items;
+    }
+
+    /**
+     * @param array $ids
+     * @param array $items
+     * @return array
+     */
+    protected function orderResults($ids, $items)
+    {
+        $result = array();
+        foreach ($ids as $id) {
+            foreach ($items as $key => $item) {
+                if ($id != $item->getId()) {
+                    continue;
+                }
+                $result[] = $item;
+                unset($items[$key]);
+                break;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param $query
+     * @return array
+     * @throws \RuntimeException
+     */
+    protected function sphinxSearch($query)
+    {
+        $ids = array();
         $query = $this->sphinx->escapeString($query);
         $response = $this->sphinx->Query($query, $this->index);
         if ($response === false) {
@@ -122,21 +168,9 @@ class Sphinx implements SearchInterface
             foreach ($response['matches'] as $doc => $docInfo) {
                 $ids[] = $doc;
             }
-
-
-            $this->pagination = $this->paginator->paginate($ids, $page, $this->itemsPerPage);
-            $items = $this->em->getRepository('BlogBundle:Post')->getByIds($this->pagination->getItems());
-            foreach ($ids as $id) {
-                foreach ($items as $key => $item) {
-                    if ($id != $item->getId()) {
-                        continue;
-                    }
-                    $this->items[] = $item;
-                    unset($items[$key]);
-                    break;
-                }
-            }
         }
+
+        return $ids;
     }
 
     /**
@@ -167,10 +201,11 @@ class Sphinx implements SearchInterface
     /**
      *
      * @param string $query
+     * @param        $limit
      * @throws \RuntimeException
      * @return array
      */
-    protected function __search($query)
+    protected function __search($query, $limit)
     {
         $result = array();
         $ids = array();
@@ -205,12 +240,4 @@ class Sphinx implements SearchInterface
         return $result;
     }
 
-
-    /**
-     * Configure for search
-     */
-    protected function configureRelated()
-    {
-        $this->sphinx->SetMatchMode(SPH_MATCH_ANY);
-    }
 }
