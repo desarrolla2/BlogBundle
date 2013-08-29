@@ -1,22 +1,9 @@
 {% extends "BlogBundle::base.html.twig" %}
 {% block body %}
     <div class="container">
-        <header id="header">
-            <div class="row-fluid">
-                <nav class="span9">
-                    {% block menu_header %}
-                        <ul>
-                            <li><a href="{{ path('_default') }}">Inicio</a></li>
-                            <li><a href="{{ path('_archive') }}">Archivo</a></li>
-                            <li><a href="{{ path('_feed') }}">RSS</a></li>
-                        </ul>
-                    {% endblock %}
-                </nav>
-                <div class="span3">
-                    <h1><a href="{{ path('_default') }}">{% block blog_name %}BLOG NAME{% endblock %}</a></h1>
-                </div>
-            </div>
-        </header>
+        {% block header %}
+            {% include "BlogBundle::frontend.header.html.twig" %}
+        {% endblock %}
         <div id="wrapper" class="row-fluid">
             <div id="content" class="span8">{% block content %}{% endblock %}</div>
             <div id="sidebar" class="span4">
@@ -42,18 +29,7 @@
             </div>
         </div>
         {% block footer %}
-            <footer id="footer">
-                <div class="row-fluid">
-                    <div class="span2">
-                        <ul>
-                            <li><a href="{{ path('_default') }}">Inicio</a></li>
-                            <li><a href="{{ path('_about_us') }}">Acerca de</a></li>
-                            <li><a href="{{ path('_archive') }}">Archivo</a></li>
-                            <li><a href="{{ path('_feed') }}">RSS</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </footer>
+            {% include "BlogBundle::frontend.footer.html.twig" %}
         {% endblock %}
     </div>
 {% endblock %}
@@ -67,8 +43,6 @@
 {% block stylesheets %}
     <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" media="all">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,700,700italic'
-          rel='stylesheet' type='text/css'/>
     {% stylesheets
     'bundles/blog/css/main.css'
     filter='?yui_css' %}
