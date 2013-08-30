@@ -21,11 +21,13 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('blog');
         $rootNode
-                ->children()
-                    ->scalarNode('title')->defaultValue('my blog title')->end()
-                    ->scalarNode('description')->defaultValue('my blog description')->end()
-                    ->scalarNode('items')->defaultValue(12)->end()
-                ->end();
+            ->children()
+                ->scalarNode('title')->defaultValue('my blog title')->end()
+                ->scalarNode('description')->defaultValue('my blog description')->end()
+                ->scalarNode('items')->defaultValue(12)->end()
+                ->scalarNode('upload_dir')->defaultValue('%kernel.root_dir%/../web/uploads')->end()
+                ->scalarNode('upload_url')->defaultValue('/uploads')->end()
+            ->end();
 
         $this->addSiteMapSection($rootNode);
         $this->addRSSSection($rootNode);
@@ -35,67 +37,78 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-        private function addSearchSection(ArrayNodeDefinition $node)
-        {
+    private function addSearchSection(ArrayNodeDefinition $node)
+    {
         $node
-                ->children()
-                    ->arrayNode('search')
-                        ->addDefaultsIfNotSet()
-                        ->children()
-                            ->arrayNode('sphinx')
-                                ->children()
-                                    ->scalarNode('host')->defaultValue('localhost')->end()
-                                    ->scalarNode('port')->defaultValue(9312)->end()
-                                    ->scalarNode('index')->defaultValue('planetubuntu_idx')->end()
-                                ->end()
+            ->children()
+                ->arrayNode('search')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('provider')->defaultValue('mysql')->end()
+                        ->arrayNode('mysql')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('connection')->defaultValue('')->end()
+                                ->scalarNode('manager')->defaultValue('')->end()
+                                ->scalarNode('return')->defaultValue('paged')->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('sphinx')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('host')->defaultValue('localhost')->end()
+                                ->scalarNode('port')->defaultValue(9312)->end()
+                                ->scalarNode('index')->defaultValue('planetubuntu_idx')->end()
+                                ->scalarNode('return')->defaultValue('all')->end()
                             ->end()
                         ->end()
                     ->end()
-                ->end();
+                ->end()
+            ->end();
     }
 
     private function addSiteMapSection(ArrayNodeDefinition $node)
     {
         $node
-                ->children()
-                    ->arrayNode('sitemap')
-                        ->addDefaultsIfNotSet()
-                        ->children()
-                            ->scalarNode('items')->defaultValue(50)->end()
-                        ->end()
+            ->children()
+                ->arrayNode('sitemap')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('items')->defaultValue(50)->end()
                     ->end()
-                ->end();
+                ->end()
+            ->end();
     }
 
     private function addRSSSection(ArrayNodeDefinition $node)
     {
         $node
-                ->children()
-                    ->arrayNode('rss')
-                        ->addDefaultsIfNotSet()
-                        ->children()
-                            ->scalarNode('title')->defaultValue('RSS')->end()
-                            ->scalarNode('description')->defaultValue('')->end()
-                            ->scalarNode('language')->defaultValue('en')->end()
-                            ->scalarNode('items')->defaultValue(16)->end()
-                            ->scalarNode('ttl')->defaultValue(60)->end()
-                        ->end()
+            ->children()
+                ->arrayNode('rss')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('title')->defaultValue('RSS')->end()
+                        ->scalarNode('description')->defaultValue('')->end()
+                        ->scalarNode('language')->defaultValue('en')->end()
+                        ->scalarNode('items')->defaultValue(16)->end()
+                        ->scalarNode('ttl')->defaultValue(60)->end()
                     ->end()
-                ->end();
+                ->end()
+            ->end();
     }
 
     private function addArchiveSection(ArrayNodeDefinition $node)
     {
         $node
-                ->children()
-                    ->arrayNode('archive')
-                        ->addDefaultsIfNotSet()
-                        ->children()
-                            ->scalarNode('title')->defaultValue('Blog Archive')->end()
-                            ->scalarNode('description')->defaultValue('my archive description')->end()
-                        ->end()
+            ->children()
+                ->arrayNode('archive')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('title')->defaultValue('Blog Archive')->end()
+                        ->scalarNode('description')->defaultValue('my archive description')->end()
                     ->end()
-                ->end();
+                ->end()
+            ->end();
     }
 
 }

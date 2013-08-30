@@ -36,13 +36,15 @@ class SearchController extends Controller
     {
         $items = array();
         $form = $this->createForm(new SearchType(), new SearchModel());
-        $query = $request->get('q', false);
-        if ($query) {
-            $form->bind($request);
+        if ($request->query->has('q')) {
+            $form->submit($request);
             if ($form->isValid()) {
                 $query = $form->getData()->getQuery();
                 $search = $this->get('blog.search');
-                $items = $search->search($query);
+                $items = $search->search(
+                    $query,
+                    $request->query->get('page', 1)
+                );
             }
         }
 

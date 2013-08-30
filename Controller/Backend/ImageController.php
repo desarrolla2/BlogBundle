@@ -70,6 +70,7 @@ class ImageController extends Controller
         );
 
         return array(
+            'upload_url' => $this->container->getParameter('blog.upload_url'),
             'pagination' => $pagination,
             'filterForm' => $filterForm->createView(),
         );
@@ -103,7 +104,12 @@ class ImageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(new ImageType(), new ImageModel(new Image()));
-        $path = realpath($this->container->getParameter('kernel.root_dir') . '/../web/up');
+
+        $path = $this->container->getParameter('blog.upload_dir');
+        if (!file_exists($path)) {
+            @mkdir($path, 0777, true);
+        }
+        $path = realpath($path);
         $formHandler = new ImageHandler($form, $request, new Image(), $em, $path);
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('image'));

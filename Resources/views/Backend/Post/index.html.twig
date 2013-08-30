@@ -18,7 +18,7 @@
             <tr>
                 <td>{{ entity.name }}</td>
                 <td>{{ entity.intro | raw }}</td>
-                <td><small>{% for tag in entity.tags %}{{ tag }} {% endfor %}</small></td>
+                <td><small>{% for tag in entity.tags %}{{ tag }}{% if not loop.last %},{% endif %} {% endfor %}</small></td>
                 <td>
                     {% if entity.isPublished %}<i class="icon-ok"></i> {% endif %}
                     {% if not entity.isPublished %}<i class="icon-remove"></i> {% endif %}

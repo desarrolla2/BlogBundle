@@ -11,6 +11,7 @@
  */
 
 namespace Desarrolla2\Bundle\BlogBundle\Search;
+use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 
 /**
  *
@@ -22,5 +23,17 @@ namespace Desarrolla2\Bundle\BlogBundle\Search;
  */
 interface SearchInterface
 {
-    //put your code here
+    /**
+     * @param string $query
+     * @param int $page
+     * @return array
+     */
+    public function search($query, $page);
+
+    /**
+     * @param Post $post
+     * @param int $limit
+     * @return Post[]
+     */
+    public function related(Post $post, $limit = 10);
 }
