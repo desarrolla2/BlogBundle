@@ -53,7 +53,7 @@ class PostFilterHandler
      */
     public function process()
     {
-        $this->form->bind($this->request);
+        $this->form->submit($this->request);
         if ($this->form->isValid()) {
             $formData = $this->form->getData();
             $name = (string) $formData->name;

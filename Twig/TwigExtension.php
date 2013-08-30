@@ -20,8 +20,8 @@ use IntlDateFormatter;
  * Description of TwigExtension
  *
  * @author : Daniel González <daniel.gonzalez@freelancemadrid.es>
- * @file : TwigExtension.php , UTF-8
- * @date : Oct 15, 2012 , 9:54:55 PM
+ * @file   : TwigExtension.php , UTF-8
+ * @date   : Oct 15, 2012 , 9:54:55 PM
  */
 class TwigExtension extends \Twig_Extension
 {
@@ -37,7 +37,7 @@ class TwigExtension extends \Twig_Extension
     public function __construct($locale = null)
     {
         if ($locale) {
-            $this->locale = (string) $locale;
+            $this->locale = (string)$locale;
         } else {
             $this->locale = Locale::getDefault();
         }
@@ -51,40 +51,59 @@ class TwigExtension extends \Twig_Extension
         return array(
             'localeDate' => new \Twig_Filter_Method($this, 'localeDate'),
             'localeCustomDate' => new \Twig_Filter_Method($this, 'localeCustomDate'),
+            'highlight' => new \Twig_Filter_Method($this, 'highlight'),
         );
     }
 
     /**
-     *
-     * @param  type $date
-     * @param  type $format
-     * @return type
+     * @param $search
+     * @param $subject
+     * @return mixed
      */
-    public function localeCustomDate($date, $format)
+    public function highlight($subject, $search)
     {
-        $datetype = $this->getDateType('full');
-        $timetype = $this->getTimeType('full');
-        $dateFormater = IntlDateFormatter::create(
-                        $this->locale, $datetype, $timetype
-        );
-        $dateFormater->setPattern('MMMM  yyyy');
+        $replace = '<strong>' . $search . '</strong>';
 
-        return $dateFormater->format($date);
+        return str_ireplace($search, $replace, $subject);
     }
 
     /**
      *
+     * @param  \DateTime $date
      * @return string
      */
-    public function localeDate($date, $datetype = 'medium', $timetype = 'none')
+    public function localeCustomDate($date)
     {
-        $datetype = $this->getDateType($datetype);
-        $timetype = $this->getTimeType($timetype);
-        $dateFormater = IntlDateFormatter::create(
-                        $this->locale, $datetype, $timetype
+        $dateType = $this->getDateType('full');
+        $timeType = $this->getTimeType('full');
+        $dateFormatter = IntlDateFormatter::create(
+            $this->locale,
+            $dateType,
+            $timeType
+        );
+        $dateFormatter->setPattern('MMMM  yyyy');
+
+        return $dateFormatter->format($date);
+    }
+
+    /**
+     *
+     * @param  \DateTime $date
+     * @param string     $dateType
+     * @param string     $timeType
+     * @return string
+     */
+    public function localeDate($date, $dateType = 'medium', $timeType = 'none')
+    {
+        $dateType = $this->getDateType($dateType);
+        $timeType = $this->getTimeType($timeType);
+        $dateFormatter = IntlDateFormatter::create(
+            $this->locale,
+            $dateType,
+            $timeType
         );
 
-        return $dateFormater->format($date);
+        return $dateFormatter->format($date);
     }
 
     /**
@@ -98,12 +117,12 @@ class TwigExtension extends \Twig_Extension
 
     /**
      *
-     * @param  type $timetype
-     * @return type
+     * @param string $timeType
+     * @return int
      */
-    protected function getTimeType($timetype)
+    protected function getTimeType($timeType)
     {
-        switch (strtolower($timetype)) {
+        switch (strtolower($timeType)) {
             case 'none':
                 return IntlDateFormatter::NONE;
                 break;
@@ -127,12 +146,12 @@ class TwigExtension extends \Twig_Extension
 
     /**
      *
-     * @param  type $datetype
-     * @return type
+     * @param  string $dateType
+     * @return int
      */
-    protected function getDateType($datetype)
+    protected function getDateType($dateType)
     {
-        switch (strtolower($datetype)) {
+        switch (strtolower($dateType)) {
             case 'none':
                 return IntlDateFormatter::NONE;
                 break;
@@ -153,5 +172,4 @@ class TwigExtension extends \Twig_Extension
                 break;
         }
     }
-
 }

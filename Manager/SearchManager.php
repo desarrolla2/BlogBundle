@@ -47,6 +47,16 @@ class SearchManager
         return $this->provider->related($post, $limit);
     }
 
+    public function getItems()
+    {
+        return $this->provider->getItems();
+    }
+
+    public function getPagination()
+    {
+        return $this->provider->getPagination();
+    }
+
     /**
      * @return bool
      */

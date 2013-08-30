@@ -62,6 +62,7 @@ div#content {
 
 div#content article {
     padding: 10px 3px 20px 3px;
+    border-bottom: 1px dotted #aea79f;
 }
 
 div#content article {
@@ -210,6 +211,27 @@ form#search input {
 div#content input, form#search-widget input {
     height: 30px;
     font-size: 16px !important;
+}
+
+form#search-widget input {
+    width: 300px !important;
+}
+
+ul#search-results {
+    margin: 0;
+}
+
+ul#search-results li {
+    margin: 5px 5px 20px 0;
+}
+
+ul#search-results strong {
+    background: #FFFF00;
+    color: #000;
+}
+
+ul#search-results h5 {
+    margin: 0;
 }
 
 div#content textarea {

@@ -17,71 +17,81 @@ use Doctrine\ORM\Query;
  */
 class PostRepository extends EntityRepository
 {
-    protected $lastQuery = null;
 
     const POST_PER_PAGE = 6;
 
-    public function getByIds(array $ids)
+    /**
+     * @param array $ids
+     * @return \Doctrine\ORM\AbstractQuery
+     */
+    public function getQueryForGetByIds(array $ids)
     {
         $em = $this->getEntityManager();
-        $this->lastQuery = $em->createQuery(
-                ' SELECT p FROM BlogBundle:Post p ' .
-                ' WHERE p.id IN (:ids) ' .
-                ' AND p.status = ' . PostStatus::PUBLISHED
-            )
-            ->setParameter('ids', $ids)
-        ;
+        $query = $em->createQuery(
+            ' SELECT p FROM BlogBundle:Post p ' .
+            ' WHERE p.id IN (:ids) ' .
+            ' AND p.status = ' . PostStatus::PUBLISHED
+        )
+            ->setParameter('ids', $ids);
 
-        return $this->lastQuery->getResult();
+        return $query;
+    }
+
+    /**
+     * @param array $ids
+     * @return array
+     */
+    public function getByIds(array $ids)
+    {
+        return $this->getQueryForGetByIds($ids)
+            ->getResult();
     }
 
     /**
      *
-     * @param  string                                     $slug
+     * @param  string $slug
      * @return \Desarrolla2\Bundle\BlogBundle\Entity\Post
      */
     public function getOneBySlug($slug)
     {
         $em = $this->getEntityManager();
-        $this->lastQuery = $em->createQuery(
-                ' SELECT p FROM BlogBundle:Post p ' .
-                ' WHERE p.slug = :slug ' .
-                ' ORDER BY p.publishedAt DESC '
-            )
-            ->setParameter('slug', $slug)
-        ;
+        $query = $em->createQuery(
+            ' SELECT p FROM BlogBundle:Post p ' .
+            ' WHERE p.slug = :slug ' .
+            ' ORDER BY p.publishedAt DESC '
+        )
+            ->setParameter('slug', $slug);
 
-        return $this->lastQuery->getOneOrNullResult();
+        return $query->getOneOrNullResult();
     }
 
     /**
      *
-     * @param  string              $slug
+     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Tag $tag
+     * @param int                                       $limit
      * @return \Doctrine\ORM\Query
      */
     public function getByTag(Tag $tag, $limit = self::POST_PER_PAGE)
     {
-        $limit = (int) $limit;
-        $this->lastQuery = $this->getQueryForGetByTag($tag, $limit)
-            ->setMaxResults($limit)
-        ;
+        $limit = (int)$limit;
+        $query = $this->getQueryForGetByTag($tag, $limit)
+            ->setMaxResults($limit);
 
-        return $this->lastQuery->getResult();
+        return $query->getResult();
     }
 
     /**
      *
-     * @param  type  $limit
+     * @param  int $limit
      * @return array
      */
     public function get($limit = self::POST_PER_PAGE)
     {
-        $limit = (int) $limit;
-        $this->lastQuery = $this->getQueryForGet($limit)
-            ->setMaxResults($limit)
-        ;
+        $limit = (int)$limit;
+        $query = $this->getQueryForGet($limit)
+            ->setMaxResults($limit);
 
-        return $this->lastQuery->getResult();
+        return $query->getResult();
     }
 
     /**
@@ -91,18 +101,18 @@ class PostRepository extends EntityRepository
     public function getQueryForGet()
     {
         $em = $this->getEntityManager();
-        $this->lastQuery = $em->createQuery(
+        $query = $em->createQuery(
             ' SELECT p FROM BlogBundle:Post p ' .
             ' WHERE p.status = ' . PostStatus::PUBLISHED .
             ' ORDER BY p.publishedAt DESC '
         );
 
-        return $this->lastQuery;
+        return $query;
     }
 
     /**
      *
-     * @param  type  $slug
+     * @param  string $slug
      * @return array
      */
     public function getByTagSlug($slug = '')
@@ -114,83 +124,81 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param  string              $slug
+     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Tag $tag
      * @return \Doctrine\ORM\Query
      */
     public function getQueryForGetByTag(Tag $tag)
     {
         $em = $this->getEntityManager();
-        $this->lastQuery = $em->createQuery(
-                ' SELECT p FROM BlogBundle:Post p ' .
-                ' JOIN p.tags t ' .
-                ' WHERE p.status = ' . PostStatus::PUBLISHED .
-                ' AND t.slug  = :slug ' .
-                ' ORDER BY p.publishedAt DESC '
-            )
-            ->setParameter('slug', $tag->getSlug())
-        ;
+        $query = $em->createQuery(
+            ' SELECT p FROM BlogBundle:Post p ' .
+            ' JOIN p.tags t ' .
+            ' WHERE p.status = ' . PostStatus::PUBLISHED .
+            ' AND t.slug  = :slug ' .
+            ' ORDER BY p.publishedAt DESC '
+        )
+            ->setParameter('slug', $tag->getSlug());
 
-        return $this->lastQuery;
+        return $query;
     }
 
     /**
      *
-     * @param  string              $slug
+     * @param  string $slug
      * @return \Doctrine\ORM\Query
      */
     public function getQueryForGetByTagSlug($slug = '')
     {
         $em = $this->getEntityManager();
-        $this->lastQuery = $em->createQuery(
-                ' SELECT p FROM BlogBundle:Post p ' .
-                ' JOIN p.tags t ' .
-                ' WHERE p.status = ' . PostStatus::PUBLISHED .
-                ' AND t.slug = :slug ' .
-                ' ORDER BY p.publishedAt DESC '
-            )
-            ->setParameter('slug', $slug)
-        ;
+        $query = $em->createQuery(
+            ' SELECT p FROM BlogBundle:Post p ' .
+            ' JOIN p.tags t ' .
+            ' WHERE p.status = ' . PostStatus::PUBLISHED .
+            ' AND t.slug = :slug ' .
+            ' ORDER BY p.publishedAt DESC '
+        )
+            ->setParameter('slug', $slug);
 
-        return $this->lastQuery;
+        return $query;
     }
 
     /**
      *
-     * @param  int   $limit
+     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
+     * @param  int                                       $limit
      * @return array
      */
     public function getLatestRelated(Post $post, $limit = self::POST_PER_PAGE)
     {
-        $limit = (int) $limit;
+        $limit = (int)$limit;
         $em = $this->getEntityManager();
-        $this->lastQuery = $em->createQuery(
-                ' SELECT p FROM BlogBundle:Post p ' .
-                ' JOIN p.tags t ' .
-                ' JOIN t.posts p1 ' .
-                ' WHERE p.status = ' . PostStatus::PUBLISHED .
-                ' AND p1 = :post ' .
-                ' AND p != :post ' .
-                ' ORDER BY p.publishedAt DESC '
-            )
+        $query = $em->createQuery(
+            ' SELECT p FROM BlogBundle:Post p ' .
+            ' JOIN p.tags t ' .
+            ' JOIN t.posts p1 ' .
+            ' WHERE p.status = ' . PostStatus::PUBLISHED .
+            ' AND p1 = :post ' .
+            ' AND p != :post ' .
+            ' ORDER BY p.publishedAt DESC '
+        )
             ->setParameter('post', $post)
-            ->setMaxResults($limit)
-        ;
-        $related = $this->lastQuery->getResult();
+            ->setMaxResults($limit);
+        $related = $query->getResult();
         if (count($related)) {
             return $related;
         } else {
-            return $this->lastQuery->getLatest($limit);
+            return $query->getLatest($limit);
         }
     }
 
     /**
      *
-     * @param  int   $limit
+     * @param  int $limit
      * @return array
      */
     public function getLatest($limit = self::POST_PER_PAGE)
     {
-        $limit = (int) $limit;
+        $limit = (int)$limit;
 
         return $this->get($limit);
     }
@@ -206,8 +214,8 @@ class PostRepository extends EntityRepository
         $qb
             ->select('p')
             ->from('BlogBundle:Post', 'p')
-            ->orderBy('p.updatedAt', 'DESC')
-        ;
+            ->orderBy('p.updatedAt', 'DESC');
+        $query = $qb->getQuery();
 
         return $qb;
     }
@@ -219,12 +227,11 @@ class PostRepository extends EntityRepository
     public function count()
     {
         $em = $this->getEntityManager();
-        $this->lastQuery = $em->createQuery(
-                ' SELECT COUNT(p) FROM BlogBundle:Post p '
-            )
-        ;
+        $query = $em->createQuery(
+            ' SELECT COUNT(p) FROM BlogBundle:Post p '
+        );
 
-        return $this->lastQuery->getSingleScalarResult();
+        return $query->getSingleScalarResult();
     }
 
     /**
@@ -234,31 +241,30 @@ class PostRepository extends EntityRepository
     public function countPublished()
     {
         $em = $this->getEntityManager();
-        $this->lastQuery = $em->createQuery(
-                ' SELECT COUNT(p) FROM BlogBundle:Post p ' .
-                ' WHERE p.status = ' . PostStatus::PUBLISHED
-            )
-        ;
+        $query = $em->createQuery(
+            ' SELECT COUNT(p) FROM BlogBundle:Post p ' .
+            ' WHERE p.status = ' . PostStatus::PUBLISHED
+        );
 
-        return $this->lastQuery->getSingleScalarResult();
+        return $query->getSingleScalarResult();
     }
 
     /**
      *
-     * @return type
+     * @param int $limit
+     * @return array
      */
     public function getUnPublished($limit = 50)
     {
         $em = $this->getEntityManager();
-        $this->lastQuery = $em->createQuery(
-                ' SELECT p FROM BlogBundle:Post p ' .
-                ' WHERE p.status != ' . PostStatus::PUBLISHED .
-                ' ORDER BY p.createdAt DESC '
-            )
-            ->setMaxResults($limit)
-        ;
+        $query = $em->createQuery(
+            ' SELECT p FROM BlogBundle:Post p ' .
+            ' WHERE p.status != ' . PostStatus::PUBLISHED .
+            ' ORDER BY p.createdAt DESC '
+        )
+            ->setMaxResults($limit);
 
-        return $this->lastQuery->getResult();
+        return $query->getResult();
     }
 
     /**
@@ -270,35 +276,37 @@ class PostRepository extends EntityRepository
     public function countFromDate(DateTime $date)
     {
         $em = $this->getEntityManager();
-        $this->lastQuery = $em->createQuery(
-                ' SELECT COUNT(p) FROM BlogBundle:Post p ' .
-                ' WHERE p.status = ' . PostStatus::PUBLISHED .
-                ' AND p.createdAt >= :date '
-            )
-            ->setParameter('date', $date)
-        ;
+        $query = $em->createQuery(
+            ' SELECT COUNT(p) FROM BlogBundle:Post p ' .
+            ' WHERE p.status = ' . PostStatus::PUBLISHED .
+            ' AND p.createdAt >= :date '
+        )
+            ->setParameter('date', $date);
 
-        return $this->lastQuery->getSingleScalarResult();
+        return $query->getSingleScalarResult();
     }
 
     /**
      *
+     * @param int $limit
      * @return array
      */
     public function getPrePublished($limit = 50)
     {
         $em = $this->getEntityManager();
-        $this->lastQuery = $em->createQuery(
-                ' SELECT p FROM BlogBundle:Post p ' .
-                ' WHERE p.status = ' . PostStatus::PRE_PUBLISHED .
-                ' ORDER BY p.createdAt DESC '
-            )
-            ->setMaxResults($limit)
-        ;
+        $query = $em->createQuery(
+            ' SELECT p FROM BlogBundle:Post p ' .
+            ' WHERE p.status = ' . PostStatus::PRE_PUBLISHED .
+            ' ORDER BY p.createdAt DESC '
+        )
+            ->setMaxResults($limit);
 
-        return $this->lastQuery->getResult();
+        return $query->getResult();
     }
 
+    /**
+     * @return bool|mixed
+     */
     public function getOneRandomPrePublished()
     {
         $items = $this->getPrePublished();
@@ -311,13 +319,11 @@ class PostRepository extends EntityRepository
         return false;
     }
 
-    public function search($query, $page = 1, $perPage = 10)
+    public function getSearchBuilder($query, $page = 1, $perPage = 10)
     {
-        $out = array();
-
         $tokens = $this->tokenize($query);
         if (!count($tokens)) {
-            return $out;
+            return array();
         }
 
         $name = array();
@@ -334,31 +340,31 @@ class PostRepository extends EntityRepository
             $content[] = $qb->expr()->like('p.content', $tkn);
         }
 
-        $qb->andWhere($qb->expr()->andX(
-            call_user_func_array(array($qb->expr(), 'orX'), $name),
-            call_user_func_array(array($qb->expr(), 'orX'), $intro),
-            call_user_func_array(array($qb->expr(), 'orX'), $content)
-        ));
+        if (count($name) === 1) {
+            $qb->andWhere($qb->expr()->orX(
+                call_user_func_array(array($qb->expr(), 'orX'), $name),
+                call_user_func_array(array($qb->expr(), 'orX'), $intro),
+                call_user_func_array(array($qb->expr(), 'orX'), $content)
+            ));
+        } else {
+            $qb->andWhere($qb->expr()->andX(
+                call_user_func_array(array($qb->expr(), 'orX'), $name),
+                call_user_func_array(array($qb->expr(), 'orX'), $intro),
+                call_user_func_array(array($qb->expr(), 'orX'), $content)
+            ));
+        }
 
         $start = ($page - 1) * $perPage;
 
         $qb->setFirstResult($start);
         $qb->setMaxResults($perPage);
 
-        $this->lastQuery = $qb->getQuery();
-        $out = $this->lastQuery->getResult();
-
-        return $out;
+        return $qb;
     }
 
-    /**
-     * This will allow us to paginate
-     *
-     * @return Query
-     */
-    public function getLastQuery()
+    public function search($query, $page = 1, $perPage = 10)
     {
-        return $this->lastQuery;
+        return $this->getQueryForSearch($query, $page, $perPage)->getQuery()->getResult();
     }
 
     /**

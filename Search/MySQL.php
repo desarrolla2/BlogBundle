@@ -4,6 +4,8 @@ namespace Desarrolla2\Bundle\BlogBundle\Search;
 use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use Desarrolla2\Bundle\BlogBundle\Search\SearchInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Knp\Component\Pager\Paginator;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
  * Class MySQL
@@ -21,7 +23,20 @@ class MySQL implements SearchInterface
     protected $manager;
 
     /** @var int $items */
+    protected $itemsPerPage;
+
+    /** @var Post[] $items */
     protected $items;
+
+    /**
+     * @var Paginator
+     */
+    protected $paginator;
+
+    /**
+     * @var PaginationInterface
+     */
+    protected $pagination;
 
     /**
      * @param Registry $registry
@@ -29,10 +44,11 @@ class MySQL implements SearchInterface
      * @param $manager
      * @param $items
      */
-    public function __construct(Registry $registry, $connection, $manager, $items)
+    public function __construct(Registry $registry, Paginator $paginator, $connection, $manager, $itemsPerPage)
     {
         $this->registry = $registry;
-        $this->items = $items;
+        $this->paginator = $paginator;
+        $this->itemsPerPage = $itemsPerPage;
 
         // this prevents a 'NULL not support' exception
         if (!$connection || empty($connection)) {
@@ -53,7 +69,11 @@ class MySQL implements SearchInterface
      */
     public function search($query, $page = 1)
     {
-        return $this->manager->getRepository('BlogBundle:Post')->search($query, $page, $this->items);
+        $searchQueryBuilder = $this->manager->getRepository('BlogBundle:Post')->getSearchBuilder($query, $page, $this->itemsPerPage);
+
+        $this->pagination = $this->paginator->paginate($searchQueryBuilder);
+
+        return $searchQueryBuilder->getQuery()->getResult();
     }
 
     /**
@@ -77,6 +97,18 @@ class MySQL implements SearchInterface
         $qb->andWhere($qb->expr()->in('t.id', ':tags'));
         $qb->setParameter('tags', $tags);
 
-        return $qb->getQuery()->getResult();
+        $this->items = $qb->getQuery()->getResult();
+
+        return $this->items;
+    }
+
+    public function getItems()
+    {
+        return $this->pagination;
+    }
+
+    public function getPagination()
+    {
+        return $this->pagination;
     }
 }

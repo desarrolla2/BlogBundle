@@ -15,6 +15,7 @@
         </service>
         <service id="blog.search.sphinx" class="%blog.search.sphinx.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="knp_paginator"/>
             <argument type="string">%blog.search.sphinx.host%</argument>
             <argument type="string">%blog.search.sphinx.port%</argument>
             <argument type="string">%blog.search.sphinx.index%</argument>
@@ -22,6 +23,7 @@
         </service>
         <service id="blog.search.mysql" class="%blog.search.mysql.class%">
             <argument type="service" id="doctrine" />
+            <argument type="service" id="knp_paginator"/>
             <argument type="string">%blog.search.mysql.connection%</argument>
             <argument type="string">%blog.search.mysql.manager%</argument>
             <argument type="string">%blog.items%</argument>

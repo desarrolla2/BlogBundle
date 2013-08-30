@@ -7,11 +7,15 @@
     </parameters>
 
     <services>
-      <service id="blog.search" class="%blog.search.class%" >
-          <argument type="service" id="doctrine.orm.entity_manager" />
+        <service id="blog.search" class="%blog.search.class%">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="knp_paginator"/>
             <argument type="string">%blog.search.sphinx.host%</argument>
             <argument type="string">%blog.search.sphinx.port%</argument>
             <argument type="string">%blog.search.sphinx.index%</argument>
+            <call method="setItemsPerPage">
+                <argument type="string">%blog.search.sphinx.items%</argument>
+            </call>
         </service>
     </services>
 </container>

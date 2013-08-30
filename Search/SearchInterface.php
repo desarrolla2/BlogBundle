@@ -12,6 +12,7 @@
 
 namespace Desarrolla2\Bundle\BlogBundle\Search;
 use Desarrolla2\Bundle\BlogBundle\Entity\Post;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
  *
@@ -36,4 +37,14 @@ interface SearchInterface
      * @return Post[]
      */
     public function related(Post $post, $limit = 10);
+
+    /**
+     * @return array
+     */
+    public function getItems();
+
+    /**
+     * @return PaginationInterface
+     */
+    public function getPagination();
 }

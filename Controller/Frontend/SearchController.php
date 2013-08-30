@@ -35,24 +35,43 @@ class SearchController extends Controller
     public function indexAction(Request $request)
     {
         $items = array();
+        $pagination = null;
         $form = $this->createForm(new SearchType(), new SearchModel());
-        if ($request->query->has('q')) {
+        $query = $request->get('q', false);
+        if ($query) {
             $form->submit($request);
             if ($form->isValid()) {
-                $query = $form->getData()->getQuery();
+                $query = $form->getData()->getQ();
                 $search = $this->get('blog.search');
                 $items = $search->search(
                     $query,
-                    $request->query->get('page', 1)
+                    $this->getPage()
                 );
+
+                $items = $search->getItems();
+                $pagination = $search->getPagination();
             }
         }
 
         return array(
             'form' => $form->createView(),
             'items' => $items,
-            'query' => $query
+            'query' => $query,
+            'pagination' => $pagination,
+
         );
     }
 
+    /**
+     * @return int
+     */
+    private function getPage()
+    {
+        $page = (int)$this->getRequest()->get('page', 1);
+        if (!$page) {
+            return 1;
+        }
+
+        return $page;
+    }
 }
