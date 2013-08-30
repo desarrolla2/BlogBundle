@@ -49,7 +49,7 @@ class Sphinx implements SearchInterface
     /**
      * @var int
      */
-    protected $limitSearch = 1000;
+    protected $maxSearchResults = 1000;
 
     /**
      * @var int
@@ -65,6 +65,7 @@ class Sphinx implements SearchInterface
      * @var array
      */
     protected $items;
+
 
     /**
      *
@@ -91,8 +92,42 @@ class Sphinx implements SearchInterface
     }
 
     /**
+     * @return array
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface
+     */
+    public function getPagination()
+    {
+        return $this->pagination;
+    }
+
+
+    /**
+     * @param int $itemsPerPage
+     */
+    public function setItemsPerPage($itemsPerPage)
+    {
+        $this->itemsPerPage = $itemsPerPage;
+    }
+
+    /**
+     * @param int $maxSearchResults
+     */
+    public function setMaxSearchResults($maxSearchResults)
+    {
+        $this->maxSearchResults = $maxSearchResults;
+    }
+
+    /**
      *
      * @param string $query
+     * @param int    $limit
      * @return array
      */
 
@@ -113,12 +148,13 @@ class Sphinx implements SearchInterface
     /**
      *
      * @param string $query
+     * @param int    $page
      * @return array
      */
-    public function search($query)
+    public function search($query, $page)
     {
 
-        $this->sphinx->SetLimits(0, $this->limitSearchResult);
+        $this->sphinx->SetLimits(0, $this->maxSearchResults);
         $this->sphinx->SetMatchMode(SPH_MATCH_ALL);
         $ids = $this->sphinxSearch($query);
         if (!$ids) {
@@ -175,71 +211,5 @@ class Sphinx implements SearchInterface
         }
 
         return $ids;
-    }
-
-    /**
-     * @return array
-     */
-    public function getItems()
-    {
-        return $this->items;
-    }
-
-    /**
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface
-     */
-    public function getPagination()
-    {
-        return $this->pagination;
-    }
-
-
-    /**
-     * @param int $itemsPerPage
-     */
-    public function setItemsPerPage($itemsPerPage)
-    {
-        $this->itemsPerPage = $itemsPerPage;
-    }
-
-    /**
-     *
-     * @param string $query
-     * @param        $limit
-     * @throws \RuntimeException
-     * @return array
-     */
-    protected function __search($query, $limit)
-    {
-        $this->items = array();
-        $ids = array();
-        $query = $this->sphinx->escapeString($query);
-        $response = $this->sphinx->Query($query, $this->index);
-        if ($response === false) {
-            throw new \RuntimeException('Sphinx Query failed: ' . $this->sphinx->GetLastError());
-        } else {
-            if (empty($response['matches'])) {
-                return;
-            }
-            foreach ($response['matches'] as $doc => $docInfo) {
-                $ids[] = $doc;
-            }
-
-
-            $this->pagination = $this->paginator->paginate($ids, $page, $this->itemsPerPage);
-            $items = $this->em->getRepository('BlogBundle:Post')->getByIds($this->pagination->getItems());
-            foreach ($ids as $id) {
-                foreach ($items as $key => $item) {
-                    if ($id != $item->getId()) {
-                        continue;
-                    }
-                    $this->items[] = $item;
-                    unset($items[$key]);
-                    break;
-                }
-            }
-        }
-
-        return $this->items;
     }
 }
