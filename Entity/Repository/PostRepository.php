@@ -20,7 +20,7 @@ class PostRepository extends EntityRepository
     const POST_PER_PAGE = 6;
 
     /**
-     * @param array $ids
+     * @param  array                       $ids
      * @return \Doctrine\ORM\AbstractQuery
      */
     public function getQueryForGetByIds(array $ids)
@@ -37,7 +37,7 @@ class PostRepository extends EntityRepository
     }
 
     /**
-     * @param array $ids
+     * @param  array $ids
      * @return array
      */
     public function getByIds(array $ids)
@@ -48,7 +48,7 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param  string $slug
+     * @param  string                                     $slug
      * @return \Desarrolla2\Bundle\BlogBundle\Entity\Post
      */
     public function getOneBySlug($slug)
@@ -66,13 +66,13 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Tag $tag
-     * @param int                                       $limit
+     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Tag $tag
+     * @param  int                                       $limit
      * @return \Doctrine\ORM\Query
      */
     public function getByTag(Tag $tag, $limit = self::POST_PER_PAGE)
     {
-        $limit = (int)$limit;
+        $limit = (int) $limit;
         $query = $this->getQueryForGetByTag($tag, $limit)
             ->setMaxResults($limit);
 
@@ -81,12 +81,12 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param  int $limit
+     * @param  int   $limit
      * @return array
      */
     public function get($limit = self::POST_PER_PAGE)
     {
-        $limit = (int)$limit;
+        $limit = (int) $limit;
         $query = $this->getQueryForGet($limit)
             ->setMaxResults($limit);
 
@@ -123,7 +123,7 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Tag $tag
+     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Tag $tag
      * @return \Doctrine\ORM\Query
      */
     public function getQueryForGetByTag(Tag $tag)
@@ -143,7 +143,7 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param  string $slug
+     * @param  string              $slug
      * @return \Doctrine\ORM\Query
      */
     public function getQueryForGetByTagSlug($slug = '')
@@ -163,13 +163,13 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
-     * @param  int                                       $limit
+     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
+     * @param  int                                        $limit
      * @return array
      */
     public function getLatestRelated(Post $post, $limit = self::POST_PER_PAGE)
     {
-        $limit = (int)$limit;
+        $limit = (int) $limit;
         $em = $this->getEntityManager();
         $query = $em->createQuery(
             ' SELECT p FROM BlogBundle:Post p ' .
@@ -192,12 +192,12 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param  int $limit
+     * @param  int   $limit
      * @return array
      */
     public function getLatest($limit = self::POST_PER_PAGE)
     {
-        $limit = (int)$limit;
+        $limit = (int) $limit;
 
         return $this->get($limit);
     }
@@ -249,7 +249,7 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param int $limit
+     * @param  int   $limit
      * @return array
      */
     public function getUnPublished($limit = 50)
@@ -286,7 +286,7 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param int $limit
+     * @param  int   $limit
      * @return array
      */
     public function getPrePublished($limit = 50)

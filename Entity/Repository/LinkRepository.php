@@ -107,7 +107,7 @@ class LinkRepository extends EntityRepository
     /**
      *
      * @param  DateTime $date
-     * @param int       $limit
+     * @param  int      $limit
      * @return array
      */
     public function getMoreActiveFromDate(DateTime $date, $limit = 10)

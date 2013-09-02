@@ -37,7 +37,7 @@ class TwigExtension extends \Twig_Extension
     public function __construct($locale = null)
     {
         if ($locale) {
-            $this->locale = (string)$locale;
+            $this->locale = (string) $locale;
         } else {
             $this->locale = Locale::getDefault();
         }
@@ -89,8 +89,8 @@ class TwigExtension extends \Twig_Extension
     /**
      *
      * @param  \DateTime $date
-     * @param string     $dateType
-     * @param string     $timeType
+     * @param  string    $dateType
+     * @param  string    $timeType
      * @return string
      */
     public function localeDate($date, $dateType = 'medium', $timeType = 'none')
@@ -117,7 +117,7 @@ class TwigExtension extends \Twig_Extension
 
     /**
      *
-     * @param string $timeType
+     * @param  string $timeType
      * @return int
      */
     protected function getTimeType($timeType)

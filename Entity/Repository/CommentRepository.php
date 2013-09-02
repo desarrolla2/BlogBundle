@@ -34,8 +34,8 @@ class CommentRepository extends EntityRepository
 
     /**
      *
-     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
-     * @param int                                        $limit
+     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
+     * @param  int                                        $limit
      * @return array
      */
     public function getLatestRelated(Post $post, $limit = self::POST_PER_PAGE)

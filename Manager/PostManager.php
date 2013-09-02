@@ -57,8 +57,8 @@ class PostManager
     /**
      *
      */
-    private function notify(){
-
+    private function notify()
+    {
     }
 
 }

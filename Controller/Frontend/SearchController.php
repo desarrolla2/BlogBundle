@@ -64,7 +64,7 @@ class SearchController extends Controller
      */
     private function getPage()
     {
-        $page = (int)$this->getRequest()->get('page', 1);
+        $page = (int) $this->getRequest()->get('page', 1);
         if (!$page) {
             return 1;
         }
