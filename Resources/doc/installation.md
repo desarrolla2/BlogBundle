@@ -4,6 +4,8 @@
 
 This version of the bundle requires Symfony 2.3.
 
+// PUT HERE RESUME LIST
+
 ## Install Symfony
 
 If you are starting a new project you need install symfony standard, if you already 
@@ -25,9 +27,15 @@ Add to your `/composer.json` file :
 
 *If you are in production environment, maybe you want to fix version.*
 
+run composer update
+
+``` bash
+$ composer update --no-custom-installers --no-scripts --verbose
+```
+
 ## Enable the Bundle
 
-Enable the bundle in the kernel:
+Enable the BlogBundle in your AppKernel, additionally you need to enable KnpPaginatorBundle.
 
 ``` php
 <?php
@@ -37,6 +45,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
+        new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         new Desarrolla2\Bundle\BlogBundle\BlogBundle(),
     );
 }
@@ -44,7 +53,7 @@ public function registerBundles()
 
 ## Enable the routing
 
-Enable the routing
+Enable the routing, you could use another prefix if you want.
 
 ``` yml
 # app/config/routing.yml
@@ -63,13 +72,15 @@ BlogBundle:
 
 ## Configure your application security
 
+You need protect your admin Area, you could use your own system, so this is the most simple example for this.
+
 ``` yml
 # app/config/security.yml
     providers:
         in_memory:
             memory:
                 users:
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                    admin: { password: admin, roles: [ 'ROLE_ADMIN' ] }
 
 # [..]
     firewalls:
@@ -100,10 +111,14 @@ BlogBundle:
 
 ```
 
-## Configure your database
+## Update your database schema
 
-If you arent configured your database you need to read symfony database
+### Configure your database
+
+Fist, if you aren't configured your database you need to read symfony database
 [documentation] http://symfony.com/doc/current/book/doctrine.html
+
+Your parameters should looks like this
 
 ``` yml
 # app/config/parameters.yml
@@ -118,17 +133,13 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
 ```
 
-### Generate database schema
+### Update schema
 
-```
-php doctrine:schema:update --force
-```
+Now that the bundle is configured, the last thing you need to do is update your database schema.
 
-
-
-        
-And make
+run following command.
 
 ``` bash
-composer update
+$ php doctrine:schema:update --force
 ```
+
