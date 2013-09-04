@@ -40,7 +40,6 @@ class Configuration implements ConfigurationInterface
         $node
                 ->children()
                     ->arrayNode('search')
-                        ->addDefaultsIfNotSet()
                         ->children()
                             ->arrayNode('sphinx')
                                 ->children()
@@ -60,7 +59,6 @@ class Configuration implements ConfigurationInterface
         $node
                 ->children()
                     ->arrayNode('sitemap')
-                        ->addDefaultsIfNotSet()
                         ->children()
                             ->scalarNode('items')->defaultValue(50)->end()
                         ->end()
@@ -73,7 +71,6 @@ class Configuration implements ConfigurationInterface
         $node
                 ->children()
                     ->arrayNode('rss')
-                        ->addDefaultsIfNotSet()
                         ->children()
                             ->scalarNode('title')->defaultValue('RSS')->end()
                             ->scalarNode('description')->defaultValue('')->end()
@@ -90,7 +87,6 @@ class Configuration implements ConfigurationInterface
         $node
                 ->children()
                     ->arrayNode('archive')
-                        ->addDefaultsIfNotSet()
                         ->children()
                             ->scalarNode('title')->defaultValue('Blog Archive')->end()
                             ->scalarNode('description')->defaultValue('my archive description')->end()
