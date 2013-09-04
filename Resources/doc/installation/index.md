@@ -35,7 +35,7 @@ $ composer update --no-custom-installers --no-scripts --verbose
 
 ## Enable the Bundle
 
-Enable the BlogBundle in your AppKernel, additionally you need to enable KnpPaginatorBundle.
+Enable the blog bundle in your AppKernel, additionally you need to enable KnpPaginatorBundle.
 
 ``` php
 <?php
@@ -58,12 +58,12 @@ Enable the routing, you could use another prefix if you want.
 ``` yml
 # app/config/routing.yml
 
-BlogBundleAdmin:
+blog-admin:
     resource: "@BlogBundle/Controller/Backend/"
     type:     annotation
     prefix:   /admin
 
-BlogBundle:
+blog:
     resource: "@BlogBundle/Controller/Frontend/"
     type:     annotation
     prefix:   /
@@ -116,9 +116,9 @@ You need protect your admin Area, you could use your own system, so this is the 
 ### Configure your database
 
 Fist, if you aren't configured your database you need to read symfony database
-[documentation] http://symfony.com/doc/current/book/doctrine.html
+[documentation](http://symfony.com/doc/current/book/doctrine.html).
 
-Your parameters should looks like this
+Your parameters should looks like this.
 
 ``` yml
 # app/config/parameters.yml
@@ -140,6 +140,50 @@ Now that the bundle is configured, the last thing you need to do is update your 
 run following command.
 
 ``` bash
+$ php doctrine:schema:update --dump-sql
+```
+
+It will show the changes that will be made ​​in the database, if everything is correct then you can execute.
+
+``` bash
 $ php doctrine:schema:update --force
 ```
+
+# Create your base templates
+
+*We are ending, Let's go!*
+
+Templates from blog bundle extends from tho templates:
+
+* "::frontend.html.twig"
+* "::backend.html.twig"
+
+You need to create your templates as following
+
+``` twig
+# app/Resources/views/frontend.html.twig
+{% extends "BlogBundle::frontend.html.twig" %}
+[...]
+```
+
+``` twig
+# app/Resources/views/backend.html.twig
+{% extends "BlogBundle::backend.html.twig" %}
+[...]
+```
+
+You can to override templates or blocks of blog bundle here.
+
+#Last step Assetic Configuration
+
+One last thing, you must add blog bundle to the assetic bundle configuration
+
+``` yml
+assetic:
+    # [...]
+    bundles:        [ BlogBundle ]
+```
+
+*Good Look with your blog*
+
 
