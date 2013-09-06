@@ -21,78 +21,76 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('blog');
         $rootNode
-                ->children()
-                    ->scalarNode('title')->defaultValue('my blog title')->end()
-                    ->scalarNode('description')->defaultValue('my blog description')->end()
-                    ->scalarNode('items')->defaultValue(12)->end()
-                ->end();
-
-        $this->addSiteMapSection($rootNode);
-        $this->addRSSSection($rootNode);
-        $this->addArchiveSection($rootNode);
-        $this->addSearchSection($rootNode);
+            ->children()
+            ->scalarNode('title')->defaultValue('my blog title')->end()
+            ->scalarNode('description')->defaultValue('my blog description')->end()
+            ->scalarNode('items')->defaultValue(12)->end()
+            ->append($this->createSearchSection())
+            ->append($this->createSiteMapSection())
+            ->append($this->createRSSSection())
+            ->append($this->createArchiveSection())
+            ->end();
 
         return $treeBuilder;
     }
 
-        private function addSearchSection(ArrayNodeDefinition $node)
-        {
-        $node
-                ->children()
-                    ->arrayNode('search')
-                        ->children()
-                            ->arrayNode('sphinx')
-                                ->children()
-                                    ->scalarNode('host')->defaultValue('localhost')->end()
-                                    ->scalarNode('port')->defaultValue(9312)->end()
-                                    ->scalarNode('index')->defaultValue('planetubuntu_idx')->end()
-                                    ->scalarNode('items')->defaultValue(12)->end()
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end();
-    }
-
-    private function addSiteMapSection(ArrayNodeDefinition $node)
+    private function createSearchSection()
     {
+        $builder = new TreeBuilder();
+        $node = $builder->root('search');
         $node
-                ->children()
-                    ->arrayNode('sitemap')
-                        ->children()
-                            ->scalarNode('items')->defaultValue(50)->end()
-                        ->end()
-                    ->end()
-                ->end();
+            ->children()
+            ->arrayNode('sphinx')
+            ->children()
+            ->scalarNode('host')->defaultValue('localhost')->end()
+            ->scalarNode('port')->defaultValue(9312)->end()
+            ->scalarNode('index')->defaultValue('search_idx')->end()
+            ->scalarNode('items')->defaultValue(12)->end()
+            ->end()
+            ->end()
+            ->end();
+
+        return $node;
     }
 
-    private function addRSSSection(ArrayNodeDefinition $node)
+    private function createSiteMapSection()
     {
+        $builder = new TreeBuilder();
+        $node = $builder->root('sitemap');
         $node
-                ->children()
-                    ->arrayNode('rss')
-                        ->children()
-                            ->scalarNode('title')->defaultValue('RSS')->end()
-                            ->scalarNode('description')->defaultValue('')->end()
-                            ->scalarNode('language')->defaultValue('en')->end()
-                            ->scalarNode('items')->defaultValue(16)->end()
-                            ->scalarNode('ttl')->defaultValue(60)->end()
-                        ->end()
-                    ->end()
-                ->end();
+            ->children()
+            ->scalarNode('items')->defaultValue(50)->end()
+            ->end();
+
+        return $node;
     }
 
-    private function addArchiveSection(ArrayNodeDefinition $node)
+    private function createRSSSection()
     {
+        $builder = new TreeBuilder();
+        $node = $builder->root('rss');
         $node
-                ->children()
-                    ->arrayNode('archive')
-                        ->children()
-                            ->scalarNode('title')->defaultValue('Blog Archive')->end()
-                            ->scalarNode('description')->defaultValue('my archive description')->end()
-                        ->end()
-                    ->end()
-                ->end();
+            ->children()
+            ->scalarNode('title')->defaultValue('RSS Feed')->end()
+            ->scalarNode('description')->defaultValue('')->end()
+            ->scalarNode('language')->defaultValue('en')->end()
+            ->scalarNode('items')->defaultValue(16)->end()
+            ->scalarNode('ttl')->defaultValue(60)->end()
+            ->end();
+
+        return $node;
     }
 
+    private function createArchiveSection()
+    {
+        $builder = new TreeBuilder();
+        $node = $builder->root('archive');
+        $node
+            ->children()
+            ->scalarNode('title')->defaultValue('Blog Archive')->end()
+            ->scalarNode('description')->defaultValue('my archive description')->end()
+            ->end();
+
+        return $node;
+    }
 }

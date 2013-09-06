@@ -19,17 +19,23 @@ class BlogExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        $files = array(
+            'twig.xml',
+            'sanitizer.xml',
+            'sphinx.xml',
+            'post.xml'
+        );
+
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-
         foreach ($config as $key => $value) {
             $this->parseNode($container, 'blog.' . $key, $value);
         }
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('twig.xml');
-        $loader->load('sanitizer.xml');
-        $loader->load('sphinx.xml');
-        $loader->load('post.xml');
+        foreach ($files as $file) {
+            $loader->load($file);
+        }
     }
 
     protected function parseNode($container, $name, $value)
@@ -51,7 +57,6 @@ class BlogExtension extends Extension
 
             return;
         }
-        throw new \Exception(gettype($value) . ' not support');
+        throw new \Exception(gettype($value) . ' not supported');
     }
-
 }
