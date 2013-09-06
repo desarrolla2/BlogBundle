@@ -20,11 +20,13 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('blog');
-        $rootNode
+        $rootNode->addDefaultsIfNotSet()
             ->children()
             ->scalarNode('title')->defaultValue('my blog title')->end()
             ->scalarNode('description')->defaultValue('my blog description')->end()
             ->scalarNode('items')->defaultValue(12)->end()
+            ->scalarNode('ga_tracking')->defaultValue('')->end()
+            ->scalarNode('locale')->defaultValue('en')->end()
             ->append($this->createSearchSection())
             ->append($this->createSiteMapSection())
             ->append($this->createRSSSection())
@@ -38,9 +40,10 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder();
         $node = $builder->root('search');
-        $node
+        $node->addDefaultsIfNotSet()
             ->children()
             ->arrayNode('sphinx')
+            ->addDefaultsIfNotSet()
             ->children()
             ->scalarNode('host')->defaultValue('localhost')->end()
             ->scalarNode('port')->defaultValue(9312)->end()
@@ -57,7 +60,7 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder();
         $node = $builder->root('sitemap');
-        $node
+        $node->addDefaultsIfNotSet()
             ->children()
             ->scalarNode('items')->defaultValue(50)->end()
             ->end();
@@ -69,10 +72,10 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder();
         $node = $builder->root('rss');
-        $node
+        $node->addDefaultsIfNotSet()
             ->children()
             ->scalarNode('title')->defaultValue('RSS Feed')->end()
-            ->scalarNode('description')->defaultValue('')->end()
+            ->scalarNode('description')->defaultValue('my RSS feed')->end()
             ->scalarNode('language')->defaultValue('en')->end()
             ->scalarNode('items')->defaultValue(16)->end()
             ->scalarNode('ttl')->defaultValue(60)->end()
@@ -85,7 +88,7 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder();
         $node = $builder->root('archive');
-        $node
+        $node->addDefaultsIfNotSet()
             ->children()
             ->scalarNode('title')->defaultValue('Blog Archive')->end()
             ->scalarNode('description')->defaultValue('my archive description')->end()
