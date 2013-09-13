@@ -67,7 +67,6 @@ class Sphinx implements SearchInterface
      */
     protected $items;
 
-
     /**
      *
      * @param \Doctrine\ORM\EntityManager    $em
@@ -108,7 +107,6 @@ class Sphinx implements SearchInterface
         return $this->pagination;
     }
 
-
     /**
      * @param int $itemsPerPage
      */
@@ -129,6 +127,7 @@ class Sphinx implements SearchInterface
      *
      * @param Post $post
      * @param int    $limit
+     * @param  int    $limit
      * @return array
      */
 
@@ -148,8 +147,8 @@ class Sphinx implements SearchInterface
 
     /**
      *
-     * @param string $query
-     * @param int    $page
+     * @param  string $query
+     * @param  int    $page
      * @return array
      */
     public function search($query, $page)
@@ -169,8 +168,8 @@ class Sphinx implements SearchInterface
     }
 
     /**
-     * @param array $ids
-     * @param array $items
+     * @param  array $ids
+     * @param  array $items
      * @return array
      */
     protected function orderResults($ids, $items)

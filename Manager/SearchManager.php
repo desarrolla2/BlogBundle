@@ -14,9 +14,6 @@ class SearchManager
     /** @var \Symfony\Component\DependencyInjection\ContainerInterface $container */
     protected $container;
 
-    /** @var Post */
-    protected $currentPost;
-
     /**
      * @param ContainerInterface $container
      */
@@ -55,29 +52,5 @@ class SearchManager
     public function getPagination()
     {
         return $this->provider->getPagination();
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPaged()
-    {
-        return true;
-    }
-
-    /**
-     * @param Post $currentPost
-     */
-    public function setCurrentPost(Post $currentPost)
-    {
-        $this->currentPost = $currentPost;
-    }
-
-    /**
-     * @return Post
-     */
-    public function getCurrentPost()
-    {
-        return $this->currentPost;
     }
 }

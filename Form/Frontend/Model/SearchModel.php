@@ -31,7 +31,6 @@ class SearchModel
      */
     protected $page;
 
-
     /**
      * @return string
      */

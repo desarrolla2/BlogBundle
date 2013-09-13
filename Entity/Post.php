@@ -162,7 +162,7 @@ class Post
      */
     public function setContent($content)
     {
-        $this->content = (string)$content;
+        $this->content = (string) $content;
 
         return $this;
     }
@@ -388,7 +388,7 @@ class Post
      */
     public function setIntro($intro)
     {
-        $this->intro = (string)$intro;
+        $this->intro = (string) $intro;
 
         return $this;
     }
@@ -487,7 +487,7 @@ class Post
      */
     public function hasSource()
     {
-        return (bool)$this->getSource();
+        return (bool) $this->getSource();
     }
 
     /**
@@ -503,7 +503,7 @@ class Post
     /**
      * Set Status
      *
-     * @param  int $status
+     * @param  int  $status
      * @return Post
      */
     public function setStatus($status)
@@ -543,7 +543,7 @@ class Post
      */
     public function isPublished()
     {
-        return (bool)($this->status == PostStatus::PUBLISHED);
+        return (bool) ($this->status == PostStatus::PUBLISHED);
     }
 
     /**
@@ -553,6 +553,6 @@ class Post
      */
     public function hasImage()
     {
-        return (bool)count($this->getImage());
+        return (bool) count($this->getImage());
     }
 }

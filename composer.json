@@ -5,15 +5,23 @@
     "keywords": ["blog", "cms"],
     "license": "MIT",
     "minimum-stability": "dev",
-    "authors": [{
+    "authors": [
+        {
             "name": "Daniel González",
             "homepage": "http://desarrolla2.com/"
-        }],
+        }
+    ],
     "require": {
-        "php": ">=5.3.2",
-        "symfony/framework-bundle": ">=2.0.0",
-        "gregwar/captcha-bundle": "dev-master",
-        "desarrolla2/rss-client-bundle": "2.*"
+        "php": ">=5.3.3",
+        "symfony/framework-bundle": ">=2.3.0",
+        "gregwar/captcha-bundle": "1.0.*",
+        "knplabs/knp-paginator-bundle": "2.3.*",
+        "gedmo/doctrine-extensions": "2.3.*"
+    },
+    "suggest": {
+        "desarrolla2/web-bundle": "Provide usefull features for web sites",
+        "desarrolla2/rss-client-bundle": "Provide Feed Handler",
+        "desarrolla2/cache": "Simple cache system"
     },
     "autoload": {
         "psr-0": {

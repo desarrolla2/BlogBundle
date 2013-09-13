@@ -15,8 +15,9 @@
         </service>
 
         <service id="blog.twig.extension" class="%blog.twig.extension.class%">
-            <argument>%locale%</argument>
-            <tag name="twig.extension" />
+            <argument>%blog.ga_tracking%</argument>
+            <argument>%blog.locale%</argument>
+            <tag name="twig.extension"/>
         </service>
     </services>
 </container>

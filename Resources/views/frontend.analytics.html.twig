@@ -1,8 +1,8 @@
-{% if env != 'dev' and analytics_code %}
+{% if ga_tracking %}
     {% spaceless %}
     <script type="text/javascript">
         var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', '{{ analytics_code }}']);
+        _gaq.push(['_setAccount', '{{ ga_tracking }}']);
         _gaq.push(['_trackPageview']);
         (function () {
             var ga = document.createElement('script');
