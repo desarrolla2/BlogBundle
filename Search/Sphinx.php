@@ -2,6 +2,7 @@
 
 namespace Desarrolla2\Bundle\BlogBundle\Search;
 
+use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use Doctrine\ORM\EntityManager;
 use Desarrolla2\Bundle\BlogBundle\Search\SearchInterface;
 use Knp\Component\Pager\Paginator;
@@ -124,16 +125,17 @@ class Sphinx implements SearchInterface
 
     /**
      *
-     * @param  string $query
+     * @param Post $post
+     * @param int    $limit
      * @param  int    $limit
      * @return array
      */
 
-    public function related($query, $limit = 3)
+    public function related(Post $post, $limit = 3)
     {
         $this->sphinx->SetMatchMode(SPH_MATCH_ANY);
         $this->sphinx->SetLimits(0, $limit);
-        $ids = $this->sphinxSearch($query);
+        $ids = $this->sphinxSearch($post->getTagsAsString());
         if (!$ids) {
             return array();
         }

@@ -29,7 +29,7 @@ class BlogExtension extends Extension
         $files = array(
             'twig.xml',
             'sanitizer.xml',
-            'sphinx.xml',
+            'search.xml',
             'post.xml'
         );
 
@@ -40,9 +40,12 @@ class BlogExtension extends Extension
         }
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+
         foreach ($files as $file) {
             $loader->load($file);
         }
+
+        $container->setParameter('blog', $config);
     }
 
     /**

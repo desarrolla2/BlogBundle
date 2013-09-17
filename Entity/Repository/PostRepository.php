@@ -7,6 +7,7 @@ use \Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use \Desarrolla2\Bundle\BlogBundle\Entity\Tag;
 use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 use \DateTime;
+use Doctrine\ORM\Query;
 
 /**
  * PostRepository
@@ -186,7 +187,7 @@ class PostRepository extends EntityRepository
         if (count($related)) {
             return $related;
         } else {
-            return $this->getLatest($limit);
+            return $query->getLatest($limit);
         }
     }
 
@@ -214,6 +215,7 @@ class PostRepository extends EntityRepository
             ->select('p')
             ->from('BlogBundle:Post', 'p')
             ->orderBy('p.updatedAt', 'DESC');
+        $query = $qb->getQuery();
 
         return $qb;
     }
@@ -315,5 +317,68 @@ class PostRepository extends EntityRepository
         }
 
         return false;
+    }
+
+    public function getSearchBuilder($query, $page = 1, $perPage = 10)
+    {
+        $tokens = $this->tokenize($query);
+        if (!count($tokens)) {
+            return array();
+        }
+
+        $name = array();
+        $intro = array();
+        $content = array();
+
+        $qb = $this->createQueryBuilder('p');
+        $qb->where('p.status = 1');
+
+        foreach ($tokens as $token) {
+            $tkn = $qb->expr()->literal(sprintf('%%%s%%', $token));
+            $name[] = $qb->expr()->like('p.name', $tkn);
+            $intro[] = $qb->expr()->like('p.intro', $tkn);
+            $content[] = $qb->expr()->like('p.content', $tkn);
+        }
+
+        if (count($name) === 1) {
+            $qb->andWhere($qb->expr()->orX(
+                call_user_func_array(array($qb->expr(), 'orX'), $name),
+                call_user_func_array(array($qb->expr(), 'orX'), $intro),
+                call_user_func_array(array($qb->expr(), 'orX'), $content)
+            ));
+        } else {
+            $qb->andWhere($qb->expr()->andX(
+                call_user_func_array(array($qb->expr(), 'orX'), $name),
+                call_user_func_array(array($qb->expr(), 'orX'), $intro),
+                call_user_func_array(array($qb->expr(), 'orX'), $content)
+            ));
+        }
+
+        $start = ($page - 1) * $perPage;
+
+        $qb->setFirstResult($start);
+        $qb->setMaxResults($perPage);
+
+        return $qb;
+    }
+
+    public function search($query, $page = 1, $perPage = 10)
+    {
+        return $this->getQueryForSearch($query, $page, $perPage)->getQuery()->getResult();
+    }
+
+    /**
+     * Tokenize string for searching.
+     * This should return all the numbers from
+     *
+     * @param string $query
+     * @return string[]
+     */
+    protected function tokenize($query)
+    {
+        preg_match_all('#\b\w{3,}\b#mi', $query, $matches);
+        return is_array($matches) && count($matches)
+            ? $matches[0]
+            : array();
     }
 }

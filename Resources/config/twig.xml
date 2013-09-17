@@ -5,9 +5,15 @@
 
     <parameters>
         <parameter key="blog.twig.extension.class">Desarrolla2\Bundle\BlogBundle\Twig\TwigExtension</parameter>
+        <parameter key="twig.extension.text.class">Twig_Extensions_Extension_Text</parameter>
     </parameters>
 
     <services>
+        <!-- this fixes the missing truncate filter -->
+        <service id="twig.extension.text" class="%twig.extension.text.class%" public="true">
+            <tag name="twig.extension" />
+        </service>
+
         <service id="blog.twig.extension" class="%blog.twig.extension.class%">
             <argument>%blog.ga_tracking%</argument>
             <argument>%blog.locale%</argument>

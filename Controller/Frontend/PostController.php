@@ -64,6 +64,7 @@ class PostController extends Controller
         if ($post->getStatus() != PostStatus::PUBLISHED) {
             return new RedirectResponse($this->generateUrl('_default'), 302);
         }
+
         $comments = $this->getDoctrine()->getManager()
             ->getRepository('BlogBundle:Comment')->getForPost($post);
 
