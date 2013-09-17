@@ -17,7 +17,7 @@
                 <td>{{ entity.file }}</td>
                 <td>{{ entity.createdAt|date('Y-m-d') }} / {{ entity.updatedAt|date('Y-m-d') }}</td>
                 <td>
-                    <a href="/up/{{ entity.file }}" >view</a>
+                    <a href="{{ upload_url }}/{{ entity.file }}" >view</a>
                 </td>
             </tr>
             {% endfor %}

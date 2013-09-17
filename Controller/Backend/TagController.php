@@ -148,9 +148,9 @@ class TagController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tag entity.');
         }
-        $form = $this->createForm(new TagType(), new TagModel($entity));
+        $editForm = $this->createForm(new TagType(), new TagModel($entity));
         $deleteForm = $this->createDeleteForm($id);
-        $formHandler = new TagHandler($form, $request, $entity, $em);
+        $formHandler = new TagHandler($editForm, $request, $entity, $em);
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('tag'));
         }

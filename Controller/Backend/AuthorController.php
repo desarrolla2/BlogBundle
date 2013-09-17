@@ -8,7 +8,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Desarrolla2\Bundle\BlogBundle\Entity\Author;
-use Desarrolla2\Bundle\BlogBundle\Form\Backend\AuthorType;
+use Desarrolla2\Bundle\BlogBundle\Form\Backend\Type\AuthorType;
+use Desarrolla2\Bundle\BlogBundle\Form\Backend\Type\AuthorFilterType;
+use Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\AuthorModel;
+use Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\AuthorFilterModel;
+use Desarrolla2\Bundle\BlogBundle\Form\Backend\Handler\AuthorHandler;
+use Desarrolla2\Bundle\BlogBundle\Form\Backend\Handler\AuthorFilterHandler;
 
 /**
  * Author controller.
@@ -17,6 +22,7 @@ use Desarrolla2\Bundle\BlogBundle\Form\Backend\AuthorType;
  */
 class AuthorController extends Controller
 {
+
     /**
      * Lists all Author entities.
      *
@@ -25,36 +31,44 @@ class AuthorController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $paginator = $this->get('knp_paginator');
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $qb = $this->getDoctrine()->getManager()
+            ->getRepository('BlogBundle:Author')->createQueryBuilder('a');
+        $query = $qb->getQuery();
+        $filterForm = $this->createForm(new AuthorFilterType(), new AuthorFilterModel($request));
+        $formHandler = new AuthorFilterHandler($filterForm, $request, $qb);
 
-        $entities = $em->getRepository('BlogBundle:Author')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
-
-    /**
-     * Finds and displays a Author entity.
-     *
-     * @Route("/{id}/show", name="author_show")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('BlogBundle:Author')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Author entity.');
+        if ($request->getMethod() == 'POST' && $request->get('filter_action') == 'reset') {
+            $session->remove('AuthorControllerFilter');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        if ($request->getMethod() == 'POST' && $request->get('filter_action') == 'filter') {
+            if ($formHandler->process()) {
+                $query = $formHandler->getQuery();
+                $session->set('AuthorControllerFilter', $request);
+            }
+        }
+
+        if ($request->getMethod() == 'GET') {
+            if ($session->has('AuthorControllerFilter')) {
+                $filterForm = $this->createForm(new AuthorFilterType(), new AuthorFilterModel($session->get('AuthorControllerFilter')));
+                $formHandler = new AuthorFilterHandler($filterForm, $session->get('AuthorControllerFilter'), $qb);
+                if ($formHandler->process()) {
+                    $query = $formHandler->getQuery();
+                }
+            }
+        }
+        $filterForm = $formHandler->getFilter();
+
+        $pagination = $paginator->paginate(
+            $query, $request->get('page', 1), 12
+        );
 
         return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'pagination' => $pagination,
+            'filterForm' => $filterForm->createView(),
         );
     }
 
@@ -66,12 +80,10 @@ class AuthorController extends Controller
      */
     public function newAction()
     {
-        $entity = new Author();
-        $form   = $this->createForm(new AuthorType(), $entity);
+        $form = $this->createForm(new AuthorType(), new AuthorModel(new Author()));
 
         return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -80,25 +92,21 @@ class AuthorController extends Controller
      *
      * @Route("/create", name="author_create")
      * @Method("POST")
-     * @Template("BlogBundle:Author:new.html.twig")
+     * @Template("BlogBundle:Backend/Author:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity  = new Author();
-        $form = $this->createForm(new AuthorType(), $entity);
-        $form->submit($request);
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('author_show', array('id' => $entity->getId())));
+        $form = $this->createForm(new AuthorType(), new AuthorModel(new Author()));
+        $formHandler = new AuthorHandler($form, $request, new Author(), $em);
+        if ($formHandler->process()) {
+            return $this->redirect($this->generateUrl('author'));
         }
 
         return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -111,19 +119,16 @@ class AuthorController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BlogBundle:Author')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Author entity.');
         }
-
-        $editForm = $this->createForm(new AuthorType(), $entity);
+        $form = $this->createForm(new AuthorType(), new AuthorModel($entity));
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'form'        => $form->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -133,27 +138,21 @@ class AuthorController extends Controller
      *
      * @Route("/{id}/update", name="author_update")
      * @Method("POST")
-     * @Template("BlogBundle:Author:edit.html.twig")
+     * @Template("BlogBundle:Backend/Author:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
+        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('BlogBundle:Author')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Author entity.');
         }
-
+        $editForm = $this->createForm(new AuthorType(), new AuthorModel($entity));
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new AuthorType(), $entity);
-        $editForm->submit($request);
-
-        if ($editForm->isValid()) {
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('author_edit', array('id' => $id)));
+        $formHandler = new AuthorHandler($editForm, $request, $entity, $em);
+        if ($formHandler->process()) {
+            return $this->redirect($this->generateUrl('author'));
         }
 
         return array(
@@ -194,6 +193,7 @@ class AuthorController extends Controller
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
             ->getForm()
-        ;
+            ;
     }
+
 }

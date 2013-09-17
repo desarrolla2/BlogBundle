@@ -43,7 +43,10 @@ class SearchController extends Controller
             if ($form->isValid()) {
                 $query = $form->getData()->getQ();
                 $search = $this->get('blog.search');
-                $search->search($query, $this->getPage());
+                $items = $search->search(
+                    $query,
+                    $this->getPage()
+                );
 
                 $items = $search->getItems();
                 $pagination = $search->getPagination();

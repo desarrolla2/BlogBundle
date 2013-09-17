@@ -102,7 +102,7 @@ class WidgetController extends Controller
         $search = $this->get('blog.search');
 
         return array(
-            'related' => $search->related($post->getTagsAsString(), $items),
+            'related' => $search->related($post, $items),
         );
     }
 }
