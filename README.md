@@ -24,7 +24,7 @@ Add to your `/composer.json` file :
 ``` json
     "require": {
         ...       
-        "desarrolla2/rss-client-bundle": "dev-master" 
+        "desarrolla2/blog-bundle": "dev-master" 
     },
 ````
         
@@ -44,7 +44,7 @@ composer update
   {
     return array(
       // ...
-      new Desarrolla2\Bundle\RSSClientBundle\RSSClientBundle(),
+      new Desarrolla2\Bundle\BlogBundle\BlogBundle(),
       );
   }
 ```
