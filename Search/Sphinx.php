@@ -9,18 +9,13 @@ use Knp\Component\Pager\Paginator;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use SphinxClient;
 
-class Sphinx implements SearchInterface
+class Sphinx extends AbstractSearch
 {
 
     /**
      * @var EntityManager
      */
     protected $em;
-
-    /**
-     * @var Paginator
-     */
-    protected $paginator;
 
     /**
      * @var string $host
@@ -41,31 +36,6 @@ class Sphinx implements SearchInterface
      * @var SphinxClient $sphinx
      */
     protected $sphinx;
-
-    /**
-     * @var int
-     */
-    protected $itemsPerPage = 12;
-
-    /**
-     * @var int
-     */
-    protected $maxSearchResults = 1000;
-
-    /**
-     * @var int
-     */
-    protected $limitRelated = 3;
-
-    /**
-     * @var PaginationInterface
-     */
-    protected $pagination;
-
-    /**
-     * @var array
-     */
-    protected $items;
 
     /**
      *
@@ -92,42 +62,10 @@ class Sphinx implements SearchInterface
     }
 
     /**
-     * @return array
-     */
-    public function getItems()
-    {
-        return $this->items;
-    }
-
-    /**
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface
-     */
-    public function getPagination()
-    {
-        return $this->pagination;
-    }
-
-    /**
-     * @param int $itemsPerPage
-     */
-    public function setItemsPerPage($itemsPerPage)
-    {
-        $this->itemsPerPage = $itemsPerPage;
-    }
-
-    /**
-     * @param int $maxSearchResults
-     */
-    public function setMaxSearchResults($maxSearchResults)
-    {
-        $this->maxSearchResults = $maxSearchResults;
-    }
-
-    /**
      *
      * @param Post $post
-     * @param int    $limit
-     * @param  int    $limit
+     * @param int  $limit
+     * @param  int $limit
      * @return array
      */
 

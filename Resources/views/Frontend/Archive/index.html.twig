@@ -1,23 +1,24 @@
 {% extends "::frontend.html.twig" %}
-{% block title %} {{ title }} {% endblock%}
+{% block title %} {{ title }} {% endblock %}
 {% block meta_description %} {{ description }} {% endblock %}
 {% block content %}
-<article class="post">
+  <article class="post">
     <header>
-        <h2><a href="{{ url('_archive') }}" title="{{ title }}">{{ title }}</a></h2>
+      <h2><a href="{{ url('_archive') }}" title="{{ title }}">{{ title }}</a></h2>
     </header>
     <p>{{ description }}</p>
     <ul id="archive">
-    {% for item in items %}
+      {% for item in items %}
         <li>
-            <a href="{{ url('_archive_page' ,
-            { 'year' : item.date.format('Y'), 'month': item.date.format('m') }) }}"
-            title="{{ title }} {{ item.date | localeCustomDate('short')}}"
-            >{{ item.date | localeCustomDate('short') | capitalize }}</a> {{ item.n }} elementos.
+          <a href="{{ url('_archive_page' ,
+          { 'year' : item.date.format('Y'), 'month': item.date.format('m') }) }}"
+             title="{{ title }} {{ item.date | localeCustomDate('short') }}"
+              >{{ item.date | localeCustomDate('short') | capitalize }}</a> {{ item.n }} elementos.
         </li>
-    {% else %}
+      {% else %}
         <li>No hay elementos</li>
-    {% endfor %}
+      {% endfor %}
     </ul>
-</article>
+  </article>
+  <div class="navigation">{{ knp_pagination_render(pagination) }}</div>
 {% endblock %}

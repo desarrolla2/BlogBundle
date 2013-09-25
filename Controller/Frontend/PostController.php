@@ -39,7 +39,6 @@ class PostController extends Controller
             throw $this->createNotFoundException('Page not found');
         }
 
-
         return array(
             'page' => $this->getPage(),
             'pagination' => $pagination,

@@ -1,58 +1,59 @@
 {% extends "BlogBundle::base.html.twig" %}
 {% block body %}
-    <div class="container">
-        {% block header %}
-            {% include "BlogBundle::frontend.header.html.twig" %}
-        {% endblock %}
-        <div id="wrapper" class="row-fluid">
-            <div id="content" class="span8">{% block content %}{% endblock %}</div>
-            <div id="sidebar" class="span4">
-                {% block search_widget %}
-                <div class="block">
-                    <h2>Buscar</h2>
+  <div class="container">
+    {% block header %}
+      {% include "BlogBundle::frontend.header.html.twig" %}
+    {% endblock %}
+    <div id="wrapper" class="row-fluid">
+      <div id="content" class="span8">{% block content %}{% endblock %}</div>
+      <div id="sidebar" class="span4">
+        {% block search_widget %}
+          <div class="block">
+            <h2>Buscar</h2>
 
-                    <form id="search-widget" action="/search" method="get">
-                        <input type="text" id="q" name="q" required="required"/>
-                    </form>
-                </div>
-                {% endblock %}
-                {% block sidebar %}
-                    <div class="block">
-                        <h2>Etiquetas</h2>
-                        {{ render(controller('BlogBundle:Frontend\\Widget:tags')) }}
-                    </div>
-                    <div class="block">
-                        <h2>Enlaces</h2>
-                        {{ render(controller('BlogBundle:Frontend\\Widget:links')) }}
-                    </div>
-                {% endblock %}
-            </div>
-        </div>
-        {% block footer %}
-            {% include "BlogBundle::frontend.footer.html.twig" %}
+            <form id="search-widget" action="/search" method="get">
+              <input type="text" id="q" name="q" required="required"/>
+            </form>
+          </div>
         {% endblock %}
+        {% block sidebar %}
+          <div class="block">
+            <h2>Etiquetas</h2>
+            {{ render(controller('BlogBundle:Frontend\\Widget:tags')) }}
+          </div>
+          <div class="block">
+            <h2>Enlaces</h2>
+            {{ render(controller('BlogBundle:Frontend\\Widget:links')) }}
+          </div>
+        {% endblock %}
+      </div>
     </div>
+    {% block footer %}
+      {% include "BlogBundle::frontend.footer.html.twig" %}
+    {% endblock %}
+  </div>
 {% endblock %}
 
 {% block analitycs %}
-    {% include "BlogBundle::frontend.analytics.html.twig" %}
+  {% include "BlogBundle::frontend.analytics.html.twig" %}
 {% endblock %}
 {% block rss %}
-    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ path('_feed') }}"/>
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ path('_feed') }}"/>
 {% endblock %}
 {% block stylesheets %}
-    <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" media="all">
-    {% stylesheets
-    'bundles/blog/css/main.css'
-    filter='?yui_css' %}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="all"/>
-    {% endstylesheets %}
+  <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
+        media="all">
+  {% stylesheets
+  'bundles/blog/css/main.css'
+  filter='?yui_css' %}
+  <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="all"/>
+  {% endstylesheets %}
 {% endblock %}
 {% block javascripts %}
-    {% javascripts
-    'bundles/blog/js/blog.js'
-    filter='?yui_js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+  {% javascripts
+  'bundles/blog/js/blog.js'
+  filter='?yui_js' %}
+  <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
 {% endblock %}

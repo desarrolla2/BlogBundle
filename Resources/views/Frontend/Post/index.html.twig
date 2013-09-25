@@ -1,13 +1,25 @@
 {% extends "::frontend.html.twig" %}
-{% block title %} {{ title }} {% if page != 1 %} | Página {{ page }} {% endif %}{% endblock%}
-{% block content %}
-    {% for post in pagination %}
-        {% include 'BlogBundle:Frontend/Post:item.html.twig' with {'post': post} %}
-    {% else %}
-        <p>No hay elementos</p>
-    {% endfor %}
 
-<div class="navigation">
-    {{ knp_pagination_render(pagination) }}
-</div>
+{% block title %} {{ parent() }} {% if page != 1 %}| Página {{ page }} {% endif %}{% endblock %}
+{% block meta_description %}{{ pagination.current.intro | striptags | truncate(150) }}{% endblock %}
+{% block meta_keywords %} {% for tag in pagination.current.tags %}{{ tag }} {% endfor %}{% endblock %}
+{% block meta %}
+  <link rel="canonical" href="{{ url('_default', { 'page' : page }) }}"/>
+  <meta property="og:title" content="{{ pagination.current }}"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="{{ url('_default', { 'page' : page }) }}"/>
+  <meta property="og:description" content="{{ pagination.current.intro | striptags | raw | truncate(150) }}"/>
+  {% if pagination.current.hasImage %}
+    <meta property="og:image" content="{{ pagination.current.image }}"/>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% for post in pagination %}
+    {% include 'BlogBundle:Frontend/Post:item.html.twig' with {'post': post} %}
+  {% else %}
+    <p>No hay elementos</p>
+  {% endfor %}
+
+  <div class="navigation">{{ knp_pagination_render(pagination) }}</div>
 {% endblock %}

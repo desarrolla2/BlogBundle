@@ -1,33 +1,34 @@
 {% extends "::frontend.html.twig" %}
 {% block title %} >Resultados de busqueda "{{ query }}"{% endblock %}
 {% block content %}
-    <article class="post">
-        <header>
-            {% if query %}
-                <h2><a href="{{ url('_search', {'q': query}) }}">Resultados de busqueda "{{ query }}"</a></h2>
-            {% else %}
-                <h2>Buscar</h2>
-            {% endif %}
-        </header>
-        {% include 'BlogBundle:Frontend/Search:form.html.twig' with {'form': form} %}
-        {% if query %}
-            <ul id="search-results">
-                {% for item in items %}
-                    <li>
-                        <h5><a href="{{ url('_view', { 'slug' : item.slug }) }}" title="{{ item }}">{{ item | highlight(query) | raw }}</a></h5>
-                        {{ item.intro | striptags |  truncate(160) | highlight(query) | raw}} [..] el
-                        <time datetime="{{ item.publishedAt | date('c') }}">
-                            {{ item.publishedAt | localeDate('full') }}.
-                        </time>
-                    </li>
-                {% else %}
-                    <li>No se han encontrado resultados de para la búsqueda</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        {% if pagination %}
-            <div class="navigation">{{ knp_pagination_render(pagination) }}</div>
-        {% endif %}
-    </article>
+  <article class="post">
+    <header>
+      {% if query %}
+        <h2><a href="{{ url('_search', {'q': query}) }}">Resultados de busqueda "{{ query }}"</a></h2>
+      {% else %}
+        <h2>Buscar</h2>
+      {% endif %}
+    </header>
+    {% include 'BlogBundle:Frontend/Search:form.html.twig' with {'form': form} %}
+    {% if query %}
+      <ul id="search-results">
+        {% for item in items %}
+          <li>
+            <h5><a href="{{ url('_view', { 'slug' : item.slug }) }}"
+                   title="{{ item }}">{{ item | highlight(query) | raw }}</a></h5>
+            {{ item.intro | striptags |  truncate(160) | highlight(query) | raw }} [..] el
+            <time datetime="{{ item.publishedAt | date('c') }}">
+              {{ item.publishedAt | localeDate('full') }}.
+            </time>
+          </li>
+        {% else %}
+          <li>No se han encontrado resultados de para la búsqueda</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% if pagination %}
+      <div class="navigation">{{ knp_pagination_render(pagination) }}</div>
+    {% endif %}
+  </article>
 {% endblock %}
 {% block search_widget %}{% endblock %}

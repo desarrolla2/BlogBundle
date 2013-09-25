@@ -1,15 +1,17 @@
 <form id="search" action="{{ url('_search') }}" method="get" {{ form_enctype(form) }}>
-    {% if form_errors(form) %}
-        <div class="alert alert-error">{{ form_errors(form) }}</div>
-    {% endif %}
-    {% if form_errors(form.q) %}
-        <div class="alert alert-error">{{ form_errors(form.q) }}</div>
-    {% endif %}
-    <div class="row-fluid" >
-        <div class="span9">
-            {{ form_widget(form.q) }}
-        </div>
-        <div class="span3"><button class="btn" type="submit">Enviar</button></div>
+  {% if form_errors(form) %}
+    <div class="alert alert-error">{{ form_errors(form) }}</div>
+  {% endif %}
+  {% if form_errors(form.q) %}
+    <div class="alert alert-error">{{ form_errors(form.q) }}</div>
+  {% endif %}
+  <div class="row-fluid">
+    <div class="span9">
+
     </div>
-{{ form_rest(form) }}
+    <div class="span3">
+      <button class="btn" type="submit">Enviar</button>
+    </div>
+  </div>
+  {{ form_rest(form) }}
 </form>

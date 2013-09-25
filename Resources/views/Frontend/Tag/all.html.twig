@@ -1,15 +1,13 @@
 {% extends "::frontend.html.twig" %}
-{% block title %} Todos los Tags {% endblock%}
+{% block title %} Todos los Tags {% endblock %}
 {% block content %}
-<ul>
+  <ul>
     {% for tag in pagination %}
-        <li><a href="{{ url('_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a> ({{ tag.items }} entradas)</li>
+      <li><a href="{{ url('_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a> ({{ tag.items }} entradas)</li>
     {% else %}
-        <li>No hay elementos</li>
+      <li>No hay elementos</li>
     {% endfor %}
-</ul>
+  </ul>
 
-<div class="navigation">
-    {{ knp_pagination_render(pagination) }}
-</div>
+  <div class="navigation">{{ knp_pagination_render(pagination) }}</div>
 {% endblock %}

@@ -1,53 +1,58 @@
 {% extends "::frontend.html.twig" %}
+
+{% block title %} {{ post }} | {{ parent() }}{% endblock %}
+{% block meta_description %}{{ post.intro | striptags | raw | truncate(150) }}{% endblock %}
+{% block meta_keywords %}{% for tag in post.tags %} {{ tag }}{% endfor %} {% endblock %}
+{% block meta %}
+  <link rel="canonical" href="{{ url('_view', { 'slug' : post.slug }) }}"/>
+  <meta property="og:title" content="{{ post }}"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="{{ url('_view', { 'slug' : post.slug }) }}"/>
+  <meta property="og:description" content="{{ post.intro | striptags | raw | truncate(150) }}"/>
+  {% if post.hasImage %}
+    <meta property="og:image" content="{{ post.image }}"/>
+  {% endif %}
+{% endblock %}
+
 {% block content %}
-<article class="post">
+  <article class="post">
     <header>
-        <h2><a href="{{ url('_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a></h2>
+      <h2><a href="{{ url('_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a></h2>
     </header>
     {{ post.content | raw }}
 
     {% if post.hasSource %}
-    <p>Enlace a la fuente original: <a href="{{ post.source }}" target="_blank" title="{{ post }}">{{ post }}</a></p>
+      <p>Enlace a la fuente original: <a href="{{ post.source }}" target="_blank" title="{{ post }}">{{ post }}</a></p>
     {% endif %}
     <small>
-        Publicado el <time datetime="{{ post.publishedAt | date('c') }}">{{ post.publishedAt | localeDate('full') }}</time>,
-        modificado por última vez el <time datetime="{{ post.updatedAt | date('c') }}">{{ post.updatedAt | localeDate('full') }}</time>.
+      Publicado el
+      <time datetime="{{ post.publishedAt | date('c') }}">{{ post.publishedAt | localeDate('full') }}</time>
+      ,
+      modificado por última vez el
+      <time datetime="{{ post.updatedAt | date('c') }}">{{ post.updatedAt | localeDate('full') }}</time>
+      .
     </small>
     {% include 'BlogBundle:Frontend/Post:view.tags.html.twig' with {'tags': post.tags } %}
-</article>
-    {% include 'BlogBundle:Frontend/Post:view.social.html.twig' with {'url': url('_view', { 'slug' : post.slug }) } %}
-    {% include 'BlogBundle:Frontend/Post:view.related.html.twig' with {'post': post  } %}
-    {% include 'BlogBundle:Frontend/Post:view.botton.html.twig' with {'post': post } %}
-    {% include 'BlogBundle:Frontend/Post:view.comment.html.twig' with {'form': form, 'comments': comments } %}
+  </article>
+  {% include 'BlogBundle:Frontend/Post:view.social.html.twig' with {'url': url('_view', { 'slug' : post.slug }) } %}
+  {% include 'BlogBundle:Frontend/Post:view.related.html.twig' with {'post': post  } %}
+  {% include 'BlogBundle:Frontend/Post:view.botton.html.twig' with {'post': post } %}
+  {% include 'BlogBundle:Frontend/Post:view.comment.html.twig' with {'form': form, 'comments': comments } %}
 {% endblock %}
 
 {% block sidebar %}
-<div class="block">
+  <div class="block">
     <h2>Últimas entradas</h2>
     {{ render(controller('BlogBundle:Frontend\\Widget:latestPost', { 'post': post })) }}
-</div>
+  </div>
 
-<div class="block">
+  <div class="block">
     <h2>Entradas relacionadas</h2>
     {{ render(controller('BlogBundle:Frontend\\Widget:latestPostRelated', { 'post': post })) }}
-</div>
+  </div>
 
-<div class="block">
+  <div class="block">
     <h2>Últimos comentarios</h2>
     {{ render(controller('BlogBundle:Frontend\\Widget:latestComment', { 'post': post })) }}
-</div>
-{% endblock %}
-
-{% block title %} {{ post }} {% endblock%}
-{% block meta_description %} {{ post.intro | striptags | raw | truncate(160) }} {% endblock %}
-{% block meta_keywords %} {% for tag in post.tags %} {{ tag }} {% endfor %} {% endblock %}
-{% block meta %}
-<link rel="canonical" href="{{ url('_view', { 'slug' : post.slug }) }}" />
-<meta property="og:title" content="{{ post }}" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="{{ url('_view', { 'slug' : post.slug }) }}" />
-<meta property="og:description" content="{{ post.intro | striptags | raw | truncate(160) }}" />
-    {% if post.hasImage %}
-    <meta property="og:image" content="{{ post.image }}" />
-    {% endif %}
+  </div>
 {% endblock %}
