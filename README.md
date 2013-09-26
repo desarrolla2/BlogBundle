@@ -14,7 +14,7 @@ Some Features include:
 
 * URLs SEO friendly
 * Taxonomy with Many to Many relation to post
-* Article editing with awasome theme for ckEditor
+* Article editing with awesome theme for ckEditor
 * Very basic image upload and management
 * Comments management
 * Blog archive
