@@ -1,0 +1,38 @@
+# Tests/Controller/App/config.yml
+framework:
+    test: ~
+    templating:      { engines: ['twig'] }
+    secret:          'ThisTokenIsNotSecretChangeIt'
+    session:
+        storage_id: session.storage.filesystem
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: %kernel.debug%
+
+swiftmailer:
+    disable_delivery: true
+
+monolog:
+    handlers:
+        main:
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%.log
+            level: debug
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_sqlite
+        path:     %kernel.cache_dir%/test.db
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+
+    globals:
+        env: %kernel.environment%
+        analytics_code: 'analytics_code'

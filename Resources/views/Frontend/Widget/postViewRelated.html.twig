@@ -8,7 +8,7 @@
           {% if post.hasImage %}
             <img src="{{ post.image }}"/>
           {% endif %}
-          <a href="{{ url('_view', { 'slug' : post.slug }) }}">{{ post }}</a>
+          <a href="{{ path('_view', { 'slug' : post.slug }) }}">{{ post }}</a>
         </div>
       {% else %}
         <p>No hay elementos</p>

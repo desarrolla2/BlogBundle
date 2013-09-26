@@ -46,6 +46,7 @@ public function registerBundles()
     $bundles = array(
         // ...
         new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+        new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
         new Desarrolla2\Bundle\BlogBundle\BlogBundle(),
     );
 }

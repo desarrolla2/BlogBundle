@@ -3,11 +3,10 @@
 {% block content %}
   <ul>
     {% for tag in pagination %}
-      <li><a href="{{ url('_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a> ({{ tag.items }} entradas)</li>
+      <li><a href="{{ path('_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a> ({{ tag.items }} entradas)</li>
     {% else %}
       <li>No hay elementos</li>
     {% endfor %}
   </ul>
-
   <div class="navigation">{{ knp_pagination_render(pagination) }}</div>
 {% endblock %}

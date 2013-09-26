@@ -1,24 +1,39 @@
 {% extends "::frontend.html.twig" %}
-{% block title %} {{ title }} {% endblock %}
+{% block title %} {{ title }} | {{ parent() }}{% endblock %}
+{% block canonical %}<link rel="canonical" href="{{ url('_archive') }}"/>{% endblock %}
 {% block meta_description %} {{ description }} {% endblock %}
+{% block meta_og %}
+  <meta property="og:title" content="{{ title }}"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="{{ url('_archive') }}"/>
+  <meta property="og:description" content="{{ description }}"/>
+{% endblock %}
 {% block content %}
   <article class="post">
     <header>
-      <h2><a href="{{ url('_archive') }}" title="{{ title }}">{{ title }}</a></h2>
+      <h2><a href="{{ path('_archive') }}" title="{{ title }}">{{ title }}</a></h2>
     </header>
     <p>{{ description }}</p>
     <ul id="archive">
-      {% for item in items %}
-        <li>
-          <a href="{{ url('_archive_page' ,
-          { 'year' : item.date.format('Y'), 'month': item.date.format('m') }) }}"
-             title="{{ title }} {{ item.date | localeCustomDate('short') }}"
-              >{{ item.date | localeCustomDate('short') | capitalize }}</a> {{ item.n }} elementos.
-        </li>
-      {% else %}
-        <li>No hay elementos</li>
+      {% for year, posts in items %}
+      <li>
+        <h3> Año {{ year }}</h3>
+        <ul>
+          {% for item in posts %}
+            <li>
+              <a href="{{ path('_archive_page' ,
+              { 'year' : item.date.format('Y'), 'month': item.date.format('m') }) }}"
+                 title="{{ title }} {{ item.date | localeCustomDate('short') }}">
+                {{ item.date | localeCustomDate('short') | capitalize }}
+              </a> {{ item.n }} elementos.
+            </li>
+          {% else %}
+            <li>No hay elementos</li>
+          {% endfor %}
+        </ul>
+        {% else %}
+      <li>No hay elementos</li>
       {% endfor %}
     </ul>
   </article>
-  <div class="navigation">{{ knp_pagination_render(pagination) }}</div>
 {% endblock %}

@@ -1,10 +1,9 @@
 {% extends "::frontend.html.twig" %}
-
 {% block title %} {{ parent() }} {% if page != 1 %}| Página {{ page }} {% endif %}{% endblock %}
+{% block canonical %}<link rel="canonical" href="{{ url('_default', { 'page' : page }) }}"/>{% endblock %}
 {% block meta_description %}{{ pagination.current.intro | striptags | truncate(150) }}{% endblock %}
-{% block meta_keywords %} {% for tag in pagination.current.tags %}{{ tag }} {% endfor %}{% endblock %}
-{% block meta %}
-  <link rel="canonical" href="{{ url('_default', { 'page' : page }) }}"/>
+{% block meta_keywords %}{% for tag in pagination.current.tags %}{{ tag }}, {% endfor %}{% endblock %}
+{% block meta_og %}
   <meta property="og:title" content="{{ pagination.current }}"/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="{{ url('_default', { 'page' : page }) }}"/>
@@ -13,7 +12,6 @@
     <meta property="og:image" content="{{ pagination.current.image }}"/>
   {% endif %}
 {% endblock %}
-
 {% block content %}
   {% for post in pagination %}
     {% include 'BlogBundle:Frontend/Post:item.html.twig' with {'post': post} %}

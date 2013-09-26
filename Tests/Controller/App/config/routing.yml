@@ -1,0 +1,7 @@
+# Tests/Controller/App/routing.yml
+
+
+BlogBundle:
+    resource: "@BlogBundle/Controller/Frontend/"
+    type:     annotation
+    prefix:   /

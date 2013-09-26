@@ -1,11 +1,8 @@
-/app/bootstrap*
-/app/cache/*
-/app/config/parameters.yml
-/app/config/security.yml
-/app/logs/*
-/app/var/sessions/*
 /bin
-/nbproject/*
+/composer.lock
+/phpunit.xml
+/Tests/Controller/App/cache
+/Tests/Controller/App/logs
 /vendor/*
 /web/bundles/*
 /web/css/*

@@ -3,11 +3,15 @@
 <head>
   <meta charset="UTF-8"/>
   <title>{% block title %} Welcome {% endblock %}</title>
+  {% block canonical %}{% endblock %}
   <meta name="description" content="{% block meta_description %}{% endblock %}">
   <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
-  {% block meta %}{% endblock %}
+  {% block meta_og %}{% endblock %}
+  {% block rss %}
+    <link rel="alternate" type="application/rss+xml" title="{{ tag }} RSS Feed"
+          href="{{ url('_feed_tag', { 'slug' : tag.slug }) }}"/>
+  {% endblock %}
   <link rel="icon" type="image/x-icon" href="{{ asset('/favicon.png') }}"/>
-  {% block rss %}{% endblock %}
   {% block stylesheets %}{% endblock %}
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
   {% block javascripts %}{% endblock %}

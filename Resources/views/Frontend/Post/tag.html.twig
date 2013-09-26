@@ -14,5 +14,5 @@
 
 {% block rss %}
   <link rel="alternate" type="application/rss+xml" title="{{ tag }} RSS Feed"
-        href="{{ url('_feed_tag', { 'slug' : tag.slug }) }}"/>
+        href="{{ path('_feed_tag', { 'slug' : tag.slug }) }}"/>
 {% endblock %}
