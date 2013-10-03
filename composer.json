@@ -20,7 +20,7 @@
     },
     "require-dev": {
         "desarrolla2/cache": "1.*",
-        "doctrine/orm": "2.2.*",
+        "doctrine/orm": ">=2.2.3,<2.4-dev",
         "doctrine/doctrine-bundle": "1.2.*",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "fzaninotto/faker": "1.*",
