@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="./Tests/bootstrap.php" colors="true">
-
+<phpunit colors="true" bootstrap="vendor/autoload.php" >
+    <php>
+        <server name="KERNEL_DIR" value="Tests/Controller/App" />
+    </php>
     <testsuites>
-        <testsuite name="BlogBundle test suite">
-            <directory suffix="Test.php">./Tests</directory>
+        <testsuite name="Desarrolla2 BlogBundle Test Suite">
+            <directory>./Tests/</directory>
         </testsuite>
     </testsuites>
 
@@ -12,10 +14,17 @@
         <whitelist>
             <directory>./</directory>
             <exclude>
+                <directory>./build</directory>
+                <directory>./vendor</directory>
                 <directory>./Resources</directory>
                 <directory>./Tests</directory>
-                <directory>./vendor</directory>
             </exclude>
         </whitelist>
     </filter>
+
+    <logging>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+        <!--<log type="coverage-html" target="build/coverage" title="BlogBundle" charset="UTF-8" yui="true" highlight="true"
+             lowUpperBound="35" highLowerBound="70"/>-->
+    </logging>
 </phpunit>

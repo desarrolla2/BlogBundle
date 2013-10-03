@@ -1,13 +1,10 @@
 /bin
+/build
 /composer.lock
 /phpunit.xml
 /Tests/Controller/App/cache
 /Tests/Controller/App/logs
 /vendor/*
-/web/bundles/*
-/web/css/*
-/web/js/*
-/web/up/*
 /.idea
 *~
 *.swp

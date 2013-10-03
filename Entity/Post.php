@@ -162,7 +162,7 @@ class Post
      */
     public function setContent($content)
     {
-        $this->content = (string) $content;
+        $this->content = (string)$content;
 
         return $this;
     }
@@ -183,7 +183,7 @@ class Post
      * @param  string $slug
      * @return Post
      */
-    protected function setSlug($slug)
+    public function setSlug($slug)
     {
         $this->slug = $slug;
 
@@ -249,7 +249,7 @@ class Post
     /**
      * Set author
      *
-     * @param  Desarrolla2\Bundle\BlogBundle\Entity\Author $author
+     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Author $author
      * @return Post
      */
     public function setAuthor(\Desarrolla2\Bundle\BlogBundle\Entity\Author $author = null)
@@ -262,7 +262,7 @@ class Post
     /**
      * Get author
      *
-     * @return Desarrolla2\Bundle\BlogBundle\Entity\Author
+     * @return \Desarrolla2\Bundle\BlogBundle\Entity\Author
      */
     public function getAuthor()
     {
@@ -295,7 +295,7 @@ class Post
     /**
      * Add tags
      *
-     * @param  Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags
+     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags
      * @return Post
      */
     public function addTag(\Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags)
@@ -308,7 +308,7 @@ class Post
     /**
      * Remove tags
      *
-     * @param Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags
+     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags
      */
     public function removeTag(\Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags)
     {
@@ -326,7 +326,7 @@ class Post
     /**
      * Get tags
      *
-     * @return Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTags()
     {
@@ -350,7 +350,7 @@ class Post
     /**
      * Add comments
      *
-     * @param  Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments
+     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments
      * @return Post
      */
     public function addComment(\Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments)
@@ -363,7 +363,7 @@ class Post
     /**
      * Remove comments
      *
-     * @param Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments
+     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments
      */
     public function removeComment(\Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments)
     {
@@ -373,7 +373,7 @@ class Post
     /**
      * Get comments
      *
-     * @return Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getComments()
     {
@@ -388,7 +388,7 @@ class Post
      */
     public function setIntro($intro)
     {
-        $this->intro = (string) $intro;
+        $this->intro = (string)$intro;
 
         return $this;
     }
@@ -487,7 +487,7 @@ class Post
      */
     public function hasSource()
     {
-        return (bool) $this->getSource();
+        return (bool)$this->getSource();
     }
 
     /**
@@ -503,7 +503,7 @@ class Post
     /**
      * Set Status
      *
-     * @param  int  $status
+     * @param  int $status
      * @return Post
      */
     public function setStatus($status)
@@ -543,7 +543,7 @@ class Post
      */
     public function isPublished()
     {
-        return (bool) ($this->status == PostStatus::PUBLISHED);
+        return (bool)($this->status == PostStatus::PUBLISHED);
     }
 
     /**
@@ -553,6 +553,6 @@ class Post
      */
     public function hasImage()
     {
-        return (bool) count($this->getImage());
+        return (bool)count($this->getImage());
     }
 }

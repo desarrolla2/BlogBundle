@@ -5,7 +5,6 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <a class="brand" href="{{ url('dashboard') }}">Blog Admin</a>
-
         <div class="nav-collapse">
           <ul class="nav">
             <li class="active"><a href="{{ url('post') }}">Post</a></li>
@@ -20,9 +19,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="span12">
-
-      </div>
+      <div class="span12">{% block content %}{% endblock %}</div>
     </div>
     <footer>
       <p>&copy; Desarrolla2 2012</p>

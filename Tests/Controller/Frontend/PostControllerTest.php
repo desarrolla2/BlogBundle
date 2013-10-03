@@ -8,6 +8,10 @@
  * with this package in the file LICENSE.
  */
 
+namespace Desarrolla2\Bundle\BlogBundle\Tests\Controller\Frontend;
+
+use Desarrolla2\Bundle\BlogBundle\Tests\Controller\AbstractControllerTest;
+
 
 /**
  * Class PostControllerTest
@@ -16,13 +20,22 @@
  */
 class PostControllerTest extends AbstractControllerTest
 {
+    public function setUp()
+    {
+        parent::setUp();
+        $this->loadFixtures(
+            array(
+                'Desarrolla2\Bundle\BlogBundle\Tests\DataFixtures\LoadPosts',
+            )
+        );
+    }
+
     /**
      *
      */
     public function testIndexAction()
     {
         $this->client->request('GET', '/');
-        var_dump($this->client->getResponse());
         $this->assertTrue($this->client->getResponse()->isSuccessful());
     }
 }

@@ -8,8 +8,7 @@
   <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
   {% block meta_og %}{% endblock %}
   {% block rss %}
-    <link rel="alternate" type="application/rss+xml" title="{{ tag }} RSS Feed"
-          href="{{ url('_feed_tag', { 'slug' : tag.slug }) }}"/>
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ url('_feed')}}"/>
   {% endblock %}
   <link rel="icon" type="image/x-icon" href="{{ asset('/favicon.png') }}"/>
   {% block stylesheets %}{% endblock %}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the planetubuntu project.
  *
@@ -8,9 +9,10 @@
  * with this package in the file LICENSE.
  */
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+namespace Desarrolla2\Bundle\BlogBundle\Tests\Controller;
+
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
-use Doctrine\Common\Annotations\AnnotationRegistry;
 
 /**
  * Class AbstractControllerTest
@@ -30,12 +32,8 @@ abstract class AbstractControllerTest extends WebTestCase
      */
     public function setUp()
     {
-        $vendorDir = __DIR__ . '/../../../vendor';
         $this->client = static::createClient();
-        AnnotationRegistry::registerAutoloadNamespaces(
-            array(
-                'Sensio\\Bundle\\FrameworkExtraBundle' => $vendorDir . '/sensio/framework-extra-bundle/'
-            )
-        );
+        $templatesDir = realpath(__DIR__ . '/../Resources/views/');
+        $this->getContainer()->get('twig.loader')->addPath($templatesDir, '__main__');
     }
 }

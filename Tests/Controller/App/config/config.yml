@@ -36,3 +36,5 @@ twig:
     globals:
         env: %kernel.environment%
         analytics_code: 'analytics_code'
+
+liip_functional_test: ~
