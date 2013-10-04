@@ -38,14 +38,15 @@ class SearchController extends Controller
         $pagination = null;
         $form = $this->createForm(new SearchType(), new SearchModel());
         $query = $request->get('q', false);
+        $page = $this->getPage();
         if ($query) {
             $form->submit($request);
             if ($form->isValid()) {
                 $query = $form->getData()->getQ();
                 $search = $this->get('blog.search');
-                $items = $search->search(
+                $search->search(
                     $query,
-                    $this->getPage()
+                    $page
                 );
 
                 $items = $search->getItems();
@@ -54,6 +55,7 @@ class SearchController extends Controller
         }
 
         return array(
+            'page' => $page,
             'form' => $form->createView(),
             'items' => $items,
             'query' => $query,
@@ -67,7 +69,7 @@ class SearchController extends Controller
      */
     private function getPage()
     {
-        $page = (int) $this->getRequest()->get('page', 1);
+        $page = (int)$this->getRequest()->get('page', 1);
         if (!$page) {
             return 1;
         }

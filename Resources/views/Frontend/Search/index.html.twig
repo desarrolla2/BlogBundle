@@ -1,6 +1,7 @@
 {% extends "::frontend.html.twig" %}
 {% block title %}
-  {% if query %} Resultados de busqueda "{{ query }}" {% else %} Buscar {% endif %} | {{ parent() }}
+  {% if query %} Resultados de busqueda "{{ query }}" {% else %} Buscar {% endif %}
+  {% if page != 1 %}| Página {{ page }} {% endif %} | {{ parent() }}
 {% endblock %}
 {% block canonical %}
   <link rel="canonical" href="{{ url('_blog_search', {'q': query}) }}"/>
@@ -23,7 +24,12 @@
   <article class="post">
     <header>
       {% if query %}
-        <h2><a href="{{ path('_blog_search', {'q': query}) }}">Resultados de busqueda "{{ query }}"</a></h2>
+        <h2>
+          <a href="{{ path('_blog_search', {'q': query}) }}">
+            Resultados de busqueda "{{ query }}"
+            {% if page != 1 %} Página {{ page }}{% endif %}
+          </a>
+        </h2>
       {% else %}
         <h2>Buscar</h2>
       {% endif %}

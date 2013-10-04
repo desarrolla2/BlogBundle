@@ -1,7 +1,7 @@
 {% extends "::frontend.html.twig" %}
 {% block title %}
-  Año {{ year }} mes de {{ month }} | {{ title }} |
-  {% if page != 1 %}Página {{ page }} | {% endif %} {{ parent() }}
+  {{ title }} {{ pagination.current.item.publishedAt | localeCustomDate('short') | capitalize }}
+  {% if page != 1 %}| Página {{ page }} | {% endif %} {{ parent() }}
 {% endblock %}
 {% block canonical %}
   <link rel="canonical" href="{{ url('_blog_archive_page', {'year': year, 'month': month}) }}"/>
@@ -23,8 +23,8 @@
     <header>
       <h2>
         <a href="{{ path('_blog_archive') }}" title="{{ title }}">
-          {{ title }} año {{ year }} mes de {{ month }}
-          {% if page != 1 %} Página {{ page }} | {% endif %}
+          {{ title }} {{ pagination.current.item.publishedAt | localeCustomDate('short') | capitalize }}
+          {% if page != 1 %} Página {{ page }}{% endif %}
         </a>
       </h2>
     </header>
