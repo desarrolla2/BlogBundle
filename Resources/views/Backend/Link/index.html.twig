@@ -26,15 +26,15 @@
                     {% if not entity.isPublished %}<i class="icon-remove"></i> {% endif %}
                 </td>
                 <td>
-                    <a class="bnt btn-mini" href="{{ url('link_publish', { 'id': entity.id }) }}" title="publish"><i class="icon-ok"></i></a>
-                    <a class="bnt btn-mini" href="{{ url('link_unpublish', { 'id': entity.id }) }}" title="unpublish"><i class="icon-remove"></i></a>
-                    <a class="bnt btn-mini" href="{{ url('link_edit', { 'id': entity.id }) }}" title="edit"> <i class="icon-edit"></i> </a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_back_link_publish', { 'id': entity.id }) }}" title="publish"><i class="icon-ok"></i></a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_back_link_unpublish', { 'id': entity.id }) }}" title="unpublish"><i class="icon-remove"></i></a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_back_link_edit', { 'id': entity.id }) }}" title="edit"> <i class="icon-edit"></i> </a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <div><a class="btn " href="{{ url('link_new') }}">new entry</a></div>
+    <div><a class="btn " href="{{ url('_blog_back_link_new') }}">new entry</a></div>
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>

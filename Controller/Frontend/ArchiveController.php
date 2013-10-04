@@ -29,7 +29,7 @@ class ArchiveController extends Controller
 {
 
     /**
-     * @Route("/", name="_archive")
+     * @Route("/", name="_blog_archive")
      * @Method({"GET"})
      * @Template()
      */
@@ -75,7 +75,7 @@ class ArchiveController extends Controller
     }
 
     /**
-     * @Route("/{year}/{month}/{page}", name="_archive_page", requirements={"year"="\d{4}", "month"="\d{1,2}", "page" = "\d{1,4}"}, defaults={"page" = "1" })
+     * @Route("/{year}/{month}/{page}", name="_blog_archive_page", requirements={"year"="\d{4}", "month"="\d{1,2}", "page" = "\d{1,4}"}, defaults={"page" = "1" })
      * @Route("/{year}/{month}", requirements={"year"="\d{4}", "month"="\d{1,2}"})
      * @Method({"GET"})
      * @Template()

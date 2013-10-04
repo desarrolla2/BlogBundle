@@ -4,10 +4,10 @@
 {% block meta_description %}Contenido relacionado con {{ tag | upper}}{% endblock %}
 {% block meta_keywords %}{{ tag }}{% endblock %}
 {% block meta %}
-  <link rel="canonical" href="{{ url('_tag', { 'slug' : tag.slug, 'page' : page }) }}"/>
+  <link rel="canonical" href="{{ url('_blog_tag', { 'slug' : tag.slug, 'page' : page }) }}"/>
   <meta property="og:title" content="{{ tag }} {% if page != 1 %}| Página {{ page }} {% endif %}| {{ parent() }}"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:url" content="{{ url('_tag', { 'slug' : tag.slug, 'page' : page }) }}"/>
+  <meta property="og:url" content="{{ url('_blog_tag', { 'slug' : tag.slug, 'page' : page }) }}"/>
   <meta property="og:description" content="{{ pagination.current.intro | striptags | raw | truncate(150) }}"/>
   {% if pagination.current.hasImage %}
     <meta property="og:image" content="{{ post.image }}"/>
@@ -15,7 +15,7 @@
 {% endblock %}
   {% block rss %}
     <link rel="alternate" type="application/rss+xml" title="{{ tag }} RSS Feed"
-          href="{{ url('_feed_tag', { 'slug' : tag.slug }) }}"/>
+          href="{{ url('_blog_feed_tag', { 'slug' : tag.slug }) }}"/>
   {% endblock %}
 
 {% block content %}

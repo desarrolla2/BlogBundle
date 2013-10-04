@@ -26,7 +26,7 @@ class CommentController extends Controller
     /**
      * Lists all Comment entities.
      *
-     * @Route("/", name="comment")
+     * @Route("/", name="_blog_back_comment")
      * @Template()
      */
     public function indexAction()
@@ -75,7 +75,7 @@ class CommentController extends Controller
     /**
      * Creates a new Comment entity.
      *
-     * @Route("/create", name="comment_create")
+     * @Route("/create", name="_blog_back_comment_create")
      * @Method("POST")
      * @Template("BlogBundle:Backend/Comment:new.html.twig")
      */
@@ -87,7 +87,7 @@ class CommentController extends Controller
         $form = $this->createForm(new CommentType(), new CommentModel(new Comment()));
         $formHandler = new CommentHandler($form, $request, new Comment(), $em);
         if ($formHandler->process()) {
-            return $this->redirect($this->generateUrl('comment'));
+            return $this->redirect($this->generateUrl('_blog_back_comment'));
         }
 
         return array(
@@ -98,7 +98,7 @@ class CommentController extends Controller
     /**
      * Displays a form to edit an existing Comment entity.
      *
-     * @Route("/{id}/edit", name="comment_edit")
+     * @Route("/{id}/edit", name="_blog_back_comment_edit")
      * @Template()
      */
     public function editAction($id)
@@ -121,7 +121,7 @@ class CommentController extends Controller
     /**
      * Edits an existing Comment entity.
      *
-     * @Route("/{id}/update", name="comment_update")
+     * @Route("/{id}/update", name="_blog_back_comment_update")
      * @Method("POST")
      * @Template("BlogBundle:Backend/Comment:edit.html.twig")
      */
@@ -137,7 +137,7 @@ class CommentController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $formHandler = new CommentHandler($form, $request, $entity, $em);
         if ($formHandler->process()) {
-            return $this->redirect($this->generateUrl('comment'));
+            return $this->redirect($this->generateUrl('_blog_back_comment'));
         }
 
         return array(
@@ -150,7 +150,7 @@ class CommentController extends Controller
     /**
      * Deletes a Comment entity.
      *
-     * @Route("/{id}/delete", name="comment_delete")
+     * @Route("/{id}/delete", name="_blog_back_comment_delete")
      * @Method("POST")
      */
     public function deleteAction($id)
@@ -165,7 +165,7 @@ class CommentController extends Controller
             $em->getRepository('BlogBundle:Comment')->delete($id);
         }
 
-        return $this->redirect($this->generateUrl('comment'));
+        return $this->redirect($this->generateUrl('_blog_back_comment'));
     }
 
     private function createDeleteForm($id)
@@ -179,7 +179,7 @@ class CommentController extends Controller
     /**
      * Publish a Comment
      *
-     * @Route("/{id}/publish", name="comment_publish")
+     * @Route("/{id}/publish", name="_blog_back_comment_publish")
      */
     public function publishAction($id)
     {
@@ -192,13 +192,13 @@ class CommentController extends Controller
         $em->persist($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('comment'));
+        return $this->redirect($this->generateUrl('_blog_back_comment'));
     }
 
     /**
      * Unpublish a Comment
      *
-     * @Route("/{id}/unpublish", name="comment_unpublish")
+     * @Route("/{id}/unpublish", name="_blog_back_comment_unpublish")
      */
     public function unPublishAction($id)
     {
@@ -211,7 +211,7 @@ class CommentController extends Controller
         $em->persist($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('comment'));
+        return $this->redirect($this->generateUrl('_blog_back_comment'));
     }
 
 }

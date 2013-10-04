@@ -3,7 +3,7 @@
 {% block content %}
   <ul>
     {% for tag in pagination %}
-      <li><a href="{{ path('_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a> ({{ tag.items }} entradas)</li>
+      <li><a href="{{ path('_blog_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a> ({{ tag.items }} entradas)</li>
     {% else %}
       <li>No hay elementos</li>
     {% endfor %}

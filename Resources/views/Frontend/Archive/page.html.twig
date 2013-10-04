@@ -4,7 +4,7 @@
   {% if page != 1 %}Página {{ page }} | {% endif %} {{ parent() }}
 {% endblock %}
 {% block canonical %}
-  <link rel="canonical" href="{{ url('_archive_page', {'year': year, 'month': month}) }}"/>
+  <link rel="canonical" href="{{ url('_blog_archive_page', {'year': year, 'month': month}) }}"/>
 {% endblock %}
 {% block meta_description %}{{ pagination.current.item.intro | striptags | truncate(150) }}{% endblock %}
 {% block meta_keywords %}{% for tag in  pagination.current.item.tags %}{{ tag }}, {% endfor %}{% endblock %}
@@ -12,7 +12,7 @@
   <meta property="og:title" content="Año {{ year }} mes de {{ month }} | {{ title }} |
   {% if page != 1 %}Página {{ page }} | {% endif %}"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:url" content="{{ url('_archive_page', {'year': year, 'month': month}) }}"/>
+  <meta property="og:url" content="{{ url('_blog_archive_page', {'year': year, 'month': month}) }}"/>
   <meta property="og:description" content="{{ pagination.current.item.intro | striptags | truncate(150) }}"/>
   {% if pagination.current.item.hasImage %}
     <meta property="og:image" content="{{ pagination.current.item.image }}"/>
@@ -22,7 +22,7 @@
   <article class="post">
     <header>
       <h2>
-        <a href="{{ path('_archive') }}" title="{{ title }}">
+        <a href="{{ path('_blog_archive') }}" title="{{ title }}">
           {{ title }} año {{ year }} mes de {{ month }}
           {% if page != 1 %} Página {{ page }} | {% endif %}
         </a>
@@ -33,7 +33,7 @@
       {% for item in pagination %}
         {% set item = item.item %}
         <li>
-          <a href="{{ path('_view', { 'slug' : item.slug }) }}" title="{{ item }}">{{ item }}</a>
+          <a href="{{ path('_blog_view', { 'slug' : item.slug }) }}" title="{{ item }}">{{ item }}</a>
           {{ item.intro | striptags | raw | truncate(160) }} [..]
           el
           <time datetime="{{ item.publishedAt | date('c') }}">{{ item.publishedAt | localeDate('full') }}</time>

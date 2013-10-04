@@ -28,7 +28,7 @@ use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model\SearchModel;
 class SearchController extends Controller
 {
     /**
-     * @Route("/search", name="_search")
+     * @Route("/search", name="_blog_search")
      * @Method({"GET"})
      * @Template()
      */

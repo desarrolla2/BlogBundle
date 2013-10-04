@@ -26,7 +26,7 @@ class AuthorController extends Controller
     /**
      * Lists all Author entities.
      *
-     * @Route("/", name="author")
+     * @Route("/", name="_blog_back_author")
      * @Template()
      */
     public function indexAction()
@@ -75,7 +75,7 @@ class AuthorController extends Controller
     /**
      * Displays a form to create a new Author entity.
      *
-     * @Route("/new", name="author_new")
+     * @Route("/new", name="_blog_back_author_new")
      * @Template()
      */
     public function newAction()
@@ -90,7 +90,7 @@ class AuthorController extends Controller
     /**
      * Creates a new Author entity.
      *
-     * @Route("/create", name="author_create")
+     * @Route("/create", name="_blog_back_author_create")
      * @Method("POST")
      * @Template("BlogBundle:Backend/Author:new.html.twig")
      */
@@ -102,7 +102,7 @@ class AuthorController extends Controller
         $form = $this->createForm(new AuthorType(), new AuthorModel(new Author()));
         $formHandler = new AuthorHandler($form, $request, new Author(), $em);
         if ($formHandler->process()) {
-            return $this->redirect($this->generateUrl('author'));
+            return $this->redirect($this->generateUrl('_blog_back_author'));
         }
 
         return array(
@@ -136,7 +136,7 @@ class AuthorController extends Controller
     /**
      * Edits an existing Author entity.
      *
-     * @Route("/{id}/update", name="author_update")
+     * @Route("/{id}/update", name="_blog_back_author_update")
      * @Method("POST")
      * @Template("BlogBundle:Backend/Author:edit.html.twig")
      */
@@ -152,7 +152,7 @@ class AuthorController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $formHandler = new AuthorHandler($editForm, $request, $entity, $em);
         if ($formHandler->process()) {
-            return $this->redirect($this->generateUrl('author'));
+            return $this->redirect($this->generateUrl('_blog_back_author'));
         }
 
         return array(
@@ -165,7 +165,7 @@ class AuthorController extends Controller
     /**
      * Deletes a Author entity.
      *
-     * @Route("/{id}/delete", name="author_delete")
+     * @Route("/{id}/delete", name="_blog_back_author_delete")
      * @Method("POST")
      */
     public function deleteAction(Request $request, $id)
@@ -185,7 +185,7 @@ class AuthorController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('author'));
+        return $this->redirect($this->generateUrl('_blog_back_author'));
     }
 
     private function createDeleteForm($id)

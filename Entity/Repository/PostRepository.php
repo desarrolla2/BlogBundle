@@ -187,7 +187,7 @@ class PostRepository extends EntityRepository
         if (count($related)) {
             return $related;
         } else {
-            return $query->getLatest($limit);
+            return $this->getLatest($limit);
         }
     }
 

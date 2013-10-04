@@ -1,13 +1,13 @@
 {% extends "::frontend.html.twig" %}
 
 {% block title %} {{ post }} | {{ parent() }}{% endblock %}
-{% block canonical %}<link rel="canonical" href="{{ url('_view', { 'slug' : post.slug }) }}"/>{% endblock %}
+{% block canonical %}<link rel="canonical" href="{{ url('_blog_view', { 'slug' : post.slug }) }}"/>{% endblock %}
 {% block meta_description %}{{ post.intro | striptags | raw | truncate(150) }}{% endblock %}
 {% block meta_keywords %}{% for tag in post.tags %}{{ tag }}, {% endfor %} {% endblock %}
 {% block meta_og %}
   <meta property="og:title" content="{{ post }}"/>
   <meta property="og:type" content="website"/>
-  <meta property="og:url" content="{{ url('_view', { 'slug' : post.slug }) }}"/>
+  <meta property="og:url" content="{{ url('_blog_view', { 'slug' : post.slug }) }}"/>
   <meta property="og:description" content="{{ post.intro | striptags | raw | truncate(150) }}"/>
   {% if post.hasImage %}
     <meta property="og:image" content="{{ post.image }}"/>
@@ -17,7 +17,7 @@
 {% block content %}
   <article class="post">
     <header>
-      <h2><a href="{{ url('_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a></h2>
+      <h2><a href="{{ url('_blog_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a></h2>
     </header>
     {{ post.content | raw }}
 
@@ -34,7 +34,7 @@
     </small>
     {% include 'BlogBundle:Frontend/Post:view.tags.html.twig' with {'tags': post.tags } %}
   </article>
-  {% include 'BlogBundle:Frontend/Post:view.social.html.twig' with {'url': url('_view', { 'slug' : post.slug }) } %}
+  {% include 'BlogBundle:Frontend/Post:view.social.html.twig' with {'url': url('_blog_view', { 'slug' : post.slug }) } %}
   {% include 'BlogBundle:Frontend/Post:view.related.html.twig' with {'post': post  } %}
   {% include 'BlogBundle:Frontend/Post:view.botton.html.twig' with {'post': post } %}
   {% include 'BlogBundle:Frontend/Post:view.comment.html.twig' with {'form': form, 'comments': comments } %}

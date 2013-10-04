@@ -19,7 +19,7 @@ class PostController extends Controller
 {
 
     /**
-     * @Route("/{page}", name="_default", requirements={"page" = "\d{1,6}"}, defaults={"page" = "1" })
+     * @Route("/{page}", name="_blog_default", requirements={"page" = "\d{1,6}"}, defaults={"page" = "1" })
      * @Method({"GET"})
      * @Template()
      */
@@ -49,7 +49,7 @@ class PostController extends Controller
 
     /**
      *
-     * @Route("/post/{slug}" , name="_view", requirements={"slug" = "[\w\d\-]+"})
+     * @Route("/post/{slug}" , name="_blog_view", requirements={"slug" = "[\w\d\-]+"})
      * @Method({"GET"})
      * @Template()
      */
@@ -61,7 +61,7 @@ class PostController extends Controller
             throw $this->createNotFoundException('The post does not exist');
         }
         if ($post->getStatus() != PostStatus::PUBLISHED) {
-            return new RedirectResponse($this->generateUrl('_default'), 302);
+            return new RedirectResponse($this->generateUrl('_blog_default'), 302);
         }
 
         $comments = $this->getDoctrine()->getManager()

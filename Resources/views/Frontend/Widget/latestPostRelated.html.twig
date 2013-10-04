@@ -1,7 +1,7 @@
 <ul>
   {% for post in posts %}
     <li>
-      <a href="{{ path('_view', { 'slug' : post.slug }) }}">{{ post }}</a>
+      <a href="{{ path('_blog_view', { 'slug' : post.slug }) }}">{{ post }}</a>
       <small> el
         <time datetime="{{ post.createdAt | date('c') }}">
           {{ post.createdAt | localeDate('long') }}</time>

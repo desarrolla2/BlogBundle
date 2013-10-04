@@ -12,8 +12,8 @@
             <td>{{ item.post.name }}</td>
             <td>{{ item.n }}</td>
             <td>
-                <a class="bnt btn-mini" href="{{ url('post_edit', { 'id': item.post.id }) }}" title="edit"> <i class="icon-edit"></i> </a>
-                <a class="bnt btn-mini" href="{{ url('post_preview', { 'id': item.post.id }) }}" title="preview" target="_blank"> <i class="icon-eye-open"></i> </a>
+                <a class="bnt btn-mini" href="{{ url('_blog_back_post_edit', { 'id': item.post.id }) }}" title="edit"> <i class="icon-edit"></i> </a>
+                <a class="bnt btn-mini" href="{{ url('_blog_back_post_preview', { 'id': item.post.id }) }}" title="preview" target="_blank"> <i class="icon-eye-open"></i> </a>
             </td>
         </tr>
     {% else %}

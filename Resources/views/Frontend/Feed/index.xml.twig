@@ -2,7 +2,7 @@
 <rss version="2.0">
   <channel>
     <title>{{ title }}</title>
-    <link>{{ url('_default') }}</link>
+    <link>{{ url('_blog_default') }}</link>
     <description>{{ description }}</description>
     <language>{{ language }}</language>
     <pubDate>{{ 'now'|date('r') }}</pubDate>
@@ -16,7 +16,7 @@
         {% if item.hasSource %}
           <link>{{ item.source }}</link>
         {% else %}
-          <link>{{ url('_view', { 'slug' : item.slug }) }}</link>
+          <link>{{ url('_blog_view', { 'slug' : item.slug }) }}</link>
         {% endif %}
         <description>
           <![CDATA[
@@ -27,7 +27,7 @@
           {% endif %}
           ]]>
         </description>
-        <guid>{{ url('_view', { 'slug' : item.slug }) }}</guid>
+        <guid>{{ url('_blog_view', { 'slug' : item.slug }) }}</guid>
         <pubDate>{{ item.createdAt | date('r') }}</pubDate>
       </item>
     {% endfor %}

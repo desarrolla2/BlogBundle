@@ -29,7 +29,7 @@ class TagController extends Controller
 {
 
     /**
-     * @Route("/tag/{slug}/{page}", name="_tag", requirements={"slug" = "[\w\d\-]+", "page" = "\d{1,6}"}, defaults={"page" = "1" })
+     * @Route("/tag/{slug}/{page}", name="_blog_tag", requirements={"slug" = "[\w\d\-]+", "page" = "\d{1,6}"}, defaults={"page" = "1" })
      * @Method({"GET"})
      * @Template()
      */
@@ -50,7 +50,7 @@ class TagController extends Controller
             );
         } catch (QueryException $e) {
             if ($e->getMessage() == 'Invalid parameter number: number of bound variables does not match number of tokens') {
-                return new RedirectResponse($this->generateUrl('_tag', array(
+                return new RedirectResponse($this->generateUrl('_blog_tag', array(
                             'slug' => $tag->getSlug(),
                         )), 301);
             }
@@ -65,7 +65,7 @@ class TagController extends Controller
     }
 
     /**
-     * @Route("/tags/{page}", name="_all_tag", requirements={"page" = "\d{1,6}"}, defaults={"page" = "1" })
+     * @Route("/tags/{page}", name="_blog_all_tag", requirements={"page" = "\d{1,6}"}, defaults={"page" = "1" })
      * @Method({"GET"})
      * @Template()
      */

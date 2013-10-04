@@ -1,10 +1,10 @@
 {% extends '::backend.html.twig' %}
 
 {% block content %}
-<form class="well" action="{{ url('link_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+<form class="well" action="{{ url('_blog_back_link_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
     {% include 'BlogBundle:Backend/Link:edit.form.html.twig' with {'form': form } %}
 </form>
-<form action="{{ url('link_delete', { 'id': entity.id }) }}" method="post">
+<form action="{{ url('_blog_back_link_delete', { 'id': entity.id }) }}" method="post">
     {{ form_widget(delete_form) }}
     <button data-toggle="modal" href="#confirm-delete" class="btn btn-danger">Delete</button>
     {% include 'BlogBundle:Backend/Modal:confirm-delete.html.twig' %}

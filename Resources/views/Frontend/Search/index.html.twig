@@ -1,18 +1,18 @@
 {% extends "::frontend.html.twig" %}
 {% block title %}
-  {% if query %}    Resultados de busqueda "{{ query }}" {% else %} Buscar {% endif %} | {{ parent() }}
+  {% if query %} Resultados de busqueda "{{ query }}" {% else %} Buscar {% endif %} | {{ parent() }}
 {% endblock %}
 {% block canonical %}
-  <link rel="canonical" href="{{ url('_search', {'q': query}) }}"/>
+  <link rel="canonical" href="{{ url('_blog_search', {'q': query}) }}"/>
 {% endblock %}
-{% block meta_description %}{% if array.0 is defined %}{{ items.0.intro | striptags | truncate(150) }}{% endif %}{% endblock %}
-{% block meta_keywords %}{% if array.0 is defined %}{% for tag in  items.0.tags %}{{ tag }}, {% endfor %}{% endif %}{% endblock %}
+{% block meta_description %}{% if items.0 is defined %}{{ items.0.intro | striptags | truncate(150) }}{% endif %}{% endblock %}
+{% block meta_keywords %}{% if items.0 is defined %}{% for tag in  items.0.tags %}{{ tag }}, {% endfor %}{% endif %}{% endblock %}
 {% block meta_og %}
-  {% if array.0 is defined %}
+  {% if items.0 is defined %}
     <meta
-    property="og:title" content="{% if query %}Resultados de busqueda "{{ query }}" {% else %} Buscar {% endif %} | {{ parent() }}"/>
+    property="og:title" content="{% if query %}Resultados de busqueda {{ query }}{% else %} Buscar {% endif %} | {{ parent() }}"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:url" content="{{ url('_search', {'q': query}) }}"/>
+    <meta property="og:url" content="{{ url('_blog_search', {'q': query}) }}"/>
     <meta property="og:description" content="{{ items.0.intro | striptags | truncate(150) }}"/>
     {% if items.0.hasImage %}
       <meta property="og:image" content="{{ items.0.image }}"/>
@@ -23,7 +23,7 @@
   <article class="post">
     <header>
       {% if query %}
-        <h2><a href="{{ path('_search', {'q': query}) }}">Resultados de busqueda "{{ query }}"</a></h2>
+        <h2><a href="{{ path('_blog_search', {'q': query}) }}">Resultados de busqueda "{{ query }}"</a></h2>
       {% else %}
         <h2>Buscar</h2>
       {% endif %}
@@ -33,7 +33,7 @@
       <ul id="search-results">
         {% for item in items %}
           <li>
-            <h5><a href="{{ path('_view', { 'slug' : item.slug }) }}"
+            <h5><a href="{{ path('_blog_view', { 'slug' : item.slug }) }}"
                    title="{{ item }}">{{ item | highlight(query) | raw }}</a></h5>
             {{ item.intro | striptags |  truncate(160) | highlight(query) | raw }} [..] el
             <time datetime="{{ item.publishedAt | date('c') }}">

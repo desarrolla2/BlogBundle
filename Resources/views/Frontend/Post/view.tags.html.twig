@@ -1,6 +1,6 @@
 <ul class="tags">
   {% for tag in tags %}
-    <li><a href="{{ path('_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a></li>
+    <li><a href="{{ path('_blog_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a></li>
   {% else %}
     <li>No tiene etiquetas</li>
   {% endfor %}
