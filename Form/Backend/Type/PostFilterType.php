@@ -17,23 +17,48 @@ class PostFilterType extends AbstractType
     {
 
         $builder
-                ->add('name', 'text', array(
+            ->add(
+                'name',
+                'text',
+                array(
                     'required' => false,
-                    'trim'     => true,
-                ))
-                ->add('text', 'text', array(
+                    'trim' => true,
+                )
+            )
+            ->add(
+                'text',
+                'text',
+                array(
                     'required' => false,
-                    'trim'     => true,
-                ))
-                ->add('isPublished', 'choice', array(
-                    'required' => false,
-                    'trim'     => true,
-                    'choices'  => array(
-                        'yes' => 'yes',
-                        'no'  => 'no',
+                    'trim' => true,
+                )
+            )
+            ->add(
+                'order',
+                'choice',
+                array(
+                    'required' => true,
+                    'choices' => array(
+                        'createdAt' => 'created_at',
+                        'updatedAt' => 'updated_at',
+                        'publishedAt' => 'published_at',
+                        'name' => 'name',
+
                     ),
-                ))
-        ;
+                )
+            )
+            ->add(
+                'isPublished',
+                'choice',
+                array(
+                    'required' => false,
+                    'trim' => true,
+                    'choices' => array(
+                        'yes' => 'yes',
+                        'no' => 'no',
+                    ),
+                )
+            );
     }
 
     /**
@@ -41,10 +66,12 @@ class PostFilterType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class'      => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\PostFilterModel',
-            'csrf_protection' => false,
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\PostFilterModel',
+                'csrf_protection' => false,
+            )
+        );
     }
 
     /**
@@ -54,5 +81,4 @@ class PostFilterType extends AbstractType
     {
         return 'desarrolla2_bundle_blogbundle_post_filter_type';
     }
-
 }

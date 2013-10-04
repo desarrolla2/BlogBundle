@@ -214,8 +214,7 @@ class PostRepository extends EntityRepository
         $qb
             ->select('p')
             ->from('BlogBundle:Post', 'p')
-            ->orderBy('p.updatedAt', 'DESC');
-        $query = $qb->getQuery();
+            ->orderBy('p.createdAt', 'DESC');
 
         return $qb;
     }

@@ -6,8 +6,8 @@
  * Description of PostHandler
  *
  * @author : Daniel González <daniel.gonzalez@freelancemadrid.es>
- * @file : PostHandler.php , UTF-8
- * @date : Aug 22, 2012 , 5:03:37 PM
+ * @file   : PostHandler.php , UTF-8
+ * @date   : Aug 22, 2012 , 5:03:37 PM
  */
 
 namespace Desarrolla2\Bundle\BlogBundle\Form\Backend\Handler;
@@ -56,34 +56,42 @@ class PostFilterHandler
         $this->form->submit($this->request);
         if ($this->form->isValid()) {
             $formData = $this->form->getData();
-            $name = (string) $formData->name;
+            $name = (string)$formData->getName();
             if ($name) {
                 $this->qb->andWhere($this->qb->expr()->like('p.name', ':name'))
-                        ->setParameter('name', '%' . $name . '%');
+                    ->setParameter('name', '%' . $name . '%');
             }
-            $text = (string) $formData->text;
+            $text = (string)$formData->getText();
             if ($text) {
                 $this->qb->andWhere(
-                                $this->qb->expr()->orx(
-                                        $this
-                                        ->qb->expr()->like('p.intro', ':intro'), $this
-                                        ->qb->expr()->like('p.content', ':content')
-                        ))
-                        ->setParameter('intro', '%' . $text . '%')
-                        ->setParameter('content', '%' . $text . '%');
+                    $this->qb->expr()->orx(
+                        $this
+                            ->qb->expr()->like('p.intro', ':intro'),
+                        $this
+                            ->qb->expr()->like('p.content', ':content')
+                    )
+                )
+                    ->setParameter('intro', '%' . $text . '%')
+                    ->setParameter('content', '%' . $text . '%');
             }
 
-            $isPublished = (string) $formData->isPublished;
+            $isPublished = (string)$formData->getIsPublished();
             if ($isPublished) {
                 if ($isPublished == 'yes') {
                     $this->qb->andWhere($this->qb->expr()->like('p.isPublished', ':isPublished'))
-                            ->setParameter('isPublished', 1);
+                        ->setParameter('isPublished', 1);
                 }
                 if ($isPublished == 'no') {
                     $this->qb->andWhere($this->qb->expr()->like('p.isPublished', ':isPublished'))
-                            ->setParameter('isPublished', 0);
+                        ->setParameter('isPublished', 0);
                 }
             }
+
+            $order = (string)$formData->getOrder();
+            if ($order) {
+                $this->qb->orderBy('p.' . $order, 'DESC');
+            }
+
 
             return true;
         }
@@ -116,5 +124,4 @@ class PostFilterHandler
     {
         return $this->form->getData();
     }
-
 }
