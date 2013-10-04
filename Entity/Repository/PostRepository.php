@@ -108,7 +108,7 @@ class PostRepository extends EntityRepository
         $query = $em->createQuery(
             ' SELECT p FROM BlogBundle:Post p ' .
             ' WHERE p.status = ' . PostStatus::PUBLISHED .
-            ' ORDER BY p.publishedAt DESC '
+            ' ORDER BY p.promotion DESC, p.publishedAt DESC '
         );
 
         return $query;

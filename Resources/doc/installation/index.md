@@ -175,6 +175,13 @@ You need to create your templates as following
 
 You can to override templates or blocks of blog bundle here.
 
+#Configure locale
+
+twig:
+    globals:
+        env: %kernel.environment%
+        locale: 'en'
+
 #Last step Assetic Configuration
 
 One last thing, you must add blog bundle to the assetic bundle configuration
