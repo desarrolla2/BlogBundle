@@ -26,7 +26,7 @@ class DashboardController extends Controller
 
     /**
      *
-     * @Route("/", name="_blog_back_dashboard")
+     * @Route("/", name="_blog_backend_dashboard")
      * @Template()
      */
     public function indexAction()
@@ -50,13 +50,6 @@ class DashboardController extends Controller
             'tag_number'              => $tagRepository->count(),
             'comment_number'          => $commentRepository->count(),
             'comment_approved_number' => $commentRepository->countApproved(),
-        );
-    }
-
-    public function unrelatedAction()
-    {
-        return array(
-            'items' => $this->getDoctrine()->getRepository('PlanetBundle:Unrelated')->getPost(),
         );
     }
 

@@ -34,7 +34,7 @@ class LinkController extends Controller
     /**
      * Lists all Link entities.
      *
-     * @Route("/link", name="_blog_back_link")
+     * @Route("/link", name="_blog_backend_link")
      * @Template()
      */
     public function indexAction()
@@ -83,7 +83,7 @@ class LinkController extends Controller
     /**
      * Displays a form to create a new Link entity.
      *
-     * @Route("/new", name="_blog_back_link_new")
+     * @Route("/new", name="_blog_backend_link_new")
      * @Template()
      */
     public function newAction()
@@ -98,7 +98,7 @@ class LinkController extends Controller
     /**
      * Creates a new Link entity.
      *
-     * @Route("/create", name="_blog_back_link_create")
+     * @Route("/create", name="_blog_backend_link_create")
      * @Method("POST")
      * @Template("BlogBundle:Backend/Link:new.html.twig")
      */
@@ -110,7 +110,7 @@ class LinkController extends Controller
         $form = $this->createForm(new LinkType(), new LinkModel(new Link()));
         $formHandler = new LinkHandler($form, $request, new Link(), $em);
         if ($formHandler->process()) {
-            return $this->redirect($this->generateUrl('_blog_back_link'));
+            return $this->redirect($this->generateUrl('_blog_backend_link'));
         }
 
         return array(
@@ -121,7 +121,7 @@ class LinkController extends Controller
     /**
      * Displays a form to edit an existing Link entity.
      *
-     * @Route("/{id}/edit", name="_blog_back_link_edit")
+     * @Route("/{id}/edit", name="_blog_backend_link_edit")
      * @Template()
      */
     public function editAction($id)
@@ -144,7 +144,7 @@ class LinkController extends Controller
     /**
      * Edits an existing Link entity.
      *
-     * @Route("/{id}/update", name="_blog_back_link_update")
+     * @Route("/{id}/update", name="_blog_backend_link_update")
      * @Method("POST")
      * @Template("BlogBundle:Backend/Link:edit.html.twig")
      */
@@ -160,7 +160,7 @@ class LinkController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $formHandler = new LinkHandler($form, $request, $entity, $em);
         if ($formHandler->process()) {
-            return $this->redirect($this->generateUrl('_blog_back_link'));
+            return $this->redirect($this->generateUrl('_blog_backend_link'));
         }
 
         return array(
@@ -173,7 +173,7 @@ class LinkController extends Controller
     /**
      * Deletes a Link entity.
      *
-     * @Route("/{id}/delete", name="_blog_back_link_delete")
+     * @Route("/{id}/delete", name="_blog_backend_link_delete")
      * @Method("POST")
      */
     public function deleteAction($id)
@@ -195,7 +195,7 @@ class LinkController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('_blog_back_link'));
+        return $this->redirect($this->generateUrl('_blog_backend_link'));
     }
 
     private function createDeleteForm($id)
@@ -209,7 +209,7 @@ class LinkController extends Controller
     /**
      * Publish a Link
      *
-     * @Route("/{id}/publish", name="_blog_back_link_publish")
+     * @Route("/{id}/publish", name="_blog_backend_link_publish")
      */
     public function publishAction($id)
     {
@@ -222,13 +222,13 @@ class LinkController extends Controller
         $em->persist($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('_blog_back_link'));
+        return $this->redirect($this->generateUrl('_blog_backend_link'));
     }
 
     /**
      * Unpublish a Link
      *
-     * @Route("/{id}/unpublish", name="_blog_back_link_unpublish")
+     * @Route("/{id}/unpublish", name="_blog_backend_link_unpublish")
      */
     public function unPublishAction($id)
     {
@@ -241,12 +241,12 @@ class LinkController extends Controller
         $em->persist($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('_blog_back_link'));
+        return $this->redirect($this->generateUrl('_blog_backend_link'));
     }
 
     /**
      *
-     * @Route("/{id}/preview" , name="_blog_back_link_preview")
+     * @Route("/{id}/preview" , name="_blog_backend_link_preview")
      * @Method({"GET"})
      * @Template()
      */

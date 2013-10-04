@@ -26,7 +26,7 @@ class TagController extends Controller
     /**
      * Lists all Tag entities.
      *
-     * @Route("/", name="tag")
+     * @Route("/", name="_blog_backend_tag")
      * @Template()
      */
     public function indexAction()
@@ -75,7 +75,7 @@ class TagController extends Controller
     /**
      * Displays a form to create a new Tag entity.
      *
-     * @Route("/new", name="tag_new")
+     * @Route("/new", name="_blog_backend_tag_new")
      * @Template()
      */
     public function newAction()
@@ -90,7 +90,7 @@ class TagController extends Controller
     /**
      * Creates a new Tag entity.
      *
-     * @Route("/create", name="tag_create")
+     * @Route("/create", name="_blog_backend_tag_create")
      * @Method("POST")
      * @Template("BlogBundle:Backend/Tag:new.html.twig")
      */
@@ -113,7 +113,7 @@ class TagController extends Controller
     /**
      * Displays a form to edit an existing Tag entity.
      *
-     * @Route("/{id}/edit", name="tag_edit")
+     * @Route("/{id}/edit", name="_blog_backend_tag_edit")
      * @Template()
      */
     public function editAction($id)
@@ -136,7 +136,7 @@ class TagController extends Controller
     /**
      * Edits an existing Tag entity.
      *
-     * @Route("/{id}/update", name="tag_update")
+     * @Route("/{id}/update", name="_blog_backend_tag_update")
      * @Method("POST")
      * @Template("BlogBundle:Backend/Tag:edit.html.twig")
      */
@@ -165,7 +165,7 @@ class TagController extends Controller
     /**
      * Deletes a Tag entity.
      *
-     * @Route("/{id}/delete", name="tag_delete")
+     * @Route("/{id}/delete", name="_blog_backend_tag_delete")
      * @Method("POST")
      */
     public function deleteAction(Request $request, $id)
@@ -185,7 +185,7 @@ class TagController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('tag'));
+        return $this->redirect($this->generateUrl('_blog_backend_tag'));
     }
 
     private function createDeleteForm($id)

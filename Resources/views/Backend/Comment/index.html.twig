@@ -22,9 +22,9 @@
                     {% if entity.status == 2 %}<i class="icon-remove"></i>{% endif %}
                 </td>
                 <td>
-                    <a class="bnt btn-mini" href="{{ url('_blog_back_comment_publish', { 'id': entity.id }) }}" title="publish"><i class="icon-ok"></i></a>
-                    <a class="bnt btn-mini" href="{{ url('_blog_back_comment_unpublish', { 'id': entity.id }) }}" title="unpublish"><i class="icon-remove"></i></a>
-                    <a class="bnt btn-mini" href="{{ url('_blog_back_comment_edit', { 'id': entity.id }) }}" title="edit"><i class="icon-edit"></i></a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_comment_publish', { 'id': entity.id }) }}" title="publish"><i class="icon-ok"></i></a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_comment_unpublish', { 'id': entity.id }) }}" title="unpublish"><i class="icon-remove"></i></a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_comment_edit', { 'id': entity.id }) }}" title="edit"><i class="icon-edit"></i></a>
                 </td>
             </tr>
             {% endfor %}

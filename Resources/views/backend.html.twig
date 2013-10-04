@@ -4,17 +4,9 @@
   <div class="container">
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
-        <a class="brand" href="{{ url('dashboard') }}">Blog Admin</a>
+        <a class="brand" href="{{ url('_blog_backend_dashboard') }}">Blog Admin</a>
         <div class="nav-collapse">
-          <ul class="nav">
-            <li class="active"><a href="{{ url('_block_back_post') }}">Post</a></li>
-            <li class=""><a href="{{ url('_block_back_comment') }}">Comment</a></li>
-            <li class=""><a href="{{ url('_block_back_tag') }}">Tag</a></li>
-            <li class=""><a href="{{ url('_block_back_author') }}">Author</a></li>
-            <li class=""><a href="{{ url('_block_back_image') }}">Image</a></li>
-            <li class=""><a href="{{ url('_block_back_link') }}">Link</a></li>
-            <li class=""><a href="{{ url('_block_back_logout') }}">Log Out</a></li>
-          </ul>
+          {% include "BlogBundle::backend.header.menu.html.twig" %}
         </div>
       </div>
     </div>

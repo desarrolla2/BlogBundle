@@ -24,10 +24,10 @@
                     {% if not entity.isPublished %}<i class="icon-remove"></i> {% endif %}
                 </td>
                 <td>
-                    <a class="bnt btn-mini" href="{{ url('_blog_back_post_publish', { 'id': entity.id }) }}" title="publish"><i class="icon-ok"></i></a>
-                    <a class="bnt btn-mini" href="{{ url('_blog_back_post_unpublish', { 'id': entity.id }) }}" title="unpublish"><i class="icon-remove"></i></a>
-                    <a class="bnt btn-mini" href="{{ url('_blog_back_post_edit', { 'id': entity.id }) }}" title="edit"> <i class="icon-edit"></i> </a>
-                    <a class="bnt btn-mini" href="{{ url('_blog_back_post_preview', { 'id': entity.id }) }}" title="preview" target="_blank"> <i class="icon-eye-open"></i> </a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_post_publish', { 'id': entity.id }) }}" title="publish"><i class="icon-ok"></i></a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_post_unpublish', { 'id': entity.id }) }}" title="unpublish"><i class="icon-remove"></i></a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_post_edit', { 'id': entity.id }) }}" title="edit"> <i class="icon-edit"></i> </a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_post_preview', { 'id': entity.id }) }}" title="preview" target="_blank"> <i class="icon-eye-open"></i> </a>
 
 
                 </td>
@@ -35,7 +35,7 @@
             {% endfor %}
         </tbody>
     </table>
-    <div><a class="btn " href="{{ url('_blog_back_post_new') }}">new entry</a></div>
+    <div><a class="btn " href="{{ url('_blog_backend_post_new') }}">new entry</a></div>
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>

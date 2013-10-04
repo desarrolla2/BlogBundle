@@ -24,7 +24,7 @@ class ImageController extends Controller
     /**
      * Lists all Image entities.
      *
-     * @Route("/", name="_blog_back_image")
+     * @Route("/", name="_blog_backend_image")
      * @Template()
      */
     public function indexAction()
@@ -79,7 +79,7 @@ class ImageController extends Controller
     /**
      * Displays a form to create a new Image entity.
      *
-     * @Route("/new", name="_blog_back_image_new")
+     * @Route("/new", name="_blog_backend_image_new")
      * @Template()
      */
     public function newAction()
@@ -94,7 +94,7 @@ class ImageController extends Controller
     /**
      * Creates a new Image entity.
      *
-     * @Route("/create", name="_blog_back_image_create")
+     * @Route("/create", name="_blog_backend_image_create")
      * @Method("POST")
      * @Template("BlogBundle:Backend/Image:new.html.twig")
      */
@@ -112,7 +112,7 @@ class ImageController extends Controller
         $path = realpath($path);
         $formHandler = new ImageHandler($form, $request, new Image(), $em, $path);
         if ($formHandler->process()) {
-            return $this->redirect($this->generateUrl('_blog_back_image'));
+            return $this->redirect($this->generateUrl('_blog_backend_image'));
         }
 
         return array(
@@ -123,7 +123,7 @@ class ImageController extends Controller
     /**
      * Deletes a Image entity.
      *
-     * @Route("/{id}/delete", name="_blog_back_image_delete")
+     * @Route("/{id}/delete", name="_blog_backend_image_delete")
      * @Method("POST")
      */
     public function deleteAction($id)
@@ -145,7 +145,7 @@ class ImageController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('_blog_back_image'));
+        return $this->redirect($this->generateUrl('_blog_backend_image'));
     }
 
     private function createDeleteForm($id)
