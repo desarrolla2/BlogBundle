@@ -1,7 +1,8 @@
 <ul>
   {% for comment in comments %}
     <li>
-      <a href="{{ path('_blog_view', { 'slug' : comment.post.slug }) }}#comment-{{ comment.id }}">
+      <a href="{{ path('_blog_view', { 'slug' : comment.post.slug }) }}#comment-{{ comment.id }}"
+         title="{{ comment.post }}">
         {{ comment | striptags | truncate(160) }}
       </a>
       <small> el
