@@ -1,51 +1,39 @@
 {% extends "BlogBundle::base.html.twig" %}
 {% block title %} Admin {% endblock %}
 {% block body %}
-<div class="container">
+  <div class="container">
     <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <a class="brand" href="{{ url('dashboard') }}">Blog Admin</a>
-            <div class="nav-collapse">
-                <ul class="nav">
-                    <li class="active"><a href="{{ url('post') }}">Post</a></li>
-                    <li class=""><a href="{{ url('comment') }}">Comment</a></li>
-                    <li class=""><a href="{{ url('tag') }}">Tag</a></li>
-                    <li class=""><a href="{{ url('author') }}">Author</a></li>
-                    <li class=""><a href="{{ url('image') }}">Image</a></li>
-                    <li class=""><a href="{{ url('link') }}">Link</a></li>
-                    <li class=""><a href="{{ url('_logout') }}">Log Out</a></li>
-                </ul>
-            </div>
+      <div class="navbar-inner">
+        <a class="brand" href="{{ url('_blog_backend_dashboard') }}">Blog Admin</a>
+        <div class="nav-collapse">
+          {% include "BlogBundle::backend.header.menu.html.twig" %}
         </div>
+      </div>
     </div>
     <div class="row">
-        <div class="span12">
-            {% block content %}{% endblock %}
-            </div>
-        </div>
-        <footer>
-            <p>&copy; Desarrolla2 2012</p>
-        </footer>
+      <div class="span12">{% block content %}{% endblock %}</div>
     </div>
+    <footer>
+      <p>&copy; Desarrolla2 2012</p>
+    </footer>
+  </div>
 {% endblock %}
 
 {% block stylesheets %}
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-    {% stylesheets
-            'bundles/blog/css/admin.css'
-            filter='?yui_css'
-     %}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="all" />
-    {% endstylesheets %}
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  {% stylesheets
+  'bundles/blog/css/admin.css'
+  filter='?yui_css' %}
+  <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="all"/>
+  {% endstylesheets %}
 {% endblock %}
 
 {% block javascripts %}
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/bundles/blog/js/tiny_mce/tiny_mce.js"></script>
-    {% javascripts
-            'bundles/blog/js/admin.js'
-            filter='?yui_js'
-     %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/bundles/blog/js/tiny_mce/tiny_mce.js"></script>
+  {% javascripts
+  'bundles/blog/js/admin.js'
+  filter='?yui_js' %}
+  <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}
 {% endblock %}

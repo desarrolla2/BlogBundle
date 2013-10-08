@@ -24,7 +24,7 @@ class SecurityController extends Controller
 {
 
     /**
-     * @Route("/login", name="_login")
+     * @Route("/login", name="_blog_backend_login")
      * @Template()
      */
     public function loginAction(Request $request)
@@ -45,7 +45,7 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/login_check", name="_security_check")
+     * @Route("/login_check", name="_blog_backend_security_check")
      */
     public function securityCheckAction()
     {
@@ -53,7 +53,7 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/logout", name="_logout")
+     * @Route("/logout", name="_blog_backend_logout")
      */
     public function logoutAction()
     {

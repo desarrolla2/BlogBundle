@@ -46,6 +46,7 @@ public function registerBundles()
     $bundles = array(
         // ...
         new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+        new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
         new Desarrolla2\Bundle\BlogBundle\BlogBundle(),
     );
 }
@@ -173,6 +174,13 @@ You need to create your templates as following
 ```
 
 You can to override templates or blocks of blog bundle here.
+
+#Configure locale
+
+twig:
+    globals:
+        env: %kernel.environment%
+        locale: 'en'
 
 #Last step Assetic Configuration
 

@@ -5,6 +5,7 @@ namespace Desarrolla2\Bundle\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Desarrolla2\Bundle\BlogBundle\Entity\Post
@@ -22,35 +23,35 @@ class Post
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string $name
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string $image
      *
      * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
-    private $image;
+    protected $image;
 
     /**
      * @var string $intro
      *
      * @ORM\Column(name="intro", type="text")
      */
-    private $intro;
+    protected $intro;
 
     /**
      * @var string $content
      *
      * @ORM\Column(name="content", type="text")
      */
-    private $content;
+    protected $content;
 
     /**
      * @var string $slug
@@ -58,21 +59,28 @@ class Post
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true))
      */
-    private $slug;
+    protected $slug;
 
     /**
      * @var string $source
      *
      * @ORM\Column(name="source", type="string", length=255)
      */
-    private $source = '';
+    protected $source = '';
 
     /**
      * @var int $status
      *
      * @ORM\Column(name="status", type="integer")
      */
-    private $status = 0;
+    protected $status = 0;
+
+    /**
+     * @var int $promotion
+     *
+     * @ORM\Column(name="promotion", type="integer")
+     */
+    protected $promotion = 0;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -80,28 +88,28 @@ class Post
      * @ORM\ManyToMany(targetEntity="Tag",inversedBy="tags")
      * @ORM\JoinTable(name="post_tag")
      */
-    private $tags;
+    protected $tags;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="post", cascade={"remove"})
      */
-    private $comments;
+    protected $comments;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="PostHistory", mappedBy="post", cascade={"remove"})
      */
-    private $history;
+    protected $history;
 
     /**
      * @var Author
      *
      * @ORM\ManyToOne(targetEntity="Author")
      */
-    private $author;
+    protected $author;
 
     /**
      * @var \DateTime $created_at
@@ -109,7 +117,7 @@ class Post
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime $updated_at
@@ -117,23 +125,23 @@ class Post
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated_at", type="datetime")
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * @var \DateTime $published_at
      *
      * @ORM\Column(name="published_at", type="datetime", nullable=true)
      */
-    private $publishedAt;
+    protected $publishedAt;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->history = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->history = new ArrayCollection();
     }
 
     /**
@@ -162,7 +170,7 @@ class Post
      */
     public function setContent($content)
     {
-        $this->content = (string) $content;
+        $this->content = (string)$content;
 
         return $this;
     }
@@ -183,7 +191,7 @@ class Post
      * @param  string $slug
      * @return Post
      */
-    protected function setSlug($slug)
+    public function setSlug($slug)
     {
         $this->slug = $slug;
 
@@ -249,10 +257,10 @@ class Post
     /**
      * Set author
      *
-     * @param  Desarrolla2\Bundle\BlogBundle\Entity\Author $author
+     * @param  Author $author
      * @return Post
      */
-    public function setAuthor(\Desarrolla2\Bundle\BlogBundle\Entity\Author $author = null)
+    public function setAuthor(Author $author = null)
     {
         $this->author = $author;
 
@@ -262,7 +270,7 @@ class Post
     /**
      * Get author
      *
-     * @return Desarrolla2\Bundle\BlogBundle\Entity\Author
+     * @return Author
      */
     public function getAuthor()
     {
@@ -295,10 +303,10 @@ class Post
     /**
      * Add tags
      *
-     * @param  Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags
+     * @param  Tag $tags
      * @return Post
      */
-    public function addTag(\Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags)
+    public function addTag(Tag $tags)
     {
         $this->tags[] = $tags;
 
@@ -308,9 +316,10 @@ class Post
     /**
      * Remove tags
      *
-     * @param Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags
+     * @param Tag $tags
+     * @param Tag $tags
      */
-    public function removeTag(\Desarrolla2\Bundle\BlogBundle\Entity\Tag $tags)
+    public function removeTag(Tag $tags)
     {
         $this->tags->removeElement($tags);
     }
@@ -326,7 +335,7 @@ class Post
     /**
      * Get tags
      *
-     * @return Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTags()
     {
@@ -350,10 +359,10 @@ class Post
     /**
      * Add comments
      *
-     * @param  Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments
+     * @param  Comment $comments
      * @return Post
      */
-    public function addComment(\Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments)
+    public function addComment(Comment $comments)
     {
         $this->comments[] = $comments;
 
@@ -363,9 +372,10 @@ class Post
     /**
      * Remove comments
      *
-     * @param Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments
+     * @param Comment $comments
+     * @param Comment $comments
      */
-    public function removeComment(\Desarrolla2\Bundle\BlogBundle\Entity\Comment $comments)
+    public function removeComment(Comment $comments)
     {
         $this->comments->removeElement($comments);
     }
@@ -373,7 +383,7 @@ class Post
     /**
      * Get comments
      *
-     * @return Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getComments()
     {
@@ -388,7 +398,7 @@ class Post
      */
     public function setIntro($intro)
     {
-        $this->intro = (string) $intro;
+        $this->intro = (string)$intro;
 
         return $this;
     }
@@ -487,7 +497,7 @@ class Post
      */
     public function hasSource()
     {
-        return (bool) $this->getSource();
+        return (bool)$this->getSource();
     }
 
     /**
@@ -503,7 +513,7 @@ class Post
     /**
      * Set Status
      *
-     * @param  int  $status
+     * @param  int $status
      * @return Post
      */
     public function setStatus($status)
@@ -543,7 +553,7 @@ class Post
      */
     public function isPublished()
     {
-        return (bool) ($this->status == PostStatus::PUBLISHED);
+        return (bool)($this->status == PostStatus::PUBLISHED);
     }
 
     /**
@@ -553,6 +563,29 @@ class Post
      */
     public function hasImage()
     {
-        return (bool) count($this->getImage());
+        if (!strlen($this->image)) {
+            return false;
+        }
+        if (!$this->image) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param int $promotion
+     */
+    public function setPromotion($promotion)
+    {
+        $this->promotion = $promotion;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPromotion()
+    {
+        return $this->promotion;
     }
 }

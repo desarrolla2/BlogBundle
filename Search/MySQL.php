@@ -9,40 +9,33 @@ use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
  * Class MySQL
+ *
  * @package Desarrolla2\Bundle\BlogBundle\Search
  */
-class MySQL implements SearchInterface
+class MySQL extends AbstractSearch
 {
-    /** @var \Doctrine\Bundle\DoctrineBundle\Registry $registry */
+    /**
+     * @var \Doctrine\Bundle\DoctrineBundle\Registry $registry
+     */
     protected $registry;
 
-    /** @var \Doctrine\DBAL\Connection $connection */
+    /**
+     * @var \Doctrine\DBAL\Connection $connection
+     */
     protected $connection;
 
-    /** @var \Doctrine\ORM\EntityManager $manager */
+    /**
+     * @var \Doctrine\ORM\EntityManager $manager
+     */
     protected $manager;
 
-    /** @var int $items */
-    protected $itemsPerPage;
-
-    /** @var Post[] $items */
-    protected $items;
-
     /**
-     * @var Paginator
-     */
-    protected $paginator;
-
-    /**
-     * @var PaginationInterface
-     */
-    protected $pagination;
-
-    /**
-     * @param Registry $registry
-     * @param $connection
-     * @param $manager
-     * @param $items
+     * @param Registry                       $registry
+     * @param \Knp\Component\Pager\Paginator $paginator
+     * @param                                $connection
+     * @param                                $manager
+     * @param                                $itemsPerPage
+     * @internal param $items
      */
     public function __construct(Registry $registry, Paginator $paginator, $connection, $manager, $itemsPerPage)
     {
@@ -63,13 +56,17 @@ class MySQL implements SearchInterface
     }
 
     /**
-     * @param $query
+     * @param     $query
      * @param int $page
      * @return array
      */
     public function search($query, $page = 1)
     {
-        $searchQueryBuilder = $this->manager->getRepository('BlogBundle:Post')->getSearchBuilder($query, $page, $this->itemsPerPage);
+        $searchQueryBuilder = $this->manager->getRepository('BlogBundle:Post')->getSearchBuilder(
+            $query,
+            $page,
+            $this->itemsPerPage
+        );
 
         $this->pagination = $this->paginator->paginate($searchQueryBuilder);
 
@@ -78,10 +75,10 @@ class MySQL implements SearchInterface
 
     /**
      * @param Post $post
-     * @param int $limit
+     * @param int  $limit
      * @return mixed
      */
-    public function related(Post $post, $limit = 10)
+    public function related(Post $post, $limit = 3)
     {
         /** @var \Doctrine\ORM\QueryBuilder $qb */
         $qb = $this->manager->getRepository('BlogBundle:Post')->createQueryBuilder('p');
@@ -97,18 +94,12 @@ class MySQL implements SearchInterface
         $qb->andWhere($qb->expr()->in('t.id', ':tags'));
         $qb->setParameter('tags', $tags);
 
+        if ($limit) {
+            $qb->setMaxResults($limit);
+        }
+
         $this->items = $qb->getQuery()->getResult();
 
         return $this->items;
-    }
-
-    public function getItems()
-    {
-        return $this->pagination;
-    }
-
-    public function getPagination()
-    {
-        return $this->pagination;
     }
 }

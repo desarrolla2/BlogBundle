@@ -21,7 +21,7 @@ class PostRepository extends EntityRepository
     const POST_PER_PAGE = 6;
 
     /**
-     * @param  array                       $ids
+     * @param  array $ids
      * @return \Doctrine\ORM\AbstractQuery
      */
     public function getQueryForGetByIds(array $ids)
@@ -43,13 +43,17 @@ class PostRepository extends EntityRepository
      */
     public function getByIds(array $ids)
     {
+        if (!count($ids)) {
+            return array();
+        }
+
         return $this->getQueryForGetByIds($ids)
             ->getResult();
     }
 
     /**
      *
-     * @param  string                                     $slug
+     * @param  string $slug
      * @return \Desarrolla2\Bundle\BlogBundle\Entity\Post
      */
     public function getOneBySlug($slug)
@@ -73,7 +77,7 @@ class PostRepository extends EntityRepository
      */
     public function getByTag(Tag $tag, $limit = self::POST_PER_PAGE)
     {
-        $limit = (int) $limit;
+        $limit = (int)$limit;
         $query = $this->getQueryForGetByTag($tag, $limit)
             ->setMaxResults($limit);
 
@@ -82,12 +86,12 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param  int   $limit
+     * @param  int $limit
      * @return array
      */
     public function get($limit = self::POST_PER_PAGE)
     {
-        $limit = (int) $limit;
+        $limit = (int)$limit;
         $query = $this->getQueryForGet($limit)
             ->setMaxResults($limit);
 
@@ -104,7 +108,7 @@ class PostRepository extends EntityRepository
         $query = $em->createQuery(
             ' SELECT p FROM BlogBundle:Post p ' .
             ' WHERE p.status = ' . PostStatus::PUBLISHED .
-            ' ORDER BY p.publishedAt DESC '
+            ' ORDER BY p.promotion DESC, p.publishedAt DESC '
         );
 
         return $query;
@@ -144,7 +148,7 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param  string              $slug
+     * @param  string $slug
      * @return \Doctrine\ORM\Query
      */
     public function getQueryForGetByTagSlug($slug = '')
@@ -170,7 +174,7 @@ class PostRepository extends EntityRepository
      */
     public function getLatestRelated(Post $post, $limit = self::POST_PER_PAGE)
     {
-        $limit = (int) $limit;
+        $limit = (int)$limit;
         $em = $this->getEntityManager();
         $query = $em->createQuery(
             ' SELECT p FROM BlogBundle:Post p ' .
@@ -187,18 +191,18 @@ class PostRepository extends EntityRepository
         if (count($related)) {
             return $related;
         } else {
-            return $query->getLatest($limit);
+            return $this->getLatest($limit);
         }
     }
 
     /**
      *
-     * @param  int   $limit
+     * @param  int $limit
      * @return array
      */
     public function getLatest($limit = self::POST_PER_PAGE)
     {
-        $limit = (int) $limit;
+        $limit = (int)$limit;
 
         return $this->get($limit);
     }
@@ -214,8 +218,7 @@ class PostRepository extends EntityRepository
         $qb
             ->select('p')
             ->from('BlogBundle:Post', 'p')
-            ->orderBy('p.updatedAt', 'DESC');
-        $query = $qb->getQuery();
+            ->orderBy('p.createdAt', 'DESC');
 
         return $qb;
     }
@@ -251,7 +254,7 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param  int   $limit
+     * @param  int $limit
      * @return array
      */
     public function getUnPublished($limit = 50)
@@ -288,7 +291,7 @@ class PostRepository extends EntityRepository
 
     /**
      *
-     * @param  int   $limit
+     * @param  int $limit
      * @return array
      */
     public function getPrePublished($limit = 50)
@@ -341,17 +344,21 @@ class PostRepository extends EntityRepository
         }
 
         if (count($name) === 1) {
-            $qb->andWhere($qb->expr()->orX(
-                call_user_func_array(array($qb->expr(), 'orX'), $name),
-                call_user_func_array(array($qb->expr(), 'orX'), $intro),
-                call_user_func_array(array($qb->expr(), 'orX'), $content)
-            ));
+            $qb->andWhere(
+                $qb->expr()->orX(
+                    call_user_func_array(array($qb->expr(), 'orX'), $name),
+                    call_user_func_array(array($qb->expr(), 'orX'), $intro),
+                    call_user_func_array(array($qb->expr(), 'orX'), $content)
+                )
+            );
         } else {
-            $qb->andWhere($qb->expr()->andX(
-                call_user_func_array(array($qb->expr(), 'orX'), $name),
-                call_user_func_array(array($qb->expr(), 'orX'), $intro),
-                call_user_func_array(array($qb->expr(), 'orX'), $content)
-            ));
+            $qb->andWhere(
+                $qb->expr()->andX(
+                    call_user_func_array(array($qb->expr(), 'orX'), $name),
+                    call_user_func_array(array($qb->expr(), 'orX'), $intro),
+                    call_user_func_array(array($qb->expr(), 'orX'), $content)
+                )
+            );
         }
 
         $start = ($page - 1) * $perPage;
@@ -377,6 +384,7 @@ class PostRepository extends EntityRepository
     protected function tokenize($query)
     {
         preg_match_all('#\b\w{3,}\b#mi', $query, $matches);
+
         return is_array($matches) && count($matches)
             ? $matches[0]
             : array();

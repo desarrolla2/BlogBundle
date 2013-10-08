@@ -1,17 +1,18 @@
 <article class="post">
-    <header>
-        <h2><a href="{{ url('_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a></h2>
-    </header>
-    {% if post.hasImage %}
-        <div style="float: left; margin: 5px 15px 15px 0; max-width: 200px">
-            <img src="{{ post.image }}"/>
-        </div>
-    {% endif %}
-    {{ post.intro | raw }}
-    {% if post.hasSource %}
-        <p>Enlace a la fuente original: <a href="{{ post.source }}" target="_blank" title="{{ post }}">{{ post }}</a></p>
-    {% endif %}
-    <small>
-        Publicado el <time datetime="{{ post.publishedAt | date('c') }}">{{ post.publishedAt | localeDate('full') }}</time>.
-    </small>
+  <header>
+    <h2><a href="{{ path('_blog_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a></h2>
+  </header>
+  {% if post.hasImage %}
+    <div style="float: left; margin: 5px 15px 15px 0; max-width: 200px">
+      <img src="{{ post.image }}" alt="{{ post }}"/>
+    </div>
+  {% endif %}
+  {{ post.intro | raw }}
+  {% if post.hasSource %}
+    <p>Enlace a la fuente original: <a href="{{ post.source }}" target="_blank" title="{{ post }}">{{ post }}</a></p>
+  {% endif %}
+  <small>
+    Publicado el
+    <time datetime="{{ post.publishedAt | date('c') }}">{{ post.publishedAt | localeDate('full') }}.</time>
+  </small>
 </article>

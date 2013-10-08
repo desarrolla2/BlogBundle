@@ -11,6 +11,7 @@
  */
 
 namespace Desarrolla2\Bundle\BlogBundle\Search;
+
 use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
@@ -19,24 +20,22 @@ use Knp\Component\Pager\Pagination\PaginationInterface;
  * Description of SearchInterface
  *
  * @author : Daniel González <daniel.gonzalez@freelancemadrid.es>
- * @file : SearchInterface.php , UTF-8
- * @date : Mar 8, 2013 , 6:26:51 PM
  */
 interface SearchInterface
 {
     /**
      * @param string $query
-     * @param int $page
+     * @param int    $page
      * @return array
      */
     public function search($query, $page);
 
     /**
      * @param Post $post
-     * @param int $limit
+     * @param int  $limit
      * @return Post[]
      */
-    public function related(Post $post, $limit = 10);
+    public function related(Post $post, $limit = 3);
 
     /**
      * @return array

@@ -1,17 +1,17 @@
 {% if related %}
-<article>
+  <article>
     <h4>Relacionado</h4>
     <div class="row-fluid">
-        {% for post in related %}
-            <div class="span4">
-                {% if post.hasImage %}
-                    <img src="{{ post.image }}"/>
-                {% endif %}
-                <a href="{{ url('_view', { 'slug' : post.slug }) }}">{{ post }}</a>
-            </div>
-        {% else %}
-            <p>No hay elementos</p>
-        {% endfor %}
+      {% for post in related %}
+        <div class="span4">
+          {% if post.hasImage %}
+            <img src="{{ post.image }}" alt="{{ post }}"/>
+          {% endif %}
+          <a href="{{ path('_blog_view', { 'slug' : post.slug }) }}">{{ post }}</a>
+        </div>
+      {% else %}
+        <p>No hay elementos</p>
+      {% endfor %}
     </div>
-</article>
+  </article>
 {% endif %}

@@ -1,0 +1,14 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+
+notifications:
+  email:
+    - daniel.gonzalez@freelancemadrid.es
+
+before_script:
+  - composer update --prefer-source --dev --verbose --optimize-autoloader --profile
+  - cp phpunit.xml.dist phpunit.xml

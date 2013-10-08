@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %} Welcome {% endblock %}{% block after_title %} | BLOG TITLE {% endblock %}</title>
-        <meta name="description" content="{% block description %}{% endblock %}" />
-        {% block meta %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('/favicon.png') }}" />
-        {% block rss %}{% endblock %}
-        {% block stylesheets %}{% endblock%}
-        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-        {% block javascripts %}{% endblock %}
-    </head>
-    <body>
-    {% block body %}{% endblock %}
-    {% block modal %}{% endblock %}
-    {% block analitycs %}{% endblock %}
-    </body>
+<html lang="{{ locale }}">
+<head>
+  <meta charset="UTF-8"/>
+  <title>{% block title %} Welcome {% endblock %}</title>
+  {% block canonical %}{% endblock %}
+  <meta name="description" content="{% spaceless %}{% block meta_description %}{% endblock %}{% endspaceless %}">
+  <meta name="keywords" content="{% spaceless %}{% block meta_keywords %}{% endblock %}{% endspaceless %}">
+  {% spaceless %}{% block meta_og %}{% endblock %}{% endspaceless %}
+  {% block rss %}
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ url('_blog_feed')}}"/>
+  {% endblock %}
+  <link rel="icon" type="image/x-icon" href="{{ asset('/favicon.png') }}"/>
+  {% block stylesheets %}{% endblock %}
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  {% block javascripts %}{% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+{% block modal %}{% endblock %}
+{% block analitycs %}{% endblock %}
+</body>
 </html>
