@@ -1,4 +1,4 @@
-{% extends "::frontend.html.twig" %}
+{% extends "BlogBundle::frontend.html.twig" %}
 
 {% block title %} Etiqueta "{{ tag | upper }}" {% if page != 1 %}| Página {{ page }} {% endif %}| {{ parent() }}{% endblock %}
 {% block meta_description %}Contenido relacionado con {{ tag | upper}}{% endblock %}

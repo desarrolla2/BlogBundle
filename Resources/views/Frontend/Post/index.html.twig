@@ -1,4 +1,4 @@
-{% extends "::frontend.html.twig" %}
+{% extends "BlogBundle::frontend.html.twig" %}
 {% block title %} {{ parent() }} {% if page != 1 %}| Página {{ page }} {% endif %}{% endblock %}
 {% block canonical %}<link rel="canonical" href="{{ url('_blog_default', { 'page' : page }) }}"/>{% endblock %}
 {% block meta_description %}{{ pagination.current.intro | striptags | truncate(150) }}{% endblock %}
