@@ -85,7 +85,7 @@ class Post
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Tag",inversedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Tag",inversedBy="posts")
      * @ORM\JoinTable(name="post_tag")
      */
     protected $tags;
@@ -107,7 +107,10 @@ class Post
     /**
      * @var Author
      *
-     * @ORM\ManyToOne(targetEntity="Author")
+     * @ORM\ManyToOne(targetEntity="Author", inversedBy="posts")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * })
      */
     protected $author;
 
