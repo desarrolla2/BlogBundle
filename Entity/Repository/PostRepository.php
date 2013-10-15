@@ -290,6 +290,42 @@ class PostRepository extends EntityRepository
     }
 
     /**
+     * Count published elements with source
+     *
+     * @return integer
+     */
+    public function countPublishedWithSource()
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            ' SELECT COUNT(p) FROM BlogBundle:Post p ' .
+            ' WHERE p.status = ' . PostStatus::PUBLISHED .
+            ' AND p.source != :source '
+        )
+            ->setParameter('source', '');
+
+        return $query->getSingleScalarResult();
+    }
+
+    /**
+     *
+     * @param  int $limit
+     * @return array
+     */
+    public function getPublished($limit = 50)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            ' SELECT p FROM BlogBundle:Post p ' .
+            ' WHERE p.status = ' . PostStatus::PUBLISHED .
+            ' ORDER BY p.createdAt DESC '
+        )
+            ->setMaxResults($limit);
+
+        return $query->getResult();
+    }
+
+    /**
      *
      * @param  int $limit
      * @return array
@@ -322,6 +358,12 @@ class PostRepository extends EntityRepository
         return false;
     }
 
+    /**
+     * @param string $query
+     * @param int    $page
+     * @param int    $perPage
+     * @return array|\Doctrine\ORM\QueryBuilder
+     */
     public function getSearchBuilder($query, $page = 1, $perPage = 10)
     {
         $tokens = $this->tokenize($query);
@@ -369,6 +411,12 @@ class PostRepository extends EntityRepository
         return $qb;
     }
 
+    /**
+     * @param string $query
+     * @param int    $page
+     * @param int    $perPage
+     * @return mixed
+     */
     public function search($query, $page = 1, $perPage = 10)
     {
         return $this->getQueryForSearch($query, $page, $perPage)->getQuery()->getResult();

@@ -241,10 +241,10 @@ div#content textarea {
 
 div#content input[type="text"].captcha {
     width: 200px;
-    margin: 0 0 0 10px;
+    margin: 0 0 16px 20px;
 }
 
-div#content .row-captha img {
+div#content .row-captcha img {
     display: inline-block;
 }
 

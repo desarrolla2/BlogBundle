@@ -3,11 +3,17 @@
 {% block canonical %}<link rel="canonical" href="{{ url('_blog_archive') }}"/>{% endblock %}
 {% block meta_description %} {{ description }} {% endblock %}
 {% block meta_og %}
+  {{ parent() }}
   <meta property="og:title" content="{{ title }}"/>
-  <meta property="og:type" content="website"/>
   <meta property="og:url" content="{{ url('_blog_archive') }}"/>
   <meta property="og:description" content="{{ description }}"/>
 {% endblock %}
+{% block meta_twiter %}
+  {{ parent() }}
+  <meta property="twitter:title" content="{{ title }}"/>
+  <meta property="twitter:description" content="{{ description }}"/>
+{% endblock %}
+
 {% block content %}
   <article class="post">
     <header>

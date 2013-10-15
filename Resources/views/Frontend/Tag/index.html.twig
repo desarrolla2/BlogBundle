@@ -3,16 +3,25 @@
 {% block title %} Etiqueta "{{ tag | upper }}" {% if page != 1 %}| Página {{ page }} {% endif %}| {{ parent() }}{% endblock %}
 {% block meta_description %}Contenido relacionado con {{ tag | upper}}{% endblock %}
 {% block meta_keywords %}{{ tag }}{% endblock %}
-{% block meta %}
-  <link rel="canonical" href="{{ url('_blog_tag', { 'slug' : tag.slug, 'page' : page }) }}"/>
-  <meta property="og:title" content="{{ tag }} {% if page != 1 %}| Página {{ page }} {% endif %}| {{ parent() }}"/>
-  <meta property="og:type" content="website"/>
+{% block canonical %}<link rel="canonical" href="{{ url('_blog_tag', { 'slug' : tag.slug, 'page' : page }) }}"/>{% endblock %}
+{% block meta_og %}
+  {{ parent() }}
+  <meta property="og:title" content="{{ tag }} {% if page != 1 %}| Página {{ page }} {% endif %}"/>
   <meta property="og:url" content="{{ url('_blog_tag', { 'slug' : tag.slug, 'page' : page }) }}"/>
   <meta property="og:description" content="{{ pagination.current.intro | striptags | raw | truncate(150) }}"/>
   {% if pagination.current.hasImage %}
-    <meta property="og:image" content="{{ post.image }}"/>
+    <meta property="og:image" content="{{ pagination.current.image }}"/>
   {% endif %}
 {% endblock %}
+{% block meta_twiter %}
+  {{ parent() }}
+  <meta property="twitter:title" content="{{ tag }} {% if page != 1 %}| Página {{ page }} {% endif %}"/>
+  <meta property="twitter:description" content="{{ pagination.current.intro | striptags | raw | truncate(150) }}"/>
+  {% if pagination.current.hasImage  %}
+    <meta property="twitter:image:src" content="{{ pagination.current.image }}"/>
+  {% endif %}
+{% endblock %}
+
   {% block rss %}
     <link rel="alternate" type="application/rss+xml" title="{{ tag }} RSS Feed"
           href="{{ url('_blog_feed_tag', { 'slug' : tag.slug }) }}"/>

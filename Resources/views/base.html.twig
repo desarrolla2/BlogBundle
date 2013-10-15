@@ -6,7 +6,13 @@
   {% block canonical %}{% endblock %}
   <meta name="description" content="{% spaceless %}{% block meta_description %}{% endblock %}{% endspaceless %}">
   <meta name="keywords" content="{% spaceless %}{% block meta_keywords %}{% endblock %}{% endspaceless %}">
-  {% spaceless %}{% block meta_og %}{% endblock %}{% endspaceless %}
+  <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}" />
+  {% block meta_og %}<meta property="og:type" content="website"/>{% endblock %}
+  {% block meta_twiter %}
+    <meta property="twitter:card" content="summary"/>
+    <meta property="twitter:site" content="@{{ twitter_site }}"/>
+    <meta name="twitter:domain" content="{{ url('_blog_default') }}">
+  {% endblock %}
   {% block rss %}
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ url('_blog_feed')}}"/>
   {% endblock %}

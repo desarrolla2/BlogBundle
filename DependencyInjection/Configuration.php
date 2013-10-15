@@ -74,7 +74,7 @@ class Configuration implements ConfigurationInterface
         $node = $builder->root('sitemap');
         $node->addDefaultsIfNotSet()
             ->children()
-            ->scalarNode('items')->defaultValue(50)->end()
+            ->scalarNode('items')->defaultValue(50000)->end()
             ->end();
 
         return $node;

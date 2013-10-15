@@ -563,10 +563,10 @@ class Post
      */
     public function hasImage()
     {
-        if (!strlen($this->image)) {
+        if (is_null($this->image)) {
             return false;
         }
-        if (!$this->image) {
+        if (!strlen(trim($this->image))) {
             return false;
         }
 

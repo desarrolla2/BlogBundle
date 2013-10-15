@@ -5,15 +5,22 @@
 {% block meta_description %}{{ post.intro | striptags | raw | truncate(150) }}{% endblock %}
 {% block meta_keywords %}{% for tag in post.tags %}{{ tag }}, {% endfor %} {% endblock %}
 {% block meta_og %}
-  <meta property="og:title" content="{{ post }}"/>
   <meta property="og:type" content="website"/>
+  <meta property="og:title" content="{{ post }}"/>
   <meta property="og:url" content="{{ url('_blog_view', { 'slug' : post.slug }) }}"/>
   <meta property="og:description" content="{{ post.intro | striptags | raw | truncate(150) }}"/>
   {% if post.hasImage %}
     <meta property="og:image" content="{{ post.image }}"/>
   {% endif %}
 {% endblock %}
-
+{% block meta_twiter %}
+  {{ parent() }}
+  <meta property="twitter:title" content="{{ post }}"/>
+  <meta property="twitter:description" content="{{ post.intro | striptags | raw | truncate(150) }}"/>
+  {% if post.hasImage %}
+    <meta property="twitter:image:src" content="{{ post.image }}"/>
+  {% endif %}
+{% endblock %}
 {% block content %}
   <article class="post">
     <header>

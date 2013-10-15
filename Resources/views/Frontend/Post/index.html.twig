@@ -4,12 +4,20 @@
 {% block meta_description %}{{ pagination.current.intro | striptags | truncate(150) }}{% endblock %}
 {% block meta_keywords %}{% for tag in pagination.current.tags %}{{ tag }}, {% endfor %}{% endblock %}
 {% block meta_og %}
+  {{ parent() }}
   <meta property="og:title" content="{{ pagination.current }}"/>
-  <meta property="og:type" content="website"/>
   <meta property="og:url" content="{{ url('_blog_default', { 'page' : page }) }}"/>
   <meta property="og:description" content="{{ pagination.current.intro | striptags | raw | truncate(150) }}"/>
   {% if pagination.current.hasImage %}
     <meta property="og:image" content="{{ pagination.current.image }}"/>
+  {% endif %}
+{% endblock %}
+{% block meta_twiter %}
+  {{ parent() }}
+  <meta property="twitter:title" content="{{ pagination.current }}"/>
+  <meta property="twitter:description" content="{{ pagination.current.intro | striptags | raw | truncate(150) }}"/>
+  {% if pagination.current.hasImage %}
+    <meta property="twitter:image:src" content="{{ pagination.current.image }}"/>
   {% endif %}
 {% endblock %}
 {% block content %}

@@ -72,28 +72,5 @@ class FeedController extends Controller
         ));
     }
 
-    /**
-     * @Route("/sitemap/", name="_blog_sitemap")
-     * @Route("/sitemap.{_format}")
-     * @Route("/sitemap.xml.gz")
-     * @Method({"GET"})
-     */
-    public function sitemapAction(Request $request)
-    {
-        $request->setRequestFormat('xml');
-        $items = array();
-        $tags = $this->getDoctrine()->getManager()
-                        ->getRepository('BlogBundle:Tag')->get(
-                $this->container->getParameter('blog.sitemap.items')
-        );
-        foreach ($tags as $tag) {
-            $items[] = $this->generateUrl('_blog_tag', array('slug' => $tag->getSlug()), true);
-        }
-
-        return $this->render(
-                        'BlogBundle:Frontend/Feed:sitemap.xml.twig', array(
-                    'items' => $items,
-        ));
-    }
 
 }
