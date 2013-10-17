@@ -1,4 +1,4 @@
-{% extends "::frontend.html.twig" %}
+{% extends "BlogBundle::frontend.html.twig" %}
 
 {% block title %} {{ post }} | {{ parent() }}{% endblock %}
 {% block canonical %}<link rel="canonical" href="{{ url('_blog_view', { 'slug' : post.slug }) }}"/>{% endblock %}

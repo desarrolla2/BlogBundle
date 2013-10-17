@@ -1,6 +1,6 @@
-{% extends "::backend.html.twig" %}
+{% extends "BlogBundle::backend.html.twig" %}
 {% block content %}
-<form class="well" action="{{ url('tag_create') }}" method="post" {{ form_enctype(form) }}>
+<form class="well" action="{{ url('_blog_backend_tag_create') }}" method="post" {{ form_enctype(form) }}>
    {% include 'BlogBundle:Backend/Tag:edit.form.html.twig' with {'form': form } %}
 </form>
 {% endblock %}
