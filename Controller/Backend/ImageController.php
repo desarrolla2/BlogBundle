@@ -24,7 +24,7 @@ class ImageController extends Controller
     /**
      * Lists all Image entities.
      *
-     * @Route("/", name="_blog_backend_image")
+     * @Route("", name="_blog_backend_image")
      * @Template()
      */
     public function indexAction()

@@ -26,7 +26,7 @@ class AuthorController extends Controller
     /**
      * Lists all Author entities.
      *
-     * @Route("/", name="_blog_backend_author")
+     * @Route("", name="_blog_backend_author")
      * @Template()
      */
     public function indexAction()

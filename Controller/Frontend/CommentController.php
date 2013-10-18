@@ -52,7 +52,7 @@ class CommentController extends Controller
 
     /**
      *
-     * @Route("/message/", name="_comment_message")
+     * @Route("/message", name="_comment_message")
      * @Method("GET")
      * @Template()
      */

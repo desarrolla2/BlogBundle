@@ -29,7 +29,7 @@ class StatsController extends Controller
 {
 
     /**
-     * @Route("/", name="_blog_stats")
+     * @Route("", name="_blog_stats")
      * @Method({"GET"})
      * @Template()
      */

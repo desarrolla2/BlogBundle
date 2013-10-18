@@ -26,7 +26,7 @@ class TagController extends Controller
     /**
      * Lists all Tag entities.
      *
-     * @Route("/", name="_blog_backend_tag")
+     * @Route("", name="_blog_backend_tag")
      * @Template()
      */
     public function indexAction()

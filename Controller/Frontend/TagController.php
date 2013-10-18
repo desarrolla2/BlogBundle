@@ -77,7 +77,7 @@ class TagController extends Controller
                         ->getRepository('BlogBundle:Tag')->getQueryForGet();
 
         $pagination = $paginator->paginate(
-                $query, $this->getPage(), 30
+            $query, $this->getPage(), 30
         );
 
         return array(

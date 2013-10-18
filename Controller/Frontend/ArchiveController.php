@@ -29,7 +29,7 @@ class ArchiveController extends Controller
 {
 
     /**
-     * @Route("/", name="_blog_archive")
+     * @Route("", name="_blog_archive")
      * @Method({"GET"})
      * @Template()
      */

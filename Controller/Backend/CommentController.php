@@ -26,7 +26,7 @@ class CommentController extends Controller
     /**
      * Lists all Comment entities.
      *
-     * @Route("/", name="_blog_backend_comment")
+     * @Route("", name="_blog_backend_comment")
      * @Template()
      */
     public function indexAction()
