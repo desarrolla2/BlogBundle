@@ -102,7 +102,7 @@ class PostController extends Controller
         $form = $this->createForm(new PostType(), new PostModel(new Post()));
         $formHandler = new PostHandler($form, $request, new Post(), $em);
         if ($formHandler->process()) {
-            return $this->redirect($this->generateUrl('post'));
+            return $this->redirect($this->generateUrl('_blog_backend_post'));
         }
 
         return array(
