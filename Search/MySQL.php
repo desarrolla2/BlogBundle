@@ -88,6 +88,9 @@ class MySQL extends AbstractSearch
         foreach ($post->getTags() as $tag) {
             $tags[] = $tag->getId();
         }
+        if (!count($tags)) {
+            return array();
+        }
 
         $qb->where('p.status = 1');
         $qb->andWhere($qb->expr()->neq('p.id', $post->getId()));
