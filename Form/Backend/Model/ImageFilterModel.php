@@ -15,12 +15,8 @@ namespace Desarrolla2\Bundle\BlogBundle\Form\Backend\Model;
 use \Symfony\Component\Validator\Constraints as Assert;
 
 /**
- *
  * Description of ImageFilterModel
- *
  * @author : dgonzalez
- * @file : ImageFilterModel.php , UTF-8
- * @date : Feb 25, 2013 , 12:58:13 PM
  */
 class ImageFilterModel
 {

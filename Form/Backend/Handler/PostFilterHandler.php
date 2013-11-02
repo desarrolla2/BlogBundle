@@ -12,6 +12,7 @@
 
 namespace Desarrolla2\Bundle\BlogBundle\Form\Backend\Handler;
 
+use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\QueryBuilder;
@@ -78,12 +79,12 @@ class PostFilterHandler
             $isPublished = (string)$formData->getIsPublished();
             if ($isPublished) {
                 if ($isPublished == 'yes') {
-                    $this->qb->andWhere($this->qb->expr()->like('p.isPublished', ':isPublished'))
-                        ->setParameter('isPublished', 1);
+                    $this->qb->andWhere($this->qb->expr()->eq('p.status', ':status'))
+                        ->setParameter('status', PostStatus::PUBLISHED);
                 }
                 if ($isPublished == 'no') {
-                    $this->qb->andWhere($this->qb->expr()->like('p.isPublished', ':isPublished'))
-                        ->setParameter('isPublished', 0);
+                    $this->qb->andWhere($this->qb->expr()->neq('p.status', ':status'))
+                        ->setParameter('status', PostStatus::PUBLISHED);
                 }
             }
 
@@ -91,7 +92,6 @@ class PostFilterHandler
             if ($order) {
                 $this->qb->orderBy('p.' . $order, 'DESC');
             }
-
 
             return true;
         }

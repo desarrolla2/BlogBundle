@@ -1,6 +1,6 @@
 {% extends 'BlogBundle:Backend/Tag:new.html.twig' %}
 {% block content %}
-<form class="well" action="{{ url('tag_update' , {'id' : entity.id}) }}" method="post" {{ form_enctype(form) }}>
+<form class="well" action="{{ url('_blog_backend_tag_update' , {'id' : entity.id}) }}" method="post" {{ form_enctype(form) }}>
     {% include 'BlogBundle:Backend/Tag:edit.form.html.twig' with {'form': form } %}
 </form>
 <form action="{{ url('tag_delete', { 'id': entity.id }) }}" method="post">

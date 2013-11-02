@@ -102,7 +102,7 @@ class TagController extends Controller
         $form = $this->createForm(new TagType(), new TagModel(new Tag()));
         $formHandler = new TagHandler($form, $request, new Tag(), $em);
         if ($formHandler->process()) {
-            return $this->redirect($this->generateUrl('tag'));
+            return $this->redirect($this->generateUrl('_blog_backend_tag'));
         }
 
         return array(
@@ -152,7 +152,7 @@ class TagController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $formHandler = new TagHandler($editForm, $request, $entity, $em);
         if ($formHandler->process()) {
-            return $this->redirect($this->generateUrl('tag'));
+            return $this->redirect($this->generateUrl('_blog_backend_tag'));
         }
 
         return array(

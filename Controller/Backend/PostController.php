@@ -47,7 +47,7 @@ class PostController extends Controller
         if ($request->getMethod() == 'POST' && $request->get('filter_action') == 'filter') {
             if ($formHandler->process()) {
                 $query = $formHandler->getQuery();
-                $session->set('PostControllerFilter', $request);
+                //$session->set('PostControllerFilter', $request);
             }
         }
 

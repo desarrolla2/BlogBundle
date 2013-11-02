@@ -19,7 +19,7 @@
                 <td>{{ entity.items }}</td>
                 <td>{{ entity.createdAt|date('Y-m-d') }} / {{ entity.updatedAt|date('Y-m-d') }}</td>
                 <td>
-                    <a class="bnt btn-mini" href="{{ url('tag_edit', { 'id': entity.id }) }}">edit</a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_tag_edit', { 'id': entity.id }) }}">edit</a>
                 </td>
             </tr>
             {% endfor %}
