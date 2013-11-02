@@ -70,7 +70,7 @@ class MySQL extends AbstractSearch
 
         $this->pagination = $this->paginator->paginate($searchQueryBuilder);
 
-        return $searchQueryBuilder->getQuery()->getResult();
+        return $this->items = $searchQueryBuilder->getQuery()->getResult();
     }
 
     /**
@@ -101,8 +101,6 @@ class MySQL extends AbstractSearch
             $qb->setMaxResults($limit);
         }
 
-        $this->items = $qb->getQuery()->getResult();
-
-        return $this->items;
+        return $this->items = $qb->getQuery()->getResult();
     }
 }

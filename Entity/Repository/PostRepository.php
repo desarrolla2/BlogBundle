@@ -371,7 +371,7 @@ class PostRepository extends EntityRepository
 
     public function search($query, $page = 1, $perPage = 10)
     {
-        return $this->getQueryForSearch($query, $page, $perPage)->getQuery()->getResult();
+        return $this->items = $this->getQueryForSearch($query, $page, $perPage)->getQuery()->getResult();
     }
 
     /**
