@@ -47,14 +47,15 @@ class PostController extends Controller
         if ($request->getMethod() == 'POST' && $request->get('filter_action') == 'filter') {
             if ($formHandler->process()) {
                 $query = $formHandler->getQuery();
-                //$session->set('PostControllerFilter', $request);
+                $session->set('PostControllerFilter', $request->request->all());
             }
         }
 
         if ($request->getMethod() == 'GET') {
             if ($session->has('PostControllerFilter')) {
-                $filterForm = $this->createForm(new PostFilterType(), new PostFilterModel($session->get('PostControllerFilter')));
-                $formHandler = new PostFilterHandler($filterForm, $session->get('PostControllerFilter'), $qb);
+                $request->request->replace($session->get('PostControllerFilter'));
+                $filterForm = $this->createForm(new PostFilterType(), new PostFilterModel($request));
+                $formHandler = new PostFilterHandler($filterForm, $request, $qb);
                 if ($formHandler->process()) {
                     $query = $formHandler->getQuery();
                 }
