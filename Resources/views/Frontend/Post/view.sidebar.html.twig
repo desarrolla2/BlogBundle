@@ -1,0 +1,14 @@
+<div class="block">
+  <h4>Últimas entradas</h4>
+  {{ render(controller('BlogBundle:Frontend\\Widget:latestPost', { 'post': post })) }}
+</div>
+
+<div class="block">
+  <h4>Entradas relacionadas</h4>
+  {{ render(controller('BlogBundle:Frontend\\Widget:latestPostRelated', { 'post': post })) }}
+</div>
+
+<div class="block">
+  <h4>Últimos comentarios</h4>
+  {{ render(controller('BlogBundle:Frontend\\Widget:latestComment', { 'post': post })) }}
+</div>
