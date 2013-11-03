@@ -22,6 +22,10 @@ class PostController extends Controller
      * @Route("/{page}", name="_blog_default", requirements={"page" = "\d{1,6}"}, defaults={"page" = "1" })
      * @Method({"GET"})
      * @Template()
+     *
+     * @param Request $request
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @return array
      */
     public function indexAction(Request $request)
     {
@@ -52,6 +56,11 @@ class PostController extends Controller
      * @Route("/post/{slug}" , name="_blog_view", requirements={"slug" = "[\w\d\-]+"})
      * @Method({"GET"})
      * @Template()
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @param Request                                   $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function viewAction(Request $request)
     {
@@ -77,7 +86,6 @@ class PostController extends Controller
     }
 
     /**
-     *
      * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
      * @return \Desarrolla2\Bundle\BlogBundle\Entity\Comment
      */
@@ -90,8 +98,7 @@ class PostController extends Controller
     }
 
     /**
-     *
-     * @return type
+     * @return int
      */
     protected function getPage()
     {

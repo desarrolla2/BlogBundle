@@ -59,7 +59,7 @@ class AppKernel extends Kernel
 
         AnnotationRegistry::registerAutoloadNamespaces(
             array(
-                'Sensio\\Bundle\\FrameworkExtraBundle' => $vendorDir . '/sensio/framework-extra-bundle/',
+                'Sensio\\Bundle\\FrameworkExtraBundle' => $vendorDir . '/sensio/framework-bundle-bundle/',
             )
         );
     }

@@ -34,14 +34,14 @@
   <article class="post">
     <header>
       {% if query %}
-        <h2>
+        <h1>
           <a href="{{ path('_blog_search', {'q': query}) }}">
             Resultados de busqueda "{{ query }}"
             {% if page != 1 %} Página {{ page }}{% endif %}
           </a>
-        </h2>
+        </h1>
       {% else %}
-        <h2>Buscar</h2>
+        <h1>Buscar</h1>
       {% endif %}
     </header>
     {% include 'BlogBundle:Frontend/Search:form.html.twig' with {'form': form} %}

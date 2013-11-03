@@ -30,11 +30,6 @@ class CommentHandler
     protected $request;
 
     /**
-     * @var \\Desarrolla2\Bundle\BlogBundle\Entity\Comment
-     */
-    protected $entity;
-
-    /**
      * @var \Doctrine\ORM\EntityManager
      */
     protected $em;
@@ -46,13 +41,18 @@ class CommentHandler
     protected $sanitizer;
 
     /**
-     *
-     * @param \Symfony\Component\Form\Form                              $form
-     * @param \Symfony\Component\HttpFoundation\Request                 $request
-     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Comment             $comment
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @var \Desarrolla2\Bundle\BlogBundle\Entity\Comment
      */
-    public function __construct(Form $form, Request $request, Comment $comment, EntityManager $em, SanitizerHandler $sanitizer)
+    protected $entity;
+
+    /**
+     * @param Form             $form
+     * @param Request          $request
+     * @param EntityManager    $em
+     * @param SanitizerHandler $sanitizer
+     * @param Comment          $comment
+     */
+    public function __construct(Form $form, Request $request, EntityManager $em, SanitizerHandler $sanitizer, Comment $comment)
     {
         $this->form = $form;
         $this->request = $request;

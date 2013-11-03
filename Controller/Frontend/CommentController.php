@@ -23,6 +23,7 @@ class CommentController extends Controller
      * Creates a new Comment entity.
      *
      * @Route("/{post_id}", name="_blog_comment_create", requirements={"post_id" = "\d+"}, defaults={"post_id" = "1" })
+     * @Method({"GET", "POST"})
      * @Template()
      */
     public function indexAction(Request $request)
@@ -37,7 +38,7 @@ class CommentController extends Controller
         $comment->setPost($post);
         $form = $this->createForm(new CommentType(), new CommentModel($comment));
         if ($request->getMethod() == 'POST') {
-            $formHandler = new CommentHandler($form, $request, $comment, $em, $this->container->get('blog.sanitizer'));
+            $formHandler = new CommentHandler($form, $request, $em, $this->container->get('blog.sanitizer'), $comment);
 
             if ($formHandler->process()) {
                 return $this->redirect($this->generateUrl('_comment_message'));
@@ -59,5 +60,4 @@ class CommentController extends Controller
     public function messageAction(Request $request)
     {
     }
-
 }

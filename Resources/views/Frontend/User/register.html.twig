@@ -1,0 +1,72 @@
+{% extends "::frontend.html.twig" %}
+{% block title %} Registro de usuarios {% endblock %}
+{% block meta_robots %}noindex{% endblock %}
+{% block content %}
+  <h1>Registro de usuarios</h1>
+  <form id="register" action="{{ path('_blog_user_register') }}"
+        method="post" {{ form_enctype(form) }}>
+    <div class="row-fluid">
+      {% if form_errors(form) %}
+        <div class="alert alert-error">{{ form_errors(form) }}</div>
+      {% endif %}
+      <div class="span12">
+        <p>
+          <label for="">Username(*)</label>
+          {% if form_errors(form.userName) %}
+
+        <div class="alert alert-error">{{ form_errors(form.userName) }}</div>
+        {% endif %}
+        {{ form_widget(form.userName) }}
+        </p>
+      </div>
+      <div class="span12">
+        <p>
+          <label for="">Email(*)</label>
+          {% if form_errors(form.userEmail) %}
+
+        <div class="alert alert-error">{{ form_errors(form.userEmail) }}</div>
+        {% endif %}
+        {{ form_widget(form.userEmail) }}
+        </p>
+      </div>
+      <div class="span12">
+        <p>
+          <label for="">Contraseña(*)</label>
+          {% if form_errors(form.plainPassword.first) %}
+
+        <div class="alert alert-error">{{ form_errors(form.plainPassword.first) }}</div>
+        {% endif %}
+        {{ form_widget(form.plainPassword.first) }}
+        </p>
+      </div>
+      <div class="span12">
+        <p>
+          <label for="">Contraseña(*)</label>
+          {% if form_errors(form.plainPassword.second) %}
+
+        <div class="alert alert-error">{{ form_errors(form.plainPassword.second) }}</div>
+        {% endif %}
+        {{ form_widget(form.plainPassword.second) }}
+        </p>
+      </div>
+    </div>
+    <div class="row-fluid row-captcha">
+      <p>
+        <label for="">(*)¿Eres humano?</label>
+        {% if form_errors(form.captcha) %}
+
+      <div class="alert alert-error">{{ form_errors(form.captcha) }}</div>
+      {% endif %}
+
+      {{ form_widget(form.captcha, { 'attr': {'class': 'captcha' }} ) }}
+      </p>
+    </div>
+
+    <button class="btn" type="submit">Enviar</button>
+    {{ form_rest(form) }}
+  </form>
+  <p>Los campos marcados con (*) son obligatorios</p>
+
+  {{ form_rest(form) }}
+{% endblock %}
+

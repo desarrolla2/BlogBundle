@@ -24,7 +24,7 @@
 {% block content %}
   <article class="post">
     <header>
-      <h2><a href="{{ url('_blog_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a></h2>
+      <h1><a href="{{ url('_blog_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a></h1>
     </header>
     {{ post.content | raw }}
 
@@ -49,17 +49,17 @@
 
 {% block sidebar %}
   <div class="block">
-    <h2>Últimas entradas</h2>
+    <h4>Últimas entradas</h4>
     {{ render(controller('BlogBundle:Frontend\\Widget:latestPost', { 'post': post })) }}
   </div>
 
   <div class="block">
-    <h2>Entradas relacionadas</h2>
+    <h4>Entradas relacionadas</h4>
     {{ render(controller('BlogBundle:Frontend\\Widget:latestPostRelated', { 'post': post })) }}
   </div>
 
   <div class="block">
-    <h2>Últimos comentarios</h2>
+    <h4>Últimos comentarios</h4>
     {{ render(controller('BlogBundle:Frontend\\Widget:latestComment', { 'post': post })) }}
   </div>
 {% endblock %}

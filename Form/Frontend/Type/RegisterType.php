@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of the planetubuntu project.
+ *
+ * Copyright (c)
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this package in the file LICENSE.
+ */
 
 namespace Desarrolla2\Bundle\BlogBundle\Form\Frontend\Type;
 
@@ -7,23 +15,19 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class CommentType
+ * Class RegisterType
  *
  * @author Daniel González <daniel.gonzalez@freelancemadrid.es>
  */
-class CommentType extends AbstractType
+class RegisterType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'content',
-                'textarea',
-                array(
-                    'required' => false,
-                    'trim' => true,
-                )
-            )
             ->add(
                 'userName',
                 'text',
@@ -41,13 +45,25 @@ class CommentType extends AbstractType
                 )
             )
             ->add(
-                'userWeb',
+                'userEmail',
                 'text',
                 array(
                     'required' => false,
                     'trim' => true,
                 )
-            )->add(
+            )
+            ->add(
+                'plainPassword',
+                'repeated',
+                array(
+                    'type' => 'password',
+                    'options' => array('translation_domain' => 'FOSUserBundle'),
+                    'first_options' => array('label' => 'form.password'),
+                    'second_options' => array('label' => 'form.password_confirmation'),
+                    'invalid_message' => 'Las contraseñas no coinciden',
+                )
+            )
+            ->add(
                 'captcha',
                 'captcha',
                 array(
@@ -59,18 +75,24 @@ class CommentType extends AbstractType
             );
     }
 
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model\CommentModel',
+                'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model\RegisterModel',
                 'csrf_protection' => true,
             )
         );
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
-        return 'comment';
+        return 'register';
     }
 }

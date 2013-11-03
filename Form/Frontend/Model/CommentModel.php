@@ -12,6 +12,11 @@ namespace Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model;
 use Symfony\Component\Validator\Constraints as Assert;
 use Desarrolla2\Bundle\BlogBundle\Entity\Comment;
 
+/**
+ * Class CommentModel
+ *
+ * @author Daniel González <daniel.gonzalez@freelancemadrid.es>
+ */
 class CommentModel
 {
 
@@ -19,36 +24,38 @@ class CommentModel
      * @var integer $id
      *
      */
-    public $id;
+    protected  $id;
 
     /**
      * @var string $content
      * @Assert\NotBlank()
      * @Assert\Length( min=5 )
      */
-    public $content;
+    protected $content;
 
     /**
      * @var string $userName
      * @Assert\NotBlank()
      * @Assert\Length( min=3 )
-     *
      */
-    public $userName;
+    protected $userName;
 
     /**
      * @var string $userEmail
      * @Assert\Email(checkMX = true)
      */
-    public $userEmail;
+    protected $userEmail;
 
     /**
      * @var string $userWeb
      * @Assert\Url()
      *
      */
-    public $userWeb;
+    protected $userWeb;
 
+    /**
+     * @param Comment $comment
+     */
     public function __construct(Comment $comment)
     {
         $this->id = $comment->getId();
@@ -58,41 +65,65 @@ class CommentModel
         $this->setUserWeb($comment->getUserWeb());
     }
 
+    /**
+     * @return string
+     */
     public function getContent()
     {
         return $this->content;
     }
 
+    /**
+     * @param $content
+     */
     public function setContent($content)
     {
         $this->content = $content;
     }
 
+    /**
+     * @return string
+     */
     public function getUserName()
     {
         return $this->userName;
     }
 
+    /**
+     * @param $userName
+     */
     public function setUserName($userName)
     {
         $this->userName = $userName;
     }
 
+    /**
+     * @return string
+     */
     public function getUserEmail()
     {
         return $this->userEmail;
     }
 
+    /**
+     * @param $userEmail
+     */
     public function setUserEmail($userEmail)
     {
         $this->userEmail = $userEmail;
     }
 
+    /**
+     * @return string
+     */
     public function getUserWeb()
     {
         return $this->userWeb;
     }
 
+    /**
+     * @param $userWeb
+     */
     public function setUserWeb($userWeb)
     {
         $this->userWeb = $userWeb;
