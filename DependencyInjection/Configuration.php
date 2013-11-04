@@ -20,95 +20,92 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('blog');
-        $rootNode
+
+        $rootNode->addDefaultsIfNotSet()
             ->children()
                 ->scalarNode('title')->defaultValue('my blog title')->end()
                 ->scalarNode('description')->defaultValue('my blog description')->end()
                 ->scalarNode('items')->defaultValue(12)->end()
+                ->scalarNode('ga_tracking')->defaultValue('')->end()
+                ->scalarNode('locale')->defaultValue('en')->end()
                 ->scalarNode('upload_dir')->defaultValue('%kernel.root_dir%/../web/uploads')->end()
                 ->scalarNode('upload_url')->defaultValue('/uploads')->end()
+                ->append($this->createSearchSection())
+                ->append($this->createSiteMapSection())
+                ->append($this->createRSSSection())
+                ->append($this->createArchiveSection())
             ->end();
-
-        $this->addSiteMapSection($rootNode);
-        $this->addRSSSection($rootNode);
-        $this->addArchiveSection($rootNode);
-        $this->addSearchSection($rootNode);
 
         return $treeBuilder;
     }
 
-    private function addSearchSection(ArrayNodeDefinition $node)
+    private function createSearchSection()
     {
+        $builder = new TreeBuilder();
+        $node = $builder->root('search');
         $node
+            ->addDefaultsIfNotSet()
             ->children()
-                ->arrayNode('search')
+                ->scalarNode('provider')->defaultValue('mysql')->end()
+                ->arrayNode('mysql')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('provider')->defaultValue('mysql')->end()
-                        ->arrayNode('mysql')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('connection')->defaultValue('')->end()
-                                ->scalarNode('manager')->defaultValue('')->end()
-                                ->scalarNode('return')->defaultValue('paged')->end()
-                            ->end()
-                        ->end()
-                        ->arrayNode('sphinx')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('host')->defaultValue('localhost')->end()
-                                ->scalarNode('port')->defaultValue(9312)->end()
-                                ->scalarNode('index')->defaultValue('planetubuntu_idx')->end()
-                                ->scalarNode('return')->defaultValue('all')->end()
-                            ->end()
-                        ->end()
+                        ->scalarNode('connection')->defaultValue('')->end()
+                        ->scalarNode('manager')->defaultValue('')->end()
+                    ->end()
+                ->end()
+                ->arrayNode('sphinx')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('host')->defaultValue('localhost')->end()
+                        ->scalarNode('port')->defaultValue(9312)->end()
+                        ->scalarNode('index')->defaultValue('search_idx')->end()
+                        ->scalarNode('items')->defaultValue(12)->end()
                     ->end()
                 ->end()
             ->end();
+
+        return $node;
     }
 
-    private function addSiteMapSection(ArrayNodeDefinition $node)
+    private function createSiteMapSection()
     {
-        $node
+        $builder = new TreeBuilder();
+        $node = $builder->root('sitemap');
+        $node->addDefaultsIfNotSet()
             ->children()
-                ->arrayNode('sitemap')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('items')->defaultValue(50)->end()
-                    ->end()
-                ->end()
+            ->scalarNode('items')->defaultValue(50)->end()
             ->end();
+
+        return $node;
     }
 
-    private function addRSSSection(ArrayNodeDefinition $node)
+    private function createRSSSection()
     {
-        $node
+        $builder = new TreeBuilder();
+        $node = $builder->root('rss');
+        $node->addDefaultsIfNotSet()
             ->children()
-                ->arrayNode('rss')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('title')->defaultValue('RSS')->end()
-                        ->scalarNode('description')->defaultValue('')->end()
-                        ->scalarNode('language')->defaultValue('en')->end()
-                        ->scalarNode('items')->defaultValue(16)->end()
-                        ->scalarNode('ttl')->defaultValue(60)->end()
-                    ->end()
-                ->end()
+            ->scalarNode('title')->defaultValue('RSS Feed')->end()
+            ->scalarNode('description')->defaultValue('my RSS feed')->end()
+            ->scalarNode('language')->defaultValue('en')->end()
+            ->scalarNode('items')->defaultValue(16)->end()
+            ->scalarNode('ttl')->defaultValue(60)->end()
             ->end();
+
+        return $node;
     }
 
-    private function addArchiveSection(ArrayNodeDefinition $node)
+    private function createArchiveSection()
     {
-        $node
+        $builder = new TreeBuilder();
+        $node = $builder->root('archive');
+        $node->addDefaultsIfNotSet()
             ->children()
-                ->arrayNode('archive')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('title')->defaultValue('Blog Archive')->end()
-                        ->scalarNode('description')->defaultValue('my archive description')->end()
-                    ->end()
-                ->end()
+            ->scalarNode('title')->defaultValue('Blog Archive')->end()
+            ->scalarNode('description')->defaultValue('my archive description')->end()
             ->end();
-    }
 
+        return $node;
+    }
 }

@@ -1,4 +1,4 @@
-{% extends "::backend.html.twig" %}
+{% extends "BlogBundle::backend.html.twig" %}
 
 {% block content %}
 {% include 'BlogBundle:Backend/Comment:index.filter.html.twig' with {'filterForm': filterForm } %}
@@ -22,9 +22,9 @@
                     {% if entity.status == 2 %}<i class="icon-remove"></i>{% endif %}
                 </td>
                 <td>
-                    <a class="bnt btn-mini" href="{{ url('comment_publish', { 'id': entity.id }) }}" title="publish"><i class="icon-ok"></i></a>
-                    <a class="bnt btn-mini" href="{{ url('comment_unpublish', { 'id': entity.id }) }}" title="unpublish"><i class="icon-remove"></i></a>
-                    <a class="bnt btn-mini" href="{{ url('comment_edit', { 'id': entity.id }) }}" title="edit"><i class="icon-edit"></i></a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_comment_publish', { 'id': entity.id }) }}" title="publish"><i class="icon-ok"></i></a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_comment_unpublish', { 'id': entity.id }) }}" title="unpublish"><i class="icon-remove"></i></a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_comment_edit', { 'id': entity.id }) }}" title="edit"><i class="icon-edit"></i></a>
                 </td>
             </tr>
             {% endfor %}

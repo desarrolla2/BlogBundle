@@ -1,4 +1,4 @@
-{% extends "::backend.html.twig" %}
+{% extends "BlogBundle::backend.html.twig" %}
 
 {% block content %}
 {% include 'BlogBundle:Backend/Tag:index.filter.html.twig' with {'filterForm': filterForm } %}
@@ -15,17 +15,17 @@
         <tbody>
         {% for entity in pagination %}
             <tr>
-                <td><a href="{{ url('author_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ url('_blog_backend_author_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.name }}</td>
                 <td>{{ entity.posts|length }}</td>
                 <td>
-                    <a href="{{ url('author_edit', { 'id': entity.id }) }}">edit</a>
+                    <a href="{{ url('_blog_backend_author_edit', { 'id': entity.id }) }}">edit</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-    <div><a class="btn " href="{{ url('author_new') }}">new entry</a></div>
+    <div><a class="btn " href="{{ url('_blog_backend_author_new') }}">new entry</a></div>
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>

@@ -66,7 +66,7 @@ class LinkHandler
      */
     public function process()
     {
-        $this->form->bind($this->request);
+        $this->form->submit($this->request);
         if ($this->form->isValid()) {
             $entityModel = $this->form->getData();
             $this->entity->setName($entityModel->getName());

@@ -1,8 +1,8 @@
 <ul id="tags">
-    {% for tag in tags %}
-        <li><a href="{{ url('_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a></li>
-    {% else %}
-        <li>No hay elementos</li>
-    {% endfor %}
-        <li><a href="{{ url('_all_tag') }}">todas</a></li>
+  {% for tag in tags %}
+    <li><a href="{{ path('_blog_tag', { 'slug' : tag.slug }) }}" title="{{ tag }}">{{ tag }}</a></li>
+  {% else %}
+    <li>No hay elementos</li>
+  {% endfor %}
+  <li><a href="{{ path('_blog_all_tag') }}">todas</a></li>
 </ul>

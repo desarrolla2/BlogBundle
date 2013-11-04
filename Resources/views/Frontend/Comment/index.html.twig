@@ -1,5 +1,5 @@
-{% extends "::frontend.html.twig" %}
-{% block title %} Añade un comentario {% endblock%}
+{% extends "BlogBundle::frontend.html.twig" %}
+{% block title %} Añade un comentario {% endblock %}
 {% block content %}
-    {% include 'BlogBundle:Frontend/Comment:form.html.twig' with {'form': form, 'post': post } %}
+  {% include 'BlogBundle:Frontend/Comment:form.html.twig' with {'form': form, 'post': post } %}
 {% endblock %}

@@ -4,35 +4,44 @@ namespace Desarrolla2\Bundle\BlogBundle\Search;
 use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use Desarrolla2\Bundle\BlogBundle\Search\SearchInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Knp\Component\Pager\Paginator;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
  * Class MySQL
+ *
  * @package Desarrolla2\Bundle\BlogBundle\Search
  */
-class MySQL implements SearchInterface
+class MySQL extends AbstractSearch
 {
-    /** @var \Doctrine\Bundle\DoctrineBundle\Registry $registry */
+    /**
+     * @var \Doctrine\Bundle\DoctrineBundle\Registry $registry
+     */
     protected $registry;
 
-    /** @var \Doctrine\DBAL\Connection $connection */
+    /**
+     * @var \Doctrine\DBAL\Connection $connection
+     */
     protected $connection;
 
-    /** @var \Doctrine\ORM\EntityManager $manager */
+    /**
+     * @var \Doctrine\ORM\EntityManager $manager
+     */
     protected $manager;
 
-    /** @var int $items */
-    protected $items;
-
     /**
-     * @param Registry $registry
-     * @param $connection
-     * @param $manager
-     * @param $items
+     * @param Registry                       $registry
+     * @param \Knp\Component\Pager\Paginator $paginator
+     * @param                                $connection
+     * @param                                $manager
+     * @param                                $itemsPerPage
+     * @internal param $items
      */
-    public function __construct(Registry $registry, $connection, $manager, $items)
+    public function __construct(Registry $registry, Paginator $paginator, $connection, $manager, $itemsPerPage)
     {
         $this->registry = $registry;
-        $this->items = $items;
+        $this->paginator = $paginator;
+        $this->itemsPerPage = $itemsPerPage;
 
         // this prevents a 'NULL not support' exception
         if (!$connection || empty($connection)) {
@@ -47,21 +56,29 @@ class MySQL implements SearchInterface
     }
 
     /**
-     * @param $query
+     * @param     $query
      * @param int $page
      * @return array
      */
     public function search($query, $page = 1)
     {
-        return $this->manager->getRepository('BlogBundle:Post')->search($query, $page, $this->items);
+        $searchQueryBuilder = $this->manager->getRepository('BlogBundle:Post')->getSearchBuilder(
+            $query,
+            $page,
+            $this->itemsPerPage
+        );
+
+        $this->pagination = $this->paginator->paginate($searchQueryBuilder);
+
+        return $this->items = $searchQueryBuilder->getQuery()->getResult();
     }
 
     /**
      * @param Post $post
-     * @param int $limit
+     * @param int  $limit
      * @return mixed
      */
-    public function related(Post $post, $limit = 10)
+    public function related(Post $post, $limit = 3)
     {
         /** @var \Doctrine\ORM\QueryBuilder $qb */
         $qb = $this->manager->getRepository('BlogBundle:Post')->createQueryBuilder('p');
@@ -71,12 +88,19 @@ class MySQL implements SearchInterface
         foreach ($post->getTags() as $tag) {
             $tags[] = $tag->getId();
         }
+        if (!count($tags)) {
+            return array();
+        }
 
         $qb->where('p.status = 1');
         $qb->andWhere($qb->expr()->neq('p.id', $post->getId()));
         $qb->andWhere($qb->expr()->in('t.id', ':tags'));
         $qb->setParameter('tags', $tags);
 
-        return $qb->getQuery()->getResult();
+        if ($limit) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $this->items = $qb->getQuery()->getResult();
     }
 }

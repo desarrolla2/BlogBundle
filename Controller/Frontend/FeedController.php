@@ -26,7 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
 class FeedController extends Controller
 {
     /**
-     * @Route("/feed/", name="_feed")
+     * @Route("/feed", name="_blog_feed")
      * @Route("/feed.{_format}")
      * @Method({"GET"})
      */
@@ -49,7 +49,7 @@ class FeedController extends Controller
     }
 
     /**
-     * @Route("/feed/{slug}/", name="_feed_tag", requirements={"slug" = "[\w\d\-]+"})
+     * @Route("/feed/{slug}", name="_blog_feed_tag", requirements={"slug" = "[\w\d\-]+"})
      * @Method({"GET"})
      */
     public function tagAction(Request $request)
@@ -73,7 +73,7 @@ class FeedController extends Controller
     }
 
     /**
-     * @Route("/sitemap/", name="_sitemap")
+     * @Route("/sitemap", name="_blog_sitemap")
      * @Route("/sitemap.{_format}")
      * @Route("/sitemap.xml.gz")
      * @Method({"GET"})
@@ -87,12 +87,11 @@ class FeedController extends Controller
                 $this->container->getParameter('blog.sitemap.items')
         );
         foreach ($tags as $tag) {
-            $items[] = $this->generateUrl('_tag', array('slug' => $tag->getSlug()), true);
+            $items[] = $this->generateUrl('_blog_tag', array('slug' => $tag->getSlug()), true);
         }
 
-        return $this->render(
-                        'BlogBundle:Frontend/Feed:sitemap.xml.twig', array(
-                    'items' => $items,
+        return $this->render('BlogBundle:Frontend/Feed:sitemap.xml.twig', array(
+            'items' => $items,
         ));
     }
 

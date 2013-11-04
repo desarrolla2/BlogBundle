@@ -271,7 +271,7 @@ class Link
      */
     public function setDescription($description)
     {
-        $this->description = (string)$description;
+        $this->description = (string) $description;
 
         return $this;
     }
@@ -307,7 +307,7 @@ class Link
      */
     public function setNotes($notes)
     {
-        $this->notes = (string)$notes;
+        $this->notes = (string) $notes;
     }
 
     /**

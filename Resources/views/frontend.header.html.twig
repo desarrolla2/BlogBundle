@@ -1,0 +1,14 @@
+<header id="header">
+  <div class="row-fluid">
+    <nav class="span9">
+      <ul>
+        <li><a href="{{ path('_blog_default') }}">Inicio</a></li>
+        <li><a href="{{ path('_blog_archive') }}">Archivo</a></li>
+        <li><a href="{{ path('_blog_feed') }}">RSS</a></li>
+      </ul>
+    </nav>
+    <div class="span3">
+      <h1><a href="{{ path('_blog_default') }}">{% block blog_name %}BLOG NAME{% endblock %}</a></h1>
+    </div>
+  </div>
+</header>

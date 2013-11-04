@@ -26,7 +26,7 @@ class PostController extends Controller
     /**
      * Lists all Post entities.
      *
-     * @Route("/", name="post")
+     * @Route("", name="_blog_backend_post")
      * @Template()
      */
     public function indexAction()
@@ -47,14 +47,15 @@ class PostController extends Controller
         if ($request->getMethod() == 'POST' && $request->get('filter_action') == 'filter') {
             if ($formHandler->process()) {
                 $query = $formHandler->getQuery();
-                $session->set('PostControllerFilter', $request);
+                $session->set('PostControllerFilter', $request->request->all());
             }
         }
 
         if ($request->getMethod() == 'GET') {
             if ($session->has('PostControllerFilter')) {
-                $filterForm = $this->createForm(new PostFilterType(), new PostFilterModel($session->get('PostControllerFilter')));
-                $formHandler = new PostFilterHandler($filterForm, $session->get('PostControllerFilter'), $qb);
+                $request->request->replace($session->get('PostControllerFilter'));
+                $filterForm = $this->createForm(new PostFilterType(), new PostFilterModel($request));
+                $formHandler = new PostFilterHandler($filterForm, $request, $qb);
                 if ($formHandler->process()) {
                     $query = $formHandler->getQuery();
                 }
@@ -75,7 +76,7 @@ class PostController extends Controller
     /**
      * Displays a form to create a new Post entity.
      *
-     * @Route("/new", name="post_new")
+     * @Route("/new", name="_blog_backend_post_new")
      * @Template()
      */
     public function newAction()
@@ -90,7 +91,7 @@ class PostController extends Controller
     /**
      * Creates a new Post entity.
      *
-     * @Route("/create", name="post_create")
+     * @Route("/create", name="_blog_backend_post_create")
      * @Method("POST")
      * @Template("BlogBundle:Backend/Post:new.html.twig")
      */
@@ -102,7 +103,7 @@ class PostController extends Controller
         $form = $this->createForm(new PostType(), new PostModel(new Post()));
         $formHandler = new PostHandler($form, $request, new Post(), $em);
         if ($formHandler->process()) {
-            return $this->redirect($this->generateUrl('post'));
+            return $this->redirect($this->generateUrl('_blog_backend_post'));
         }
 
         return array(
@@ -113,7 +114,7 @@ class PostController extends Controller
     /**
      * Displays a form to edit an existing Post entity.
      *
-     * @Route("/{id}/edit", name="post_edit")
+     * @Route("/{id}/edit", name="_blog_backend_post_edit")
      * @Template()
      */
     public function editAction($id)
@@ -136,7 +137,7 @@ class PostController extends Controller
     /**
      * Edits an existing Post entity.
      *
-     * @Route("/{id}/update", name="post_update")
+     * @Route("/{id}/update", name="_blog_backend_post_update")
      * @Method("POST")
      * @Template("BlogBundle:Backend/Post:edit.html.twig")
      */
@@ -152,7 +153,7 @@ class PostController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $formHandler = new PostHandler($form, $request, $entity, $em);
         if ($formHandler->process()) {
-            return $this->redirect($this->generateUrl('post'));
+            return $this->redirect($this->generateUrl('_blog_backend_post'));
         }
 
         return array(
@@ -165,7 +166,7 @@ class PostController extends Controller
     /**
      * Deletes a Post entity.
      *
-     * @Route("/{id}/delete", name="post_delete")
+     * @Route("/{id}/delete", name="_blog_backend_post_delete")
      * @Method("POST")
      */
     public function deleteAction($id)
@@ -173,7 +174,7 @@ class PostController extends Controller
         $form = $this->createDeleteForm($id);
         $request = $this->getRequest();
 
-        $form->bind($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -187,7 +188,7 @@ class PostController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('post'));
+        return $this->redirect($this->generateUrl('_blog_backend_post'));
     }
 
     private function createDeleteForm($id)
@@ -201,7 +202,7 @@ class PostController extends Controller
     /**
      * Publish a Post
      *
-     * @Route("/{id}/publish", name="post_publish")
+     * @Route("/{id}/publish", name="_blog_backend_post_publish")
      */
     public function publishAction($id)
     {
@@ -215,13 +216,13 @@ class PostController extends Controller
         $em->persist($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('post'));
+        return $this->redirect($this->generateUrl('_blog_backend_post'));
     }
 
     /**
      * Unpublish a Post
      *
-     * @Route("/{id}/unpublish", name="post_unpublish")
+     * @Route("/{id}/unpublish", name="_blog_backend_post_unpublish")
      */
     public function unPublishAction($id)
     {
@@ -234,12 +235,12 @@ class PostController extends Controller
         $em->persist($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('post'));
+        return $this->redirect($this->generateUrl('_blog_backend_post'));
     }
 
     /**
      *
-     * @Route("/{id}/preview" , name="post_preview")
+     * @Route("/{id}/preview" , name="_blog_backend_post_preview")
      * @Method({"GET"})
      * @Template()
      */

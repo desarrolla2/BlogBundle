@@ -1,14 +1,14 @@
-{% extends "::frontend.html.twig" %}
+{% extends "BlogBundle::frontend.html.twig" %}
 {% block content %}
-<article class="post">
-        <header>
-            <h2>Gracias</h2>
-        </header>
+  <article class="post">
+    <header>
+      <h2>Gracias</h2>
+    </header>
     <p>
-        Hemos recibido tu comentario, un administrador lo examinará para
-        aprobarlo lo antes posible, puedes continuar navegando por los últimos
-        elementos publicados en el sitio.
+      Hemos recibido tu comentario, un administrador lo examinará para
+      aprobarlo lo antes posible, puedes continuar navegando por los últimos
+      elementos publicados en el sitio.
     </p>
     {{ render(controller('BlogBundle:Frontend\\Widget:latestPost')) }}
-</article>
+  </article>
 {% endblock %}

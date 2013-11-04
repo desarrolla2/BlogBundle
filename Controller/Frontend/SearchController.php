@@ -28,31 +28,53 @@ use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model\SearchModel;
 class SearchController extends Controller
 {
     /**
-     * @Route("/search", name="_search")
+     * @Route("/search", name="_blog_search")
      * @Method({"GET"})
      * @Template()
      */
     public function indexAction(Request $request)
     {
         $items = array();
+        $pagination = null;
         $form = $this->createForm(new SearchType(), new SearchModel());
-        if ($request->query->has('q')) {
+        $query = $request->get('q', false);
+        $page = $this->getPage();
+        if ($query) {
             $form->submit($request);
             if ($form->isValid()) {
-                $query = $form->getData()->getQuery();
+                $query = $form->getData()->getQ();
                 $search = $this->get('blog.search');
-                $items = $search->search(
+
+                $search->search(
                     $query,
-                    $request->query->get('page', 1)
+                    $page
                 );
+
+                $items = $search->getItems();
+                $pagination = $search->getPagination();
             }
         }
 
         return array(
+            'page' => $page,
             'form' => $form->createView(),
             'items' => $items,
-            'query' => $query
+            'query' => $query,
+            'pagination' => $pagination,
+
         );
     }
 
+    /**
+     * @return int
+     */
+    private function getPage()
+    {
+        $page = (int)$this->getRequest()->get('page', 1);
+        if (!$page) {
+            return 1;
+        }
+
+        return $page;
+    }
 }

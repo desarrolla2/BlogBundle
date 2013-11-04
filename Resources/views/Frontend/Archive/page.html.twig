@@ -1,27 +1,48 @@
-{% extends "::frontend.html.twig" %}
-{% block title %}{{ title }}{% endblock%}
-{% block description %}{{ description }}{% endblock%}
+{% extends "BlogBundle::frontend.html.twig" %}
+{% block title %}
+  {{ title }} {{ pagination.current.item.publishedAt | localeCustomDate('short') | capitalize }}
+  {% if page != 1 %}| Página {{ page }} | {% endif %} {{ parent() }}
+{% endblock %}
+{% block canonical %}
+  <link rel="canonical" href="{{ url('_blog_archive_page', {'year': year, 'month': month}) }}"/>
+{% endblock %}
+{% block meta_description %}{{ pagination.current.item.intro | striptags | truncate(150) }}{% endblock %}
+{% block meta_keywords %}{% for tag in  pagination.current.item.tags %}{{ tag }}, {% endfor %}{% endblock %}
+{% block meta_og %}
+  <meta property="og:title" content="Año {{ year }} mes de {{ month }} | {{ title }} |
+  {% if page != 1 %}Página {{ page }} | {% endif %}"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="{{ url('_blog_archive_page', {'year': year, 'month': month}) }}"/>
+  <meta property="og:description" content="{{ pagination.current.item.intro | striptags | truncate(150) }}"/>
+  {% if pagination.current.item.hasImage %}
+    <meta property="og:image" content="{{ pagination.current.item.image }}"/>
+  {% endif %}
+{% endblock %}
 {% block content %}
-<article class="post">
+  <article class="post">
     <header>
-        <h2><a href="{{ url('_archive') }}" title="{{ title }}">{{ title }}</a></h2>
+      <h2>
+        <a href="{{ path('_blog_archive') }}" title="{{ title }}">
+          {{ title }} {{ pagination.current.item.publishedAt | localeCustomDate('short') | capitalize }}
+          {% if page != 1 %} Página {{ page }}{% endif %}
+        </a>
+      </h2>
     </header>
     <p>{{ description }}</p>
     <ul id="archive">
-    {% for item in pagination %}
-    {% set item = item.item %}
+      {% for item in pagination %}
+        {% set item = item.item %}
         <li>
-            <a href="{{ url('_view', { 'slug' : item.slug }) }}" title="{{ item }}">{{ item }}</a>
-            {{ item.intro | striptags | raw | truncate(160) }} [..]
-            el <time datetime="{{ item.publishedAt | date('c') }}">{{ item.publishedAt | localeDate('full') }}</time>.
+          <a href="{{ path('_blog_view', { 'slug' : item.slug }) }}" title="{{ item }}">{{ item }}</a>
+          {{ item.intro | striptags | raw | truncate(160) }} [..]
+          el
+          <time datetime="{{ item.publishedAt | date('c') }}">{{ item.publishedAt | localeDate('full') }}</time>
+          .
         </li>
-    {% else %}
+      {% else %}
         <li>No hay elementos</li>
-    {% endfor %}
+      {% endfor %}
     </ul>
-</article>
-
-<div class="navigation">
-    {{ knp_pagination_render(pagination) }}
-    </div>
+  </article>
+  <div class="navigation">{{ knp_pagination_render(pagination) }}</div>
 {% endblock %}

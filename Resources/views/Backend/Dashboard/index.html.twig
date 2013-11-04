@@ -1,24 +1,21 @@
-{% extends "::backend.html.twig" %}
+{% extends "BlogBundle::backend.html.twig" %}
 {% block content %}
-<div class="row-fluid">
+  <div class="row-fluid">
     <div class="span6">
-        <div class="block">
-            <h2>Resume</h2>
+      <div class="block">
+        <h2>Resume</h2>
         {{ render(controller('BlogBundle:Backend\\Dashboard:resume')) }}
-        </div>
-        <div class="block">
-            <h2>Pending Contents</h2>
+      </div>
+      <div class="block">
+        <h2>Pending Contents</h2>
         {{ render(controller('BlogBundle:Backend\\Dashboard:pendingContent')) }}
-        </div>
-        <div class="block">
-            <h2>Pending Comments</h2>
-            {{ render(controller('BlogBundle:Backend\\Dashboard:pendingComment')) }}
-        </div>
+      </div>
     </div>
     <div class="span6">
-        <div class="block">
-            <h2>Unrelated</h2>
-        </div>
+      <div class="block">
+        <h2>Pending Comments</h2>
+        {{ render(controller('BlogBundle:Backend\\Dashboard:pendingComment')) }}
+      </div>
     </div>
-</div>
+  </div>
 {% endblock %}

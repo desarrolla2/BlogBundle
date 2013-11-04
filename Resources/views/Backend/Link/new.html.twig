@@ -1,7 +1,7 @@
-{% extends "::backend.html.twig" %}
+{% extends "BlogBundle::backend.html.twig" %}
 
 {% block content %}
-<form class="well" action="{{ url('link_create') }}" method="post" {{ form_enctype(form) }}>
+<form class="well" action="{{ url('_blog_backend_link_create') }}" method="post" {{ form_enctype(form) }}>
     {% include 'BlogBundle:Backend/Link:edit.form.html.twig' with {'form': form } %}
 </form>
 {% endblock %}

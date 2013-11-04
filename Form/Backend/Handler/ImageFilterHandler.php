@@ -60,12 +60,12 @@ class ImageFilterHandler
      */
     public function process()
     {
-        $this->form->bind($this->request);
+        $this->form->submit($this->request);
         if ($this->form->isValid()) {
             $formData = $this->form->getData();
-            if ($name = (string) $formData->name) {
-                $this->qb->andWhere($this->qb->expr()->like('t.name', ':name'))
-                        ->setParameter('name', '%' . $name . '%');
+            if ($name = (string) $formData->file) {
+                $this->qb->andWhere($this->qb->expr()->like('i.file', ':file'))
+                        ->setParameter('file', '%' . $name . '%');
             }
 
             return true;

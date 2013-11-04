@@ -5,120 +5,122 @@ namespace Desarrolla2\Bundle\BlogBundle\Search;
 use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use Doctrine\ORM\EntityManager;
 use Desarrolla2\Bundle\BlogBundle\Search\SearchInterface;
+use Knp\Component\Pager\Paginator;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use SphinxClient;
 
-class Sphinx implements SearchInterface
+class Sphinx extends AbstractSearch
 {
 
     /**
-     * @var \Doctrine\ORM\EntityManager
+     * @var EntityManager
      */
-    private $em;
+    protected $em;
 
     /**
      * @var string $host
      */
-    private $host;
+    protected $host;
 
     /**
      * @var string $port
      */
-    private $port;
+    protected $port;
 
     /**
      * @var string $index
      */
-    private $index;
+    protected $index;
 
     /**
-     * @var \SphinxClient $sphinx
+     * @var SphinxClient $sphinx
      */
-    private $sphinx;
+    protected $sphinx;
 
     /**
      *
-     * @param \Doctrine\ORM\EntityManager $em
-     * @param string                      $host
-     * @param string                      $port
-     * @param string                      $index
+     * @param \Doctrine\ORM\EntityManager    $em
+     * @param \Knp\Component\Pager\Paginator $paginator
+     * @param string                         $host
+     * @param string                         $port
+     * @param string                         $index
      */
-    public function __construct(EntityManager $em, $host, $port, $index)
+    public function __construct(EntityManager $em, Paginator $paginator, $host, $port, $index)
     {
+        $this->sphinx = new SphinxClient();
         $this->em = $em;
+        $this->paginator = $paginator;
         $this->host = $host;
         $this->port = $port;
         $this->index = $index;
-        $this->sphinx = new SphinxClient();
         $this->sphinx->SetServer($this->host, $this->port);
         $this->sphinx->SetMaxQueryTime(3000);
-        $this->sphinx->SetFieldWeights(array(
-            'name' => 3,
-            'tags' => 2,
-            'source' => 1,
-            'intro' => 1,
-            'content' => 1
-        ));
         $this->sphinx->SetSortMode(
-            SPH_SORT_EXPR, ' @weight * 1000 + published_at '
+            SPH_SORT_EXPR,
+            ' @weight * 1000 + published_at '
         );
     }
 
     /**
-     * @param $query
-     * @param int $page
-     * @return type
      *
-     * @TODO: Refactor for pagination
-     */
-    public function search($query, $page = 100)
-    {
-        $this->configureSearch();
-
-        return $this->__search($query, $page);
-    }
-
-    /**
      * @param Post $post
-     * @param int $limit
-     * @return Post[]
+     * @param int  $limit
+     * @param  int $limit
+     * @return array
      */
-    public function related(Post $post, $limit = 10)
-    {
-        $this->configureRelated();
 
-        return $this->__search($post->getTagsAsString(), $limit);
+    public function related(Post $post, $limit = 3)
+    {
+        $this->sphinx->SetMatchMode(SPH_MATCH_ANY);
+        $this->sphinx->SetLimits(0, $limit);
+        $ids = $this->sphinxSearch($post->getTagsAsString());
+        if (!$ids) {
+            return array();
+        }
+        $items = $this->em->getRepository('BlogBundle:Post')->getByIds($ids);
+        $this->items = $this->orderResults($ids, $items);
+
+        return $this->items;
     }
 
     /**
-     * @param $query
-     * @param $limit
-     * @return Post[]
-     * @throws \RuntimeException
+     *
+     * @param  string $query
+     * @param  int    $page
+     * @return array
      */
-    protected function __search($query, $limit)
+    public function search($query, $page)
+    {
+
+        $this->sphinx->SetLimits(0, $this->maxSearchResults);
+        $this->sphinx->SetMatchMode(SPH_MATCH_ALL);
+        $ids = $this->sphinxSearch($query);
+        if (!$ids) {
+            return array();
+        }
+        $this->pagination = $this->paginator->paginate($ids, $page, $this->itemsPerPage);
+        $items = $this->em->getRepository('BlogBundle:Post')->getByIds($this->pagination->getItems());
+        $this->items = $this->orderResults($ids, $items);
+
+        return $this->items;
+    }
+
+    /**
+     * @param  array $ids
+     * @param  array $items
+     * @return array
+     */
+    protected function orderResults($ids, $items)
     {
         $result = array();
-        $ids = array();
-        $this->sphinx->SetLimits(0, $limit);
-        $query = $this->sphinx->escapeString($query);
-        $response = $this->sphinx->Query($query, $this->index);
-        if ($response === false) {
-            throw new \RuntimeException('Sphinx Query failed: ' . $this->sphinx->GetLastError());
-        } else {
-            if (!empty($response['matches'])) {
-                foreach ($response['matches'] as $doc => $docinfo) {
-                    $ids[] = $doc;
+        foreach ($ids as $id) {
+            foreach ($items as $key => $item) {
+                if ($id != $item->getId()) {
+                    continue;
                 }
-                $items = $this->em->getRepository('BlogBundle:Post')->getByIds($ids);
-                foreach ($ids as $id) {
-                    foreach ($items as $key => $item) {
-                        if ($id == $item->getId()) {
-                            $result[] = $item;
-                            unset($items[$key]);
-                            break;
-                        }
-                    }
-                }
+                $result[] = $item;
+                unset($items[$key]);
+                break;
             }
         }
 
@@ -126,19 +128,26 @@ class Sphinx implements SearchInterface
     }
 
     /**
-     * Configure for search
+     * @param $query
+     * @return array
+     * @throws \RuntimeException
      */
-    protected function configureSearch()
+    protected function sphinxSearch($query)
     {
-        $this->sphinx->SetMatchMode(SPH_MATCH_ALL);
-    }
+        $ids = array();
+        $query = $this->sphinx->escapeString($query);
+        $response = $this->sphinx->Query($query, $this->index);
+        if ($response === false) {
+            throw new \RuntimeException('Sphinx Query failed: ' . $this->sphinx->GetLastError());
+        } else {
+            if (empty($response['matches'])) {
+                return;
+            }
+            foreach ($response['matches'] as $doc => $docInfo) {
+                $ids[] = $doc;
+            }
+        }
 
-    /**
-     * Configure for search
-     */
-    protected function configureRelated()
-    {
-        $this->sphinx->SetMatchMode(SPH_MATCH_ANY);
+        return $ids;
     }
-
 }

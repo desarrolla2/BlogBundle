@@ -17,7 +17,6 @@ class LinkRepository extends EntityRepository
 
     /**
      *
-     * @param  type  $limit
      * @return array
      */
     public function getActive()
@@ -35,18 +34,16 @@ class LinkRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                ' SELECT l FROM BlogBundle:Link l ' .
-                ' WHERE l.isPublished = ' . LinkStatus::PUBLISHED .
-                ' ORDER BY l.createdAt DESC '
-                )
-        ;
+            ' SELECT l FROM BlogBundle:Link l ' .
+            ' WHERE l.isPublished = ' . LinkStatus::PUBLISHED .
+            ' ORDER BY l.createdAt DESC '
+        );
 
         return $query;
     }
 
     /**
      *
-     * @param  type  $limit
      * @return array
      */
     public function getActiveOrdered()
@@ -64,11 +61,10 @@ class LinkRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                ' SELECT l FROM BlogBundle:Link l ' .
-                ' WHERE l.isPublished = ' . LinkStatus::PUBLISHED .
-                ' ORDER BY l.name ASC '
-                )
-        ;
+            ' SELECT l FROM BlogBundle:Link l ' .
+            ' WHERE l.isPublished = ' . LinkStatus::PUBLISHED .
+            ' ORDER BY l.name ASC '
+        );
 
         return $query;
     }
@@ -82,10 +78,9 @@ class LinkRepository extends EntityRepository
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
         $qb
-                ->select('l')
-                ->from('BlogBundle:Link', 'l')
-                ->orderBy('l.updatedAt', 'DESC')
-        ;
+            ->select('l')
+            ->from('BlogBundle:Link', 'l')
+            ->orderBy('l.updatedAt', 'DESC');
 
         return $qb;
     }
@@ -100,12 +95,11 @@ class LinkRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                        ' SELECT COUNT(l) FROM BlogBundle:Link l ' .
-                        ' WHERE l.isPublished = ' . LinkStatus::PUBLISHED .
-                        ' AND l.createdAt >= :date '
-                )
-                ->setParameter('date', $date)
-        ;
+            ' SELECT COUNT(l) FROM BlogBundle:Link l ' .
+            ' WHERE l.isPublished = ' . LinkStatus::PUBLISHED .
+            ' AND l.createdAt >= :date '
+        )
+            ->setParameter('date', $date);
 
         return $query->getSingleScalarResult();
     }
@@ -113,26 +107,22 @@ class LinkRepository extends EntityRepository
     /**
      *
      * @param  DateTime $date
-     * @return type
+     * @param  int      $limit
+     * @return array
      */
     public function getMoreActiveFromDate(DateTime $date, $limit = 10)
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                        ' SELECT l ' .
-                        ' FROM BlogBundle:Link l ' .
-                        ' JOIN l.Post p ' .
-                        ' WHERE l.isPublished = ' . LinkStatus::PUBLISHED .
-                        ' AND l.createdAt >= :date ' .
-                        ' GROUP BY l ' .
-                        ' ORDER BY n DESC '
-                )
-                ->setParameter('date', $date)
-                ->setMaxResults($limit)
-        ;
-
-        ld($query->getSQL());
-        ldd($query->getResult());
+            ' SELECT l ' .
+            ' FROM BlogBundle:Link l ' .
+            ' JOIN l.Post p ' .
+            ' WHERE l.isPublished = ' . LinkStatus::PUBLISHED .
+            ' AND l.createdAt >= :date ' .
+            ' GROUP BY l ' .
+            ' ORDER BY n DESC '
+        )
+            ->setParameter('date', $date)
+            ->setMaxResults($limit);
     }
-
 }

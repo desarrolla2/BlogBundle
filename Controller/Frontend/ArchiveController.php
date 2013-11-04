@@ -29,15 +29,15 @@ class ArchiveController extends Controller
 {
 
     /**
-     * @Route("/", name="_archive")
+     * @Route("", name="_blog_archive")
      * @Method({"GET"})
      * @Template()
      */
     public function indexAction(Request $request)
     {
         $query = $this->getDoctrine()
-                ->getManager()
-                ->createQuery(
+            ->getManager()
+            ->createQuery(
                 ' SELECT COUNT(p) as n, ' .
                 ' SUBSTRING(p.publishedAt, 1, 4) as year, ' .
                 ' SUBSTRING(p.publishedAt, 6, 2) as month ' .
@@ -45,7 +45,7 @@ class ArchiveController extends Controller
                 ' WHERE p.status = ' . PostStatus::PUBLISHED .
                 ' GROUP BY year, month ' .
                 ' ORDER BY year DESC, month DESC '
-        );
+            );
         $results = $query->getResult();
         $items = array();
         foreach ($results as $item) {
@@ -55,10 +55,16 @@ class ArchiveController extends Controller
             if (!$item['month']) {
                 continue;
             }
-            array_push($items, array(
-                'n' => $item['n'],
-                'date' => new \DateTime($item['year'] . '-' . $item['month'] . '-01')
-            ));
+            if (!isset($items[$item['year']])) {
+                $items[$item['year']] = array();
+            }
+            array_push(
+                $items[$item['year']],
+                array(
+                    'n' => $item['n'],
+                    'date' => new \DateTime($item['year'] . '-' . $item['month'] . '-01')
+                )
+            );
         }
 
         return array(
@@ -69,7 +75,7 @@ class ArchiveController extends Controller
     }
 
     /**
-     * @Route("/{year}/{month}/{page}", name="_archive_page", requirements={"year"="\d{4}", "month"="\d{1,2}", "page" = "\d{1,4}"}, defaults={"page" = "1" })
+     * @Route("/{year}/{month}/{page}", name="_blog_archive_page", requirements={"year"="\d{4}", "month"="\d{1,2}", "page" = "\d{1,4}"}, defaults={"page" = "1" })
      * @Route("/{year}/{month}", requirements={"year"="\d{4}", "month"="\d{1,2}"})
      * @Method({"GET"})
      * @Template()
@@ -79,25 +85,30 @@ class ArchiveController extends Controller
         $paginator = $this->get('knp_paginator');
         $year = $request->get('year');
         $month = $request->get('month');
+        $page = $this->getPage();
         $query = $this->getDoctrine()
-                ->getManager()
-                ->createQuery(
-                        ' SELECT p as item, ' .
-                        ' SUBSTRING(p.publishedAt, 1, 4) as year, ' .
-                        ' SUBSTRING(p.publishedAt, 6, 2) as month ' .
-                        ' FROM BlogBundle:Post p ' .
-                        ' WHERE p.status = ' . PostStatus::PUBLISHED .
-                        ' HAVING year = :year ' .
-                        ' AND month = :month '
-                )
-                ->setParameter('year', $year)
-                ->setParameter('month', $month)
-        ;
+            ->getManager()
+            ->createQuery(
+                ' SELECT p as item, ' .
+                ' SUBSTRING(p.publishedAt, 1, 4) as year, ' .
+                ' SUBSTRING(p.publishedAt, 6, 2) as month ' .
+                ' FROM BlogBundle:Post p ' .
+                ' WHERE p.status = ' . PostStatus::PUBLISHED .
+                ' HAVING year = :year ' .
+                ' AND month = :month '
+            )
+            ->setParameter('year', $year)
+            ->setParameter('month', $month);
         $pagination = $paginator->paginate(
-                $query, $this->getPage(), $this->container->getParameter('blog.items')
+            $query,
+            $page,
+            $this->container->getParameter('blog.items')
         );
 
         return array(
+            'page' => $page,
+            'year' => $year,
+            'month' => $month,
             'pagination' => $pagination,
             'title' => $this->container->getParameter('blog.archive.title'),
             'description' => $this->container->getParameter('blog.archive.description'),
@@ -107,12 +118,11 @@ class ArchiveController extends Controller
     protected function getPage()
     {
         $request = $this->getRequest();
-        $page = (int) $request->get('page', 1);
+        $page = (int)$request->get('page', 1);
         if ($page < 1) {
             $this->createNotFoundException('Page number is not valid' . $page);
         }
 
         return $page;
     }
-
 }

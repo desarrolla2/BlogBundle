@@ -18,12 +18,12 @@ class Image
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    public $file;
+    private $file;
 
     /**
      * @var \DateTime $created_at

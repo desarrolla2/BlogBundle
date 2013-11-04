@@ -15,46 +15,72 @@ use Symfony\Component\DependencyInjection\Loader;
 class BlogExtension extends Extension
 {
     /**
+     * @var ContainerBuilder
+     */
+    protected $container;
+
+    /**
      * {@inheritDoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+        $this->container = $container;
+
+        $files = array(
+            'twig.xml',
+            'sanitizer.xml',
+            'search.xml',
+            'post.xml'
+        );
+
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-
         foreach ($config as $key => $value) {
-            $this->parseNode($container, 'blog.' . $key, $value);
+            $this->parseNode('blog.' . $key, $value);
         }
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('twig.xml');
-        $loader->load('sanitizer.xml');
-        $loader->load('search.xml');
-        $loader->load('post.xml');
+
+        foreach ($files as $file) {
+            $loader->load($file);
+        }
 
         $container->setParameter('blog', $config);
     }
 
-    protected function parseNode($container, $name, $value)
+    /**
+     * @param string $name
+     * @param mixed  $value
+     * @throws \Exception
+     */
+    protected function parseNode($name, $value)
     {
         if (is_string($value)) {
-            $container->setParameter($name, $value);
+            $this->set($name, $value);
 
             return;
         }
         if (is_integer($value)) {
-            $container->setParameter($name, $value);
+            $this->set($name, $value);
 
             return;
         }
         if (is_array($value)) {
             foreach ($value as $newKey => $newValue) {
-                $this->parseNode($container, $name . '.' . $newKey, $newValue);
+                $this->parseNode($name . '.' . $newKey, $newValue);
             }
 
             return;
         }
-        throw new \Exception(gettype($value) . ' not support');
+        throw new \Exception(gettype($value) . ' not supported');
     }
 
+    /**
+     * @param string $key
+     * @param mixed  $value
+     */
+    protected function set($key, $value)
+    {
+        $this->container->setParameter($key, $value);
+    }
 }

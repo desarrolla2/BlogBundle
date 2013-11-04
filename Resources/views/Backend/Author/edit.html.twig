@@ -1,8 +1,8 @@
-{% extends "::backend.html.twig" %}
+{% extends "BlogBundle::backend.html.twig" %}
 {% block content %}
 <h1>Author edit</h1>
 
-<form action="{{ url('author_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+<form action="{{ url('_blog_backend_author_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>
         <button type="submit">Edit</button>
@@ -11,12 +11,12 @@
 
 <ul class="record_actions">
     <li>
-        <a href="{{ url('author') }}">
+        <a href="{{ url('_blog_backend_author') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <form action="{{ url('author_delete', { 'id': entity.id }) }}" method="post">
+        <form action="{{ url('_blog_backend_author_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button data-toggle="modal" href="#confirm-delete" class="btn btn-danger">Delete</button>
             {% include 'BlogBundle:Backend/Modal:confirm-delete.html.twig' %}

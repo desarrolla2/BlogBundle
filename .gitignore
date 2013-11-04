@@ -1,13 +1,10 @@
-# Configuration files
-/composer.lock
+/bin
 /build
-/nbproject/*
-/vendor
-*.swp
-*.swo
+/composer.lock
+/phpunit.xml
+/Tests/Controller/App/cache
+/Tests/Controller/App/logs
+/vendor/*
+/.idea
 *~
-*.*~
-.vimrc
-.local.*.vimrc
-.DS_Store
-Thumbs.db
+*.swp

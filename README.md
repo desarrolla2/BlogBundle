@@ -3,11 +3,18 @@
 This is the most complete bundle you can find to start creating your blog, 
 actualy this blogBundle is running on Symfony2.3
 
+![BlogBundle](http://knpbundles.com/desarrolla2/BlogBundle/badge)
+
+[![Build Status](https://travis-ci.org/desarrolla2/BlogBundle.png)](https://travis-ci.org/desarrolla2/BlogBundle) [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/desarrolla2/BlogBundle/badges/quality-score.png?s=46e9f051c02566d0b2b5bcb55327b5ae7b203f08)](https://scrutinizer-ci.com/g/desarrolla2/BlogBundle/) [![Code Coverage](https://scrutinizer-ci.com/g/desarrolla2/BlogBundle/badges/coverage.png?s=37e1a3950bb2b8fd52c3d3c4f84688f937d2305b)](https://scrutinizer-ci.com/g/desarrolla2/BlogBundle/)
+
+[![Latest Stable](https://poser.pugx.org/desarrolla2/blog-bundle/v/stable.png)](https://packagist.org/packages/desarrolla2/blog-bundle) [![Total Downloads](https://poser.pugx.org/desarrolla2/blog-bundle/downloads.png)](https://packagist.org/packages/desarrolla2/blog-bundle)  [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/desarrolla2/blogbundle/trend.png)](https://bitdeli.com/desarrolla2 "BlogBundle")
+
+
 Some Features include:
 
 * URLs SEO friendly
 * Taxonomy with Many to Many relation to post
-* Article editing with awasome theme for ckEditor
+* Article editing with awesome theme for ckEditor
 * Very basic image upload and management
 * Comments management
 * Blog archive
@@ -17,74 +24,11 @@ You can see a example for this blog in http://desarrolla2.com
 
 ## Bundle Installation
 
-### Get the bundle
-
-Add to your `/composer.json` file :
-
-``` json
-    "require": {
-        ...       
-        "desarrolla2/rss-client-bundle": "dev-master" 
-    },
-````
-        
-And make
-
-``` bash
-composer update
-```
-
-### Register the bundle
-
-``` php
-<?php
-
-  // app/AppKernel.php
-  public function registerBundles()
-  {
-    return array(
-      // ...
-      new Desarrolla2\Bundle\RSSClientBundle\RSSClientBundle(),
-      );
-  }
-```
-
-### Add routes
-
-In your routing.yml you need to publish Backend and Frontend in your prefered paths
-
-``` yml
-BlogBundleAdmin:
-    resource: "@BlogBundle/Controller/Backend/"
-    type:     annotation
-    prefix:   /admin      
-    
-BlogBundle:
-    resource: "@BlogBundle/Controller/Frontend/"
-    type:     annotation
-    prefix:   /    
-```
-
-Setting variables
-
-You need to add something like this in your config.yml
-
-``` yml
-blog:
-  title: 'Técnicas trucos y curiosidades de desarrollo de software.'
-  description: 'Noticias y novedades sobre el mundo de la tecnología, Symfony2, php, javascript, linux y otros ...'
-  items: 12
-  sitemap:
-    items: 50
-  rss:
-    name: 'Desarrolla2'
-    items: 16  
-```
-
+You can see complete Bundle Installation instruction [here](Resources/doc/installation/index.md)
 
 ## Using the bundle
 
-Not ready yet :(, contributions here is apreciated.
+Not ready yet :(, contributions here is appreciated.
 
 ## Coming soon
 

@@ -1,4 +1,4 @@
-{% extends "::backend.html.twig" %}
+{% extends "BlogBundle::backend.html.twig" %}
 
 {% block content %}
 {% include 'BlogBundle:Backend/Image:index.filter.html.twig' with {'filterForm': filterForm } %}
@@ -23,7 +23,7 @@
             {% endfor %}
         </tbody>
     </table>
-    <div><a class="btn " href="{{ url('image_new') }}">new entry</a></div>
+    <div><a class="btn " href="{{ url('_blog_backend_image_new') }}">new entry</a></div>
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>

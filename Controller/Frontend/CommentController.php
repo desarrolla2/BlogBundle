@@ -22,7 +22,7 @@ class CommentController extends Controller
     /**
      * Creates a new Comment entity.
      *
-     * @Route("/{post_id}", name="_comment_create", requirements={"post_id" = "\d+"}, defaults={"post_id" = "1" })
+     * @Route("/{post_id}", name="_blog_comment_create", requirements={"post_id" = "\d+"}, defaults={"post_id" = "1" })
      * @Template()
      */
     public function indexAction(Request $request)
@@ -52,7 +52,7 @@ class CommentController extends Controller
 
     /**
      *
-     * @Route("/message/", name="_comment_message")
+     * @Route("/message", name="_comment_message")
      * @Method("GET")
      * @Template()
      */

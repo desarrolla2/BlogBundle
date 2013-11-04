@@ -3,7 +3,6 @@
 /**
  * This file is part of the desarrolla2 project.
  *
- * Description of CommentFormClass
  *
  */
 
@@ -11,6 +10,11 @@ namespace Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * Class SearchModel
+ *
+ * @author Daniel González <daniel.gonzalez@freelancemadrid.es>
+ */
 class SearchModel
 {
 
@@ -19,25 +23,43 @@ class SearchModel
      * @Assert\NotBlank()
      * @Assert\Length( min=3, max=100 )
      */
-    public $q;
+    protected $q;
 
-    public function getQuery()
-    {
-        return $this->q;
-    }
+    /**
+     * @var int $age
+     * @Assert\Range(min=1)
+     */
+    protected $page;
 
-    public function setQuery($query)
-    {
-        $this->q = $query;
-    }
-
+    /**
+     * @return string
+     */
     public function getQ()
     {
         return $this->q;
     }
 
+    /**
+     * @param $q
+     */
     public function setQ($q)
     {
         $this->q = $q;
+    }
+
+    /**
+     * @param int $page
+     */
+    public function setPage($page)
+    {
+        $this->page = $page;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPage()
+    {
+        return $this->page;
     }
 }
