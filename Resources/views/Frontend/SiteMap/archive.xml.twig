@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% for year, posts in items %}
+    {% for item in posts %}
+      <url>
+        <loc>{{ url('_blog_archive_page' ,
+          { 'year' : item.date.format('Y'), 'month': item.date.format('m') }) }}</loc>
+      </url>
+    {% endfor %}
+  {% endfor %}
+</urlset>

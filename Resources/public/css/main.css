@@ -239,12 +239,13 @@ div#content textarea {
     font-size: 16px !important;
 }
 
-input[type="text"].captcha {
+div#content .row-captcha input[type="text"] {
     width: 200px;
+    display: inline-block;
     margin: 0 0 16px 20px;
 }
 
-row-captcha img {
+div#content .row-captcha img {
     display: inline-block;
 }
 

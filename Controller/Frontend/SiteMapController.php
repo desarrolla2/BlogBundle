@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class SiteMapController
@@ -25,9 +26,6 @@ class SiteMapController extends Controller
 {
     /**
      * @Route("/sitemap.xml", name="_blog_sitemap")
-     * @Route("/sitemap/")
-     * @Route("/sitemap.{_format}")
-     * @Route("/sitemap.xml.gz")
      * @Method({"GET"})
      */
     public function indexAction(Request $request)
@@ -41,7 +39,22 @@ class SiteMapController extends Controller
     }
 
     /**
-     * @Route("/sitemap.tag.xml", name="_blog_sitemap_post")
+     * @Route("/sitemap.archive.xml", name="_blog_sitemap_archive")
+     * @Method({"GET"})
+     */
+    public function archiveAction(Request $request)
+    {
+        return $this->render(
+            'BlogBundle:Frontend/SiteMap:archive.xml.twig',
+            array(
+                'items' => $this->getDoctrine()->getManager()
+                        ->getRepository('BlogBundle:Post')->getArchiveItems(),
+            )
+        );
+    }
+
+    /**
+     * @Route("/sitemap.post.xml", name="_blog_sitemap_post")
      * @Method({"GET"})
      */
     public function postAction(Request $request)
@@ -53,11 +66,28 @@ class SiteMapController extends Controller
                 $this->container->getParameter('blog.sitemap.items')
             );
         foreach ($posts as $post) {
-            $items[] = $this->generateUrl('_blog_post', array('slug' => $post->getSlug()), true);
+            $items[] = $this->generateUrl('_blog_view', array('slug' => $post->getSlug()), true);
         }
 
         return $this->render(
             'BlogBundle:Frontend/SiteMap:post.xml.twig',
+            array(
+                'items' => $items,
+            )
+        );
+    }
+
+    /**
+     * @Route("/sitemap.search.xml", name="_blog_sitemap_search")
+     * @Method({"GET"})
+     */
+    public function searchAction(Request $request)
+    {
+
+        $items = array();
+
+        return $this->render(
+            'BlogBundle:Frontend/SiteMap:archive.xml.twig',
             array(
                 'items' => $items,
             )

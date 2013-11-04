@@ -35,40 +35,9 @@ class ArchiveController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $query = $this->getDoctrine()
-            ->getManager()
-            ->createQuery(
-                ' SELECT COUNT(p) as n, ' .
-                ' SUBSTRING(p.publishedAt, 1, 4) as year, ' .
-                ' SUBSTRING(p.publishedAt, 6, 2) as month ' .
-                ' FROM BlogBundle:Post p ' .
-                ' WHERE p.status = ' . PostStatus::PUBLISHED .
-                ' GROUP BY year, month ' .
-                ' ORDER BY year DESC, month DESC '
-            );
-        $results = $query->getResult();
-        $items = array();
-        foreach ($results as $item) {
-            if (!$item['year']) {
-                continue;
-            }
-            if (!$item['month']) {
-                continue;
-            }
-            if (!isset($items[$item['year']])) {
-                $items[$item['year']] = array();
-            }
-            array_push(
-                $items[$item['year']],
-                array(
-                    'n' => $item['n'],
-                    'date' => new \DateTime($item['year'] . '-' . $item['month'] . '-01')
-                )
-            );
-        }
-
         return array(
-            'items' => $items,
+            'items' => $this->getDoctrine()->getManager()
+                    ->getRepository('BlogBundle:Post')->getArchiveItems(),
             'title' => $this->container->getParameter('blog.archive.title'),
             'description' => $this->container->getParameter('blog.archive.description'),
         );
