@@ -1,5 +1,5 @@
 {% extends "BlogBundle::frontend.html.twig" %}
-{% block title %} {{ parent() }} {% if page != 1 %}| Página {{ page }} {% endif %}{% endblock %}
+{% block title %} {{ parent() }} {% if page != 1 %}| Page {{ page }} {% endif %}{% endblock %}
 {% block canonical %}<link rel="canonical" href="{{ url('_blog_default', { 'page' : page }) }}"/>{% endblock %}
 {% block meta_description %}{{ pagination.current.intro|default('Blog')|striptags|truncate(150) }}{% endblock %}
 {% block meta_keywords %}{% for tag in pagination.current.tags|default(['blog']) %}{{ tag }}, {% endfor %}{% endblock %}
@@ -16,7 +16,7 @@
   {% for post in pagination %}
     {% include 'BlogBundle:Frontend/Post:item.html.twig' with {'post': post} %}
   {% else %}
-    <p>No hay elementos</p>
+    <p>No elements</p>
   {% endfor %}
 
   <div class="navigation">{{ knp_pagination_render(pagination) }}</div>

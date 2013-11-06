@@ -1,6 +1,6 @@
 {% if related %}
   <article>
-    <h4>Relacionado</h4>
+    <h4>Related</h4>
     <div class="row-fluid">
       {% for post in related %}
         <div class="span4">
@@ -10,7 +10,7 @@
           <a href="{{ path('_blog_view', { 'slug' : post.slug }) }}">{{ post }}</a>
         </div>
       {% else %}
-        <p>No hay elementos</p>
+        <p>No elements</p>
       {% endfor %}
     </div>
   </article>
