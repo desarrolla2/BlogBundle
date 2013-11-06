@@ -47,14 +47,15 @@ class AuthorController extends Controller
         if ($request->getMethod() == 'POST' && $request->get('filter_action') == 'filter') {
             if ($formHandler->process()) {
                 $query = $formHandler->getQuery();
-                $session->set('AuthorControllerFilter', $request);
+                $session->set('AuthorControllerFilter', $request->query->all());
             }
         }
 
         if ($request->getMethod() == 'GET') {
             if ($session->has('AuthorControllerFilter')) {
                 $filterForm = $this->createForm(new AuthorFilterType(), new AuthorFilterModel($session->get('AuthorControllerFilter')));
-                $formHandler = new AuthorFilterHandler($filterForm, $session->get('AuthorControllerFilter'), $qb);
+                $request->query->replace($session->get('AuthorControllerFilter', array()));
+                $formHandler = new AuthorFilterHandler($filterForm, $request, $qb);
                 if ($formHandler->process()) {
                     $query = $formHandler->getQuery();
                 }
