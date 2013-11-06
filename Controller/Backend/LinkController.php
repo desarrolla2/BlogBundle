@@ -109,6 +109,7 @@ class LinkController extends Controller
 
         $form = $this->createForm(new LinkType(), new LinkModel(new Link()));
         $formHandler = new LinkHandler($form, $request, new Link(), $em);
+        $formHandler->setContainer($this->container);
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('_blog_backend_link'));
         }
@@ -159,6 +160,7 @@ class LinkController extends Controller
         $form = $this->createForm(new LinkType(), new LinkModel($entity));
         $deleteForm = $this->createDeleteForm($id);
         $formHandler = new LinkHandler($form, $request, $entity, $em);
+        $formHandler->setContainer($this->container);
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('_blog_backend_link'));
         }
