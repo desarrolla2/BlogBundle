@@ -46,7 +46,7 @@ class AuthorFilterHandler
         if ($this->form->isValid()) {
             $formData = $this->form->getData();
             if ($name = (string) $formData->name) {
-                $this->qb->andWhere($this->qb->expr()->like('t.name', ':name'))
+                $this->qb->andWhere($this->qb->expr()->like('a.name', ':name'))
                     ->setParameter('name', '%' . $name . '%');
             }
 

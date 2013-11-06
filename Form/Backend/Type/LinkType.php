@@ -45,7 +45,7 @@ class LinkType extends AbstractType
                     'required' => false,
                     'trim' => true,
                 ))
-            ->add('notes', 'textarea', array(
+                ->add('notes', 'textarea', array(
                     'required' => false,
                     'trim' => true,
                 ))
@@ -67,7 +67,7 @@ class LinkType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\LinkModel',
-            'csrf_protection' => true,
+            'csrf_protection' => true
         ));
     }
 
