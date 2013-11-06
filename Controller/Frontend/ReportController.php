@@ -23,13 +23,13 @@ use DateTime;
  *
  * Description of StatsController
  *
- * @Route("/stats")
+ * @Route("/report")
  */
-class StatsController extends Controller
+class ReportController extends Controller
 {
 
     /**
-     * @Route("/", name="_blog_stats")
+     * @Route("/posted-items", name="_blog_report")
      * @Method({"GET"})
      * @Template()
      */
