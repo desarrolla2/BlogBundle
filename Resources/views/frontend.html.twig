@@ -16,14 +16,7 @@
           </div>
         {% endblock %}
         {% block sidebar %}
-          <div class="block">
-            <h4>Etiquetas</h4>
-            {{ render(controller('BlogBundle:Frontend\\Widget:tags')) }}
-          </div>
-          <div class="block">
-            <h4>Enlaces</h4>
-            {{ render(controller('BlogBundle:Frontend\\Widget:links')) }}
-          </div>
+          {% include "BlogBundle::frontend.sidebar.html.twig" %}
         {% endblock %}
       </div>
     </div>
@@ -36,13 +29,8 @@
 {% block analitycs %}
   {% include "BlogBundle::frontend.analytics.html.twig" %}
 {% endblock %}
-{% block rss %}
-  <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ path('_blog_feed') }}"/>
-{% endblock %}
 {% block stylesheets %}
-  <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
-        media="all">
+  {{ parent() }}
   {% stylesheets
   'bundles/blog/css/main.css'
   filter='?yui_css' %}
@@ -50,6 +38,7 @@
   {% endstylesheets %}
 {% endblock %}
 {% block javascripts %}
+  {{ parent() }}
   {% javascripts
   'bundles/blog/js/blog.js'
   filter='?yui_js' %}

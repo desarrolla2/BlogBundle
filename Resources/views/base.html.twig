@@ -6,26 +6,30 @@
   {% block canonical %}{% endblock %}
   <meta name="description" content="{% spaceless %}{% block meta_description %}{% endblock %}{% endspaceless %}">
   <meta name="keywords" content="{% spaceless %}{% block meta_keywords %}{% endblock %}{% endspaceless %}">
-  <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}" />
-  <meta name="viewport" content="width=device-width" />
-  {% block meta_og %}<meta property="og:type" content="website"/>{% endblock %}
+  <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}"/>
+  <meta name="viewport" content="width=device-width"/>
+  {% block meta_og %}
+    <meta property="og:type" content="website"/>{% endblock %}
   {% block meta_twiter %}
     <meta property="twitter:card" content="summary"/>
     <meta property="twitter:site" content="@{{ twitter_site }}"/>
     <meta name="twitter:domain" content="{{ url('_blog_default') }}">
   {% endblock %}
   {% block rss %}
-    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ url('_blog_feed')}}"/>
+    <link rel="alternate" type="application/rss+xml" title="rss feed" href="{{ url('_blog_feed') }}"/>
   {% endblock %}
   <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
   <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
-  {% block stylesheets %}{% endblock %}
+  {% block stylesheets %}
+    {% include "BlogBundle::base.css.bootstrap.html.twig" %}
+  {% endblock %}
 </head>
 <body>
 {% block body %}{% endblock %}
-{% block modal %}{% endblock %}
-{% block jquery %}<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>{% endblock %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+  {% include "BlogBundle::base.js.jquery.html.twig" %}
+  {% include "BlogBundle::base.js.tinymce.html.twig" %}
+{% endblock %}
 {% block analitycs %}{% endblock %}
 </body>
 </html>

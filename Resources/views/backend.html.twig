@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block stylesheets %}
-  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  {{ parent () }}
   {% stylesheets
   'bundles/blog/css/admin.css'
   filter='?yui_css' %}
@@ -29,8 +29,7 @@
 {% endblock %}
 
 {% block javascripts %}
-  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="/bundles/blog/js/tiny_mce/tiny_mce.js"></script>
+  {{ parent() }}
   {% javascripts
   'bundles/blog/js/admin.js'
   filter='?yui_js' %}
