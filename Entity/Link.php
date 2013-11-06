@@ -33,56 +33,64 @@ class Link
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string $name
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
+    protected $name;
+
+    /**
+     * @var string $slug
+     *
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(name="slug", type="string", length=255, unique=true))
+     */
+    protected $slug;
 
     /**
      * @var string $url
      *
      * @ORM\Column(name="url", type="string", length=255, unique=true)
      */
-    private $url;
+    protected $url;
 
     /**
      * @var string $rss
      *
      * @ORM\Column(name="rss", type="string", length=255, unique=true, nullable=true)
      */
-    private $rss = null;
+    protected $rss = null;
 
     /**
      * @var string $mail
      *
      * @ORM\Column(name="mail", type="string", length=255, unique=true, nullable=true)
      */
-    private $mail = null;
+    protected $mail = null;
 
     /**
      * @var string $description
      *
      * @ORM\Column(name="description", type="text")
      */
-    private $description = '';
+    protected $description = '';
 
     /**
      * @var string $content
      *
      * @ORM\Column(name="notes", type="text")
      */
-    private $notes = '';
+    protected $notes = '';
 
     /**
      * @var string $isPublished
      *
      * @ORM\Column(name="is_published", type="boolean")
      */
-    private $isPublished = false;
+    protected $isPublished = false;
 
     /**
      * @var \DateTime $created_at
@@ -90,7 +98,7 @@ class Link
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime $updated_at
@@ -98,7 +106,7 @@ class Link
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated_at", type="datetime")
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * Constructor
@@ -271,7 +279,7 @@ class Link
      */
     public function setDescription($description)
     {
-        $this->description = (string) $description;
+        $this->description = (string)$description;
 
         return $this;
     }
@@ -307,7 +315,7 @@ class Link
      */
     public function setNotes($notes)
     {
-        $this->notes = (string) $notes;
+        $this->notes = (string)$notes;
     }
 
     /**
@@ -316,5 +324,28 @@ class Link
     public function getNotes()
     {
         return $this->notes;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Link
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
