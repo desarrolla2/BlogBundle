@@ -85,6 +85,18 @@ class LinkRepository extends EntityRepository
         return $qb;
     }
 
+    public function getOneBySlug($slug)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            ' SELECT l FROM BlogBundle:Link l ' .
+            ' WHERE l.slug = :slug '
+        )
+            ->setParameter('slug', $slug);
+
+        return $query->getOneOrNullResult();
+    }
+
     /**
      * Count published elements from date
      *
