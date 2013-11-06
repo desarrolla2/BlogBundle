@@ -7,7 +7,7 @@
                 {% if error %}
                 <div class="alert alert-error" >{{ error.message }}</div>
                 {% endif %}
-            <form action="{{ url('login_check') }}" method="post">
+            <form action="{{ url('fos_user_security_check') }}" method="post">
                 <fieldset>
                     <div class="clearfix">
                         <input type="text" placeholder="Username" id="username" name="_username" value="{{ last_username }}" />
