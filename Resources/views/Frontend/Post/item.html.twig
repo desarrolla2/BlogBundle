@@ -9,10 +9,10 @@
   {% endif %}
   {{ post.intro | raw }}
   {% if post.hasSource %}
-    <p>Enlace a la fuente original: <a href="{{ post.source }}" target="_blank" title="{{ post }}">{{ post }}</a></p>
+    <p>Link to original source: <a href="{{ post.source }}" target="_blank" title="{{ post }}">{{ post }}</a></p>
   {% endif %}
   <small>
-    Publicado el
+    Published at
     <time datetime="{{ post.publishedAt | date('c') }}">{{ post.publishedAt | localeDate('full') }}.</time>
   </small>
 </article>

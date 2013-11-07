@@ -9,7 +9,7 @@
       <div id="sidebar" class="span4">
         {% block search_widget %}
           <div class="block">
-            <h2>Buscar</h2>
+            <h2>Search</h2>
 
             <form id="search-widget" action="/search" method="get">
               <input type="text" id="q" name="q" required="required"/>
@@ -18,11 +18,11 @@
         {% endblock %}
         {% block sidebar %}
           <div class="block">
-            <h2>Etiquetas</h2>
+            <h2>Tags</h2>
             {{ render(controller('BlogBundle:Frontend\\Widget:tags')) }}
           </div>
           <div class="block">
-            <h2>Enlaces</h2>
+            <h2>Links</h2>
             {{ render(controller('BlogBundle:Frontend\\Widget:links')) }}
           </div>
         {% endblock %}

@@ -1,6 +1,6 @@
 <section id="comments">
   <header>
-    <h3>Comentarios</h3>
+    <h3>Comments</h3>
   </header>
   {% for comment in comments %}
     <article class="comment" id="comment-{{ comment.id }}">
@@ -13,14 +13,14 @@
         </div>
         <div class="span10 comment_content">
           {{ comment | raw }}
-          <small>{{ comment.userName }}, el
+          <small>{{ comment.userName }}, at
             <time datetime="{{ comment.createdAt|date('c') }}">{{ comment.createdAt|localeDate('full') }}</time>
           </small>
         </div>
       </div>
     </article>
   {% else %}
-    <p>No hay comentarios, sé el primero! ... </p>
+    <p>No comments, be the first! ... </p>
   {% endfor %}
   <div class="clear_fix"></div>
   {% include 'BlogBundle:Frontend/Comment:form.html.twig' with {'form': form, 'post': post } %}

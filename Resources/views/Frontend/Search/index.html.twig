@@ -1,7 +1,7 @@
 {% extends "BlogBundle::frontend.html.twig" %}
 {% block title %}
-  {% if query %} Resultados de busqueda "{{ query }}" {% else %} Buscar {% endif %}
-  {% if page != 1 %}| Página {{ page }} {% endif %} | {{ parent() }}
+  {% if query %} Search results "{{ query }}" {% else %} Search {% endif %}
+  {% if page != 1 %}| Page {{ page }} {% endif %} | {{ parent() }}
 {% endblock %}
 {% block canonical %}
   <link rel="canonical" href="{{ url('_blog_search', {'q': query}) }}"/>
@@ -11,7 +11,7 @@
 {% block meta_og %}
   {% if items.0 is defined %}
     <meta
-    property="og:title" content="{% if query %}Resultados de busqueda {{ query }}{% else %} Buscar {% endif %} | {{ parent() }}"/>
+    property="og:title" content="{% if query %}Search results {{ query }}{% else %} Search {% endif %} | {{ parent() }}"/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="{{ url('_blog_search', {'q': query}) }}"/>
     <meta property="og:description" content="{{ items.0.intro | striptags | truncate(150) }}"/>
@@ -26,12 +26,12 @@
       {% if query %}
         <h2>
           <a href="{{ path('_blog_search', {'q': query}) }}">
-            Resultados de busqueda "{{ query }}"
-            {% if page != 1 %} Página {{ page }}{% endif %}
+            Search results "{{ query }}"
+            {% if page != 1 %} Page {{ page }}{% endif %}
           </a>
         </h2>
       {% else %}
-        <h2>Buscar</h2>
+        <h2>Search</h2>
       {% endif %}
     </header>
     {% include 'BlogBundle:Frontend/Search:form.html.twig' with {'form': form} %}
@@ -47,7 +47,7 @@
             </time>
           </li>
         {% else %}
-          <li>No se han encontrado resultados de para la búsqueda</li>
+          <li>No results found for search</li>
         {% endfor %}
       </ul>
     {% endif %}

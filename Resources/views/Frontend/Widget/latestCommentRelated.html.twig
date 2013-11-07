@@ -5,12 +5,12 @@
          title="{{ comment.post }}">
         {{ comment | striptags | truncate(160) }}
       </a>
-      <small> el
+      <small> at
         <time datetime="{{ comment.createdAt | date('c') }}">
           {{ comment.createdAt | localeDate('long') }}</time>
       </small>
     </li>
   {% else %}
-    <li>No hay elementos</li>
+    <li>No elements</li>
   {% endfor %}
 </ul>

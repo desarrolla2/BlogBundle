@@ -2,12 +2,12 @@
   {% for post in posts %}
     <li>
       <a href="{{ path('_blog_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a>
-      <small> el
+      <small> at
         <time datetime="{{ post.createdAt | date('c') }}">
           {{ post.createdAt | localeDate('long') }}</time>
       </small>
     </li>
   {% else %}
-    <li>No hay elementos</li>
+    <li>No elements</li>
   {% endfor %}
 </ul>

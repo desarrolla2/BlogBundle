@@ -1,11 +1,11 @@
 {% extends "BlogBundle::frontend.html.twig" %}
 
-{% block title %} Etiqueta "{{ tag | upper }}" {% if page != 1 %}| Página {{ page }} {% endif %}| {{ parent() }}{% endblock %}
-{% block meta_description %}Contenido relacionado con {{ tag | upper}}{% endblock %}
+{% block title %} Tag "{{ tag | upper }}" {% if page != 1 %}| Page {{ page }} {% endif %}| {{ parent() }}{% endblock %}
+{% block meta_description %}Related content with {{ tag | upper}}{% endblock %}
 {% block meta_keywords %}{{ tag }}{% endblock %}
 {% block meta %}
   <link rel="canonical" href="{{ url('_blog_tag', { 'slug' : tag.slug, 'page' : page }) }}"/>
-  <meta property="og:title" content="{{ tag }} {% if page != 1 %}| Página {{ page }} {% endif %}| {{ parent() }}"/>
+  <meta property="og:title" content="{{ tag }} {% if page != 1 %}| Page {{ page }} {% endif %}| {{ parent() }}"/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="{{ url('_blog_tag', { 'slug' : tag.slug, 'page' : page }) }}"/>
   <meta property="og:description" content="{{ pagination.current.intro | striptags | raw | truncate(150) }}"/>
@@ -22,7 +22,7 @@
   {% for post in pagination %}
     {% include 'BlogBundle:Frontend/Post:item.html.twig' with {'post': post} %}
   {% else %}
-    <p>No hay elementos</p>
+    <p>No elements</p>
   {% endfor %}
 
   <div class="navigation">{{ knp_pagination_render(pagination) }}</div>
