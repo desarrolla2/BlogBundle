@@ -10,7 +10,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Desarrolla2\Bundle\BlogBundle\Entity\Comment;
 use Desarrolla2\Bundle\BlogBundle\Form\Backend\Type\CommentType;
 use Desarrolla2\Bundle\BlogBundle\Form\Backend\Type\CommentFilterType;
-use Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\CommentModel;
 use Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\CommentFilterModel;
 use \Desarrolla2\Bundle\BlogBundle\Form\Backend\Handler\CommentHandler;
 use Desarrolla2\Bundle\BlogBundle\Form\Backend\Handler\CommentFilterHandler;
@@ -84,7 +83,7 @@ class CommentController extends Controller
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(new CommentType(), new CommentModel(new Comment()));
+        $form = $this->createForm(new CommentType(), new Comment());
         $formHandler = new CommentHandler($form, $request, new Comment(), $em);
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('_blog_backend_comment'));
@@ -108,7 +107,7 @@ class CommentController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Comment entity.');
         }
-        $form = $this->createForm(new CommentType(), new CommentModel($entity));
+        $form = $this->createForm(new CommentType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -133,7 +132,7 @@ class CommentController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Comment entity.');
         }
-        $form = $this->createForm(new CommentType(), new CommentModel($entity));
+        $form = $this->createForm(new CommentType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
         $formHandler = new CommentHandler($form, $request, $entity, $em);
         if ($formHandler->process()) {

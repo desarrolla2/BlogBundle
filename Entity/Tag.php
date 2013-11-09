@@ -4,12 +4,14 @@ namespace Desarrolla2\Bundle\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Desarrolla2\Bundle\BlogBundle\Entity\Tag
  *
  * @ORM\Table(name="tag")
  * @ORM\Entity(repositoryClass="Desarrolla2\Bundle\BlogBundle\Entity\Repository\TagRepository")
+ * @UniqueEntity(fields={"name"})
  */
 class Tag
 {
@@ -25,7 +27,7 @@ class Tag
     /**
      * @var string $name
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
 

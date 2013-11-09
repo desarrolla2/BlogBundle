@@ -81,7 +81,7 @@ class AuthorController extends Controller
      */
     public function newAction()
     {
-        $form = $this->createForm(new AuthorType(), new AuthorModel(new Author()));
+        $form = $this->createForm(new AuthorType(), new Author());
 
         return array(
             'form' => $form->createView(),
@@ -100,7 +100,7 @@ class AuthorController extends Controller
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(new AuthorType(), new AuthorModel(new Author()));
+        $form = $this->createForm(new AuthorType(), new Author());
         $formHandler = new AuthorHandler($form, $request, new Author(), $em);
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('_blog_backend_author'));
@@ -124,7 +124,7 @@ class AuthorController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Author entity.');
         }
-        $form = $this->createForm(new AuthorType(), new AuthorModel($entity));
+        $form = $this->createForm(new AuthorType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -149,7 +149,7 @@ class AuthorController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Author entity.');
         }
-        $editForm = $this->createForm(new AuthorType(), new AuthorModel($entity));
+        $editForm = $this->createForm(new AuthorType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
         $formHandler = new AuthorHandler($editForm, $request, $entity, $em);
         if ($formHandler->process()) {

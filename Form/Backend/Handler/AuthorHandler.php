@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Desarrolla2\Bundle\BlogBundle\Entity\Author;
 use Doctrine\ORM\EntityManager;
 
-class AuthorHandler
+class AuthorHandler implements ContainerAwareInterface
 {
 
     /**
@@ -51,16 +51,12 @@ class AuthorHandler
      */
     public function process()
     {
-        $this->form->bind($this->request);
+        $this->form->submit($this->request);
         if ($this->form->isValid()) {
-            $entityModel = $this->form->getData();
-
-            $this->entity->setName((string) $entityModel->name);
-            $this->entity->setEmail((string) $entityModel->email);
+            $this->entity = $this->form->getData();
 
             $this->em->persist($this->entity);
             $this->em->flush();
-
             return true;
         }
 

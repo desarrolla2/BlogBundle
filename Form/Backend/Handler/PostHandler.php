@@ -58,6 +58,18 @@ class PostHandler
     }
 
     /**
+     * Sets the Container.
+     *
+     * @param ContainerInterface|null $container A ContainerInterface instance or null
+     *
+     * @api
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+
+    /**
      *
      * @return boolean
      */
@@ -71,19 +83,30 @@ class PostHandler
             $this->entity->setContent((string) $entityModel->getContent());
             $this->entity->setImage((string) $entityModel->getImage());
             $this->entity->setStatus((bool) $entityModel->getStatus());
-            if ($this->entity->isPublished() && !$this->entity->getPublishedAt()) {
-                $this->entity->setPublishedAt(new DateTime());
-            }
-            $this->entity->removeTags();
-            foreach ($entityModel->tags as $tag) {
-                $this->entity->addTag($tag);
-            }
-            $this->em->persist($this->entity);
-            $this->createHistory();
-            $this->updateTags($this->entity->getTags());
-            $this->em->flush();
 
-            return true;
+            $valid = true;
+            if ($this->container !== null) {
+                /** @var $validatorService \Symfony\Component\Validator\Validator */
+                $validatorService = $this->container->get('validator');
+                /** @var $errors \Symfony\Component\Validator\ConstraintViolationList */
+                $errors = $validatorService->validate($this->entity, array());
+                $valid = $errors->count() === 0;
+            }
+            if ($valid) {
+                if ($this->entity->isPublished() && !$this->entity->getPublishedAt()) {
+                    $this->entity->setPublishedAt(new DateTime());
+                }
+                $this->entity->removeTags();
+                foreach ($entityModel->tags as $tag) {
+                    $this->entity->addTag($tag);
+                }
+                $this->em->persist($this->entity);
+                $this->createHistory();
+                $this->updateTags($this->entity->getTags());
+                $this->em->flush();
+                return true;
+            }
+            return false;
         }
 
         return false;

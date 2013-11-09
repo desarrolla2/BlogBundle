@@ -17,10 +17,10 @@ class TagType extends AbstractType
     {
 
         $builder
-                ->add('name', 'text', array(
-                    'required' => true,
-                    'trim'     => true,
-                ))
+            ->add('name', 'text', array(
+                'required' => true,
+                'trim'     => true,
+            ))
         ;
     }
 
@@ -30,7 +30,7 @@ class TagType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'      => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\TagModel',
+            'data_class'      => 'Desarrolla2\Bundle\BlogBundle\Entity\Tag',
             'csrf_protection' => true,
         ));
     }

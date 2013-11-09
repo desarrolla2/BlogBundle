@@ -60,7 +60,7 @@ class PostType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\PostModel',
+            'data_class' => 'Desarrolla2\Bundle\BlogBundle\Entity\Post',
             'csrf_protection' => true,
         ));
     }

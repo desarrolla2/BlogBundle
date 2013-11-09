@@ -12,8 +12,6 @@
 
 namespace Desarrolla2\Bundle\BlogBundle\Form\Backend\Handler;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Desarrolla2\Bundle\BlogBundle\Entity\Link;
@@ -24,7 +22,7 @@ use Doctrine\ORM\EntityManager;
  * Description of LinkHandler
  *
  */
-class LinkHandler implements ContainerAwareInterface
+class LinkHandler
 {
 
     /**
@@ -46,23 +44,6 @@ class LinkHandler implements ContainerAwareInterface
      * @var \Doctrine\ORM\EntityManager
      */
     protected $em;
-
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
-    /**
-     * Sets the Container.
-     *
-     * @param ContainerInterface|null $container A ContainerInterface instance or null
-     *
-     * @api
-     */
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->container = $container;
-    }
 
 
     /**
@@ -87,31 +68,13 @@ class LinkHandler implements ContainerAwareInterface
     public function process()
     {
         $this->form->submit($this->request);
-        $valid = true;
 
-        if ($this->form->isValid() && $valid) {
-            $entityModel = $this->form->getData();
-            $this->entity->setName($entityModel->getName());
-            $this->entity->setDescription($entityModel->getDescription());
-            $this->entity->setUrl($entityModel->getUrl());
-            $this->entity->setRss($entityModel->getRSS());
-            $this->entity->setIsPublished($entityModel->getIsPublished());
-            $this->entity->setMail($entityModel->getMail());
-            $this->entity->setNotes($entityModel->getNotes());
-            $valid = true;
-            if ($this->container !== null) {
-                /** @var $validatorService \Symfony\Component\Validator\Validator */
-                $validatorService = $this->container->get('validator');
-                /** @var $errors \Symfony\Component\Validator\ConstraintViolationList */
-                $errors = $validatorService->validate($this->entity, array());
-                $valid = $errors->count() === 0;
-            }
-            if ($valid) {
-                $this->em->persist($this->entity);
-                $this->em->flush();
-                return true;
-            }
-            return false;
+        if ($this->form->isValid()) {
+            $this->entity = $this->form->getData();
+
+            $this->em->persist($this->entity);
+            $this->em->flush();
+            return true;
         }
 
         return false;

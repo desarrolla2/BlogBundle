@@ -63,13 +63,10 @@ class TagHandler
     {
         $this->form->submit($this->request);
         if ($this->form->isValid()) {
-            $entityModel = $this->form->getData();
-
-            $this->entity->setName((string) $entityModel->name);
+            $this->entity = $this->form->getData();
 
             $this->em->persist($this->entity);
             $this->em->flush();
-
             return true;
         }
 

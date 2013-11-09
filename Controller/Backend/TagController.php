@@ -80,7 +80,7 @@ class TagController extends Controller
      */
     public function newAction()
     {
-        $form = $this->createForm(new TagType(), new TagModel(new Tag()));
+        $form = $this->createForm(new TagType(), new Tag());
 
         return array(
             'form' => $form->createView(),
@@ -99,7 +99,7 @@ class TagController extends Controller
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(new TagType(), new TagModel(new Tag()));
+        $form = $this->createForm(new TagType(), new Tag());
         $formHandler = new TagHandler($form, $request, new Tag(), $em);
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('_blog_backend_tag'));
@@ -123,7 +123,7 @@ class TagController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tag entity.');
         }
-        $form = $this->createForm(new TagType(), new TagModel($entity));
+        $form = $this->createForm(new TagType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -148,7 +148,7 @@ class TagController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Tag entity.');
         }
-        $editForm = $this->createForm(new TagType(), new TagModel($entity));
+        $editForm = $this->createForm(new TagType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
         $formHandler = new TagHandler($editForm, $request, $entity, $em);
         if ($formHandler->process()) {

@@ -55,6 +55,7 @@ class CommentHandler
         $this->em = $em;
     }
 
+
     /**
      *
      * @return boolean
@@ -63,17 +64,10 @@ class CommentHandler
     {
         $this->form->submit($this->request);
         if ($this->form->isValid()) {
-            $entityModel = $this->form->getData();
-
-            $this->entity->setContent((string) $entityModel->content);
-            $this->entity->setUserName((string) $entityModel->userName);
-            $this->entity->setUserEmail((string) $entityModel->userEmail);
-            $this->entity->setUserWeb((string) $entityModel->userWeb);
-            $this->entity->setStatus((int) $entityModel->status);
+            $this->entity = $this->form->getData();
 
             $this->em->persist($this->entity);
             $this->em->flush();
-
             return true;
         }
 

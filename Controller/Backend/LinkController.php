@@ -20,21 +20,20 @@ use Desarrolla2\Bundle\BlogBundle\Entity\Link;
 use Desarrolla2\Bundle\BlogBundle\Form\Backend\Type\LinkFilterType;
 use Desarrolla2\Bundle\BlogBundle\Form\Backend\Type\LinkType;
 use Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\LinkFilterModel;
-use Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\LinkModel;
 use Desarrolla2\Bundle\BlogBundle\Form\Backend\Handler\LinkFilterHandler;
 use Desarrolla2\Bundle\BlogBundle\Form\Backend\Handler\LinkHandler;
 
 /**
  *
  * Description of LinkController
- *
+ * @Route("/link")
  */
 class LinkController extends Controller
 {
     /**
      * Lists all Link entities.
      *
-     * @Route("/link", name="_blog_backend_link")
+     * @Route("", name="_blog_backend_link")
      * @Template()
      */
     public function indexAction()
@@ -88,7 +87,7 @@ class LinkController extends Controller
      */
     public function newAction()
     {
-        $form = $this->createForm(new LinkType(), new LinkModel(new Link()));
+        $form = $this->createForm(new LinkType(), new Link());
 
         return array(
             'form' => $form->createView(),
@@ -107,9 +106,8 @@ class LinkController extends Controller
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(new LinkType(), new LinkModel(new Link()));
+        $form = $this->createForm(new LinkType(), new Link());
         $formHandler = new LinkHandler($form, $request, new Link(), $em);
-        $formHandler->setContainer($this->container);
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('_blog_backend_link'));
         }
@@ -132,7 +130,7 @@ class LinkController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Link entity.');
         }
-        $form = $this->createForm(new LinkType(), new LinkModel($entity));
+        $form = $this->createForm(new LinkType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -157,10 +155,9 @@ class LinkController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Link entity.');
         }
-        $form = $this->createForm(new LinkType(), new LinkModel($entity));
+        $form = $this->createForm(new LinkType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
         $formHandler = new LinkHandler($form, $request, $entity, $em);
-        $formHandler->setContainer($this->container);
         if ($formHandler->process()) {
             return $this->redirect($this->generateUrl('_blog_backend_link'));
         }
