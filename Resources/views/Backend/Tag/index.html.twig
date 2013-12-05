@@ -19,13 +19,13 @@
                 <td>{{ entity.items }}</td>
                 <td>{{ entity.createdAt|date('Y-m-d') }} / {{ entity.updatedAt|date('Y-m-d') }}</td>
                 <td>
-                    <a class="bnt btn-mini" href="{{ url('tag_edit', { 'id': entity.id }) }}">edit</a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_tag_edit', { 'id': entity.id }) }}">edit</a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <div><a class="btn " href="{{ url('tag_new') }}">new entry</a></div>
+    <div><a class="btn " href="{{ url('_blog_backend_tag_new') }}">new entry</a></div>
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>

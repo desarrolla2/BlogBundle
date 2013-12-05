@@ -113,7 +113,7 @@ class AuthorController extends Controller
     /**
      * Displays a form to edit an existing Author entity.
      *
-     * @Route("/{id}/edit", name="author_edit")
+     * @Route("/{id}/edit", name="_blog_backend_author_edit")
      * @Template()
      */
     public function editAction($id)

@@ -1,9 +1,9 @@
 {% extends 'BlogBundle:Backend/Tag:new.html.twig' %}
 {% block content %}
-<form class="well" action="{{ url('tag_update' , {'id' : entity.id}) }}" method="post" {{ form_enctype(form) }}>
+<form class="well" action="{{ url('_blog_backend_tag_update' , {'id' : entity.id}) }}" method="post" {{ form_enctype(form) }}>
     {% include 'BlogBundle:Backend/Tag:edit.form.html.twig' with {'form': form } %}
 </form>
-<form action="{{ url('tag_delete', { 'id': entity.id }) }}" method="post">
+<form action="{{ url('_blog_backend_tag_delete', { 'id': entity.id }) }}" method="post">
     {{ form_widget(delete_form) }}
     <button data-toggle="modal" href="#confirm-delete" class="btn btn-danger">Delete</button>
     {% include 'BlogBundle:Backend/Modal:confirm-delete.html.twig' %}
