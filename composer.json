@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "symfony/framework-bundle": ">=2.3.0",
+        "symfony/framework-bundle": ">=2.4.0",
         "knplabs/knp-paginator-bundle": "2.3.*",
         "gedmo/doctrine-extensions": "2.3.*",
         "gregwar/captcha-bundle": "1.0.*",
