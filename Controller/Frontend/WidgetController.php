@@ -29,8 +29,8 @@ class WidgetController extends Controller
     {
         return array(
             'comments' =>
-            $this->getDoctrine()->getManager()
-                ->getRepository('BlogBundle:Comment')->getLatest(4)
+                $this->getDoctrine()->getManager()
+                    ->getRepository('BlogBundle:Comment')->getLatest(4)
         );
     }
 
@@ -41,8 +41,8 @@ class WidgetController extends Controller
     {
         return array(
             'comments' =>
-            $this->getDoctrine()->getManager()
-                ->getRepository('BlogBundle:Comment')->getLatestRelated($post, $items)
+                $this->getDoctrine()->getManager()
+                    ->getRepository('BlogBundle:Comment')->getLatestRelated($post, $items)
         );
     }
 
@@ -53,8 +53,8 @@ class WidgetController extends Controller
     {
         return array(
             'posts' =>
-            $this->getDoctrine()->getManager()
-                ->getRepository('BlogBundle:Post')->getLatest(4)
+                $this->getDoctrine()->getManager()
+                    ->getRepository('BlogBundle:Post')->getLatest(4)
         );
     }
 
@@ -65,8 +65,8 @@ class WidgetController extends Controller
     {
         return array(
             'posts' =>
-            $this->getDoctrine()->getManager()
-                ->getRepository('BlogBundle:Post')->getLatestRelated($post, 4)
+                $this->getDoctrine()->getManager()
+                    ->getRepository('BlogBundle:Post')->getLatestRelated($post, 4)
         );
     }
 
@@ -77,8 +77,8 @@ class WidgetController extends Controller
     {
         return array(
             'tags' =>
-            $this->getDoctrine()->getManager()
-                ->getRepository('BlogBundle:Tag')->get()
+                $this->getDoctrine()->getManager()
+                    ->getRepository('BlogBundle:Tag')->get()
         );
     }
 
@@ -89,8 +89,8 @@ class WidgetController extends Controller
     {
         return array(
             'links' =>
-            $this->getDoctrine()->getManager()
-                ->getRepository('BlogBundle:Link')->getActiveOrdered()
+                $this->getDoctrine()->getManager()
+                    ->getRepository('BlogBundle:Link')->getActiveOrdered()
         );
     }
 
@@ -104,5 +104,17 @@ class WidgetController extends Controller
         return array(
             'related' => $search->related($post, $items),
         );
+    }
+
+    /**
+     * @Template()
+     */
+    public function bannerAction()
+    {
+        return array(
+            'banner' => $this->getDoctrine()->getManager()
+                    ->getRepository('BlogBundle:Banner')->getRandomActive()
+        );
+
     }
 }
