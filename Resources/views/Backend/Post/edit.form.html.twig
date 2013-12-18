@@ -28,7 +28,7 @@
         {{ form_errors(form.intro) }}
         </div>
     {% endif %}
-    {{ form_widget(form.intro, { 'attr': {'class': 'w100 h300'} }) }}
+    {{ form_widget(form.intro, { 'attr': {'class': 'w100 h300 wysiwyg'} }) }}
 </p>
 <p>
     <label for="">Text</label>
@@ -37,7 +37,7 @@
         {{ form_errors(form.content) }}
         </div>
     {% endif %}
-    {{ form_widget(form.content, { 'attr': {'class': 'w100 h500'} }) }}
+    {{ form_widget(form.content, { 'attr': {'class': 'w100 h500 wysiwyg'} }) }}
 </p>
 <p>
     <label for="">Tags</label>
