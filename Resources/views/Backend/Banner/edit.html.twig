@@ -1,0 +1,26 @@
+{% extends "::backend.html.twig" %}
+{% block content %}
+<h1>Banner edit</h1>
+
+<form action="{{ url('_blog_backend_banner_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Edit</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ url('_blog_backend_banner') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <form action="{{ url('_blog_backend_banner_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button data-toggle="modal" href="#confirm-delete" class="btn btn-danger">Delete</button>
+            {% include 'BlogBundle:Backend/Modal:confirm-delete.html.twig' %}
+        </form>
+    </li>
+</ul>
+{% endblock %}

@@ -17,11 +17,14 @@ class TagType extends AbstractType
     {
 
         $builder
-                ->add('name', 'text', array(
+            ->add(
+                'name',
+                'text',
+                array(
                     'required' => true,
-                    'trim'     => true,
-                ))
-        ;
+                    'trim' => true,
+                )
+            );
     }
 
     /**
@@ -29,10 +32,12 @@ class TagType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class'      => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\TagModel',
-            'csrf_protection' => true,
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\TagModel',
+                'csrf_protection' => true,
+            )
+        );
     }
 
     /**
@@ -40,7 +45,7 @@ class TagType extends AbstractType
      */
     public function getName()
     {
-        return 'desarrolla2_bundle_blogbundle_tag_type';
+        return 'backend_tag_type';
     }
 
 }

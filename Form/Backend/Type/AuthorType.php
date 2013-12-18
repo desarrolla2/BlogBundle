@@ -10,22 +10,29 @@ class AuthorType extends AbstractType
 {
 
     /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     * @param FormBuilderInterface $builder
      * @param array                                        $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
         $builder
-            ->add('name', 'text', array(
-                'required' => true,
-                'trim'     => true,
-            ))
-            ->add('email', 'text', array(
-                'required' => true,
-                'trim'     => true,
-            ))
-        ;
+            ->add(
+                'name',
+                'text',
+                array(
+                    'required' => true,
+                    'trim' => true,
+                )
+            )
+            ->add(
+                'email',
+                'text',
+                array(
+                    'required' => true,
+                    'trim' => true,
+                )
+            );
     }
 
     /**
@@ -33,10 +40,12 @@ class AuthorType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class'      => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\AuthorModel',
-            'csrf_protection' => true,
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\AuthorModel',
+                'csrf_protection' => true,
+            )
+        );
     }
 
     /**
@@ -44,6 +53,6 @@ class AuthorType extends AbstractType
      */
     public function getName()
     {
-        return 'desarrolla2_bundle_blogbundle_author_type';
+        return 'backend_author_type';
     }
 }

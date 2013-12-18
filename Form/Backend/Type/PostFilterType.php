@@ -79,6 +79,6 @@ class PostFilterType extends AbstractType
      */
     public function getName()
     {
-        return 'desarrolla2_bundle_blogbundle_post_filter_type';
+        return 'backend_post_filter_type';
     }
 }

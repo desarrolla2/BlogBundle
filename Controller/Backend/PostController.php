@@ -34,8 +34,11 @@ class PostController extends Controller
         $paginator = $this->get('knp_paginator');
         $request = $this->getRequest();
         $session = $request->getSession();
-        $qb = $this->getDoctrine()->getManager()
-                        ->getRepository('BlogBundle:Post')->getQueryBuilderForFilter();
+        $qb = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('BlogBundle:Post')
+            ->getQueryBuilderForFilter();
+
         $query = $qb->getQuery();
         $filterForm = $this->createForm(new PostFilterType(), new PostFilterModel($request));
         $formHandler = new PostFilterHandler($filterForm, $request, $qb);
@@ -53,7 +56,10 @@ class PostController extends Controller
 
         if ($request->getMethod() == 'GET') {
             if ($session->has('PostControllerFilter')) {
-                $filterForm = $this->createForm(new PostFilterType(), new PostFilterModel($session->get('PostControllerFilter')));
+                $filterForm = $this->createForm(
+                    new PostFilterType(),
+                    new PostFilterModel($session->get('PostControllerFilter'))
+                );
                 $formHandler = new PostFilterHandler($filterForm, $session->get('PostControllerFilter'), $qb);
                 if ($formHandler->process()) {
                     $query = $formHandler->getQuery();
@@ -63,7 +69,9 @@ class PostController extends Controller
         $filterForm = $formHandler->getFilter();
 
         $pagination = $paginator->paginate(
-                $query, $request->get('page', 1), 12
+            $query,
+            $request->get('page', 1),
+            12
         );
 
         return array(
@@ -193,9 +201,8 @@ class PostController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
-                        ->add('id', 'hidden')
-                        ->getForm()
-        ;
+            ->add('id', 'hidden')
+            ->getForm();
     }
 
     /**

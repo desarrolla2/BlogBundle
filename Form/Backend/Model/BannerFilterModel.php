@@ -1,10 +1,11 @@
 <?php
-
 /**
- * This file is part of the desarrolla2 project.
+ * This file is part of the planetubuntu package.
  *
- * Description of LinkModel
+ * (c) Daniel González <daniel@desarrolla2.com>
  *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Desarrolla2\Bundle\BlogBundle\Form\Backend\Model;
@@ -12,9 +13,11 @@ namespace Desarrolla2\Bundle\BlogBundle\Form\Backend\Model;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class LinkFilterModel
+/**
+ * BannerFilterModel
+ */
+class BannerFilterModel
 {
-
     /**
      * @var string $name
      * @Assert\Length( min=3, max=50 )
@@ -37,22 +40,6 @@ class LinkFilterModel
     }
 
     /**
-     * @param string $isPublished
-     */
-    public function setIsPublished($isPublished)
-    {
-        $this->isPublished = $isPublished;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIsPublished()
-    {
-        return $this->isPublished;
-    }
-
-    /**
      * @param string $name
      */
     public function setName($name)
@@ -66,6 +53,22 @@ class LinkFilterModel
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @param string $isPublished
+     */
+    public function setIsPublished($isPublished)
+    {
+        $this->isPublished = $isPublished;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIsPublished()
+    {
+        return $this->isPublished;
     }
 
 }

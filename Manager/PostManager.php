@@ -22,8 +22,6 @@ use \DateTime;
  * Description of PostManager
  *
  * @author : Daniel González <daniel.gonzalez@freelancemadrid.es>
- * @file : PostManager.php , UTF-8
- * @date : May 19, 2013 , 11:51:36 PM
  */
 class PostManager
 {
@@ -52,13 +50,6 @@ class PostManager
         $post->setPublishedAt(new DateTime());
         $this->em->persist($post);
         $this->em->flush();
-    }
-
-    /**
-     *
-     */
-    private function notify()
-    {
     }
 
 }

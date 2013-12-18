@@ -20,10 +20,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  * Description of ImageFilterType
  *
  * @author : dgonzalez
- * @file : ImageFilterType.php , UTF-8
- * @date : Feb 25, 2013 , 12:56:15 PM
+ * @file   : ImageFilterType.php , UTF-8
+ * @date   : Feb 25, 2013 , 12:56:15 PM
  */
-class ImageFilterType  extends AbstractType
+class ImageFilterType extends AbstractType
 {
 
     /**
@@ -34,11 +34,14 @@ class ImageFilterType  extends AbstractType
     {
 
         $builder
-                ->add('file', 'text', array(
+            ->add(
+                'file',
+                'text',
+                array(
                     'required' => true,
-                    'trim'     => true,
-                ))
-        ;
+                    'trim' => true,
+                )
+            );
     }
 
     /**
@@ -46,10 +49,12 @@ class ImageFilterType  extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class'      => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\ImageFilterModel',
-            'csrf_protection' => true,
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\ImageFilterModel',
+                'csrf_protection' => true,
+            )
+        );
     }
 
     /**
@@ -57,7 +62,7 @@ class ImageFilterType  extends AbstractType
      */
     public function getName()
     {
-        return 'desarrolla2_bundle_blogbundle_image_type';
+        return 'backend_image_type';
     }
 
 }

@@ -1,0 +1,39 @@
+{% extends "::backend.html.twig" %}
+
+{% block content %}
+{#{% include 'BlogBundle:Backend/Banner:index.filter.html.twig' with {'filterForm': filterForm } %}#}
+<div class="span12">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Weight</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in pagination %}
+            <tr>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.weight }}</td>
+                <td>
+                    {% if entity.isPublished %}<i class="icon-ok"></i> {% endif %}
+                    {% if not entity.isPublished %}<i class="icon-remove"></i> {% endif %}
+                </td>
+                <td>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_banner_publish', { 'id': entity.id }) }}" title="publish"><i class="icon-ok"></i></a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_banner_unpublish', { 'id': entity.id }) }}" title="unpublish"><i class="icon-remove"></i></a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_banner_edit', { 'id': entity.id }) }}" title="edit"> <i class="icon-edit"></i> </a>
+                    <a class="bnt btn-mini" href="{{ url('_blog_backend_banner_preview', { 'id': entity.id }) }}" title="preview" target="_blank"> <i class="icon-eye-open"></i> </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div><a class="btn " href="{{ url('_blog_backend_banner_new') }}">new entry</a></div>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+</div>
+{% endblock %}

@@ -1,24 +1,34 @@
 <?php
-
+/**
+ * This file is part of the planetubuntu package.
+ *
+ * (c) Daniel González <daniel@desarrolla2.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Desarrolla2\Bundle\BlogBundle\Form\Backend\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CommentFilterType extends AbstractType
+/**
+ * BannerFilterType
+ */
+class BannerFilterType extends AbstractType
 {
 
     /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array                                        $options
+     * @param FormBuilderInterface $builder
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
         $builder
             ->add(
-                'text',
+                'name',
                 'text',
                 array(
                     'required' => false,
@@ -26,13 +36,12 @@ class CommentFilterType extends AbstractType
                 )
             )
             ->add(
-                'status',
+                'isPublished',
                 'choice',
                 array(
                     'required' => false,
                     'trim' => true,
                     'choices' => array(
-                        'pending' => 'pending',
                         'yes' => 'yes',
                         'no' => 'no',
                     ),
@@ -47,7 +56,7 @@ class CommentFilterType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\CommentFilterModel',
+                'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\BannerFilterModel',
                 'csrf_protection' => false,
             )
         );
@@ -58,7 +67,7 @@ class CommentFilterType extends AbstractType
      */
     public function getName()
     {
-        return 'backend_comment_filter_type';
+        return 'backend_banner_filter_type';
     }
 
 }

@@ -4,7 +4,7 @@ $(document).ready(function () {
         keep_styles: false,
         preformatted: true,
         content_css: '/bundles/blog/css/textarea.css',
-        selector: "textarea",
+        selector: ".wysiwyg",
         theme: "modern",
         plugins: [
             "advlist autolink lists link image preview hr anchor pagebreak",
@@ -13,7 +13,6 @@ $(document).ready(function () {
             "template paste textcolor"
         ],
         toolbar1: " undo redo | styleselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media preview",
-        image_advtab: true,
-
+        image_advtab: true
     });
 });

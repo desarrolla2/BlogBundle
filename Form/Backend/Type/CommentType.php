@@ -17,32 +17,51 @@ class CommentType extends AbstractType
     {
 
         $builder
-                ->add('content', 'textarea', array(
+            ->add(
+                'content',
+                'textarea',
+                array(
                     'required' => true,
-                    'trim'     => true,
-                ))
-                ->add('userName', 'text', array(
+                    'trim' => true,
+                )
+            )
+            ->add(
+                'userName',
+                'text',
+                array(
                     'required' => true,
-                    'trim'     => true,
-                ))
-                ->add('userEmail', 'text', array(
+                    'trim' => true,
+                )
+            )
+            ->add(
+                'userEmail',
+                'text',
+                array(
                     'required' => false,
-                    'trim'     => true,
-                ))
-                ->add('userWeb', 'text', array(
+                    'trim' => true,
+                )
+            )
+            ->add(
+                'userWeb',
+                'text',
+                array(
                     'required' => false,
-                    'trim'     => true,
-                ))
-                ->add('status', 'choice', array(
+                    'trim' => true,
+                )
+            )
+            ->add(
+                'status',
+                'choice',
+                array(
                     'required' => false,
-                    'trim'     => true,
-                    'choices'  => array(
+                    'trim' => true,
+                    'choices' => array(
                         0 => 'pending',
                         1 => 'yes',
                         2 => 'no',
                     ),
-                ))
-        ;
+                )
+            );
     }
 
     /**
@@ -50,10 +69,12 @@ class CommentType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class'      => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\CommentModel',
-            'csrf_protection' => true,
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\CommentModel',
+                'csrf_protection' => true,
+            )
+        );
     }
 
     /**
@@ -61,7 +82,7 @@ class CommentType extends AbstractType
      */
     public function getName()
     {
-        return 'desarrolla2_bundle_blogbundle_comment_type';
+        return 'backend_comment_type';
     }
 
 }

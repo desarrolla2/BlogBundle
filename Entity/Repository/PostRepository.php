@@ -22,6 +22,7 @@ class PostRepository extends EntityRepository
 
     /**
      * @param  array $ids
+     *
      * @return \Doctrine\ORM\AbstractQuery
      */
     public function getQueryForGetByIds(array $ids)
@@ -39,6 +40,7 @@ class PostRepository extends EntityRepository
 
     /**
      * @param  array $ids
+     *
      * @return array
      */
     public function getByIds(array $ids)
@@ -54,6 +56,7 @@ class PostRepository extends EntityRepository
     /**
      *
      * @param  string $slug
+     *
      * @return \Desarrolla2\Bundle\BlogBundle\Entity\Post
      */
     public function getOneBySlug($slug)
@@ -72,6 +75,7 @@ class PostRepository extends EntityRepository
      *
      * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Tag $tag
      * @param  int                                       $limit
+     *
      * @return \Doctrine\ORM\Query
      */
     public function getByTag(Tag $tag, $limit = self::POST_PER_PAGE)
@@ -86,6 +90,7 @@ class PostRepository extends EntityRepository
     /**
      *
      * @param  int $limit
+     *
      * @return array
      */
     public function get($limit = self::POST_PER_PAGE)
@@ -116,6 +121,7 @@ class PostRepository extends EntityRepository
     /**
      *
      * @param  string $slug
+     *
      * @return array
      */
     public function getByTagSlug($slug = '')
@@ -128,6 +134,7 @@ class PostRepository extends EntityRepository
     /**
      *
      * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Tag $tag
+     *
      * @return \Doctrine\ORM\Query
      */
     public function getQueryForGetByTag(Tag $tag)
@@ -148,6 +155,7 @@ class PostRepository extends EntityRepository
     /**
      *
      * @param  string $slug
+     *
      * @return \Doctrine\ORM\Query
      */
     public function getQueryForGetByTagSlug($slug = '')
@@ -169,6 +177,7 @@ class PostRepository extends EntityRepository
      *
      * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
      * @param  int                                        $limit
+     *
      * @return array
      */
     public function getLatestRelated(Post $post, $limit = self::POST_PER_PAGE)
@@ -197,6 +206,7 @@ class PostRepository extends EntityRepository
     /**
      *
      * @param  int $limit
+     *
      * @return array
      */
     public function getLatest($limit = self::POST_PER_PAGE)
@@ -254,6 +264,7 @@ class PostRepository extends EntityRepository
     /**
      *
      * @param  int $limit
+     *
      * @return array
      */
     public function getUnPublished($limit = 50)
@@ -273,6 +284,7 @@ class PostRepository extends EntityRepository
      * Count published elements from date
      *
      * @param  DateTime $date
+     *
      * @return int
      */
     public function countFromDate(DateTime $date)
@@ -309,6 +321,7 @@ class PostRepository extends EntityRepository
     /**
      *
      * @param  int $limit
+     *
      * @return array
      */
     public function getPublished($limit = 50)
@@ -327,6 +340,7 @@ class PostRepository extends EntityRepository
     /**
      *
      * @param  int $limit
+     *
      * @return array
      */
     public function getPrePublished($limit = 50)
@@ -348,19 +362,19 @@ class PostRepository extends EntityRepository
     public function getOneRandomPrePublished()
     {
         $items = $this->getPrePublished();
-        if ($items) {
-            shuffle($items);
-
-            return array_pop($items);
+        if (!$items) {
+            return false;
         }
+        shuffle($items);
 
-        return false;
+        return array_pop($items);
     }
 
     /**
      * @param string $query
      * @param int    $page
      * @param int    $perPage
+     *
      * @return array|\Doctrine\ORM\QueryBuilder
      */
     public function getSearchBuilder($query, $page = 1, $perPage = 10)
@@ -414,6 +428,7 @@ class PostRepository extends EntityRepository
      * @param string $query
      * @param int    $page
      * @param int    $perPage
+     *
      * @return mixed
      */
     public function search($query, $page = 1, $perPage = 10)
@@ -465,6 +480,7 @@ class PostRepository extends EntityRepository
      * This should return all the numbers from
      *
      * @param string $query
+     *
      * @return string[]
      */
     protected function tokenize($query)

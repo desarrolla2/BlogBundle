@@ -17,10 +17,13 @@ class ImageType extends AbstractType
     {
 
         $builder
-                ->add('file', 'file', array(
+            ->add(
+                'file',
+                'file',
+                array(
                     'required' => true,
-                ))
-        ;
+                )
+            );
     }
 
     /**
@@ -28,10 +31,12 @@ class ImageType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class'      => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\ImageModel',
-            'csrf_protection' => true,
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\ImageModel',
+                'csrf_protection' => true,
+            )
+        );
     }
 
     /**
@@ -39,7 +44,7 @@ class ImageType extends AbstractType
      */
     public function getName()
     {
-        return 'desarrolla2_bundle_blogbundle_image_type';
+        return 'backend_image_type';
     }
 
 }

@@ -47,8 +47,7 @@ class Banner
      *
      * @var Post
      *
-     * @ORM\OneToOne(targetEntity="BannerWeight")
-     * @ORM\JoinColumn(name="weigh_id", referencedColumnName="id")
+     * @ORM\Column(name="weight", type="integer")
      */
     private $weight;
 
@@ -208,11 +207,11 @@ class Banner
     /**
      * Set weight
      *
-     * @param \Desarrolla2\Bundle\BlogBundle\Entity\BannerWeight $weight
+     * @param integer $weight
      *
      * @return Banner
      */
-    public function setWeight(\Desarrolla2\Bundle\BlogBundle\Entity\BannerWeight $weight = null)
+    public function setWeight($weight)
     {
         $this->weight = $weight;
 
@@ -222,7 +221,7 @@ class Banner
     /**
      * Get weight
      *
-     * @return \Desarrolla2\Bundle\BlogBundle\Entity\BannerWeight 
+     * @return integer 
      */
     public function getWeight()
     {

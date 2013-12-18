@@ -17,19 +17,26 @@ class LinkFilterType extends AbstractType
     {
 
         $builder
-                ->add('name', 'text', array(
+            ->add(
+                'name',
+                'text',
+                array(
                     'required' => false,
-                    'trim'     => true,
-                ))
-                ->add('isPublished', 'choice', array(
+                    'trim' => true,
+                )
+            )
+            ->add(
+                'isPublished',
+                'choice',
+                array(
                     'required' => false,
-                    'trim'     => true,
-                    'choices'  => array(
+                    'trim' => true,
+                    'choices' => array(
                         'yes' => 'yes',
-                        'no'  => 'no',
+                        'no' => 'no',
                     ),
-                ))
-        ;
+                )
+            );
     }
 
     /**
@@ -37,10 +44,12 @@ class LinkFilterType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class'      => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\LinkFilterModel',
-            'csrf_protection' => false,
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\LinkFilterModel',
+                'csrf_protection' => false,
+            )
+        );
     }
 
     /**
@@ -48,7 +57,7 @@ class LinkFilterType extends AbstractType
      */
     public function getName()
     {
-        return 'desarrolla2_bundle_blogbundle_link_filter_type';
+        return 'backend_link_filter_type';
     }
 
 }

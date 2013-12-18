@@ -10,18 +10,21 @@ class AuthorFilterType extends AbstractType
 {
 
     /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array                                        $options
+     * @param FormBuilderInterface $builder
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
         $builder
-            ->add('name', 'text', array(
-                'required' => false,
-                'trim'     => true,
-            ))
-        ;
+            ->add(
+                'name',
+                'text',
+                array(
+                    'required' => false,
+                    'trim' => true,
+                )
+            );
     }
 
     /**
@@ -29,10 +32,12 @@ class AuthorFilterType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class'      => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\AuthorFilterModel',
-            'csrf_protection' => false,
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Backend\Model\AuthorFilterModel',
+                'csrf_protection' => false,
+            )
+        );
     }
 
     /**
@@ -40,7 +45,7 @@ class AuthorFilterType extends AbstractType
      */
     public function getName()
     {
-        return 'desarrolla2_bundle_blogbundle_author_filter_type';
+        return 'backend_author_filter_type';
     }
 
 }

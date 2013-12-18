@@ -1,0 +1,25 @@
+{% extends "::backend.html.twig" %}
+{% block content %}
+  <h1>Banner</h1>
+
+  <div>{{ banner.content | raw }}</div>
+
+  <ul class="record_actions">
+    <li>
+      <a href="{{ url('_blog_backend_banner') }}">
+        Back to the list
+      </a>
+    </li>
+    <li>
+      <a href="{{ url('_blog_backend_banner_edit', { 'id': banner.id }) }}">
+        Edit
+      </a>
+    </li>
+    <li>
+      <form action="{{ url('_blog_backend_banner_delete', { 'id': banner.id }) }}" method="post">
+        {{ form_widget(delete_form) }}
+        <button type="submit">Delete</button>
+      </form>
+    </li>
+  </ul>
+{% endblock %}

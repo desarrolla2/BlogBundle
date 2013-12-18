@@ -3,6 +3,7 @@
 namespace Desarrolla2\Bundle\BlogBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Desarrolla2\Bundle\BlogBundle\Entity\Banner;
 
 /**
  * BannerRepository
@@ -13,8 +14,49 @@ use Doctrine\ORM\EntityRepository;
 class BannerRepository extends EntityRepository
 {
 
+    /**
+     * Retrieve a random active Banner
+     *
+     * @return bool|Banner
+     */
     public function getRandomActive()
     {
-        return false;
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+            ' SELECT b FROM BlogBundle:Banner b ' .
+            ' WHERE b.isPublished = 1 '
+        );
+
+        $banners = array();
+        $items = $query->getResult();
+        if (!$items) {
+            return false;
+        }
+        foreach ($items as $banner) {
+            $weight = $banner->getWeight();
+            for ($i = 0; $i < $weight; $i++) {
+                $banners[] = $banner;
+            }
+        }
+
+        shuffle($banners);
+
+        return array_pop($banners);
+    }
+
+    /**
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getQueryBuilderForFilter()
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $qb
+            ->select('b')
+            ->from('BlogBundle:Banner', 'b')
+            ->orderBy('b.createdAt', 'DESC');
+
+        return $qb;
     }
 }

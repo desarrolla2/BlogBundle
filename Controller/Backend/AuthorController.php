@@ -53,7 +53,10 @@ class AuthorController extends Controller
 
         if ($request->getMethod() == 'GET') {
             if ($session->has('AuthorControllerFilter')) {
-                $filterForm = $this->createForm(new AuthorFilterType(), new AuthorFilterModel($session->get('AuthorControllerFilter')));
+                $filterForm = $this->createForm(
+                    new AuthorFilterType(),
+                    new AuthorFilterModel($session->get('AuthorControllerFilter'))
+                );
                 $formHandler = new AuthorFilterHandler($filterForm, $session->get('AuthorControllerFilter'), $qb);
                 if ($formHandler->process()) {
                     $query = $formHandler->getQuery();
@@ -63,7 +66,9 @@ class AuthorController extends Controller
         $filterForm = $formHandler->getFilter();
 
         $pagination = $paginator->paginate(
-            $query, $request->get('page', 1), 12
+            $query,
+            $request->get('page', 1),
+            12
         );
 
         return array(
@@ -96,7 +101,6 @@ class AuthorController extends Controller
      */
     public function createAction(Request $request)
     {
-        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(new AuthorType(), new AuthorModel(new Author()));
@@ -127,8 +131,8 @@ class AuthorController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'form'        => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -142,7 +146,6 @@ class AuthorController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('BlogBundle:Author')->find($id);
         if (!$entity) {
@@ -156,8 +159,8 @@ class AuthorController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -192,8 +195,7 @@ class AuthorController extends Controller
     {
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
-            ->getForm()
-            ;
+            ->getForm();
     }
 
 }
