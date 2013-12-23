@@ -12,7 +12,9 @@
     <meta property="og:type" content="website"/>{% endblock %}
   {% block meta_twiter %}
     <meta property="twitter:card" content="summary"/>
-    <meta property="twitter:site" content="@{{ twitter_site }}"/>
+    {% if twitter_site is defined %}
+      <meta property="twitter:site" content="@{{ twitter_site }}"/>
+    {% endif %}
     <meta name="twitter:domain" content="{{ url('_blog_default') }}">
   {% endblock %}
   {% block rss %}
