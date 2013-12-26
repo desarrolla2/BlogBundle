@@ -60,13 +60,16 @@ div#content {
 }
 
 div#content article {
-    padding: 10px 3px 20px 3px;
     border-bottom: 1px dotted #aea79f;
-}
-
-div#content article {
     margin-bottom: 40px;
     padding: 10px 15px;
+}
+
+div#content article.post .img {
+    float: left;
+    margin: 5px 15px 15px 0;
+    max-width: 200px;
+    display: block;
 }
 
 div#content li, div#content ol {
