@@ -41,6 +41,11 @@ class TagController extends Controller
         if (!$tag) {
             throw $this->createNotFoundException('The tag does not exist');
         }
+
+        if (!$tag->getItems()) {
+            throw $this->createNotFoundException('The tag have not items');
+        }
+
         $query = $this->getDoctrine()->getManager()
                         ->getRepository('BlogBundle:Post')->getQueryForGetByTag($tag);
 
