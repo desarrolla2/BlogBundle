@@ -18,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 /**
  *
@@ -55,22 +56,26 @@ class ArchiveController extends Controller
         $year = $request->get('year');
         $month = $request->get('month');
         $page = $this->getPage();
-        $count = count(
-            $query = $this->getDoctrine()
-                ->getManager()
-                ->createQuery(
-                    ' SELECT p as item, ' .
-                    ' SUBSTRING(p.publishedAt, 1, 4) as year, ' .
-                    ' SUBSTRING(p.publishedAt, 6, 2) as month ' .
-                    ' FROM BlogBundle:Post p ' .
-                    ' WHERE p.status = ' . PostStatus::PUBLISHED .
-                    ' HAVING year = :year ' .
-                    ' AND month = :month '
-                )
-                ->setParameter('year', $year)
-                ->setParameter('month', $month)
-                ->getResult()
-        );
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('n', 'n', 'string');
+        $count =
+        $query = $this->getDoctrine()
+            ->getManager()
+            ->createNativeQuery(
+                ' SELECT COUNT(*) as n FROM ( ' .
+                ' SELECT p.id, ' .
+                ' SUBSTRING(p.published_at, 1, 4) AS year, ' .
+                ' SUBSTRING(p.published_at, 6, 2) AS month ' .
+                ' FROM post AS p' .
+                ' WHERE p.status = ' . PostStatus::PUBLISHED .
+                ' HAVING year = :year ' .
+                ' AND month = :month ' .
+                ' ) AS items',
+                $rsm
+            )
+            ->setParameter('year', $year)
+            ->setParameter('month', $month)
+            ->getSingleScalarResult();
 
         $query = $this->getDoctrine()
             ->getManager()
