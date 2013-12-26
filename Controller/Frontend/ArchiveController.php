@@ -55,6 +55,23 @@ class ArchiveController extends Controller
         $year = $request->get('year');
         $month = $request->get('month');
         $page = $this->getPage();
+        $count = count(
+            $query = $this->getDoctrine()
+                ->getManager()
+                ->createQuery(
+                    ' SELECT p as item, ' .
+                    ' SUBSTRING(p.publishedAt, 1, 4) as year, ' .
+                    ' SUBSTRING(p.publishedAt, 6, 2) as month ' .
+                    ' FROM BlogBundle:Post p ' .
+                    ' WHERE p.status = ' . PostStatus::PUBLISHED .
+                    ' HAVING year = :year ' .
+                    ' AND month = :month '
+                )
+                ->setParameter('year', $year)
+                ->setParameter('month', $month)
+                ->getResult()
+        );
+
         $query = $this->getDoctrine()
             ->getManager()
             ->createQuery(
@@ -66,12 +83,15 @@ class ArchiveController extends Controller
                 ' HAVING year = :year ' .
                 ' AND month = :month '
             )
+            ->setHint('knp_paginator.count', $count)
             ->setParameter('year', $year)
             ->setParameter('month', $month);
+
         $pagination = $paginator->paginate(
             $query,
             $page,
-            $this->container->getParameter('blog.items')
+            $this->container->getParameter('blog.items'),
+            array('distinct' => false)
         );
 
         return array(
