@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the planetubuntu project.
+ * This file is part of the desarrolla2/blog-bundle project.
  *
  * Copyright (c)
  *

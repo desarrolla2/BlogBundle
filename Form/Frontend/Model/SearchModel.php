@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class SearchModel
  *
- * @author Daniel González <daniel.gonzalez@freelancemadrid.es>
+ * @author Daniel González <daniel@desarrolla2.com>
  */
 class SearchModel
 {

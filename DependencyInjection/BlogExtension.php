@@ -30,7 +30,8 @@ class BlogExtension extends Extension
             'twig.xml',
             'sanitizer.xml',
             'search.xml',
-            'post.xml'
+            'manager.xml',
+            'listener.xml'
         );
 
         $configuration = new Configuration();
@@ -51,6 +52,7 @@ class BlogExtension extends Extension
     /**
      * @param string $name
      * @param mixed  $value
+     *
      * @throws \Exception
      */
     protected function parseNode($name, $value)

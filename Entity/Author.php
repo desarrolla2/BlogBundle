@@ -20,21 +20,21 @@ class Author
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string $name
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string $email
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
-    private $email;
+    protected $email;
 
     /**
      * @var string $slug
@@ -42,7 +42,7 @@ class Author
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true))
      */
-    private $slug;
+    protected $slug;
 
     /**
      *
@@ -50,7 +50,7 @@ class Author
      *
      * @ORM\OneToMany(targetEntity="Post", mappedBy="author")
      */
-    private $posts;
+    protected $posts;
 
     /**
      * @var \DateTime $createdAt
@@ -58,7 +58,7 @@ class Author
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime $updatedAt
@@ -66,7 +66,7 @@ class Author
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated_at", type="datetime")
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * Constructor

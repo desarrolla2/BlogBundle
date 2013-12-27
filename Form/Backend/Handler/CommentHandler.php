@@ -5,7 +5,7 @@
  *
  * Description of CommentHandler
  *
- * @author : Daniel González <daniel.gonzalez@freelancemadrid.es>
+ * @author : Daniel González <daniel@desarrolla2.com>
  * @file : CommentHandler.php , UTF-8
  * @date : Aug 22, 2012 , 5:03:37 PM
  */

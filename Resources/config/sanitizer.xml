@@ -7,7 +7,7 @@
     </parameters>
 
     <services>
-      <service id="blog.sanitizer" class="%blog.sanitizer.class%" >
+        <service id="blog.sanitizer" class="%blog.sanitizer.class%">
             <argument type="string">%kernel.cache_dir%</argument>
         </service>
     </services>

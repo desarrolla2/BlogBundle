@@ -1,6 +1,11 @@
-<article class="post row">
+<article class=" row">
   <header>
-    <h2><a href="{{ path('_blog_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a></h2>
+    <h2>
+      <span class="rating {% if post.rating >= 0 %}positive{% else %}negative{% endif %}">
+        {{ post.rating }}
+      </span>
+      <a href="{{ path('_blog_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a>
+    </h2>
   </header>
   {% if post.hasImage %}
     <img class="img" src="{{ post.image }}" alt="{{ post }}"/>

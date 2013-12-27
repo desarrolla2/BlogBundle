@@ -1,7 +1,8 @@
 {% extends "::frontend.html.twig" %}
 
 {% block title %} {{ post }} | {{ parent() }}{% endblock %}
-{% block canonical %}<link rel="canonical" href="{{ url('_blog_view', { 'slug' : post.slug }) }}"/>{% endblock %}
+{% block canonical %}
+  <link rel="canonical" href="{{ url('_blog_view', { 'slug' : post.slug }) }}"/>{% endblock %}
 {% block meta_description %}{{ post.intro | striptags | raw | truncate(150) }}{% endblock %}
 {% block meta_keywords %}{% for tag in post.tags %}{{ tag }}, {% endfor %} {% endblock %}
 {% block meta_og %}
@@ -22,28 +23,29 @@
   {% endif %}
 {% endblock %}
 {% block content %}
-  <article class="post row">
+  <article class=" row">
     <header>
-      <h1><a href="{{ url('_blog_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a></h1>
+      <h1>
+        <a href="#rating">
+          <span class="rating {% if post.rating >= 0 %}positive{% else %}negative{% endif %}">
+          {{ post.rating }}
+          </span>
+        </a>
+        <a href="{{ url('_blog_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a>
+      </h1>
     </header>
     {{ post.content | raw }}
 
     {% if post.hasSource %}
       <p>Enlace a la fuente original: <a href="{{ post.source }}" target="_blank" title="{{ post }}">{{ post }}</a></p>
     {% endif %}
-    <small>
-      Publicado el
-      <time datetime="{{ post.publishedAt | date('c') }}">{{ post.publishedAt | localeDate('full') }}</time>
-      ,
-      modificado por última vez el
-      <time datetime="{{ post.updatedAt | date('c') }}">{{ post.updatedAt | localeDate('full') }}</time>
-      .
-    </small>
+    {% include 'BlogBundle:Frontend/Post:view.rate.html.twig' with {'post': post  } %}
     {% include 'BlogBundle:Frontend/Post:view.tags.html.twig' with {'tags': post.tags } %}
+    {% include 'BlogBundle:Frontend/Post:view.published.html.twig' with {'post': post  } %}
   </article>
   {% include 'BlogBundle:Frontend/Post:view.social.html.twig' with {'url': url('_blog_view', { 'slug' : post.slug }) } %}
   {% include 'BlogBundle:Frontend/Post:view.related.html.twig' with {'post': post  } %}
-  {% include 'BlogBundle:Frontend/Post:view.botton.html.twig' with {'post': post } %}
+  {% include 'BlogBundle:Frontend/Post:view.botton.html.twig' %}
   {% include 'BlogBundle:Frontend/Post:view.comment.html.twig' with {'form': form, 'comments': comments } %}
 {% endblock %}
 

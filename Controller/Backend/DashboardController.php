@@ -4,7 +4,7 @@
  * This file is part of the desarrolla2 project.
  *
  * Copyright (c)
- * Daniel González <daniel.gonzalez@freelancemadrid.es>
+ * Daniel González <daniel@desarrolla2.com>
  *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.

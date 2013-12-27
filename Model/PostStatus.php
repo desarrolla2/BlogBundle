@@ -1,10 +1,10 @@
 <?php
 
 /**
- * This file is part of the planetubuntu project.
+ * This file is part of the desarrolla2/blog-bundle project.
  *
  * Copyright (c)
- * Daniel González <daniel.gonzalez@freelancemadrid.es>
+ * Daniel González <daniel@desarrolla2.com>
  *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.
@@ -16,7 +16,7 @@ namespace Desarrolla2\Bundle\BlogBundle\Model;
  *
  * Description of PostStatus
  *
- * @author : Daniel González <daniel.gonzalez@freelancemadrid.es>
+ * @author : Daniel González <daniel@desarrolla2.com>
  * @file : PostStatus.php , UTF-8
  * @date : Mar 26, 2013 , 12:25:41 AM
  */

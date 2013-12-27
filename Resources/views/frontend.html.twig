@@ -26,7 +26,7 @@
   {% stylesheets
   'bundles/blog/css/main.css'
   filter='?yui_css' %}
-  <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="all"/>
+  <link async href="{{ asset_url }}" type="text/css" rel="stylesheet" media="all"/>
   {% endstylesheets %}
 {% endblock %}
 {% block javascripts %}
@@ -34,6 +34,6 @@
   {% javascripts
   'bundles/blog/js/blog.js'
   filter='?yui_js' %}
-  <script type="text/javascript" src="{{ asset_url }}"></script>
+  <script async type="text/javascript" src="{{ asset_url }}"></script>
   {% endjavascripts %}
 {% endblock %}

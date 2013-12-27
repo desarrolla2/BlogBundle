@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the planetubuntu project.
+ * This file is part of the desarrolla2/blog-bundle project.
  *
  * Copyright (c)
  *
@@ -17,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 /**
  * Class RegisterType
  *
- * @author Daniel González <daniel.gonzalez@freelancemadrid.es>
+ * @author Daniel González <daniel@desarrolla2.com>
  */
 class RegisterType extends AbstractType
 {

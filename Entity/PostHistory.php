@@ -22,28 +22,28 @@ class PostHistory
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string $name
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string $intro
      *
      * @ORM\Column(name="intro", type="text")
      */
-    private $intro;
+    protected $intro;
 
     /**
      * @var string $content
      *
      * @ORM\Column(name="content", type="text")
      */
-    private $content;
+    protected $content;
 
     /**
      * @var \DateTime $created_at
@@ -51,7 +51,7 @@ class PostHistory
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      *
@@ -60,7 +60,7 @@ class PostHistory
      * @ORM\ManyToOne(targetEntity="Post", cascade={"remove"})
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id", onDelete="CASCADE")
      */
-    private $post;
+    protected $post;
 
     /**
      * Constructor

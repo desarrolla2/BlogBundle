@@ -22,42 +22,42 @@ class Comment
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string $userName
      *
      * @ORM\Column(name="user_name", type="string", length=255)
      */
-    private $userName;
+    protected $userName;
 
     /**
      * @var string $userEmail
      *
      * @ORM\Column(name="user_email", type="string", length=255)
      */
-    private $userEmail;
+    protected $userEmail;
 
     /**
      * @var string $userWeb
      *
      * @ORM\Column(name="user_web", type="string", length=255)
      */
-    private $userWeb;
+    protected $userWeb;
 
     /**
      * @var string $content
      *
      * @ORM\Column(name="content", type="text")
      */
-    private $content;
+    protected $content;
 
     /**
      * @var string status
      *
      * @ORM\Column(name="status", type="integer")
      */
-    private $status;
+    protected $status;
 
     /**
      *
@@ -66,7 +66,7 @@ class Comment
      * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
-    private $post;
+    protected $post;
 
     /**
      * @var \DateTime $createdAt
@@ -74,7 +74,7 @@ class Comment
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime $updatedAt
@@ -82,7 +82,7 @@ class Comment
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated_at", type="datetime")
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * Constructor

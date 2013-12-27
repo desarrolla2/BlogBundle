@@ -20,14 +20,14 @@ class Tag
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string $name
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string $slug
@@ -35,19 +35,19 @@ class Tag
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true))
      */
-    private $slug;
+    protected $slug;
 
     /**
      * @var int $items
      *
      * @ORM\Column(name="items", type="integer")
      */
-    private $items;
+    protected $items;
 
     /**
      * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
      */
-    private $posts;
+    protected $posts;
 
     /**
      * @var \DateTime $createdAt
@@ -55,7 +55,7 @@ class Tag
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime $updatedAt
@@ -63,7 +63,7 @@ class Tag
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated_at", type="datetime")
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * Constructor

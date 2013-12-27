@@ -15,7 +15,7 @@ use Desarrolla2\Bundle\BlogBundle\Entity\Comment;
 /**
  * Class CommentModel
  *
- * @author Daniel González <daniel.gonzalez@freelancemadrid.es>
+ * @author Daniel González <daniel@desarrolla2.com>
  */
 class CommentModel
 {

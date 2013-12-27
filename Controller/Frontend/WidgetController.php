@@ -5,7 +5,7 @@
  *
  * Short description
  *
- * @author Daniel González <daniel.gonzalez@freelancemadrid.es>
+ * @author Daniel González <daniel@desarrolla2.com>
  * @date Aug 9, 2012, 1:40:22 AM
  * @file WidgetsController.php , UTF-8
  *

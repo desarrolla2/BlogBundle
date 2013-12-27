@@ -2,7 +2,7 @@
 ## data source definition
 #############################################################################
 
-source planetubuntu
+source desarrolla2/blog-bundle
 {
 	type			= mysql
 	sql_host		= localhost
@@ -43,10 +43,10 @@ source planetubuntu
 #############################################################################
 
 
-index planetubuntu_idx
+index desarrolla2/blog-bundle_idx
 {
-	source			    = planetubuntu
-	path			    = /var/lib/sphinx/planetubuntu
+	source			    = desarrolla2/blog-bundle
+	path			    = /var/lib/sphinx/desarrolla2/blog-bundle
 	docinfo			    = extern 
 	min_word_len		= 3
 	charset_type		= utf-8

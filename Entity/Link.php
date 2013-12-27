@@ -4,7 +4,7 @@
  * This file is part of the BlogBundle project.
  *
  * Copyright (c)
- * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>
+ * Daniel González Cerviño <daniel@desarrolla2.com>
  *
  * This source file is subject to the MIT license that is bundled
  * with this package in the file LICENSE.

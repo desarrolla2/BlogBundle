@@ -1,8 +1,3 @@
-/*
-    Author     : Daniel González <daniel.gonzalez@freelancemadrid.es>
-    Description: CSS Main Styles
-*/
-
 * {
     font-size: 15px;
     font-weight: 300;
@@ -65,7 +60,7 @@ div#content article {
     padding: 10px 15px;
 }
 
-div#content article.post .img {
+div#content article .img {
     float: left;
     margin: 5px 15px 15px 0;
     max-width: 200px;
@@ -77,18 +72,18 @@ div#content li, div#content ol {
     list-style: none;
 }
 
-div#content img:after {
-    content: "\A ";
-    white-space: pre;
-}
-
 div#content img {
     display: block;
     margin: 0 auto 15px;
 }
 
+div#content img.rating {
+    display: inline-block;
+    margin: 0 0 0 5px;
+}
+
 div#content ul.tags {
-    margin: 10px 0 0 0;
+    margin: 10px 0 15px 0;
 }
 
 div#content ul.tags li {
@@ -96,6 +91,15 @@ div#content ul.tags li {
     list-style: none;
     margin: 3px;
     padding: 5px;
+    border: 2px solid #aea79f;
+}
+
+div#content ul.tags li:hover {
+    background-color: #aea79f;
+}
+
+div#content p.time, div#content time {
+    font-size: 13px;
 }
 
 div#sidebar ul {
@@ -126,6 +130,25 @@ ul#archive {
 
 article h2 {
     margin-bottom: 20px;
+}
+
+header h1 a:hover {
+    text-decoration: none;
+}
+
+header span.rating {
+    font-size: 20px;
+    display: inline-block;
+    color: #fff;
+    padding: 0px 12px;
+}
+
+header span.positive {
+    background-color: #008000;
+}
+
+header span.negative {
+    background-color: #FF0000;
 }
 
 article h3 {
@@ -269,13 +292,14 @@ ul#archive li {
 }
 
 .btn, .btn:hover {
-    color: #fff;
+    color: #000;
     font-size: 18px;
     text-shadow: none;
     border: 0;
     box-shadow: none;
     -webkit-box-shadow: none;
     padding: 10px 12px;
+    margin: 0 0 20px 15px;
 }
 
 .btn-mini, .btn-mini:hover {

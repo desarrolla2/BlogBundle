@@ -6,11 +6,17 @@
 
     <parameters>
         <parameter key="blog.post.manager.class">Desarrolla2\Bundle\BlogBundle\Manager\PostManager</parameter>
+        <parameter key="blog.rating.manager.class">Desarrolla2\Bundle\BlogBundle\Manager\RatingManager</parameter>
     </parameters>
 
     <services>
         <service id="blog.post.manager" class="%blog.post.manager.class%">
-            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+        <service id="blog.rating.manager" class="%blog.rating.manager.class%">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="event_dispatcher"/>
         </service>
     </services>
 </container>

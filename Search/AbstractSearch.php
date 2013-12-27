@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the planetubuntu project.
+ * This file is part of the desarrolla2/blog-bundle project.
  *
  * Copyright (c)
  *
@@ -18,7 +18,7 @@ use Knp\Component\Pager\Pagination\PaginationInterface;
 /**
  * Class AbstractSearch
  *
- * @author Daniel González <daniel.gonzalez@freelancemadrid.es>
+ * @author Daniel González <daniel@desarrolla2.com>
  */
 
 abstract class AbstractSearch implements SearchInterface

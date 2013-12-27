@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the planetubuntu project.
+ * This file is part of the desarrolla2/blog-bundle project.
  *
  * Copyright (c)
  *
@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class SiteMapController
  *
- * @author Daniel González <daniel.gonzalez@freelancemadrid.es>
+ * @author Daniel González <daniel@desarrolla2.com>
  */
 
 class SiteMapController extends Controller

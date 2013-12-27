@@ -1,11 +1,11 @@
 <?php
 
 /**
- * This file is part of the planetubuntu project.
+ * This file is part of the desarrolla2/blog-bundle project.
  *
  * Description of LinkType
  *
- * @author : Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>
+ * @author : Daniel González Cerviño <daniel@desarrolla2.com>
  * @file   : LinkType.php , UTF-8
  * @date   : Mar 14, 2013 , 4:37:37 PM
  */

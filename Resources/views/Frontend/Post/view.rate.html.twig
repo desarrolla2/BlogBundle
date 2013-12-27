@@ -1,0 +1,11 @@
+<p>
+  ¿Te gustó esta entrada?
+  <span id="rating">
+  <a class="rating" href="#" data-url="{{ path('_blog_rate', {'entity': 'Post', 'id': post.id , 'rate': '+1'}) }}">
+    <img src="/bundles/blog/img/like.gif" class="rating"/>
+  </a>
+  <a class="rating" href="#" data-url="{{ path('_blog_rate', {'entity': 'Post', 'id': post.id , 'rate': '-1'}) }}">
+    <img src="/bundles/blog/img/not-like.gif" class="rating"/>
+  </a>
+  </span>
+</p>

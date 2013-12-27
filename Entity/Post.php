@@ -83,6 +83,20 @@ class Post
     protected $promotion = 0;
 
     /**
+     * @var int $rating
+     *
+     * @ORM\Column(name="rating", type="integer")
+     */
+    protected $rating = 0;
+
+    /**
+     * @var int $votes
+     *
+     * @ORM\Column(name="votes", type="integer")
+     */
+    protected $votes  = 0;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Tag",inversedBy="tags")
@@ -587,5 +601,53 @@ class Post
     public function getPromotion()
     {
         return $this->promotion;
+    }
+
+    /**
+     * Set rating
+     *
+     * @param integer $rating
+     *
+     * @return Post
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    /**
+     * Get rating
+     *
+     * @return integer 
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * Set votes
+     *
+     * @param integer $votes
+     *
+     * @return Post
+     */
+    public function setVotes($votes)
+    {
+        $this->votes = $votes;
+
+        return $this;
+    }
+
+    /**
+     * Get votes
+     *
+     * @return integer 
+     */
+    public function getVotes()
+    {
+        return $this->votes;
     }
 }

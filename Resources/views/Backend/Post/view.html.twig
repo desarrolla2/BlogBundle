@@ -1,7 +1,7 @@
 {% extends "::frontend.html.twig" %}
 {% block title %}{{ post }}{% endblock%}
 {% block content %}
-    <article class="post row">
+    <article class=" row">
         <header>
             <h2><a href="{{ url('_blog_view', { 'slug' : post.slug }) }}">{{ post }}</a></h2>
             <small>

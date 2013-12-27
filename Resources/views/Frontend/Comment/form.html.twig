@@ -49,10 +49,11 @@
     <div class="alert alert-error">{{ form_errors(form.captcha) }}</div>
     {% endif %}
     {{ form_widget(form.captcha, { 'attr': {'class': 'captcha' }} ) }}
+
+    <button class="btn" type="submit">Enviar</button>
     </p>
   </div>
 
-  <button class="btn" type="submit">Enviar</button>
   {{ form_rest(form) }}
 </form>
 <p>Los campos marcados con (*) son obligatorios</p>

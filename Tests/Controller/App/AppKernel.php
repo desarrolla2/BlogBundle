@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the planetubuntu project.
+ * This file is part of the desarrolla2/blog-bundle project.
  *
  * Copyright (c)
  *
@@ -18,7 +18,7 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 /**
  * Class AppKernel
  *
- * @author Daniel González <daniel.gonzalez@freelancemadrid.es>
+ * @author Daniel González <daniel@desarrolla2.com>
  */
 
 class AppKernel extends Kernel

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the planetubuntu project.
+ * This file is part of the desarrolla2/blog-bundle project.
  *
  * Copyright (c)
  *
@@ -16,7 +16,7 @@ use Desarrolla2\Bundle\BlogBundle\Tests\Controller\AbstractControllerTest;
 /**
  * Class PostControllerTest
  *
- * @author Daniel González <daniel.gonzalez@freelancemadrid.es>
+ * @author Daniel González <daniel@desarrolla2.com>
  */
 class PostControllerTest extends AbstractControllerTest
 {

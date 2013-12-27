@@ -7,7 +7,7 @@ php:
 
 notifications:
   email:
-    - daniel.gonzalez@freelancemadrid.es
+    - daniel@desarrolla2.com
 
 before_script:
   - composer update --prefer-source --dev --verbose --optimize-autoloader --profile
