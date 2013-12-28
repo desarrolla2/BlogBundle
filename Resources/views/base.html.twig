@@ -22,16 +22,14 @@
   {% endblock %}
   <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
   <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
-  {% block stylesheets %}
-    {% include "BlogBundle::base.css.bootstrap.html.twig" %}
-  {% endblock %}
+  {% include "BlogBundle::base.css.bootstrap.html.twig" %}
+  {% block stylesheets %}{% endblock %}
 </head>
 <body>
 {% block body %}{% endblock %}
-{% block javascripts %}
-  {% include "BlogBundle::base.js.jquery.html.twig" %}
-  {% include "BlogBundle::base.js.tinymce.html.twig" %}
-{% endblock %}
+{% include "BlogBundle::base.js.jquery.html.twig" %}
+{% include "BlogBundle::base.js.tinymce.html.twig" %}
+{% block javascripts %}{% endblock %}
 {% block analitycs %}{% endblock %}
 </body>
 </html>

@@ -67,7 +67,7 @@ div#content article .img {
     display: block;
 }
 
-div#content li, div#content ol {
+div#content article li, div#content article ol {
     margin: 15px;
     list-style: none;
 }
