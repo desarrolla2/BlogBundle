@@ -33,7 +33,6 @@ class Configuration implements ConfigurationInterface
             ->append($this->createSearchSection())
             ->append($this->createSiteMapSection())
             ->append($this->createRSSSection())
-            ->append($this->createArchiveSection())
             ->end();
 
         return $treeBuilder;
