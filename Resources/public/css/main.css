@@ -82,6 +82,10 @@ div#content img.rating {
     margin: 0 0 0 5px;
 }
 
+div#content ul {
+    margin: 10px 0 15px 0;
+}
+
 div#content ul.tags {
     margin: 10px 0 15px 0;
 }
@@ -89,8 +93,8 @@ div#content ul.tags {
 div#content ul.tags li {
     display: inline-block;
     list-style: none;
-    margin: 3px;
-    padding: 5px;
+    margin: 5px;
+    padding: 10px;
     border: 2px solid #aea79f;
 }
 
@@ -112,7 +116,7 @@ div#content article.social li {
 }
 
 div#sidebar ul {
-    margin: 10px 0 0 5px;
+    margin: 10px 0 0 20px;
     padding: 0;
 }
 
@@ -150,6 +154,12 @@ header span.rating {
     display: inline-block;
     color: #fff;
     padding: 0px 12px;
+}
+
+header span.positive, header span.negative {
+    -webkit-border-radius: 22px;
+    -moz-border-radius: 22px;
+    border-radius: 22px;
 }
 
 header span.positive {
@@ -252,20 +262,20 @@ form#search-widget input {
     width: 90% !important;
 }
 
-ul#search-results {
+ul#results {
     margin: 0;
 }
 
-ul#search-results li {
+ul#results li {
     margin: 5px 5px 20px 0;
 }
 
-ul#search-results strong {
+ul#results strong {
     background: #FFFF00;
     color: #000;
 }
 
-ul#search-results h5 {
+ul#results h5 {
     margin: 0;
 }
 
@@ -294,10 +304,6 @@ form#post-comment input, form#post-comment textarea {
 
 form#post-comment textarea {
     height: 220px;
-}
-
-ul#archive li {
-    margin: 20px 0 10px 0;
 }
 
 .btn, .btn:hover {

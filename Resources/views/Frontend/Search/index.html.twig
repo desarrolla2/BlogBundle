@@ -12,7 +12,7 @@
   {{ parent() }}
   {% if items.0 is defined %}
     <meta
-    property="og:title" content="{% if query %}Resultados de busqueda {{ query }}{% else %} Buscar {% endif %}"/>
+        property="og:title" content="{% if query %}Resultados de busqueda {{ query }}{% else %} Buscar {% endif %}"/>
     <meta property="og:url" content="{{ url('_blog_search', {'q': query}) }}"/>
     <meta property="og:description" content="{{ items.0.intro | striptags | truncate(150) }}"/>
     {% if items.0.hasImage %}
@@ -23,8 +23,9 @@
 {% block meta_twiter %}
   {{ parent() }}
   {% if items.0 is defined %}
-  <meta property="twitter:title" content="{% if query %}Resultados de busqueda {{ query }}{% else %} Buscar {% endif %}"/>
-  <meta property="twitter:description" content="{{ items.0.intro | striptags | truncate(150) }}"/>
+    <meta property="twitter:title"
+          content="{% if query %}Resultados de busqueda {{ query }}{% else %} Buscar {% endif %}"/>
+    <meta property="twitter:description" content="{{ items.0.intro | striptags | truncate(150) }}"/>
     {% if items.0.hasImage %}
       <meta property="twitter:image:src" content="{{ items.0.image }}"/>
     {% endif %}
@@ -46,7 +47,7 @@
     </header>
     {% include 'BlogBundle:Frontend/Search:form.html.twig' with {'form': form} %}
     {% if query %}
-      <ul id="search-results">
+      <ul id="results">
         {% for item in items %}
           <li>
             <h5><a href="{{ path('_blog_view', { 'slug' : item.slug }) }}"

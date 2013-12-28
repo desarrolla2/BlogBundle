@@ -104,8 +104,6 @@ class ArchiveController extends Controller
             'year' => $year,
             'month' => $month,
             'pagination' => $pagination,
-            'title' => $this->container->getParameter('blog.archive.title'),
-            'description' => $this->container->getParameter('blog.archive.description'),
         );
     }
 

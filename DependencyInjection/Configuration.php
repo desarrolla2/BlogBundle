@@ -23,17 +23,17 @@ class Configuration implements ConfigurationInterface
 
         $rootNode->addDefaultsIfNotSet()
             ->children()
-                ->scalarNode('title')->defaultValue('my blog title')->end()
-                ->scalarNode('description')->defaultValue('my blog description')->end()
-                ->scalarNode('items')->defaultValue(12)->end()
-                ->scalarNode('ga_tracking')->defaultValue('')->end()
-                ->scalarNode('locale')->defaultValue('en')->end()
-                ->scalarNode('upload_dir')->defaultValue('%kernel.root_dir%/../web/uploads')->end()
-                ->scalarNode('upload_url')->defaultValue('/uploads')->end()
-                ->append($this->createSearchSection())
-                ->append($this->createSiteMapSection())
-                ->append($this->createRSSSection())
-                ->append($this->createArchiveSection())
+            ->scalarNode('title')->defaultValue('my blog title')->end()
+            ->scalarNode('description')->defaultValue('my blog description')->end()
+            ->scalarNode('items')->defaultValue(12)->end()
+            ->scalarNode('ga_tracking')->defaultValue('')->end()
+            ->scalarNode('locale')->defaultValue('en')->end()
+            ->scalarNode('upload_dir')->defaultValue('%kernel.root_dir%/../web/uploads')->end()
+            ->scalarNode('upload_url')->defaultValue('/uploads')->end()
+            ->append($this->createSearchSection())
+            ->append($this->createSiteMapSection())
+            ->append($this->createRSSSection())
+            ->append($this->createArchiveSection())
             ->end();
 
         return $treeBuilder;
@@ -46,23 +46,23 @@ class Configuration implements ConfigurationInterface
         $node
             ->addDefaultsIfNotSet()
             ->children()
-                ->scalarNode('provider')->defaultValue('mysql')->end()
-                ->arrayNode('mysql')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('connection')->defaultValue('')->end()
-                        ->scalarNode('manager')->defaultValue('')->end()
-                    ->end()
-                ->end()
-                ->arrayNode('sphinx')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('host')->defaultValue('localhost')->end()
-                        ->scalarNode('port')->defaultValue(9312)->end()
-                        ->scalarNode('index')->defaultValue('search_idx')->end()
-                        ->scalarNode('items')->defaultValue(12)->end()
-                    ->end()
-                ->end()
+            ->scalarNode('provider')->defaultValue('mysql')->end()
+            ->arrayNode('mysql')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->scalarNode('connection')->defaultValue('')->end()
+            ->scalarNode('manager')->defaultValue('')->end()
+            ->end()
+            ->end()
+            ->arrayNode('sphinx')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->scalarNode('host')->defaultValue('localhost')->end()
+            ->scalarNode('port')->defaultValue(9312)->end()
+            ->scalarNode('index')->defaultValue('search_idx')->end()
+            ->scalarNode('items')->defaultValue(12)->end()
+            ->end()
+            ->end()
             ->end();
 
         return $node;
@@ -96,16 +96,4 @@ class Configuration implements ConfigurationInterface
         return $node;
     }
 
-    private function createArchiveSection()
-    {
-        $builder = new TreeBuilder();
-        $node = $builder->root('archive');
-        $node->addDefaultsIfNotSet()
-            ->children()
-            ->scalarNode('title')->defaultValue('Blog Archive')->end()
-            ->scalarNode('description')->defaultValue('my archive description')->end()
-            ->end();
-
-        return $node;
-    }
 }

@@ -1,6 +1,6 @@
 {% extends "::frontend.html.twig" %}
 {% block title %}
-  {{ title }} {{ pagination.current.item.publishedAt | localeCustomDate('short') | capitalize }}
+  Archivo del sitio {{ pagination.current.item.publishedAt | localeCustomDate('short') | capitalize }}
   {% if page != 1 %}| Página {{ page }} | {% endif %} {{ parent() }}
 {% endblock %}
 {% block canonical %}
@@ -10,7 +10,7 @@
 {% block meta_keywords %}{% for tag in  pagination.current.item.tags %}{{ tag }}, {% endfor %}{% endblock %}
 {% block meta_og %}
   {{ parent() }}
-  <meta property="og:title" content="Año {{ year }} mes de {{ month }} | {{ title }} |
+  <meta property="og:title" content="Año {{ year }} mes de {{ month }} | Archivo del sitio |
   {% if page != 1 %}Página {{ page }} | {% endif %}"/>
   <meta property="og:url" content="{{ url('_blog_archive_page', {'year': year, 'month': month}) }}"/>
   <meta property="og:description" content="{{ pagination.current.item.intro | striptags | truncate(150) }}"/>
@@ -20,7 +20,7 @@
 {% endblock %}
 {% block meta_twiter %}
   {{ parent() }}
-  <meta property="twitter:title" content="Año {{ year }} mes de {{ month }} | {{ title }} |
+  <meta property="twitter:title" content="Año {{ year }} mes de {{ month }} | Archivo del sitio |
   {% if page != 1 %}Página {{ page }} | {% endif %}"/>
   <meta property="twitter:description" content="{{ pagination.current.item.intro | striptags | truncate(150) }}"/>
   {% if pagination.current.item.hasImage %}
@@ -32,14 +32,14 @@
   <article class="row">
     <header>
       <h1>
-        <a href="{{ path('_blog_archive') }}" title="{{ title }}">
-          {{ title }} {{ pagination.current.item.publishedAt | localeCustomDate('short') | capitalize }}
+        <a href="{{ path('_blog_archive') }}" title="Archivo del sitio">
+          Archivo del sitio {{ pagination.current.item.publishedAt | localeCustomDate('short') | capitalize }}
           {% if page != 1 %} Página {{ page }}{% endif %}
         </a>
       </h1>
     </header>
-    <p>{{ description }}</p>
-    <ul id="archive">
+    <p>Puedes encontrar todas las entradas del sitio ordenadas por fecha</p>
+    <ul id="results">
       {% for item in pagination %}
         {% set item = item.item %}
         <li>
