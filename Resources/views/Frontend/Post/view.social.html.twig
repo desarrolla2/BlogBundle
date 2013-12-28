@@ -1,4 +1,33 @@
-<article class="row">
+<article class="row social">
   <h4>Comparte</h4>
-
+  <ul>
+    <li>
+      <a target="_blank"
+         href="{{ 'http://www.facebook.com/sharer/sharer.php?s=100&p[url]=' ~ url('_blog_view', { 'slug' : post.slug }) ~
+         '&p[images][0]=' ~ post.image ~'&p[title]=' ~ post | url_encode(true) ~ '&p[summary]=' ~
+         post.intro | striptags | raw | truncate(150) | url_encode(true) }}">
+        <img src="/bundles/blog/img/social/facebook.png"/>
+      </a>
+    </li>
+    <li>
+      <a target="_blank"
+         href="{{ 'http://twitter.com/home?status=' ~ post | url_encode(true) ~ ' ' ~
+         url('_blog_view', { 'slug' : post.slug }) ~ ' via @' ~ twitter }}">
+        <img src="/bundles/blog/img/social/twitter.png"/>
+      </a>
+    </li>
+    <li>
+      <a target="_blank"
+         href="{{ 'https://plus.google.com/share?url=' ~  url('_blog_view', { 'slug' : post.slug }) }}">
+        <img src="/bundles/blog/img/social/google+.png"/>
+      </a>
+    </li>
+    <li>
+      <a target="_blank" href="{{ 'http://www.linkedin.com/shareArticle?mini=true&url=' ~
+      url('_blog_view', { 'slug' : post.slug }) ~ '&title=' ~ post | url_encode(true)  ~ '&summary=' ~
+      post.intro | striptags | raw | truncate(150) | url_encode(true) }}">
+        <img src="/bundles/blog/img/social/linkedin.png"/>
+      </a>
+    </li>
+  </ul>
 </article>

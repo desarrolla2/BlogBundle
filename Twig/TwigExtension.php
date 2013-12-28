@@ -25,32 +25,17 @@ use IntlDateFormatter;
  */
 class TwigExtension extends \Twig_Extension
 {
-
-    protected $gaTracking;
-
     /**
      * @var string
      */
     protected $locale;
 
     /**
-     * @param string $gaTracking
      * @param string $locale
      */
-    public function __construct($gaTracking, $locale)
+    public function __construct($locale)
     {
-        $this->gaTracking = $gaTracking;
         $this->locale = $locale;
-    }
-
-    /**
-     * @return array
-     */
-    public function getGlobals()
-    {
-        return array(
-            'ga_tracking' => $this->getGaTracking(),
-        );
     }
 
     /**
@@ -68,6 +53,7 @@ class TwigExtension extends \Twig_Extension
     /**
      * @param $search
      * @param $subject
+     *
      * @return mixed
      */
     public function highlight($subject, $search)
@@ -80,6 +66,7 @@ class TwigExtension extends \Twig_Extension
     /**
      *
      * @param  \DateTime $date
+     *
      * @return string
      */
     public function localeCustomDate($date)
@@ -101,6 +88,7 @@ class TwigExtension extends \Twig_Extension
      * @param  \DateTime $date
      * @param  string    $dateType
      * @param  string    $timeType
+     *
      * @return string
      */
     public function localeDate($date, $dateType = 'medium', $timeType = 'none')
@@ -128,6 +116,7 @@ class TwigExtension extends \Twig_Extension
     /**
      *
      * @param  string $timeType
+     *
      * @return int
      */
     protected function getTimeType($timeType)
@@ -157,6 +146,7 @@ class TwigExtension extends \Twig_Extension
     /**
      *
      * @param  string $dateType
+     *
      * @return int
      */
     protected function getDateType($dateType)

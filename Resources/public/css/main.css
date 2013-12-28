@@ -102,6 +102,15 @@ div#content p.time, div#content time {
     font-size: 13px;
 }
 
+div#content article.social ul {
+    margin: 0;
+}
+
+div#content article.social li {
+    display: inline-block;
+    margin: 0;
+}
+
 div#sidebar ul {
     margin: 10px 0 0 5px;
     padding: 0;
