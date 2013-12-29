@@ -39,8 +39,6 @@ class ArchiveController extends Controller
         return array(
             'items' => $this->getDoctrine()->getManager()
                     ->getRepository('BlogBundle:Post')->getArchiveItems(),
-            'title' => $this->container->getParameter('blog.archive.title'),
-            'description' => $this->container->getParameter('blog.archive.description'),
         );
     }
 
