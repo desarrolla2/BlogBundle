@@ -17,7 +17,8 @@
         "knplabs/knp-paginator-bundle": "2.3.*@dev",
         "gedmo/doctrine-extensions": "2.3.*",
         "gregwar/captcha-bundle": "1.0.*",
-        "friendsofsymfony/user-bundle": "~2.0@dev"
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "liip/imagine-bundle": "dev-master"
     },
     "suggest": {
         "desarrolla2/web-bundle": "Provide usefull features for web sites",
