@@ -25,6 +25,8 @@ use Doctrine\ORM\Query\QueryException;
 class RedirectController extends Controller
 {
     /**
+     * Redirect to post source if it has
+     *
      * @Route("/p/s/{id}", name="_blog_redirect_post_source", requirements={"id" = "\d{1,11}"})
      * @Method({"GET"})
      *
@@ -43,7 +45,22 @@ class RedirectController extends Controller
         if ($post->getStatus() != PostStatus::PUBLISHED) {
             return new RedirectResponse($this->generateUrl('_blog_default'), 302);
         }
+        if (!$post->hasSource()) {
+            return new RedirectResponse(
+                $this->generateUrl('_blog_view', array('slug' => $post->getSlug())),
+                302
+            );
+        }
 
-        return new RedirectResponse($post->getSource(), 302);
+        $utm_source = str_replace(
+            array('http://', 'https://', '/', '-', '.'),
+            array('', '', '', '_', '_'),
+            strtolower($this->generateUrl('_blog_default'))
+        );
+
+        return new RedirectResponse(
+            $post->getSource() . '?utm_source=' . $utm_source,
+            302
+        );
     }
 } 
