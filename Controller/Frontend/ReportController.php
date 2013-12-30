@@ -17,6 +17,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 use DateTime;
 
 /**
@@ -33,7 +35,7 @@ class ReportController extends Controller
      * @Method({"GET"})
      * @Template()
      */
-    public function indexAction(Request $request)
+    public function postedItemsAction()
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -80,6 +82,45 @@ class ReportController extends Controller
                 'total' => $em->getRepository('BlogBundle:Link')
                         ->countFromDate($first_time),
             ),
+        );
+    }
+
+    /**
+     * @Route("/most-rated/{period}",
+     * name="_blog_report_most_rated",
+     * requirements={"period" = "yesterday|last-week|last-year|ever"})
+     * @Method({"GET"})
+     */
+    public function mostRatedAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $items = $em->createQuery(
+            ' SELECT r.entityId as id, SUM(r.rating) as rating ' .
+            ' FROM BlogBundle:Rating r ' .
+            ' GROUP BY r.entityId ' .
+            ' ORDER by rating DESC '
+        )
+            ->setMaxResults(10)
+            ->getResult();
+
+        foreach ($items as $key => $item) {
+            $post = $em->getRepository('BlogBundle:Post')->find($item['id']);
+            if (!$post) {
+                continue;
+            }
+            if ($post->getStatus() != PostStatus::PUBLISHED) {
+                continue;
+            }
+
+            $item['post'] = $post;
+            $items[$key] = $item;
+        }
+
+        return $this->render(
+            'BlogBundle:Frontend/Report:mostRatedYesterday.html.twig',
+            array(
+                'items' => $items,
+            )
         );
     }
 

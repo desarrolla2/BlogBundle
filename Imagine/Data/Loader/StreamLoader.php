@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+namespace Desarrolla2\Bundle\BlogBundle\Imagine\Data\Loader;
+
 use Imagine\Image\ImagineInterface;
 use Liip\ImagineBundle\Imagine\Data\Loader\LoaderInterface;
 
@@ -39,8 +41,6 @@ class StreamLoader implements LoaderInterface
      */
     public function find($path)
     {
-        $path = str_replace('http://', '', $path);
-
         return $this->imagine->load($this->getContent($path));
     }
 
@@ -51,11 +51,7 @@ class StreamLoader implements LoaderInterface
      */
     function getContent($url)
     {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        $data = curl_exec($ch);
-        curl_close($ch);
+        $data = file_get_contents($url);
 
         return $data;
     }

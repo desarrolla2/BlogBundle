@@ -34,18 +34,20 @@ class FeedController extends Controller
     {
         $request->setRequestFormat('xml');
         $items = $this->getDoctrine()->getManager()
-                        ->getRepository('BlogBundle:Post')->get(
+            ->getRepository('BlogBundle:Post')->get(
                 $this->container->getParameter('blog.rss.items')
-        );
+            );
 
         return $this->render(
-                        'BlogBundle:Frontend/Feed:index.xml.twig', array(
-                    'title' => $this->container->getParameter('blog.rss.title'),
-                    'description' => $this->container->getParameter('blog.rss.description'),
-                            'language' => $this->container->getParameter('blog.rss.language'),
-                            'ttl' => $this->container->getParameter('blog.rss.ttl'),
-                    'items' => $items,
-        ));
+            'BlogBundle:Frontend/Feed:index.xml.twig',
+            array(
+                'title' => $this->container->getParameter('blog.rss.title'),
+                'description' => $this->container->getParameter('blog.rss.description'),
+                'language' => $this->container->getParameter('blog.rss.language'),
+                'ttl' => $this->container->getParameter('blog.rss.ttl'),
+                'items' => $items,
+            )
+        );
     }
 
     /**
@@ -56,21 +58,23 @@ class FeedController extends Controller
     {
         $request->setRequestFormat('xml');
         $tag = $this->getDoctrine()->getManager()
-                        ->getRepository('BlogBundle:Tag')->getOneBySlug($request->get('slug', false));
+            ->getRepository('BlogBundle:Tag')->getOneBySlug($request->get('slug', false));
         if (!$tag) {
             throw $this->createNotFoundException('The tag does not exist');
         }
         $items = $this->getDoctrine()->getManager()
-                        ->getRepository('BlogBundle:Post')->getByTag(
-                $tag, $this->container->getParameter('blog.rss.items')
-        );
+            ->getRepository('BlogBundle:Post')->getByTag(
+                $tag,
+                $this->container->getParameter('blog.rss.items')
+            );
 
         return $this->render(
-                        'BlogBundle:Frontend/Feed:index.xml.twig', array(
-                    'title' => $this->container->getParameter('blog.rss.title') . ' :: ' . $tag->getName(),
-                    'items' => $items,
-        ));
+            'BlogBundle:Frontend/Feed:index.xml.twig',
+            array(
+                'title' => $this->container->getParameter('blog.rss.title') . ' :: ' . $tag->getName(),
+                'items' => $items,
+            )
+        );
     }
-
 
 }

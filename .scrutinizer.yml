@@ -1,6 +1,5 @@
 before_commands:
     - "composer update --prefer-source --dev --verbose --optimize-autoloader --profile"
-    - "cp phpunit.xml.dist phpunit.xml"
 
 tools:
     # Code Coverage

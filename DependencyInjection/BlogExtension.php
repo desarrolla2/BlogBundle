@@ -31,7 +31,8 @@ class BlogExtension extends Extension
             'sanitizer.xml',
             'search.xml',
             'manager.xml',
-            'listener.xml'
+            'listener.xml',
+            'imagine.xml',
         );
 
         $configuration = new Configuration();

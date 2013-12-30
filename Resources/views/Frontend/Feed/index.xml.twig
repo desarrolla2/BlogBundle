@@ -14,7 +14,7 @@
       <item>
         <title>{{ item.name }}</title>
         {% if item.hasSource %}
-          <link>{{ item.source }}</link>
+          <link>{{ url('_blog_redirect_post_source', { 'id' : item.id }) }}</link>
         {% else %}
           <link>{{ url('_blog_view', { 'slug' : item.slug }) }}</link>
         {% endif %}
@@ -22,7 +22,7 @@
           <![CDATA[
           {{ item.content | raw }}
           {% if item.hasSource %}
-            <p>Enlace a la fuente original: <a href="{{ item.source }}" target="_blank"
+            <p>Enlace a la fuente original: <a href="{{ url('_blog_redirect_post_source', { 'id' : item.id }) }}" target="_blank"
                                                title="{{ item }}">{{ item }}</a></p>
           {% endif %}
           ]]>
