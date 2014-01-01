@@ -63,7 +63,7 @@ div#content article {
 div#content article .img {
     float: left;
     margin: 5px 15px 15px 0;
-    max-width: 200px;
+    max-width: 180px;
     display: block;
 }
 

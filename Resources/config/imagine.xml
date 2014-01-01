@@ -11,6 +11,7 @@
     <services>
         <service id="blog.liip_imagine.data.loader" class="%blog.liip_imagine.data.loader.class%">
             <argument type="service" id="liip_imagine"/>
+            <argument type="string">%blog.default_image%</argument>
             <tag name="liip_imagine.data.loader" loader="blog.stream_loader" />
         </service>
     </services>

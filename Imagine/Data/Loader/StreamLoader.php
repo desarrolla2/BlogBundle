@@ -12,6 +12,7 @@ namespace Desarrolla2\Bundle\BlogBundle\Imagine\Data\Loader;
 
 use Imagine\Image\ImagineInterface;
 use Liip\ImagineBundle\Imagine\Data\Loader\LoaderInterface;
+use Imagine\Exception\InvalidArgumentException;
 
 /**
  * StreamLoader
@@ -25,13 +26,20 @@ class StreamLoader implements LoaderInterface
     protected $imagine;
 
     /**
+     * @var string|bool
+     */
+    protected $defaultImage;
+
+    /**
      * Constructor.
      *
      * @param ImagineInterface $imagine
+     * @param string|bool      $defaultImage
      */
-    public function __construct(ImagineInterface $imagine)
+    public function __construct(ImagineInterface $imagine, $defaultImage = false)
     {
         $this->imagine = $imagine;
+        $this->defaultImage = $defaultImage;
     }
 
     /**
@@ -41,7 +49,17 @@ class StreamLoader implements LoaderInterface
      */
     public function find($path)
     {
-        return $this->imagine->load($this->getContent($path));
+
+        try {
+            return $this->imagine->load(
+                ''
+            );
+            //$this->getContent($path)
+        } catch (InvalidArgumentException $e) {
+            return $this->imagine->load(
+                $this->getContent($this->defaultImage)
+            );
+        }
     }
 
     /**
