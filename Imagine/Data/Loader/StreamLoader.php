@@ -52,7 +52,7 @@ class StreamLoader implements LoaderInterface
             return $this->imagine->load(
                 $this->getContent($path)
             );
-        } catch (Exception $e) {
+        } catch (\  Exception $e) {
             return $this->imagine->load(
                 $this->getContent($this->defaultImage)
             );
@@ -66,7 +66,11 @@ class StreamLoader implements LoaderInterface
      */
     function getContent($url)
     {
-        $data = file_get_contents($url);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $data = curl_exec($ch);
+        curl_close($ch);
 
         return $data;
     }
