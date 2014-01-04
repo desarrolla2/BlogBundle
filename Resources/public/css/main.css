@@ -34,6 +34,10 @@ header#header h2 a {
     font-weight: bold;
 }
 
+header#header ul {
+    display: inline-block;
+}
+
 header#header ul li {
     list-style: none;
     display: inline-block;
