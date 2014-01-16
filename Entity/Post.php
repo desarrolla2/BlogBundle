@@ -64,9 +64,9 @@ class Post
     /**
      * @var string $source
      *
-     * @ORM\Column(name="source", type="string", length=255)
+     * @ORM\Column(name="source", type="string", length=255, nullable=true)
      */
-    protected $source = '';
+    protected $source;
 
     /**
      * @var int $status
@@ -94,7 +94,7 @@ class Post
      *
      * @ORM\Column(name="votes", type="integer")
      */
-    protected $votes  = 0;
+    protected $votes = 0;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -180,6 +180,7 @@ class Post
      * Set content
      *
      * @param  string $content
+     *
      * @return Post
      */
     public function setContent($content)
@@ -203,6 +204,7 @@ class Post
      * Set slug
      *
      * @param  string $slug
+     *
      * @return Post
      */
     public function setSlug($slug)
@@ -226,6 +228,7 @@ class Post
      * Set created_at
      *
      * @param  \DateTime $createdAt
+     *
      * @return Post
      */
     public function setCreatedAt($createdAt)
@@ -249,6 +252,7 @@ class Post
      * Set updated_at
      *
      * @param  \DateTime $updatedAt
+     *
      * @return Post
      */
     public function setUpdatedAt($updatedAt)
@@ -272,6 +276,7 @@ class Post
      * Set author
      *
      * @param  Author $author
+     *
      * @return Post
      */
     public function setAuthor(Author $author = null)
@@ -295,6 +300,7 @@ class Post
      * Set name
      *
      * @param  string $name
+     *
      * @return Post
      */
     public function setName($name)
@@ -318,6 +324,7 @@ class Post
      * Add tags
      *
      * @param  Tag $tags
+     *
      * @return Post
      */
     public function addTag(Tag $tags)
@@ -374,6 +381,7 @@ class Post
      * Add comments
      *
      * @param  Comment $comments
+     *
      * @return Post
      */
     public function addComment(Comment $comments)
@@ -408,6 +416,7 @@ class Post
      * Set intro
      *
      * @param  string $intro
+     *
      * @return Post
      */
     public function setIntro($intro)
@@ -431,6 +440,7 @@ class Post
      * Set publishedAt
      *
      * @param  \DateTime $publishedAt
+     *
      * @return Post
      */
     public function setPublishedAt($publishedAt)
@@ -454,6 +464,7 @@ class Post
      * Add history
      *
      * @param  \Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history
+     *
      * @return Post
      */
     public function addHistory(\Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history)
@@ -487,6 +498,7 @@ class Post
      * Set source
      *
      * @param  string $source
+     *
      * @return Post
      */
     public function setSource($source)
@@ -528,6 +540,7 @@ class Post
      * Set Status
      *
      * @param  int $status
+     *
      * @return Post
      */
     public function setStatus($status)
@@ -551,6 +564,7 @@ class Post
      * Set Image
      *
      * @param  string $image
+     *
      * @return Post
      */
     public function setImage($image)
@@ -620,7 +634,7 @@ class Post
     /**
      * Get rating
      *
-     * @return integer 
+     * @return integer
      */
     public function getRating()
     {
@@ -644,7 +658,7 @@ class Post
     /**
      * Get votes
      *
-     * @return integer 
+     * @return integer
      */
     public function getVotes()
     {
