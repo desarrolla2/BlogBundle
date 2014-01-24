@@ -32,8 +32,9 @@
 {% block javascripts %}
   {{ parent() }}
   {% javascripts
+  'bundles/blog/js/cookie.js'
   'bundles/blog/js/blog.js'
   filter='?yui_js' %}
-  <script async type="text/javascript" src="{{ asset_url }}"></script>
+  <script type="text/javascript" src="{{ asset_url }}"></script>
   {% endjavascripts %}
 {% endblock %}

@@ -6,8 +6,6 @@
  * Short description
  *
  * @author Daniel González <daniel@desarrolla2.com>
- * @date Aug 9, 2012, 1:40:22 AM
- * @file WidgetsController.php , UTF-8
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
