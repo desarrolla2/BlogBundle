@@ -18,12 +18,24 @@ use FastFeed\Url\Url;
  */
 class ImagineController extends Controller
 {
+    /**
+     * @param Request $request
+     * @param string  $path
+     * @param string  $filter
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws
+     */
     public function filterAction(Request $request, $path, $filter)
     {
         $path = new Url($path);
         $path->resetParameters();
 
-        return parent::filterAction($request, $path->getUrl(), $filter);
+        try {
+            return parent::filterAction($request, $path->toString(), $filter);
+        } catch (\Exception $e) {
+            throw $this->createNotFoundException('The image does not exist');
+        }
     }
 
 } 
