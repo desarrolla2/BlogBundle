@@ -88,19 +88,24 @@ class ReportController extends Controller
     /**
      * @Route("/most-rated/{period}",
      * name="_blog_report_most_rated",
-     * requirements={"period" = "yesterday|last-week|last-year|ever"})
+     * requirements={"period" = "yesterday|last-week|last-month|last-year|ever"})
      * @Method({"GET"})
      */
     public function mostRatedAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $from = $this->getFromForMostRated($request->get('period'));
+
         $items = $em->createQuery(
             ' SELECT r.entityId as id, SUM(r.rating) as rating ' .
             ' FROM BlogBundle:Rating r ' .
+            ' WHERE r.entityName = \'Post\' ' .
+            ' AND r.createdAt >= :from' .
             ' GROUP BY r.entityId ' .
             ' ORDER by rating DESC '
         )
-            ->setMaxResults(10)
+            ->setParameter('from', $from)
+            ->setMaxResults(12)
             ->getResult();
 
         foreach ($items as $key => $item) {
@@ -117,11 +122,51 @@ class ReportController extends Controller
         }
 
         return $this->render(
-            'BlogBundle:Frontend/Report:mostRatedYesterday.html.twig',
+            'BlogBundle:Frontend/Report:mostRated.html.twig',
             array(
                 'items' => $items,
+                'period' => $this->getPeriodForMostRated($request->get('period'))
             )
         );
+    }
+
+    protected function getPeriodForMostRated($period)
+    {
+        if ($period == 'yesterday') {
+            return 'ayer';
+        }
+        if ($period == 'last-week') {
+            return 'en la última semana';
+        }
+        if ($period == 'last-month') {
+            return 'en el último mes';
+        }
+        if ($period == 'last-year') {
+            return 'en el último año';
+        }
+        if ($period == 'ever') {
+            return 'desde el principio de los tiempos';
+        }
+    }
+
+    protected function getFromForMostRated($period)
+    {
+        $from = new DateTime();
+        if ($period == 'yesterday') {
+            return $from->modify('-1 day');
+        }
+        if ($period == 'last-week') {
+            return $from->modify('-1 week');
+        }
+        if ($period == 'last-month') {
+            return $from->modify('-1 month');
+        }
+        if ($period == 'last-year') {
+            return $from->modify('-1 year');
+        }
+        if ($period == 'ever') {
+            return $from->modify('-100 year');
+        }
     }
 
 }

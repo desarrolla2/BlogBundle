@@ -1,0 +1,31 @@
+{% extends "::frontend.html.twig" %}
+{% block title %} Elementos más valorados {{ period }} {% endblock %}
+
+{% block content %}
+
+  <article class="report row">
+    <header>
+      <h2><a href="">Elementos más valorados {{ period }}</a></h2>
+    </header>
+
+    <ul class="nav nav-pills">
+      <li><a href="{{ path('_blog_report_most_rated',{'period': 'yesterday' } ) }}">Ayer</a></li>
+      <li><a href="{{ path('_blog_report_most_rated',{'period': 'last-week' } ) }}">Última semana</a></li>
+      <li><a href="{{ path('_blog_report_most_rated',{'period': 'last-month' } ) }}">Último més</a></li>
+      <li><a href="{{ path('_blog_report_most_rated',{'period': 'last-year' } ) }}">Último año</a></li>
+      <li><a href="{{ path('_blog_report_most_rated',{'period': 'ever' } ) }}">Siempre</a></li>
+    </ul>
+
+    <p>
+      Estas son las entradas que fueron mejor valoradas {{ period }}, solo se cuentan los votos obtenidos
+      durante {{ period }}.
+    </p>
+  </article>
+
+  {% for item in items %}
+    {% include 'BlogBundle:Frontend/Post:item.html.twig' with {'post': item.post, 'rating': item.rating} %}
+  {% else %}
+    <p>No hay elementos</p>
+  {% endfor %}
+  </ul>
+{% endblock %}

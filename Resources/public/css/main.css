@@ -11,6 +11,10 @@ h2, h2 a {
     font-size: 24px;
 }
 
+h3, h3 a {
+    font-size: 20px;
+}
+
 a:hover {
     text-decoration: underline;
 }
@@ -332,7 +336,7 @@ article.comment {
     border-bottom: 1px dotted #ccc;
 }
 
-div.cookie-law{
+div.cookie-law {
     text-align: center;
     width: 100%;
     position: fixed;
@@ -341,6 +345,7 @@ div.cookie-law{
     background-color: #464646;
     color: #DDD;
 }
-div.cookie-law p{
+
+div.cookie-law p {
     margin: 10px 0;
 }

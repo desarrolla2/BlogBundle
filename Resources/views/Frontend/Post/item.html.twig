@@ -1,14 +1,17 @@
+{% if rating is not defined %}
+  {% set rating = post.rating %}
+{% endif %}
 <article class=" row">
   <header>
     <h2>
-      <span class="rating {% if post.rating >= 0 %}positive{% else %}negative{% endif %}">
-        {{ post.rating }}
+      <span class="rating {% if rating >= 0 %}positive{% else %}negative{% endif %}">
+        {{ rating }}
       </span>
       <a href="{{ path('_blog_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a>
     </h2>
   </header>
   {% if post.hasImage %}
-    <img class="img" src="{{ post.image | imagine_filter('list_widen_200')}}" alt="{{ post }}"/>
+    <img class="img" src="{{ post.image | imagine_filter('list_widen_200') }}" alt="{{ post }}"/>
   {% endif %}
   {{ post.intro | raw }}
   {% if post.hasSource %}

@@ -115,4 +115,12 @@ class WidgetController extends Controller
         );
 
     }
+
+    /**
+     * @Template()
+     */
+    public function mostAction()
+    {
+        return array();
+    }
 }
