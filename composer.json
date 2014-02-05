@@ -14,14 +14,14 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/framework-bundle": ">=2.4.0",
-        "knplabs/knp-paginator-bundle": "2.3.*@dev",
+        "knplabs/knp-paginator-bundle": "2.4.*@dev",
         "gedmo/doctrine-extensions": "2.3.*",
         "gregwar/captcha-bundle": "1.0.*",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "liip/imagine-bundle": "dev-master"
     },
     "suggest": {
-        "desarrolla2/web-bundle": "Provide usefull features for web sites",
+        "desarrolla2/web-bundle": "Provide useful features for web sites",
         "desarrolla2/rss-client-bundle": "Provide Feed Handler",
         "desarrolla2/cache": "Simple cache system"
     },

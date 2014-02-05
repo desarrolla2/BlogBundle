@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\Query\QueryException;
+use FastFeed\Url;
 
 /**
  * RedirectController
@@ -52,6 +53,9 @@ class RedirectController extends Controller
             );
         }
 
+        $url = new Url($post->getSource());
+        $url->resetParameters();
+
         $utm_source = str_replace(
             array('http://', 'https://', '/', '-', '.'),
             array('', '', '', '_', '_'),
@@ -59,7 +63,7 @@ class RedirectController extends Controller
         );
 
         return new RedirectResponse(
-            $post->getSource() . '?utm_source=' . $utm_source,
+            $url->toString(),
             302
         );
     }
