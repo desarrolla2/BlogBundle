@@ -52,12 +52,15 @@ class RedirectController extends Controller
                 302
             );
         }
-
-        $url = new Url($post->getSource());
-        $url->resetParameters();
+        $this->get('snc_redis.default')
+            ->zincrby(
+                'click_' . $this->container->getParameter('database_name'),
+                1,
+                $post->getId()
+            );
 
         return new RedirectResponse(
-            $url->toString(),
+            $post->getSource(),
             302
         );
     }

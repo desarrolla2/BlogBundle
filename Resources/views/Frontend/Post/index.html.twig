@@ -1,23 +1,31 @@
 {% extends "::frontend.html.twig" %}
 {% block title %} {{ parent() }} {% if page != 1 %}| Página {{ page }} {% endif %}{% endblock %}
-{% block canonical %}<link rel="canonical" href="{{ url('_blog_default', { 'page' : page }) }}"/>{% endblock %}
-{% block meta_description %}{{ pagination.current.intro | striptags | truncate(150) }}{% endblock %}
-{% block meta_keywords %}{% for tag in pagination.current.tags %}{{ tag }}, {% endfor %}{% endblock %}
+{% block canonical %}
+  <link rel="canonical" href="{{ url('_blog_default', { 'page' : page }) }}"/>{% endblock %}
+{% block meta_description %}{% if pagination.current %}{{ pagination.current.intro | striptags | truncate(150) }}{% endif %}{% endblock %}
+{% block meta_keywords %}{% if pagination.current %}{% for tag in pagination.current.tags %}{{ tag }}, {% endfor %}{% endif %}{% endblock %}
 {% block meta_og %}
   {{ parent() }}
   <meta property="og:title" content="{{ pagination.current }}"/>
   <meta property="og:url" content="{{ url('_blog_default', { 'page' : page }) }}"/>
-  <meta property="og:description" content="{{ pagination.current.intro | striptags | raw | truncate(150) }}"/>
-  {% if pagination.current.hasImage %}
-    <meta property="og:image" content="{{ pagination.current.image }}"/>
+  <meta property="og:description"
+        content="{% if pagination.current %}{{ pagination.current.intro | striptags | raw | truncate(150) }}{% endif %}"/>
+  {% if pagination.current %}
+    {% if pagination.current.hasImage %}
+      <meta property="og:image" content="{% if pagination.current %}{{ pagination.current.image }}{% endif %}"/>
+    {% endif %}
   {% endif %}
 {% endblock %}
 {% block meta_twiter %}
   {{ parent() }}
-  <meta property="twitter:title" content="{{ pagination.current }}"/>
-  <meta property="twitter:description" content="{{ pagination.current.intro | striptags | raw | truncate(150) }}"/>
-  {% if pagination.current.hasImage %}
-    <meta property="twitter:image:src" content="{{ pagination.current.image }}"/>
+  <meta property="twitter:title" content="{% if pagination.current %}{{ pagination.current }}{% endif %}"/>
+  <meta property="twitter:description"
+        content="{% if pagination.current %}{{ pagination.current.intro | striptags | raw | truncate(150) }}{% endif %}"/>
+  {% if pagination.current %}
+    {% if pagination.current.hasImage %}
+      <meta property="twitter:image:src"
+            content="{% if pagination.current %}{{ pagination.current.image }}{% endif %}"/>
+    {% endif %}
   {% endif %}
 {% endblock %}
 {% block content %}
