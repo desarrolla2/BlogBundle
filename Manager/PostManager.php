@@ -27,8 +27,8 @@ class PostManager extends AbstractManager
 {
 
     /**
-     * @param EntityManager   $em
-     * @param EventDispatcher $eventDispatcher
+     * @param EntityManager            $em
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(EntityManager $em, EventDispatcherInterface $eventDispatcher)
     {

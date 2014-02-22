@@ -57,8 +57,8 @@ class PostHistory
      *
      * @var Post
      *
-     * @ORM\ManyToOne(targetEntity="Post", cascade={"remove"})
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\ManyToOne(targetEntity="Post")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
     protected $post;
 

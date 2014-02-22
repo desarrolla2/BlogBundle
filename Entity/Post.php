@@ -33,6 +33,21 @@ class Post
     protected $name;
 
     /**
+     * @var string $slug
+     *
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(name="slug", type="string", length=255, unique=true))
+     */
+    protected $slug;
+
+    /**
+     * @var string $source
+     *
+     * @ORM\Column(name="source", type="string", length=255, nullable=true)
+     */
+    protected $source;
+
+    /**
      * @var string $image
      *
      * @ORM\Column(name="image", type="string", length=255, nullable=true)
@@ -52,21 +67,6 @@ class Post
      * @ORM\Column(name="content", type="text")
      */
     protected $content;
-
-    /**
-     * @var string $slug
-     *
-     * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(name="slug", type="string", length=255, unique=true))
-     */
-    protected $slug;
-
-    /**
-     * @var string $source
-     *
-     * @ORM\Column(name="source", type="string", length=255, nullable=true)
-     */
-    protected $source;
 
     /**
      * @var int $status
