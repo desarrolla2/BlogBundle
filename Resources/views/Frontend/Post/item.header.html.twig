@@ -1,0 +1,18 @@
+{% if h is not defined %}
+  {% set h = 'h2' %}
+{% endif %}
+
+<header>
+  <span class="rating">
+        {{ rating }}
+    <span class="rate">
+        <a class="rating" href="#"
+           data-url="{{ path('_blog_rate', {'entity': 'Post', 'id': post.id , 'rate': '+1'}) }}">
+          me gusta
+        </a>
+      </span>
+  </span>
+  <{{ h }}>
+  <a href="{{ path('_blog_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a>
+</{{ h }}>
+</header>

@@ -24,20 +24,14 @@
 {% endblock %}
 {% block content %}
   <article class=" row">
-    <header>
-      <h1>
-        <a href="#rating">
-          <span class="rating {% if post.rating >= 0 %}positive{% else %}negative{% endif %}">
-          {{ post.rating }}
-          </span>
-        </a>
-        <a href="{{ url('_blog_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a>
-      </h1>
-    </header>
+    {% include 'BlogBundle:Frontend/Post:item.header.html.twig' with {'post': post, 'rating': post.rating, 'h' : 'h1'} %}
     {{ post.content | raw }}
 
     {% if post.hasSource %}
-      <p>Enlace a la fuente original: <a href="{{ post.source }}" target="_blank" title="{{ post }}">{{ post }}</a></p>
+      <p>Enlace a la fuente original:
+        <a href="{{ path('_blog_redirect_post_source', {id: post.id}) }}" target="_blank"
+           title="{{ post }}">{{ post }}</a>
+      </p>
     {% endif %}
     {% include 'BlogBundle:Frontend/Post:view.published.html.twig' with {'post': post  } %}
   </article>

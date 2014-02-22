@@ -43,6 +43,6 @@ class RatingController extends Controller
 
         $manager->persist($rating);
 
-        return new Response('Gracias por su valoración.');
+        return new Response('Gracias!.');
     }
 } 

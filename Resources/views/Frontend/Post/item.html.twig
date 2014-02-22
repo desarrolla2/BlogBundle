@@ -2,20 +2,16 @@
   {% set rating = post.rating %}
 {% endif %}
 <article class=" row">
-  <header>
-    <h2>
-      <span class="rating {% if rating >= 0 %}positive{% else %}negative{% endif %}">
-        {{ rating }}
-      </span>
-      <a href="{{ path('_blog_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a>
-    </h2>
-  </header>
+  {% include 'BlogBundle:Frontend/Post:item.header.html.twig' with {'post': post, 'rating': rating} %}
   {% if post.hasImage %}
     <img class="img" src="{{ post.image | imagine_filter('list_widen_200') }}" alt="{{ post }}"/>
   {% endif %}
   {{ post.intro | raw }}
   {% if post.hasSource %}
-    <p>Enlace a la fuente original: <a href="{{ post.source }}" target="_blank" title="{{ post }}">{{ post }}</a></p>
+    <p>Enlace a la fuente original:
+      <a href="{{ path('_blog_redirect_post_source', {id: post.id}) }}" target="_blank"
+         title="{{ post }}">{{ post }}</a>
+    </p>
   {% endif %}
   <small>
     Publicado el

@@ -11,7 +11,7 @@ $(document).ready(function () {
         $('a.rating').click(function (e) {
             e.preventDefault();
             $parent = $(this).parent()
-            $parent.html('<img src="/bundles/blog/img/wait.gif" class="rating"/>');
+            $parent.html('<img src="/bundles/blog/img/ajax-loader.gif" class="rating"/>');
             $.post($(this).data('url'))
                 .done(function (data) {
                     $parent.html(data);

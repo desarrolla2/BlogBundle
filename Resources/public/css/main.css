@@ -149,33 +149,38 @@ ul#archive {
     margin: 0 0 9px 0;
 }
 
+article header {
+    margin: 0 0 10px 0;
+}
+
+article header h1, article header h2 {
+    display: inline;
+}
+
+article header span.rating {
+    position: relative;
+    display: inline-block;
+    margin: 0 10px 0 0;
+    padding: 20px 35px;
+    font-size: 20px;
+    background: #E8E7E5;
+    -webkit-border-radius: 22px;
+    -moz-border-radius: 22px;
+    border-radius: 22px;
+}
+article header span.rating .rate {
+    position: absolute;
+    display: block;
+    bottom: 3px;
+    left: 9px;
+}
+
 article h2 {
     margin-bottom: 20px;
 }
 
 header h1 a:hover {
     text-decoration: none;
-}
-
-header span.rating {
-    font-size: 20px;
-    display: inline-block;
-    color: #fff;
-    padding: 0px 12px;
-}
-
-header span.positive, header span.negative {
-    -webkit-border-radius: 22px;
-    -moz-border-radius: 22px;
-    border-radius: 22px;
-}
-
-header span.positive {
-    background-color: #008000;
-}
-
-header span.negative {
-    background-color: #FF0000;
 }
 
 article h3 {
