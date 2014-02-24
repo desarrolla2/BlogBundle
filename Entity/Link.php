@@ -60,14 +60,14 @@ class Link
     /**
      * @var string $rss
      *
-     * @ORM\Column(name="rss", type="string", length=255, unique=true, nullable=true)
+     * @ORM\Column(name="rss", type="string", length=255, nullable=true)
      */
     protected $rss = null;
 
     /**
      * @var string $mail
      *
-     * @ORM\Column(name="mail", type="string", length=255, unique=true, nullable=true)
+     * @ORM\Column(name="mail", type="string", length=255, nullable=true)
      */
     protected $mail = null;
 
