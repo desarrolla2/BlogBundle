@@ -28,7 +28,6 @@ class BlogExtension extends Extension
 
         $files = array(
             'twig.xml',
-            'sanitizer.xml',
             'search.xml',
             'manager.xml',
             'listener.xml',

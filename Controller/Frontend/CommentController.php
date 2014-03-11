@@ -38,7 +38,8 @@ class CommentController extends Controller
         $comment->setPost($post);
         $form = $this->createForm(new CommentType(), new CommentModel($comment));
         if ($request->getMethod() == 'POST') {
-            $formHandler = new CommentHandler($form, $request, $em, $this->container->get('blog.sanitizer'), $comment);
+
+            $formHandler = new CommentHandler($form, $request, $em, $this->container->get('blog.sanitizer.manager'), $comment);
 
             if ($formHandler->process()) {
                 return $this->redirect($this->generateUrl('_comment_message'));

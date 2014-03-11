@@ -15,7 +15,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Desarrolla2\Bundle\BlogBundle\Entity\Comment;
 use Doctrine\ORM\EntityManager;
-use Desarrolla2\RSSClient\Handler\Sanitizer\SanitizerHandler;
+use Desarrolla2\Bundle\BlogBundle\Manager\SanitizerManager;
 
 class CommentHandler
 {
@@ -36,7 +36,7 @@ class CommentHandler
 
     /**
      *
-     * @var \Desarrolla2\RSSClient\Handler\Sanitizer\SanitizerHandler
+     * @var SanitizerManager
      */
     protected $sanitizer;
 
@@ -49,10 +49,10 @@ class CommentHandler
      * @param Form             $form
      * @param Request          $request
      * @param EntityManager    $em
-     * @param SanitizerHandler $sanitizer
+     * @param SanitizerManager $sanitizer
      * @param Comment          $comment
      */
-    public function __construct(Form $form, Request $request, EntityManager $em, SanitizerHandler $sanitizer, Comment $comment)
+    public function __construct(Form $form, Request $request, EntityManager $em, SanitizerManager $sanitizer, Comment $comment)
     {
         $this->form = $form;
         $this->request = $request;
