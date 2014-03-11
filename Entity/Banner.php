@@ -221,7 +221,7 @@ class Banner
     /**
      * Get weight
      *
-     * @return integer 
+     * @return integer
      */
     public function getWeight()
     {

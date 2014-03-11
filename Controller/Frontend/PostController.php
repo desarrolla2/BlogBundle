@@ -23,7 +23,7 @@ class PostController extends Controller
      * @Method({"GET"})
      * @Template()
      *
-     * @param Request $request
+     * @param  Request                                                       $request
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return array
      */
@@ -57,9 +57,9 @@ class PostController extends Controller
      * @Method({"GET"})
      * @Template()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param  \Symfony\Component\HttpFoundation\Request                     $request
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @param Request                                   $request
+     * @param  Request                                                       $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function viewAction(Request $request)
@@ -86,7 +86,7 @@ class PostController extends Controller
     }
 
     /**
-     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
+     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Post    $post
      * @return \Desarrolla2\Bundle\BlogBundle\Entity\Comment
      */
     protected function createCommentForPost(Post $post)
@@ -103,7 +103,7 @@ class PostController extends Controller
     protected function getPage()
     {
         $request = $this->getRequest();
-        $page = (int)$request->get('page', 1);
+        $page = (int) $request->get('page', 1);
         if ($page < 1) {
             $this->createNotFoundException('Page number is not valid' . $page);
         }

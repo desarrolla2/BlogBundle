@@ -12,7 +12,6 @@ namespace Desarrolla2\Bundle\BlogBundle\Tests\Controller\Frontend;
 
 use Desarrolla2\Bundle\BlogBundle\Tests\Controller\AbstractControllerTest;
 
-
 /**
  * Class PostControllerTest
  *

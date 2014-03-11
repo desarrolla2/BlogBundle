@@ -72,4 +72,4 @@ abstract class AbstractFilterHandler
     {
         return $this->form->getData();
     }
-} 
+}

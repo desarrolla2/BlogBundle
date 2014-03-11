@@ -10,7 +10,6 @@
 namespace Desarrolla2\Bundle\BlogBundle\EventListener;
 
 use Desarrolla2\Bundle\BlogBundle\Event\PostEvent;
-use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use Desarrolla2\Bundle\BlogBundle\Manager\PostManager;
 
 /**

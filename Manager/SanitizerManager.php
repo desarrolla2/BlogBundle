@@ -39,4 +39,4 @@ class SanitizerManager
     {
         return $this->purifier->purify($string);
     }
-} 
+}

@@ -2,10 +2,8 @@
 namespace Desarrolla2\Bundle\BlogBundle\Search;
 
 use Desarrolla2\Bundle\BlogBundle\Entity\Post;
-use Desarrolla2\Bundle\BlogBundle\Search\SearchInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Knp\Component\Pager\Paginator;
-use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
  * Class MySQL
@@ -56,8 +54,8 @@ class MySQL extends AbstractSearch
     }
 
     /**
-     * @param     $query
-     * @param int $page
+     * @param        $query
+     * @param  int   $page
      * @return array
      */
     public function search($query, $page = 1)
@@ -74,8 +72,8 @@ class MySQL extends AbstractSearch
     }
 
     /**
-     * @param Post $post
-     * @param int  $limit
+     * @param  Post  $post
+     * @param  int   $limit
      * @return mixed
      */
     public function related(Post $post, $limit = 3)

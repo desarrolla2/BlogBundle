@@ -32,8 +32,8 @@ class AuthorFilterModel
      */
     public function __construct(Request $request)
     {
-        $this->name = (string)$request->get('name', '');
-        $this->email = (string)$request->get('email', '');
+        $this->name = (string) $request->get('name', '');
+        $this->email = (string) $request->get('email', '');
     }
 
     /**

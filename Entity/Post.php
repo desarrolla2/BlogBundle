@@ -178,13 +178,13 @@ class Post
     /**
      * Set content
      *
-     * @param  string $content
+     * @param string $content
      *
      * @return Post
      */
     public function setContent($content)
     {
-        $this->content = (string)$content;
+        $this->content = (string) $content;
 
         return $this;
     }
@@ -202,7 +202,7 @@ class Post
     /**
      * Set slug
      *
-     * @param  string $slug
+     * @param string $slug
      *
      * @return Post
      */
@@ -226,7 +226,7 @@ class Post
     /**
      * Set created_at
      *
-     * @param  \DateTime $createdAt
+     * @param \DateTime $createdAt
      *
      * @return Post
      */
@@ -250,7 +250,7 @@ class Post
     /**
      * Set updated_at
      *
-     * @param  \DateTime $updatedAt
+     * @param \DateTime $updatedAt
      *
      * @return Post
      */
@@ -274,7 +274,7 @@ class Post
     /**
      * Set author
      *
-     * @param  Author $author
+     * @param Author $author
      *
      * @return Post
      */
@@ -298,7 +298,7 @@ class Post
     /**
      * Set name
      *
-     * @param  string $name
+     * @param string $name
      *
      * @return Post
      */
@@ -322,7 +322,7 @@ class Post
     /**
      * Add tags
      *
-     * @param  Tag $tags
+     * @param Tag $tags
      *
      * @return Post
      */
@@ -379,7 +379,7 @@ class Post
     /**
      * Add comments
      *
-     * @param  Comment $comments
+     * @param Comment $comments
      *
      * @return Post
      */
@@ -414,13 +414,13 @@ class Post
     /**
      * Set intro
      *
-     * @param  string $intro
+     * @param string $intro
      *
      * @return Post
      */
     public function setIntro($intro)
     {
-        $this->intro = (string)$intro;
+        $this->intro = (string) $intro;
 
         return $this;
     }
@@ -438,7 +438,7 @@ class Post
     /**
      * Set publishedAt
      *
-     * @param  \DateTime $publishedAt
+     * @param \DateTime $publishedAt
      *
      * @return Post
      */
@@ -462,7 +462,7 @@ class Post
     /**
      * Add history
      *
-     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history
+     * @param \Desarrolla2\Bundle\BlogBundle\Entity\PostHistory $history
      *
      * @return Post
      */
@@ -496,7 +496,7 @@ class Post
     /**
      * Set source
      *
-     * @param  string $source
+     * @param string $source
      *
      * @return Post
      */
@@ -522,7 +522,7 @@ class Post
      */
     public function hasSource()
     {
-        return (bool)$this->getSource();
+        return (bool) $this->getSource();
     }
 
     /**
@@ -538,7 +538,7 @@ class Post
     /**
      * Set Status
      *
-     * @param  int $status
+     * @param int $status
      *
      * @return Post
      */
@@ -562,7 +562,7 @@ class Post
     /**
      * Set Image
      *
-     * @param  string $image
+     * @param string $image
      *
      * @return Post
      */
@@ -580,7 +580,7 @@ class Post
      */
     public function isPublished()
     {
-        return (bool)($this->status == PostStatus::PUBLISHED);
+        return (bool) ($this->status == PostStatus::PUBLISHED);
     }
 
     /**

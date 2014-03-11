@@ -10,10 +10,8 @@
 
 namespace Desarrolla2\Bundle\BlogBundle\Search;
 
-use Desarrolla2\Bundle\BlogBundle\Search\SearchInterface;
 use Knp\Component\Pager\Paginator;
 use Knp\Component\Pager\Pagination\PaginationInterface;
-
 
 /**
  * Class AbstractSearch

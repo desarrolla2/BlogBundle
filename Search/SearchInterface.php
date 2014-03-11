@@ -24,15 +24,15 @@ use Knp\Component\Pager\Pagination\PaginationInterface;
 interface SearchInterface
 {
     /**
-     * @param string $query
-     * @param int    $page
+     * @param  string $query
+     * @param  int    $page
      * @return array
      */
     public function search($query, $page);
 
     /**
-     * @param Post $post
-     * @param int  $limit
+     * @param  Post   $post
+     * @param  int    $limit
      * @return Post[]
      */
     public function related(Post $post, $limit = 3);

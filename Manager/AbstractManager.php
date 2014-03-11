@@ -36,4 +36,4 @@ abstract class AbstractManager
         $this->em = $em;
         $this->eventDispatcher = $eventDispatcher;
     }
-} 
+}

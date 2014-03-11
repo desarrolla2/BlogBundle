@@ -15,7 +15,6 @@ namespace Desarrolla2\Bundle\BlogBundle\Manager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Doctrine\ORM\EntityManager;
 use Desarrolla2\Bundle\BlogBundle\Entity\Post;
-use Desarrolla2\Bundle\BlogBundle\Entity\Repository\PostRepository;
 use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 use \DateTime;
 
@@ -74,7 +73,7 @@ class PostManager extends AbstractManager
     /**
      * @param Post $post
      */
-    protected function  persist(Post $post)
+    protected function persist(Post $post)
     {
         $this->em->persist($post);
         $this->em->flush();

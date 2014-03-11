@@ -53,4 +53,4 @@ class RatingManager extends AbstractManager
             new RatingEvent($rating)
         );
     }
-} 
+}

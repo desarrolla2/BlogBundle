@@ -38,4 +38,4 @@ class RatingEvent extends Event
         return $this->rating;
     }
 
-} 
+}

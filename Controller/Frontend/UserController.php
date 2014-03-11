@@ -36,7 +36,7 @@ class UserController extends Controller
      * @Route("/register", name="_blog_user_register")
      * @Method({"GET", "POST"})
      * @Template()
-     * @param Request $request
+     * @param  Request $request
      * @return array
      */
     public function registerAction(Request $request)

@@ -10,9 +10,6 @@
 namespace Desarrolla2\Bundle\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Desarrolla2\Bundle\BlogBundle\Entity\Post

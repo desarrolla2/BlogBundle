@@ -15,4 +15,4 @@ namespace Desarrolla2\Bundle\BlogBundle\Event;
 class PostEvents
 {
     const VISITED = 'blog.post.visited';
-} 
+}

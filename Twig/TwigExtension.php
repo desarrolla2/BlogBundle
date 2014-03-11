@@ -65,7 +65,7 @@ class TwigExtension extends \Twig_Extension
 
     /**
      *
-     * @param  \DateTime $date
+     * @param \DateTime $date
      *
      * @return string
      */
@@ -85,9 +85,9 @@ class TwigExtension extends \Twig_Extension
 
     /**
      *
-     * @param  \DateTime $date
-     * @param  string    $dateType
-     * @param  string    $timeType
+     * @param \DateTime $date
+     * @param string    $dateType
+     * @param string    $timeType
      *
      * @return string
      */
@@ -115,7 +115,7 @@ class TwigExtension extends \Twig_Extension
 
     /**
      *
-     * @param  string $timeType
+     * @param string $timeType
      *
      * @return int
      */
@@ -145,7 +145,7 @@ class TwigExtension extends \Twig_Extension
 
     /**
      *
-     * @param  string $dateType
+     * @param string $dateType
      *
      * @return int
      */

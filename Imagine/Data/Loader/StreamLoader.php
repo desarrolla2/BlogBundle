@@ -64,7 +64,7 @@ class StreamLoader implements LoaderInterface
      *
      * @return mixed
      */
-    function getContent($url)
+    public function getContent($url)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);

@@ -15,4 +15,4 @@ namespace Desarrolla2\Bundle\BlogBundle\Event;
 final class RatingEvents
 {
     const PERSISTED = 'blog.rating.persisted';
-} 
+}

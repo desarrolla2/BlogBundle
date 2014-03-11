@@ -25,7 +25,7 @@ class RatingRepository extends EntityRepository
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('n', 'n', 'integer');
 
-        return (int)$this->getEntityManager()
+        return (int) $this->getEntityManager()
             ->createNativeQuery(
                 ' SELECT SUM(r.rating) as n ' .
                 ' FROM rating AS r' .
@@ -49,7 +49,7 @@ class RatingRepository extends EntityRepository
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('n', 'n', 'integer');
 
-        return (int)$this->getEntityManager()
+        return (int) $this->getEntityManager()
             ->createNativeQuery(
                 ' SELECT COUNT(*) as n ' .
                 ' FROM rating AS r' .

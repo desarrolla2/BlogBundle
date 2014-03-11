@@ -122,6 +122,4 @@ class BannerModel
         return $this->weight;
     }
 
-
-
-} 
+}

@@ -30,8 +30,8 @@ class SearchManager
     }
 
     /**
-     * @param string $query
-     * @param int $page
+     * @param  string $query
+     * @param  int    $page
      * @return array
      */
     public function search($query, $page = 1)

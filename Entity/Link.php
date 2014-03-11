@@ -279,7 +279,7 @@ class Link
      */
     public function setDescription($description)
     {
-        $this->description = (string)$description;
+        $this->description = (string) $description;
 
         return $this;
     }
@@ -315,7 +315,7 @@ class Link
      */
     public function setNotes($notes)
     {
-        $this->notes = (string)$notes;
+        $this->notes = (string) $notes;
     }
 
     /**
@@ -329,20 +329,20 @@ class Link
     /**
      * Set slug
      *
-     * @param string $slug
+     * @param  string $slug
      * @return Link
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
-    
+
         return $this;
     }
 
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {

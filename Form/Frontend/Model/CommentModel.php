@@ -24,7 +24,7 @@ class CommentModel
      * @var integer $id
      *
      */
-    protected  $id;
+    protected $id;
 
     /**
      * @var string $content

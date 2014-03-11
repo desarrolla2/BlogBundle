@@ -56,12 +56,12 @@ class PostFilterHandler
         $this->form->submit($this->request);
         if ($this->form->isValid()) {
             $formData = $this->form->getData();
-            $name = (string)$formData->getName();
+            $name = (string) $formData->getName();
             if ($name) {
                 $this->qb->andWhere($this->qb->expr()->like('p.name', ':name'))
                     ->setParameter('name', '%' . $name . '%');
             }
-            $text = (string)$formData->getText();
+            $text = (string) $formData->getText();
             if ($text) {
                 $this->qb->andWhere(
                     $this->qb->expr()->orx(
@@ -75,7 +75,7 @@ class PostFilterHandler
                     ->setParameter('content', '%' . $text . '%');
             }
 
-            $isPublished = (string)$formData->getIsPublished();
+            $isPublished = (string) $formData->getIsPublished();
             if ($isPublished) {
                 if ($isPublished == 'yes') {
                     $this->qb->andWhere($this->qb->expr()->like('p.isPublished', ':isPublished'))
@@ -87,11 +87,10 @@ class PostFilterHandler
                 }
             }
 
-            $order = (string)$formData->getOrder();
+            $order = (string) $formData->getOrder();
             if ($order) {
                 $this->qb->orderBy('p.' . $order, 'DESC');
             }
-
 
             return true;
         }

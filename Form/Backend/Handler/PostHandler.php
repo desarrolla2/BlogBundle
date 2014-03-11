@@ -66,11 +66,11 @@ class PostHandler
         $this->form->submit($this->request);
         if ($this->form->isValid()) {
             $entityModel = $this->form->getData();
-            $this->entity->setName((string)$entityModel->getName());
-            $this->entity->setIntro((string)$entityModel->getIntro());
-            $this->entity->setContent((string)$entityModel->getContent());
-            $this->entity->setImage((string)$entityModel->getImage());
-            $this->entity->setStatus((bool)$entityModel->getStatus());
+            $this->entity->setName((string) $entityModel->getName());
+            $this->entity->setIntro((string) $entityModel->getIntro());
+            $this->entity->setContent((string) $entityModel->getContent());
+            $this->entity->setImage((string) $entityModel->getImage());
+            $this->entity->setStatus((bool) $entityModel->getStatus());
             if ($this->entity->isPublished() && !$this->entity->getPublishedAt()) {
                 $this->entity->setPublishedAt(new DateTime());
             }

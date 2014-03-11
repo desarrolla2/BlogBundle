@@ -17,7 +17,7 @@ class TagRepository extends EntityRepository
     const TAGS_PER_PAGE = 20;
 
     /**
-     * @param int $limit
+     * @param  int   $limit
      * @return array
      */
     public function get($limit = self::TAGS_PER_PAGE)
@@ -46,7 +46,7 @@ class TagRepository extends EntityRepository
     }
 
     /**
-     * @param int $limit
+     * @param  int                        $limit
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function getQueryBuilderForGet($limit = self::TAGS_PER_PAGE)

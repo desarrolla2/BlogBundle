@@ -15,7 +15,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Doctrine\ORM\Query\QueryException;
 use Desarrolla2\Bundle\BlogBundle\Entity\PostClick;
 
 /**
@@ -65,4 +64,4 @@ class RedirectController extends Controller
             302
         );
     }
-} 
+}

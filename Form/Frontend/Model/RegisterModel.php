@@ -12,7 +12,6 @@ namespace Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * Class RegisterModel
  *
@@ -41,7 +40,6 @@ class RegisterModel
      * @Assert\Length( min=4 )
      */
     protected $plainPassword;
-
 
     /**
      * @var string

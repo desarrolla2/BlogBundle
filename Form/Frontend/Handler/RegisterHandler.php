@@ -37,7 +37,6 @@ class RegisterHandler
      */
     protected $em;
 
-
     /**
      * @param Form          $form
      * @param Request       $request
@@ -59,7 +58,6 @@ class RegisterHandler
 
         if ($this->form->isValid()) {
             // @TODO
-
             return true;
         }
 

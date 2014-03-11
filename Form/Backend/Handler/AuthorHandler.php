@@ -32,10 +32,10 @@ class AuthorHandler
 
     /**
      *
-     * @param \Symfony\Component\Form\Form              $form
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\Form\Form                 $form
+     * @param \Symfony\Component\HttpFoundation\Request    $request
      * @param \Desarrolla2\Bundle\BlogBundle\Entity\Author $entity
-     * @param \Doctrine\ORM\EntityManager               $em
+     * @param \Doctrine\ORM\EntityManager                  $em
      */
     public function __construct(Form $form, Request $request, Author $entity, EntityManager $em)
     {

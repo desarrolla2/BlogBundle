@@ -38,4 +38,4 @@ class ImagineController extends Controller
         }
     }
 
-} 
+}

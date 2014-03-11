@@ -16,7 +16,6 @@ use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 use Symfony\Component\Validator\Constraints\DateTime;
 
-
 /**
  * Class LoadPosts
  *

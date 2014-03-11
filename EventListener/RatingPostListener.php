@@ -49,4 +49,4 @@ class RatingPostListener
         $this->postManager->updateRating($post);
     }
 
-} 
+}

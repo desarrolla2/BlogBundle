@@ -11,7 +11,6 @@ namespace Desarrolla2\Bundle\BlogBundle\Form\Backend\Handler;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * BannerFilterHandler
@@ -27,7 +26,7 @@ class BannerFilterHandler extends AbstractFilterHandler
         $this->form->submit($this->request);
         if ($this->form->isValid()) {
             $formData = $this->form->getData();
-            if ($name = (string)$formData->name) {
+            if ($name = (string) $formData->name) {
                 $this->qb->andWhere($this->qb->expr()->like('t.name', ':name'))
                     ->setParameter('name', '%' . $name . '%');
             }
@@ -37,4 +36,4 @@ class BannerFilterHandler extends AbstractFilterHandler
 
         return false;
     }
-} 
+}

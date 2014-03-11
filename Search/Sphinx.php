@@ -4,9 +4,7 @@ namespace Desarrolla2\Bundle\BlogBundle\Search;
 
 use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use Doctrine\ORM\EntityManager;
-use Desarrolla2\Bundle\BlogBundle\Search\SearchInterface;
 use Knp\Component\Pager\Paginator;
-use Knp\Component\Pager\Pagination\PaginationInterface;
 use SphinxClient;
 
 class Sphinx extends AbstractSearch
@@ -63,9 +61,9 @@ class Sphinx extends AbstractSearch
 
     /**
      *
-     * @param Post $post
-     * @param int  $limit
-     * @param  int $limit
+     * @param  Post  $post
+     * @param  int   $limit
+     * @param  int   $limit
      * @return array
      */
 

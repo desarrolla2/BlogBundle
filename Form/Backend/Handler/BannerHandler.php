@@ -41,4 +41,4 @@ class BannerHandler extends AbstractHandler
 
         return false;
     }
-} 
+}
