@@ -14,16 +14,17 @@ use Desarrolla2\Bundle\BlogBundle\Form\Frontend\Model\CommentModel;
 use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\Query\QueryException;
+use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
 {
-
     /**
      * @Route("/{page}", name="_blog_default", requirements={"page" = "\d{1,6}"}, defaults={"page" = "1" })
      * @Method({"GET"})
      * @Template()
      *
-     * @param  Request                                                       $request
+     * @param  Request $request
+     *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return array
      */
@@ -57,9 +58,9 @@ class PostController extends Controller
      * @Method({"GET"})
      * @Template()
      *
-     * @param  \Symfony\Component\HttpFoundation\Request                     $request
+     * @param  Request $request
+     *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @param  Request                                                       $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function viewAction(Request $request)
@@ -86,7 +87,33 @@ class PostController extends Controller
     }
 
     /**
-     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Post    $post
+     *
+     * @Route("/view/post/{slug}" , name="_blog_post_view", requirements={"slug" = "[\w\d\-]+"})
+     * @Method({"POST"})
+     *
+     * @param  Request $request
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @return Response
+     */
+    public function postViewAction(Request $request)
+    {
+        $post = $this->getDoctrine()->getManager()
+            ->getRepository('BlogBundle:Post')->getOneBySlug($request->get('slug', false));
+        if (!$post) {
+            throw $this->createNotFoundException('The post does not exist');
+        }
+
+        $this->getDoctrine()->getManager()
+            ->getRepository('BlogBundle:PostView')
+            ->add($post);
+
+        return new Response();
+    }
+
+    /**
+     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
+     *
      * @return \Desarrolla2\Bundle\BlogBundle\Entity\Comment
      */
     protected function createCommentForPost(Post $post)
@@ -103,7 +130,7 @@ class PostController extends Controller
     protected function getPage()
     {
         $request = $this->getRequest();
-        $page = (int) $request->get('page', 1);
+        $page = (int)$request->get('page', 1);
         if ($page < 1) {
             $this->createNotFoundException('Page number is not valid' . $page);
         }

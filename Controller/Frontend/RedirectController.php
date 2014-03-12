@@ -54,10 +54,9 @@ class RedirectController extends Controller
             );
         }
 
-        $this->getDoctrine()
-            ->getManager()
+        $this->getDoctrine()->getManager()
             ->getRepository('BlogBundle:PostClick')
-            ->addClick($post);
+            ->add($post);
 
         return new RedirectResponse(
             $post->getSource(),

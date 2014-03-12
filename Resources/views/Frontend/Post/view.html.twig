@@ -24,7 +24,7 @@
 {% endblock %}
 {% block content %}
   <article class=" row">
-    {% include 'BlogBundle:Frontend/Post:item.header.html.twig' with {'post': post, 'rating': post.rating, 'h' : 'h1'} %}
+    {% include 'BlogBundle:Frontend/Post:view.header.html.twig' with {'post': post, 'rating': post.rating, 'h' : 'h1'} %}
     {{ post.content | raw }}
 
     {% if post.hasSource %}

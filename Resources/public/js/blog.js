@@ -20,6 +20,15 @@ $(document).ready(function () {
     })();
 
     (function () {
+        var $p = $('a#post-view');
+        if (!$p.length) {
+            return;
+        }
+        $.post("/view" + $p.attr('href'), function () {
+        });
+    })();
+
+    (function () {
         var cookieLaw = Cookie.get('accepted-cookie-law');
 
         if (cookieLaw !== 'yes') {
