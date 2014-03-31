@@ -1,4 +1,4 @@
-{% if ga_tracking %}
+{% if ga_tracking is defined and ga_tracking is not empty %}
   {% spaceless %}
     <script type="text/javascript">
       var _gaq = _gaq || [];
