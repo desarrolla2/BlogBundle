@@ -1,4 +1,4 @@
-{% spaceless %}<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ locale }}">
 <head>
   <meta charset="UTF-8"/>
@@ -22,8 +22,9 @@
   {% endblock %}
   <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
   <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
-  {% include "BlogBundle::base.css.bootstrap.html.twig" %}
-  {% block stylesheets %}{% endblock %}
+  {% block stylesheets %}
+    {% block bootstrap_css %}{% include "BlogBundle::base.css.bootstrap.html.twig" %}{% endblock %}
+  {% endblock %}
 </head>
 <body>
 {% block body %}{% endblock %}
@@ -32,4 +33,4 @@
 {% block javascripts %}{% endblock %}
 {% block analitycs %}{% endblock %}
 </body>
-</html>{% endspaceless %}
+</html>
