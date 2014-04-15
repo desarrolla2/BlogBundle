@@ -27,7 +27,7 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('items')->defaultValue(12)->end()
             ->scalarNode('ga_tracking')->defaultValue('')->end()
             ->scalarNode('locale')->defaultValue('en')->end()
-            ->scalarNode('default_image')->defaultValue(false)->end()
+            ->scalarNode('default_image')->defaultValue('')->end()
             ->scalarNode('upload_dir')->defaultValue('%kernel.root_dir%/../web/uploads')->end()
             ->scalarNode('upload_url')->defaultValue('/uploads')->end()
             ->append($this->createSearchSection())

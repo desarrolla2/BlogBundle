@@ -177,10 +177,12 @@ You can to override templates or blocks of blog bundle here.
 
 #Configure locale
 
+``` yml
 twig:
     globals:
-        env: %kernel.environment%
+        env: "%kernel.environment%"
         locale: 'en'
+```
 
 #Last step Assetic Configuration
 
