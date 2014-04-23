@@ -18,7 +18,7 @@
         "gedmo/doctrine-extensions": "2.3.*",
         "gregwar/captcha-bundle": "1.0.*",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "liip/imagine-bundle": "dev-master"
+        "liip/imagine-bundle": "~0.1"
     },
     "suggest": {
         "desarrolla2/web-bundle": "Provide useful features for web sites",
