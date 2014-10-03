@@ -11,7 +11,7 @@
     </h2>
   </header>
   {% if post.hasImage %}
-    <img class="img" src="{{ post.image | imagine_filter('list_widen_200') }}" alt="{{ post }}"/>
+    <img class="img" src="{{ post.image | imagine_filter('list') }}" alt="{{ post }}"/>
   {% endif %}
   {{ post.intro | raw }}
   {% if post.hasSource %}

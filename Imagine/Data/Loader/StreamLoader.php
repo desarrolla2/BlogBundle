@@ -11,7 +11,7 @@
 namespace Desarrolla2\Bundle\BlogBundle\Imagine\Data\Loader;
 
 use Imagine\Image\ImagineInterface;
-use Liip\ImagineBundle\Imagine\Data\Loader\LoaderInterface;
+use Liip\ImagineBundle\Binary\Loader\LoaderInterface;
 
 /**
  * StreamLoader
