@@ -21,7 +21,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FastFeed\Url\Url;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * ImagineController

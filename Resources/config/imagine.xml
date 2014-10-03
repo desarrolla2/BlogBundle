@@ -8,10 +8,9 @@
                  class="Desarrolla2\Bundle\BlogBundle\Imagine\Data\Loader\StreamLoader">
             <argument type="service" id="liip_imagine"/>
             <argument type="string">%blog.default_image%</argument>
-
             <tag name="liip_imagine.binary.loader" loader="blog.stream_loader" />
         </service>
-        <service id="blog.liip_imagine.controller" class="%blog.liip_imagine.controller.class%">
+        <service id="blog.liip_imagine.controller" class="Desarrolla2\Bundle\BlogBundle\Controller\Frontend\ImagineController">
             <argument type="service" id="liip_imagine.data.manager" />
             <argument type="service" id="liip_imagine.filter.manager" />
             <argument type="service" id="liip_imagine.cache.manager" />
