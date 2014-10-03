@@ -26,7 +26,7 @@ class PostViewRepository extends EntityRepository
 
         $click = $this->findOneBy(
             array(
-                'post_id' => $post->getId(),
+                'postId' => $post->getId(),
                 'date' => $date
             )
         );
