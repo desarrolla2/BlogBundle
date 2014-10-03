@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FastFeed\Url\Url;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * ImagineController
@@ -64,8 +65,8 @@ class ImagineController extends Controller
 
     /**
      * @param Request $request
-     * @param string  $path
-     * @param string  $filter
+     * @param string $path
+     * @param string $filter
      *
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws
@@ -102,7 +103,8 @@ class ImagineController extends Controller
                 ), 0, $e);
             }
         } catch (\Exception $e) {
-            throw $this->createNotFoundException('The image does not exist');
+            throw $e;
+            //throw new NotFoundHttpException('The image does not exist');
         }
     }
 

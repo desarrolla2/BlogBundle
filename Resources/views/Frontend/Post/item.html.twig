@@ -4,7 +4,7 @@
 <article class=" row">
   {% include 'BlogBundle:Frontend/Post:item.header.html.twig' with {'post': post, 'rating': rating} %}
   {% if post.hasImage %}
-    <img class="img" src="{{ post.image | imagine_filter('list_widen_200') }}" alt="{{ post }}"/>
+    <img class="img" src="{{ post.image | imagine_filter('list') }}" alt="{{ post }}"/>
   {% endif %}
   {{ post.intro | raw }}
   {% if post.hasSource %}
