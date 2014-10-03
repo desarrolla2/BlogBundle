@@ -1,0 +1,30 @@
+{% extends "::frontend.html.twig" %}
+{% block title %} Elementos más comentados {{ period }} {% endblock %}
+
+{% block content %}
+
+  <article class="report row">
+    <header>
+      <h2><a href="">Elementos más comentados {{ period }}</a></h2>
+    </header>
+
+    <ul class="nav nav-pills">
+      <li><a href="{{ path('_blog_report_most_commented',{'period': 'yesterday' } ) }}">Ayer</a></li>
+      <li><a href="{{ path('_blog_report_most_commented',{'period': 'last-week' } ) }}">Última semana</a></li>
+      <li><a href="{{ path('_blog_report_most_commented',{'period': 'last-month' } ) }}">Último més</a></li>
+      <li><a href="{{ path('_blog_report_most_commented',{'period': 'last-year' } ) }}">Último año</a></li>
+      <li><a href="{{ path('_blog_report_most_commented',{'period': 'ever' } ) }}">Siempre</a></li>
+    </ul>
+
+    <p>
+      Estas son las entradas que fueron más comentadas {{ period }}.
+    </p>
+  </article>
+
+  {% for item in items %}
+    {% include 'BlogBundle:Frontend/Post:item.html.twig' with {'post': item.post, 'rating': item.rating} %}
+  {% else %}
+    <p>No hay elementos</p>
+  {% endfor %}
+  </ul>
+{% endblock %}

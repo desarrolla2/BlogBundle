@@ -35,7 +35,7 @@ class PostView
      *
      * @ORM\Column(name="post_id", type="integer")
      */
-    protected $post_id;
+    protected $postId;
 
     /**
      *
@@ -43,7 +43,7 @@ class PostView
      *
      * @ORM\Column(name="post_slug", type="string")
      */
-    protected $post_slug;
+    protected $postSlug;
 
     /**
      *
@@ -95,7 +95,7 @@ class PostView
      */
     public function setPostId($postId)
     {
-        $this->post_id = $postId;
+        $this->postId = $postId;
 
         return $this;
     }
@@ -107,7 +107,7 @@ class PostView
      */
     public function getPostId()
     {
-        return $this->post_id;
+        return $this->postId;
     }
 
     /**
@@ -119,7 +119,7 @@ class PostView
      */
     public function setPostSlug($postSlug)
     {
-        $this->post_slug = $postSlug;
+        $this->postSlug = $postSlug;
 
         return $this;
     }
@@ -131,7 +131,7 @@ class PostView
      */
     public function getPostSlug()
     {
-        return $this->post_slug;
+        return $this->postSlug;
     }
 
     /**
@@ -239,8 +239,8 @@ class PostView
      */
     public function setPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post = null)
     {
-        $this->post_id = $post->getId();
-        $this->post_slug = $post->getSlug();
+        $this->postId = $post->getId();
+        $this->postSlug = $post->getSlug();
 
         return $this;
     }

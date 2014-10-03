@@ -28,7 +28,6 @@ use DateTime;
  */
 class ReportController extends Controller
 {
-
     /**
      * @Route("/posted-items", name="_blog_report")
      * @Method({"GET"})
@@ -36,7 +35,6 @@ class ReportController extends Controller
      */
     public function postedItemsAction()
     {
-
         $em = $this->getDoctrine()->getManager();
         $day_ago = new DateTime('-1 day');
         $week_ago = new DateTime('-1 week');
@@ -47,39 +45,39 @@ class ReportController extends Controller
         return array(
             'post' => array(
                 'last_day' => $em->getRepository('BlogBundle:Post')
-                        ->countFromDate($day_ago),
+                    ->countFromDate($day_ago),
                 'last_week' => $em->getRepository('BlogBundle:Post')
-                        ->countFromDate($week_ago),
+                    ->countFromDate($week_ago),
                 'last_month' => $em->getRepository('BlogBundle:Post')
-                        ->countFromDate($month_ago),
+                    ->countFromDate($month_ago),
                 'last_year' => $em->getRepository('BlogBundle:Post')
-                        ->countFromDate($year_ago),
+                    ->countFromDate($year_ago),
                 'total' => $em->getRepository('BlogBundle:Post')
-                        ->countFromDate($first_time),
+                    ->countFromDate($first_time),
             ),
             'comment' => array(
                 'last_day' => $em->getRepository('BlogBundle:Comment')
-                        ->countFromDate($day_ago),
+                    ->countFromDate($day_ago),
                 'last_week' => $em->getRepository('BlogBundle:Comment')
-                        ->countFromDate($week_ago),
+                    ->countFromDate($week_ago),
                 'last_month' => $em->getRepository('BlogBundle:Comment')
-                        ->countFromDate($month_ago),
+                    ->countFromDate($month_ago),
                 'last_year' => $em->getRepository('BlogBundle:Comment')
-                        ->countFromDate($year_ago),
+                    ->countFromDate($year_ago),
                 'total' => $em->getRepository('BlogBundle:Comment')
-                        ->countFromDate($first_time),
+                    ->countFromDate($first_time),
             ),
             'link' => array(
                 'last_day' => $em->getRepository('BlogBundle:Link')
-                        ->countFromDate($day_ago),
+                    ->countFromDate($day_ago),
                 'last_week' => $em->getRepository('BlogBundle:Link')
-                        ->countFromDate($week_ago),
+                    ->countFromDate($week_ago),
                 'last_month' => $em->getRepository('BlogBundle:Link')
-                        ->countFromDate($month_ago),
+                    ->countFromDate($month_ago),
                 'last_year' => $em->getRepository('BlogBundle:Link')
-                        ->countFromDate($year_ago),
+                    ->countFromDate($year_ago),
                 'total' => $em->getRepository('BlogBundle:Link')
-                        ->countFromDate($first_time),
+                    ->countFromDate($first_time),
             ),
         );
     }
@@ -93,7 +91,7 @@ class ReportController extends Controller
     public function mostRatedAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $from = $this->getFromForMostRated($request->get('period'));
+        $from = $this->getFrom($request->get('period'));
 
         $items = $em->createQuery(
             ' SELECT r.entityId as id, SUM(r.rating) as rating ' .
@@ -124,12 +122,107 @@ class ReportController extends Controller
             'BlogBundle:Frontend/Report:mostRated.html.twig',
             array(
                 'items' => $items,
-                'period' => $this->getPeriodForMostRated($request->get('period'))
+                'period' => $this->getPeriod($request->get('period'))
             )
         );
     }
 
-    protected function getPeriodForMostRated($period)
+    /**
+     * @Route("/most-viewed/{period}",
+     * name="_blog_report_most_viewed",
+     * requirements={"period" = "yesterday|last-week|last-month|last-year|ever"})
+     * @Method({"GET"})
+     */
+    public function mostViewedAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $from = $this->getFrom($request->get('period'));
+
+        $items = $em->createQuery(
+            ' SELECT r.entityId as id, SUM(r.rating) as rating ' .
+            ' FROM BlogBundle:Rating r ' .
+            ' WHERE r.entityName = \'Post\' ' .
+            ' AND r.createdAt >= :from' .
+            ' GROUP BY r.entityId ' .
+            ' ORDER by rating DESC '
+        )
+            ->setParameter('from', $from)
+            ->setMaxResults(12)
+            ->getResult();
+
+        foreach ($items as $key => $item) {
+            $post = $em->getRepository('BlogBundle:Post')->find($item['id']);
+            if (!$post) {
+                continue;
+            }
+            if ($post->getStatus() != PostStatus::PUBLISHED) {
+                continue;
+            }
+
+            $item['post'] = $post;
+            $items[$key] = $item;
+        }
+
+        return $this->render(
+            'BlogBundle:Frontend/Report:mostViewed.html.twig',
+            array(
+                'items' => $items,
+                'period' => $this->getPeriod($request->get('period'))
+            )
+        );
+    }
+
+    /**
+     * @Route("/most-commented/{period}",
+     * name="_blog_report_most_commented",
+     * requirements={"period" = "yesterday|last-week|last-month|last-year|ever"})
+     * @Method({"GET"})
+     */
+    public function mostCommentedAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $from = $this->getFrom($request->get('period'));
+
+        $items = $em->createQuery(
+            ' SELECT c, p.id as id, COUNT(c.id) as comments ' .
+            ' FROM BlogBundle:Comment c ' .
+            ' JOIN c.post p ' .
+            ' WHERE c.createdAt >= :from' .
+            ' GROUP BY c.post ' .
+            ' ORDER by comments DESC '
+        )
+            ->setParameter('from', $from)
+            ->setMaxResults(12)
+            ->getResult();
+
+        foreach ($items as $key => $item) {
+            $post = $em->getRepository('BlogBundle:Post')->find($item['id']);
+            if (!$post) {
+                continue;
+            }
+            if ($post->getStatus() != PostStatus::PUBLISHED) {
+                continue;
+            }
+
+            $item['post'] = $post;
+            $items[$key] = $item;
+        }
+
+        return $this->render(
+            'BlogBundle:Frontend/Report:mostViewed.html.twig',
+            array(
+                'items' => $items,
+                'period' => $this->getPeriod($request->get('period'))
+            )
+        );
+    }
+
+
+    /**
+     * @param $period
+     * @return string
+     */
+    protected function getPeriod($period)
     {
         if ($period == 'yesterday') {
             return 'ayer';
@@ -148,7 +241,11 @@ class ReportController extends Controller
         }
     }
 
-    protected function getFromForMostRated($period)
+    /**
+     * @param $period
+     * @return DateTime
+     */
+    protected function getFrom($period)
     {
         $from = new DateTime();
         if ($period == 'yesterday') {
@@ -167,5 +264,4 @@ class ReportController extends Controller
             return $from->modify('-100 year');
         }
     }
-
 }
