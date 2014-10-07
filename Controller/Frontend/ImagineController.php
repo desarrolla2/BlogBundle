@@ -48,15 +48,16 @@ class ImagineController extends Controller
     protected $signer;
 
     /**
-     * @param DataManager   $dataManager
+     * @param DataManager $dataManager
      * @param FilterManager $filterManager
-     * @param CacheManager  $cacheManager
+     * @param CacheManager $cacheManager
      */
     public function __construct(
         DataManager $dataManager,
         FilterManager $filterManager,
         CacheManager $cacheManager
-    ) {
+    )
+    {
         $this->dataManager = $dataManager;
         $this->filterManager = $filterManager;
         $this->cacheManager = $cacheManager;
@@ -75,6 +76,10 @@ class ImagineController extends Controller
         $path = new Url($path);
         $path->resetParameters();
         $filename = $this->getFileName($path->toString());
+
+        if ($filename[strlen($filename) - 1] === '/') {
+            $filename = substr($filename, 0, -1);
+        }
 
         try {
             try {
