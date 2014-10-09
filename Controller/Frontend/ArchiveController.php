@@ -38,12 +38,16 @@ class ArchiveController extends Controller
     {
         return array(
             'items' => $this->getDoctrine()->getManager()
-                    ->getRepository('BlogBundle:Post')->getArchiveItems(),
+                ->getRepository('BlogBundle:Post')->getArchiveItems(),
         );
     }
 
     /**
-     * @Route("/{year}/{month}/{page}", name="_blog_archive_page", requirements={"year"="\d{4}", "month"="\d{1,2}", "page" = "\d{1,4}"}, defaults={"page" = "1" })
+     * @Route(
+     *  "/{year}/{month}/{page}",
+     *  name="_blog_archive_page",
+     *  requirements={"year"="\d{4}", "month"="\d{1,2}", "page" = "\d{1,4}"}, defaults={"page" = "1" }
+     * )
      * @Route("/{year}/{month}", requirements={"year"="\d{4}", "month"="\d{1,2}"})
      * @Method({"GET"})
      * @Template()
@@ -53,7 +57,7 @@ class ArchiveController extends Controller
         $paginator = $this->get('knp_paginator');
         $year = $request->get('year');
         $month = $request->get('month');
-        $page = $this->getPage();
+        $page = $this->getPage($request);
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('n', 'n', 'string');
         $count =
@@ -91,7 +95,7 @@ class ArchiveController extends Controller
             ->setParameter('month', $month);
 
         $pagination = $paginator->paginate(
-            $query,
+            $query->getResult(),
             $page,
             $this->container->getParameter('blog.items'),
             array('distinct' => false)
@@ -105,10 +109,13 @@ class ArchiveController extends Controller
         );
     }
 
-    protected function getPage()
+    /**
+     * @param Request $request
+     * @return int
+     */
+    protected function getPage(Request $request)
     {
-        $request = $this->getRequest();
-        $page = (int) $request->get('page', 1);
+        $page = (int)$request->get('page', 1);
         if ($page < 1) {
             $this->createNotFoundException('Page number is not valid' . $page);
         }
