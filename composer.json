@@ -2,7 +2,10 @@
     "name": "desarrolla2/blog-bundle",
     "type": "symfony-bundle",
     "description": "This Bundle provides a simple blog site features.",
-    "keywords": ["blog", "cms"],
+    "keywords": [
+        "blog",
+        "cms"
+    ],
     "license": "MIT",
     "minimum-stability": "dev",
     "authors": [
@@ -13,10 +16,9 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "symfony/framework-bundle": ">=2.4.0",
-        "knplabs/knp-paginator-bundle": "2.4.*@dev",
-        "gedmo/doctrine-extensions": "2.3.*",
-        "gregwar/captcha-bundle": "1.0.*",
+        "knplabs/knp-paginator-bundle": "~2.4.1",
+        "gedmo/doctrine-extensions": "~2.3.9",
+        "gregwar/captcha-bundle": "~1.0.12",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "liip/imagine-bundle": "~1.0.6"
     },
