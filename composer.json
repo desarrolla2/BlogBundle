@@ -17,18 +17,16 @@
     "require": {
         "php": ">=5.4",
         "knplabs/knp-paginator-bundle": "~2.4.1",
-        "gedmo/doctrine-extensions": "~2.3.9",
         "friendsofsymfony/user-bundle": "~2.0@dev",
+        "neutron/sphinxsearch-api": "~2.0.8",
         "desarrolla2/cache": "*"
     },
     "require-dev": {
         "liip/functional-test-bundle": "~1.0.2"
     },
     "autoload": {
-        "psr-0": {
-            "Desarrolla2\\Bundle\\BlogBundle": ""
+        "psr-4": {
+            "Desarrolla2\\Bundle\\BlogBundle\\": ""
         },
-        "classmap": ["Search/vendor"]
-    },
-    "target-dir": "Desarrolla2/Bundle/BlogBundle"
+    }
 }
