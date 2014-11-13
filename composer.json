@@ -15,17 +15,14 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.4",
         "knplabs/knp-paginator-bundle": "~2.4.1",
         "gedmo/doctrine-extensions": "~2.3.9",
-        "gregwar/captcha-bundle": "~1.0.12",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "liip/imagine-bundle": "~1.0.6"
+        "desarrolla2/cache": "*"
     },
-    "suggest": {
-        "desarrolla2/web-bundle": "Provide useful features for web sites",
-        "desarrolla2/rss-client-bundle": "Provide Feed Handler",
-        "desarrolla2/cache": "Simple cache system"
+    "require-dev": {
+        "liip/functional-test-bundle": "~1.0.2"
     },
     "autoload": {
         "psr-0": {

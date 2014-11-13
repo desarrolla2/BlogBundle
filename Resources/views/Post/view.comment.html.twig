@@ -1,0 +1,29 @@
+<section id="comments" class="row">
+  <header>
+    <h3>Comentarios</h3>
+  </header>
+  {% for comment in comments %}
+    <article class="comment" id="comment-{{ comment.id }}">
+      <a name="#comment-{{ comment.id }}"></a>
+
+      <div class="row-fluid">
+        <div class="span2">
+          <img src="{{ comment.avatarUrl }}&?d=http%3A%2F%2Fdesarrolla2.com%2Fbundles%2Fblog%2Fimg%2Fdefault.png&s=100"
+               width="100" height="100"/>
+        </div>
+        <div class="span10 comment_content">
+          {{ comment | raw }}
+          <small>{{ comment.userName }}, el
+            <time datetime="{{ comment.createdAt|date('c') }}">
+              {{ comment.createdAt | localizeddate('long', 'none', locale) }}
+            </time>
+          </small>
+        </div>
+      </div>
+    </article>
+  {% else %}
+    <p>No hay comentarios, sé el primero! ... </p>
+  {% endfor %}
+  <div class="clear_fix"></div>
+  {% include 'BlogBundle:/Comment:form.html.twig' with {'form': form, 'post': post } %}
+</section>

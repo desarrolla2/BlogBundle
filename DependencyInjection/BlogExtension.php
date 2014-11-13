@@ -26,16 +26,16 @@ class BlogExtension extends Extension
     {
         $this->container = $container;
 
-        $files = array(
-            'twig.xml',
-            'search.xml',
-            'manager.xml',
-            'listener.xml',
-            'imagine.xml',
-        );
+        $files = [
+            'twig',
+            'search',
+            'manager',
+            'imagine',
+        ];
 
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+
         foreach ($config as $key => $value) {
             $this->parseNode('blog.' . $key, $value);
         }
@@ -43,7 +43,7 @@ class BlogExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
         foreach ($files as $file) {
-            $loader->load($file);
+            $loader->load($file . '.xml');
         }
 
         $container->setParameter('blog', $config);
@@ -51,7 +51,7 @@ class BlogExtension extends Extension
 
     /**
      * @param string $name
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @throws \Exception
      */
@@ -79,7 +79,7 @@ class BlogExtension extends Extension
 
     /**
      * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      */
     protected function set($key, $value)
     {

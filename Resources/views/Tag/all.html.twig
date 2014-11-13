@@ -1,0 +1,12 @@
+{% extends "BlogBundle::layout.html.twig" %}
+{% block title %} Todos los Tags {% endblock %}
+{% block content %}
+  <ul>
+    {% for tag in pagination %}
+      <li><a href="{{ path('_blog_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a> ({{ tag.items }} entradas)</li>
+    {% else %}
+      <li>No hay elementos</li>
+    {% endfor %}
+  </ul>
+  <div class="navigation row">{{ knp_pagination_render(pagination) }}</div>
+{% endblock %}

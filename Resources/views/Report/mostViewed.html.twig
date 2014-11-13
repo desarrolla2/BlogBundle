@@ -1,0 +1,30 @@
+{% extends "BlogBundle::layout.html.twig" %}
+{% block title %}Lo más visto {{ period }} {% endblock %}
+
+{% block content %}
+
+  <article class="report row">
+    <header>
+      <h2><a href="">Lo más visto {{ period }}</a></h2>
+    </header>
+
+    <ul class="nav nav-pills">
+      <li><a href="{{ path('_blog_report_most_viewed',{'period': 'yesterday' } ) }}">Ayer</a></li>
+      <li><a href="{{ path('_blog_report_most_viewed',{'period': 'last-week' } ) }}">Última semana</a></li>
+      <li><a href="{{ path('_blog_report_most_viewed',{'period': 'last-month' } ) }}">Último més</a></li>
+      <li><a href="{{ path('_blog_report_most_viewed',{'period': 'last-year' } ) }}">Último año</a></li>
+      <li><a href="{{ path('_blog_report_most_viewed',{'period': 'ever' } ) }}">Siempre</a></li>
+    </ul>
+
+    <p>
+      Estás son las entradas más vistas durante {{ period }}.
+    </p>
+  </article>
+
+  {% for item in items %}
+    {% include 'BlogBundle:Post:item.html.twig' with {'post': item.post} %}
+  {% else %}
+    <p>No hay elementos</p>
+  {% endfor %}
+  </ul>
+{% endblock %}

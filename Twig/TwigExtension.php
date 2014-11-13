@@ -12,42 +12,19 @@
 
 namespace Desarrolla2\Bundle\BlogBundle\Twig;
 
-use Locale;
-use IntlDateFormatter;
-
 /**
- *
- * Description of TwigExtension
- *
- * @author : Daniel González <daniel@desarrolla2.com>
- * @file   : TwigExtension.php , UTF-8
- * @date   : Oct 15, 2012 , 9:54:55 PM
+ * TwigExtension
  */
 class TwigExtension extends \Twig_Extension
 {
-    /**
-     * @var string
-     */
-    protected $locale;
-
-    /**
-     * @param string $locale
-     */
-    public function __construct($locale)
-    {
-        $this->locale = $locale;
-    }
-
     /**
      * @return array
      */
     public function getFilters()
     {
-        return array(
-            'localeDate' => new \Twig_Filter_Method($this, 'localeDate'),
-            'localeCustomDate' => new \Twig_Filter_Method($this, 'localeCustomDate'),
+        return [
             'highlight' => new \Twig_Filter_Method($this, 'highlight'),
-        );
+        ];
     }
 
     /**
@@ -64,121 +41,10 @@ class TwigExtension extends \Twig_Extension
     }
 
     /**
-     *
-     * @param \DateTime $date
-     *
-     * @return string
-     */
-    public function localeCustomDate($date)
-    {
-        $dateType = $this->getDateType('full');
-        $timeType = $this->getTimeType('full');
-        $dateFormatter = IntlDateFormatter::create(
-            $this->locale,
-            $dateType,
-            $timeType
-        );
-        $dateFormatter->setPattern('MMMM  yyyy');
-
-        return $dateFormatter->format($date);
-    }
-
-    /**
-     *
-     * @param \DateTime $date
-     * @param string    $dateType
-     * @param string    $timeType
-     *
-     * @return string
-     */
-    public function localeDate($date, $dateType = 'medium', $timeType = 'none')
-    {
-        $dateType = $this->getDateType($dateType);
-        $timeType = $this->getTimeType($timeType);
-        $dateFormatter = IntlDateFormatter::create(
-            $this->locale,
-            $dateType,
-            $timeType
-        );
-
-        return $dateFormatter->format($date);
-    }
-
-    /**
-     *
      * @return string
      */
     public function getName()
     {
         return 'blog_extension';
-    }
-
-    /**
-     *
-     * @param string $timeType
-     *
-     * @return int
-     */
-    protected function getTimeType($timeType)
-    {
-        switch (strtolower($timeType)) {
-            case 'none':
-                return IntlDateFormatter::NONE;
-                break;
-            case 'full':
-                return IntlDateFormatter::FULL;
-                break;
-            case 'long':
-                return IntlDateFormatter::LONG;
-                break;
-            case 'medium':
-                return IntlDateFormatter::MEDIUM;
-                break;
-            case 'short':
-                return IntlDateFormatter::SHORT;
-                break;
-            default :
-                return IntlDateFormatter::MEDIUM;
-                break;
-        }
-    }
-
-    /**
-     *
-     * @param string $dateType
-     *
-     * @return int
-     */
-    protected function getDateType($dateType)
-    {
-        switch (strtolower($dateType)) {
-            case 'none':
-                return IntlDateFormatter::NONE;
-                break;
-            case 'full':
-                return IntlDateFormatter::FULL;
-                break;
-            case 'long':
-                return IntlDateFormatter::LONG;
-                break;
-            case 'medium':
-                return IntlDateFormatter::MEDIUM;
-                break;
-            case 'short':
-                return IntlDateFormatter::SHORT;
-                break;
-            default :
-                return IntlDateFormatter::MEDIUM;
-                break;
-        }
-    }
-
-    protected function getGaTracking()
-    {
-        if (!strlen($this->gaTracking)) {
-            return false;
-        }
-
-        return $this->gaTracking;
     }
 }

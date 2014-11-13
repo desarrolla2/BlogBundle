@@ -1,0 +1,18 @@
+{% extends "BlogBundle::layout.html.twig" %}
+{% block title %} {{ tag }} {% endblock %}
+{% block content %}
+  {% for post in pagination %}
+    {% include 'BlogBundle:Post:item.html.twig' with {'post': post} %}
+  {% else %}
+    <p>No hay elementos</p>
+  {% endfor %}
+
+  <div class="navigation row">
+    {{ knp_pagination_render(pagination) }}
+  </div>
+{% endblock %}
+
+{% block rss %}
+  <link rel="alternate" type="application/rss+xml" title="{{ tag }} RSS Feed"
+        href="{{ path('_blog_feed_tag', { 'slug' : tag.slug }) }}"/>
+{% endblock %}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+  <meta charset="UTF-8"/>
+  <title>{% block title %}TITLE HERE{% endblock %}</title>
+  {% block canonical %}{% endblock %}
+  <meta name="description" content="{% block meta_description %}{% endblock %}">
+  <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  {% block meta_og %}
+    <meta property="og:type" content="website"/>{% endblock %}
+  {% block meta_twiter %}
+    <meta property="twitter:card" content="summary"/>
+    {% if twitter is defined %}
+      <meta property="twitter:site" content="@{{ twitter }}"/>
+    {% endif %}
+    <meta name="twitter:domain" content="{{ url('_blog_default') }}">
+  {% endblock %}
+  {% block rss %}
+    <link rel="alternate" type="application/rss+xml" title="rss feed" href="{{ path('_blog_feed') }}"/>
+  {% endblock %}
+  {% block favicon %}{% endblock %}
+  {% block stylesheets %}
+    {% stylesheets
+    'bundles/blog/css/vendor/bootstrap/bootstrap.css'
+    'bundles/blog/css/vendor/bootstrap/bootstrap-theme.css'
+    filter='?uglifycss' filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+  {% endblock %}
+</head>
+<body>
+{% block navbar %}
+  <div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ path('_blog_default') }}">TITLE HERE</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          {% set route = app.request.attributes.get('_route') %}
+          <li class="{% if route == '_blog_archive' %}active{% endif %}">
+            <a href="{{ path('_blog_archive') }}">Archivo</a>
+          </li>
+          <li class="{% if route == '_faq' %}active{% endif %}">
+            <a href="{{ path('_faq') }}">FAQ's</a>
+          </li>
+          <li class="{% if route == '_new_blog' %}active{% endif %}">
+            <a href="{{ path('_new_blog') }}">Enviar</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+<div class="container">
+  <div class="col-md-8">
+    {% block content %}{% endblock %}
+  </div>
+  <div class="col-md-4">
+    {% block sidebar %}
+      <aside></aside>
+    {% endblock %}
+  </div>
+</div>
+
+{% block footer %}{% endblock %}
+{% block analytics %}
+  {% if ga_tracking is defined and ga_tracking is not empty %}
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '{{ ga_tracking }}']);
+      _gaq.push(['_trackPageview']);
+      (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+  {% endif %}
+{% endblock %}
+{% block javascripts %}{% endblock %}
+{% block analitycs %}{% endblock %}
+</body>
+</html>

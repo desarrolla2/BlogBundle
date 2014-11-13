@@ -1,0 +1,44 @@
+{% extends "BlogBundle::layout.html.twig" %}
+{% block title %} Archivo del sitio | {{ parent() }}{% endblock %}
+{% block canonical %}
+  <link rel="canonical" href="{{ url('_blog_archive') }}"/>{% endblock %}
+{% block meta_description %} Puedes encontrar todas las entradas del sitio ordenadas por fecha {% endblock %}
+{% block meta_og %}
+  {{ parent() }}
+  <meta property="og:title" content="Archivo del sitio"/>
+  <meta property="og:url" content="{{ url('_blog_archive') }}"/>
+  <meta property="og:description" content="Puedes encontrar todas las entradas del sitio ordenadas por fecha"/>
+{% endblock %}
+{% block meta_twiter %}
+  {{ parent() }}
+  <meta property="twitter:title" content="Archivo del sitio"/>
+  <meta property="twitter:description" content="Puedes encontrar todas las entradas del sitio ordenadas por fecha"/>
+{% endblock %}
+{% block content %}
+  <article>
+    <header>
+      <h1><a href="{{ path('_blog_archive') }}" title="Archivo del sitio">Archivo del sitio</a></h1>
+    </header>
+    <p> Puedes encontrar todas las entradas del sitio ordenadas por fecha.</p>
+    <ol>
+      {% for year, posts in items %}
+        <li>Año {{ year }}</li>
+        <ol>
+          {% for item in posts %}
+            <li>
+              <a href="{{ path('_blog_archive_page' ,
+              { 'year' : item.date.format('Y'), 'month': item.date.format('m') }) }}"
+                 title="Archivo del sitio {{ item.date | date('F') }}">
+                {{ item.date | date('F') | capitalize }}
+              </a> [{{ item.n }}]
+            </li>
+          {% else %}
+            <li>No hay elementos</li>
+          {% endfor %}
+        </ol>
+      {% else %}
+        <li>No hay elementos</li>
+      {% endfor %}
+    </ol>
+  </article>
+{% endblock %}

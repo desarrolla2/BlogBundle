@@ -6,10 +6,14 @@
     <parameters>
         <parameter key="twig.extension.blog.class">Desarrolla2\Bundle\BlogBundle\Twig\TwigExtension</parameter>
         <parameter key="twig.extension.text.class">Twig_Extensions_Extension_Text</parameter>
+        <parameter key="twig.extension.text.class">Twig_Extensions_Extension_Intl</parameter>
     </parameters>
 
     <services>
         <service id="twig.extension.text" class="%twig.extension.text.class%" public="true">
+            <tag name="twig.extension"/>
+        </service>
+        <service id="twig.extension.intl" class="%twig.extension.intl.class%" public="true">
             <tag name="twig.extension"/>
         </service>
 

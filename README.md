@@ -33,9 +33,6 @@ Not ready yet :(, contributions here is appreciated.
 ## Coming soon
 
 * Improve Comments workflow.
-* Social networks integration.
-* Search integration
-* Pingbaks
 * More documentation
 * Some tests
 

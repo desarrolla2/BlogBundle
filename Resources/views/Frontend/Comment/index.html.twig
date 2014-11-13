@@ -1,6 +1,0 @@
-{% extends "::frontend.html.twig" %}
-{% block title %} Añade un comentario {% endblock %}
-{% block meta_robots %}noindex{% endblock %}
-{% block content %}
-  {% include 'BlogBundle:Frontend/Comment:form.html.twig' with {'form': form, 'post': post } %}
-{% endblock %}

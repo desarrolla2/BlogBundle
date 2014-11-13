@@ -1,0 +1,17 @@
+<article>
+  <header>
+    <h2>
+      <a href="{{ path('_blog_view', { 'slug' : post.slug }) }}" title="{{ post }}">{{ post }}</a>
+    </h2>
+  </header>
+  {{ post.intro | raw }}
+  {% if post.hasSource %}
+    <p>Fuente:
+      <a href="{{ path('_blog_redirect_post_source', {id: post.id}) }}" target="_blank"
+         title="{{ post }}">{{ post }}</a>
+    </p>
+  {% endif %}
+  <time datetime="{{ post.publishedAt | date('c') }}">Publicado
+    el {{ post.publishedAt | localizeddate('long', 'none', locale) }}.
+  </time>
+</article>
