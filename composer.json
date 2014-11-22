@@ -27,6 +27,6 @@
     "autoload": {
         "psr-4": {
             "Desarrolla2\\Bundle\\BlogBundle\\": ""
-        },
+        }
     }
 }
