@@ -6,7 +6,7 @@
  * Description of CommentHandler
  *
  * @author : Daniel González <daniel@desarrolla2.com>
- * @date : Aug 20, 2012 , 7:38:25 PM
+ * @date   : Aug 20, 2012 , 7:38:25 PM
  */
 
 namespace Desarrolla2\Bundle\BlogBundle\Form\Handler;
@@ -17,6 +17,9 @@ use Desarrolla2\Bundle\BlogBundle\Entity\Comment;
 use Doctrine\ORM\EntityManager;
 use Desarrolla2\Bundle\BlogBundle\Manager\SanitizerManager;
 
+/**
+ * CommentHandler
+ */
 class CommentHandler
 {
     /**
@@ -52,8 +55,13 @@ class CommentHandler
      * @param SanitizerManager $sanitizer
      * @param Comment          $comment
      */
-    public function __construct(Form $form, Request $request, EntityManager $em, SanitizerManager $sanitizer, Comment $comment)
-    {
+    public function __construct(
+        Form $form,
+        Request $request,
+        EntityManager $em,
+        SanitizerManager $sanitizer,
+        Comment $comment
+    ) {
         $this->form = $form;
         $this->request = $request;
         $this->entity = $comment;
@@ -72,21 +80,10 @@ class CommentHandler
             $entityModel = $this->form->getData();
 
             $this->entity->setContent(
-                    $this->sanitizer->doClean(
-                            $entityModel->getContent()
-            ));
-            $this->entity->setUserName(
-                    $this->sanitizer->doClean(
-                            $entityModel->getUserName()
-            ));
-            $this->entity->setUserEmail(
-                    $this->sanitizer->doClean(
-                            $entityModel->getUserEmail()
-            ));
-            $this->entity->setUserWeb(
-                    $this->sanitizer->doClean(
-                            $entityModel->getUserWeb()
-            ));
+                $this->sanitizer->doClean(
+                    $entityModel->getContent()
+                )
+            );
 
             $this->em->persist($this->entity);
             $this->em->flush();
@@ -96,5 +93,4 @@ class CommentHandler
 
         return false;
     }
-
 }

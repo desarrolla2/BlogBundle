@@ -23,39 +23,6 @@ class CommentType extends AbstractType
                     'required' => false,
                     'trim' => true,
                 )
-            )
-            ->add(
-                'userName',
-                'text',
-                array(
-                    'required' => true,
-                    'trim' => true,
-                )
-            )
-            ->add(
-                'userEmail',
-                'text',
-                array(
-                    'required' => false,
-                    'trim' => true,
-                )
-            )
-            ->add(
-                'userWeb',
-                'text',
-                array(
-                    'required' => false,
-                    'trim' => true,
-                )
-            )->add(
-                'captcha',
-                'captcha',
-                array(
-                    'distortion' => false,
-                    'charset' => '1234567890',
-                    'length' => 3,
-                    'invalid_message' => 'Código erroneo',
-                )
             );
     }
 

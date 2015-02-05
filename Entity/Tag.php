@@ -23,6 +23,11 @@ class Tag
     protected $id;
 
     /**
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="tag")
+     */
+    protected $posts;
+
+    /**
      * @var string $name
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -43,11 +48,6 @@ class Tag
      * @ORM\Column(name="items", type="integer")
      */
     protected $items;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
-     */
-    protected $posts;
 
     /**
      * @var \DateTime $createdAt
@@ -97,6 +97,7 @@ class Tag
      * Set name
      *
      * @param  string $name
+     *
      * @return Tag
      */
     public function setName($name)
@@ -118,6 +119,7 @@ class Tag
      * Set created_at
      *
      * @param  \DateTime $createdAt
+     *
      * @return Tag
      */
     public function setCreatedAt($createdAt)
@@ -139,6 +141,7 @@ class Tag
      * Set updated_at
      *
      * @param  \DateTime $updatedAt
+     *
      * @return Tag
      */
     public function setUpdatedAt($updatedAt)
@@ -160,6 +163,7 @@ class Tag
      * Set slug
      *
      * @param  string $slug
+     *
      * @return Tag
      */
     public function setSlug($slug)
@@ -181,6 +185,7 @@ class Tag
      * Add posts
      *
      * @param  Desarrolla2\Bundle\BlogBundle\Entity\Post $post
+     *
      * @return Tag
      */
     public function addPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post)
@@ -213,11 +218,12 @@ class Tag
      * Set items
      *
      * @param  int $items
+     *
      * @return Tag
      */
     public function setItems($items)
     {
-        $this->items = (int) $items;
+        $this->items = (int)$items;
     }
 
     /**

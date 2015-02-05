@@ -2,24 +2,33 @@
 <html lang="{{ locale }}">
 <head>
   <meta charset="UTF-8"/>
-  <title>{% block title %}TITLE HERE{% endblock %}</title>
+  <title>{% block title %}{{ blog_name }}{% endblock %}</title>
   {% block canonical %}{% endblock %}
-  <meta name="description" content="{% block meta_description %}{% endblock %}">
+  <meta name="description" content="{% block meta_description %}{{ blog_description }}{% endblock %}">
   <meta name="robots" content="{% block meta_robots %}index, follow{% endblock %}"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   {% block meta_og %}
-    <meta property="og:type" content="website"/>{% endblock %}
+    <meta property="og:title" content="{{ blog_name }}"/>
+    <meta property="og:description" content="{{ blog_description }}"/>
+    <meta property="og:image" content="{{ asset('bundles/app/ico/favicon-154.png') }}"/>
+    <meta property="og:locale" content="{{ locale }}"/>
+    <meta property="og:type" content="website"/>
+  {% endblock %}
   {% block meta_twiter %}
-    <meta property="twitter:card" content="summary"/>
-    {% if twitter is defined %}
-      <meta property="twitter:site" content="@{{ twitter }}"/>
-    {% endif %}
-    <meta name="twitter:domain" content="{{ url('_blog_default') }}">
+    <meta property=":card" content="summary"/>
+    <meta name="twitter:title" content="{{ blog_name }}"/>
+  {% endblock %}
+  {% block meta_other %}{% endblock %}
+  {% block favicon %}
+    <meta name="msapplication-TileColor" content="#FFFFFF"/>
+    <meta name="msapplication-TileImage" content="{{ asset('bundles/app/ico/favicon-144.png') }}"/>
+    <link rel="shortcut icon" href="{{ asset('bundles/app/ico/favicon-16.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('bundles/app/ico/favicon-152.png') }}"/>
+    <link rel="icon" sizes="32x32" href="{{ asset('bundles/app/ico/favicon-32.png') }}"/>
   {% endblock %}
   {% block rss %}
     <link rel="alternate" type="application/rss+xml" title="rss feed" href="{{ path('_blog_feed') }}"/>
   {% endblock %}
-  {% block favicon %}{% endblock %}
   {% block stylesheets %}
     {% stylesheets
     'bundles/blog/css/vendor/bootstrap/bootstrap.css'
@@ -30,7 +39,7 @@
   {% endblock %}
 </head>
 <body>
-{% block navbar %}
+{% block header %}
   <div class="navbar navbar-inverse" role="navigation">
     <div class="container">
       <div class="navbar-header">
@@ -40,7 +49,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{ path('_blog_default') }}">TITLE HERE</a>
+        <a class="navbar-brand" href="{{ path('_blog_default') }}">{{ blog_name }}</a>
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
@@ -54,29 +63,40 @@
           <li class="{% if route == '_new_blog' %}active{% endif %}">
             <a href="{{ path('_new_blog') }}">Enviar</a>
           </li>
+          {% if not app.user %}
+            <li class="{% if route == 'fos_user_registration_register' %}active{% endif %}">
+              <a href="{{ path('fos_user_registration_register') }}">Registro</a>
+            </li>
+            <li class="{% if route == 'fos_user_security_login' %}active{% endif %}">
+              <a href="{{ path('fos_user_security_login') }}">Login</a>
+            </li>
+          {% else %}
+            <li class="{% if route == 'fos_user_security_logout' %}active{% endif %}">
+              <a href="{{ path('fos_user_security_logout') }}">Salir</a>
+            </li>
+          {% endif %}
         </ul>
       </div>
     </div>
   </div>
 {% endblock %}
-
+{% block flash %}{% include "BlogBundle::layout.flash.html.twig" %}{% endblock %}
+{% block content %}{% endblock %}
 <div class="container">
   <div class="col-md-8">
-    {% block content %}{% endblock %}
+    {% block main %}{% endblock %}
   </div>
   <div class="col-md-4">
-    {% block sidebar %}
-      <aside></aside>
-    {% endblock %}
+    {% block sidebar %}{% endblock %}
   </div>
 </div>
-
 {% block footer %}{% endblock %}
+{% block javascripts %}{% endblock %}
 {% block analytics %}
-  {% if ga_tracking is defined and ga_tracking is not empty %}
+  {% if ga_tracking is defined and blog_google_tracking is not empty %}
     <script type="text/javascript">
       var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', '{{ ga_tracking }}']);
+      _gaq.push(['_setAccount', '{{ blog_google_tracking }}']);
       _gaq.push(['_trackPageview']);
       (function () {
         var ga = document.createElement('script');
@@ -90,7 +110,5 @@
     </script>
   {% endif %}
 {% endblock %}
-{% block javascripts %}{% endblock %}
-{% block analitycs %}{% endblock %}
 </body>
 </html>

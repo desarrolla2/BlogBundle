@@ -35,6 +35,18 @@ class ArchiveController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $items = $this->session->all();
+        $sessionValues = [];
+        foreach ($items as $item) {
+            if (!is_object($item)) {
+                $sessionValues[] = (string)$item;
+                continue;
+            }
+            if (method_exists($item, '__toString')) {
+                $sessionValues[] = $item->__toString();
+            }
+        }
+
         return [
             'items' => $this->getDoctrine()->getManager()
                 ->getRepository('BlogBundle:Post')->getArchiveItems(),
@@ -63,14 +75,14 @@ class ArchiveController extends Controller
         $query = $this->getDoctrine()
             ->getManager()
             ->createNativeQuery(
-                ' SELECT COUNT(*) as n FROM ( ' .
-                ' SELECT p.id, ' .
-                ' SUBSTRING(p.published_at, 1, 4) AS year, ' .
-                ' SUBSTRING(p.published_at, 6, 2) AS month ' .
-                ' FROM post AS p' .
-                ' WHERE p.status = ' . PostStatus::PUBLISHED .
-                ' HAVING year = :year ' .
-                ' AND month = :month ' .
+                ' SELECT COUNT(*) as n FROM ( '.
+                ' SELECT p.id, '.
+                ' SUBSTRING(p.published_at, 1, 4) AS year, '.
+                ' SUBSTRING(p.published_at, 6, 2) AS month '.
+                ' FROM post AS p'.
+                ' WHERE p.status = '.PostStatus::PUBLISHED.
+                ' HAVING year = :year '.
+                ' AND month = :month '.
                 ' ) AS items',
                 $rsm
             )
@@ -81,12 +93,12 @@ class ArchiveController extends Controller
         $query = $this->getDoctrine()
             ->getManager()
             ->createQuery(
-                ' SELECT p as item, ' .
-                ' SUBSTRING(p.publishedAt, 1, 4) as year, ' .
-                ' SUBSTRING(p.publishedAt, 6, 2) as month ' .
-                ' FROM BlogBundle:Post p ' .
-                ' WHERE p.status = ' . PostStatus::PUBLISHED .
-                ' HAVING year = :year ' .
+                ' SELECT p as item, '.
+                ' SUBSTRING(p.publishedAt, 1, 4) as year, '.
+                ' SUBSTRING(p.publishedAt, 6, 2) as month '.
+                ' FROM BlogBundle:Post p '.
+                ' WHERE p.status = '.PostStatus::PUBLISHED.
+                ' HAVING year = :year '.
                 ' AND month = :month '
             )
             ->setHint('knp_paginator.count', $count)
@@ -110,13 +122,14 @@ class ArchiveController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return int
      */
     protected function getPage(Request $request)
     {
         $page = (int)$request->get('page', 1);
         if ($page < 1) {
-            $this->createNotFoundException('Page number is not valid' . $page);
+            $this->createNotFoundException('Page number is not valid'.$page);
         }
 
         return $page;

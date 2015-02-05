@@ -1,7 +1,7 @@
 {% extends "BlogBundle::layout.html.twig" %}
 {% block title %}Lo más visto {{ period }} {% endblock %}
 
-{% block content %}
+{% block main %}
 
   <article class="report row">
     <header>
@@ -22,7 +22,7 @@
   </article>
 
   {% for item in items %}
-    {% include 'BlogBundle:Post:item.html.twig' with {'post': item.post} %}
+    {% include 'BlogBundle:Post:index.item.html.twig' with {'post': item.post} %}
   {% else %}
     <p>No hay elementos</p>
   {% endfor %}

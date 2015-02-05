@@ -17,6 +17,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 
+/**
+ * WidgetController
+ */
 class WidgetController extends Controller
 {
     /**
@@ -60,6 +63,8 @@ class WidgetController extends Controller
      */
     public function latestPostRelatedAction(Post $post)
     {
+        return [];
+
         return [
             'posts' =>
                 $this->getDoctrine()->getManager()
@@ -96,6 +101,9 @@ class WidgetController extends Controller
      */
     public function postViewRelatedAction($post, $items = 3)
     {
+        return [
+            'related' => []
+        ];
         $search = $this->get('blog.search');
 
         return [

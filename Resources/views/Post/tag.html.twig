@@ -1,8 +1,8 @@
 {% extends "BlogBundle::layout.html.twig" %}
 {% block title %} {{ tag }} {% endblock %}
-{% block content %}
+{% block main %}
   {% for post in pagination %}
-    {% include 'BlogBundle:Post:item.html.twig' with {'post': post} %}
+    {% include 'BlogBundle:Post:index.item.html.twig' with {'post': post} %}
   {% else %}
     <p>No hay elementos</p>
   {% endfor %}

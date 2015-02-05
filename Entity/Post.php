@@ -184,7 +184,7 @@ class Post
      */
     public function setContent($content)
     {
-        $this->content = (string) $content;
+        $this->content = (string)$content;
 
         return $this;
     }
@@ -370,7 +370,7 @@ class Post
     {
         $tags = '';
         foreach ($this->tags as $tag) {
-            $tags .= $tag->getName() . ' ';
+            $tags .= $tag->getName().' ';
         }
 
         return trim($tags);
@@ -420,7 +420,7 @@ class Post
      */
     public function setIntro($intro)
     {
-        $this->intro = (string) $intro;
+        $this->intro = (string)$intro;
 
         return $this;
     }
@@ -522,7 +522,7 @@ class Post
      */
     public function hasSource()
     {
-        return (bool) $this->getSource();
+        return (bool)$this->getSource();
     }
 
     /**
@@ -580,7 +580,7 @@ class Post
      */
     public function isPublished()
     {
-        return (bool) ($this->status == PostStatus::PUBLISHED);
+        return (bool)($this->status == PostStatus::PUBLISHED);
     }
 
     /**

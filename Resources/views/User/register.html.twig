@@ -1,7 +1,7 @@
 {% extends "BlogBundle::layout.html.twig" %}
 {% block title %} Registro de usuarios {% endblock %}
 {% block meta_robots %}noindex{% endblock %}
-{% block content %}
+{% block main %}
   <h1>Registro de usuarios</h1>
   <form id="register" action="{{ path('_blog_user_register') }}"
         method="post" {{ form_enctype(form) }}>

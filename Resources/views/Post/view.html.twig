@@ -22,7 +22,7 @@
     <meta property="twitter:image:src" content="{{ post.image }}"/>
   {% endif %}
 {% endblock %}
-{% block content %}
+{% block main %}
   <article class=" row">
     {% include 'BlogBundle:Post:view.header.html.twig' with {'post': post, 'rating': post.rating, 'h' : 'h1'} %}
     {{ post.content | raw }}

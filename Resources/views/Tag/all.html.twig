@@ -1,6 +1,6 @@
 {% extends "BlogBundle::layout.html.twig" %}
 {% block title %} Todos los Tags {% endblock %}
-{% block content %}
+{% block main %}
   <ul>
     {% for tag in pagination %}
       <li><a href="{{ path('_blog_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a> ({{ tag.items }} entradas)</li>

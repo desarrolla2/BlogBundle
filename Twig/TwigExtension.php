@@ -28,14 +28,14 @@ class TwigExtension extends \Twig_Extension
     }
 
     /**
-     * @param $search
-     * @param $subject
+     * @param string $subject
+     * @param string $search
      *
      * @return mixed
      */
     public function highlight($subject, $search)
     {
-        $replace = '<strong>' . $search . '</strong>';
+        $replace = '<strong>'.$search.'</strong>';
 
         return str_ireplace($search, $replace, $subject);
     }

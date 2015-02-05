@@ -12,7 +12,7 @@
     <li>
       <a target="_blank"
          href="{{ 'http://twitter.com/home?status=' ~ post | url_encode(true) ~ ' ' ~
-         url('_blog_view', { 'slug' : post.slug }) ~ ' via @' ~ twitter }}">
+         url('_blog_view', { 'slug' : post.slug })  }}"> {#~ ' via @' ~ twitter#}
         <img src="/bundles/blog/img/social/twitter.png"/>
       </a>
     </li>

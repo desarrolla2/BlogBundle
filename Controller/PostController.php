@@ -16,6 +16,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Doctrine\ORM\Query\QueryException;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * PostController
+ */
 class PostController extends Controller
 {
     /**
@@ -134,7 +137,7 @@ class PostController extends Controller
         $request = $this->getRequest();
         $page = (int)$request->get('page', 1);
         if ($page < 1) {
-            $this->createNotFoundException('Page number is not valid' . $page);
+            $this->createNotFoundException('Page number is not valid'.$page);
         }
 
         return $page;
