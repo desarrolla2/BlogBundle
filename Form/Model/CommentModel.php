@@ -11,7 +11,6 @@ use Desarrolla2\Bundle\BlogBundle\Entity\Comment;
 class CommentModel
 {
     /**
-     * @var string $content
      * @Assert\NotBlank()
      * @Assert\Length( min=5 )
      */
@@ -34,7 +33,7 @@ class CommentModel
     }
 
     /**
-     * @param $content
+     * @param string $content
      */
     public function setContent($content)
     {

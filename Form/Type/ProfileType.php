@@ -1,4 +1,12 @@
 <?php
+/*
+ * This file is part of the planetubuntu package.
+ *
+ * (c) Daniel González <daniel@desarrolla2.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Desarrolla2\Bundle\BlogBundle\Form\Type;
 
@@ -7,9 +15,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * SearchType
+ * ProfileType
  */
-class SearchType extends AbstractType
+class ProfileType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -19,19 +27,34 @@ class SearchType extends AbstractType
     {
         $builder
             ->add(
-                'q',
+                'name',
                 'text',
                 [
-                    'required' => true,
+                    'required' => false,
                     'trim' => true,
                 ]
             )
             ->add(
-                'page',
-                'hidden',
+                'address',
+                'text',
                 [
                     'required' => false,
                     'trim' => true,
+                ]
+            )
+            ->add(
+                'description',
+                'textarea',
+                [
+                    'required' => false,
+                    'trim' => true,
+                ]
+            )
+            ->add(
+                'show_public_profile',
+                'checkbox',
+                [
+                    'required' => false,
                 ]
             );
     }
@@ -43,8 +66,8 @@ class SearchType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Model\SearchModel',
-                'csrf_protection' => false,
+                'data_class' => 'Desarrolla2\Bundle\BlogBundle\Form\Model\ProfileModel',
+                'csrf_protection' => true,
             ]
         );
     }
@@ -54,6 +77,6 @@ class SearchType extends AbstractType
      */
     public function getName()
     {
-        return '';
+        return 'profile';
     }
 }

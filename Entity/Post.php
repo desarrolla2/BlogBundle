@@ -8,7 +8,7 @@ use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Desarrolla2\Bundle\BlogBundle\Entity\Post
+ * Post
  *
  * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="Desarrolla2\Bundle\BlogBundle\Entity\Repository\PostRepository")

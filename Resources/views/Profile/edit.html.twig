@@ -1,0 +1,52 @@
+{% extends "BlogBundle::layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+{% block meta_robots %}noindex, follow{% endblock %}
+{% block title %}Tu perfil de usuario{% endblock %}
+{% block content %}
+  <div class="container">
+    <form role="form" method="post" action="{{ path('_blog_profile_edit') }}"/>
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>Tu perfil de usuario</h2>
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="active"><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+          <li><a href="#avatar" role="tab" data-toggle="tab">Avatar</a></li>
+          <li><a href="#settings" role="tab" data-toggle="tab">Configuración</a></li>
+        </ul>
+
+        <div class="tab-content" style="margin-top: 30px">
+          <div class="tab-pane active" id="profile">
+            <div class="form-group">
+              <label for="profile_name">Introduce tu nombre y apellidos:</label>
+              {{ form_widget(form.name) }}
+            </div>
+            <div class="form-group">
+              <label for="profile_name">Introduce tu dirección:</label>
+              {{ form_widget(form.address) }}
+            </div>
+            <div class="form-group">
+              <label for="profile_name">Introduce una descripcion sobre tí:</label>
+              {{ form_widget(form.description, {attr:{ style: 'height: 150px'}}) }}
+            </div>
+          </div>
+          <div class="tab-pane" id="avatar">2</div>
+          <div class="tab-pane" id="settings">
+            <div class="form-group">
+              <p>Mostrar mi información personal en mi perfil público:</p>
+              {{ form_widget(form.show_public_profile , {label: 'Marcar para mostrar mi información'}) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 30px">
+      <div class="col-xs-12">
+        <p>
+          <input type="submit" class="btn btn-primary" value="Guardar cambios"/>
+          <a href="{{ path('fos_user_change_password') }}" class="btn btn-primary">Ir a modificar contraseña</a>
+        </p>
+      </div>
+    </div>
+    </fom>
+  </div>
+{% endblock %}

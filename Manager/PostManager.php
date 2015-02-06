@@ -12,6 +12,8 @@
 
 namespace Desarrolla2\Bundle\BlogBundle\Manager;
 
+use Desarrolla2\Bundle\BlogBundle\Entity\Repository\PostRepository;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Doctrine\ORM\EntityManager;
 use Desarrolla2\Bundle\BlogBundle\Entity\Post;
@@ -19,32 +21,10 @@ use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 use \DateTime;
 
 /**
- *
  * PostManager
  */
 class PostManager extends AbstractManager
 {
-
-    /**
-     * @param EntityManager            $em
-     * @param EventDispatcherInterface $eventDispatcher
-     */
-    public function __construct(EntityManager $em, EventDispatcherInterface $eventDispatcher)
-    {
-        parent::__construct($em, $eventDispatcher);
-        $this->repository = $em->getRepository('BlogBundle:Post');
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return Post
-     */
-    public function find($id)
-    {
-        return $this->repository->find($id);
-    }
-
     /**
      * @param Post $post
      */
@@ -71,12 +51,20 @@ class PostManager extends AbstractManager
     }
 
     /**
-     * @param Post $post
+     * @return Post
      */
-    protected function persist(Post $post)
+    public function create()
     {
-        $this->em->persist($post);
-        $this->em->flush();
+        return new Post();
     }
+
+    /**
+     * @return PostRepository
+     */
+    public function getRepository()
+    {
+        return $this->em->getRepository('BlogBundle:Post');
+    }
+
 
 }

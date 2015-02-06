@@ -9,6 +9,7 @@
  */
 namespace Desarrolla2\Bundle\BlogBundle\Manager;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Doctrine\ORM\EntityManager;
 
@@ -36,4 +37,36 @@ abstract class AbstractManager
         $this->em = $em;
         $this->eventDispatcher = $eventDispatcher;
     }
+
+    /**
+     * @param int $id
+     *
+     * @return Post
+     */
+    public function find($id)
+    {
+        return $this->getRepository()->find($id);
+    }
+
+    /**
+     * @param mixed $entity
+     * @param bool  $flush
+     */
+    public function persist($entity, $flush = true)
+    {
+        $this->em->persist($entity);
+        if ($flush) {
+            $this->em->flush();
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    abstract public function create();
+
+    /**
+     * @return EntityRepository
+     */
+    abstract public function getRepository();
 }

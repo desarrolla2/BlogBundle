@@ -31,8 +31,9 @@
   {% endblock %}
   {% block stylesheets %}
     {% stylesheets
-    'bundles/blog/css/vendor/bootstrap/bootstrap.css'
-    'bundles/blog/css/vendor/bootstrap/bootstrap-theme.css'
+    '@BlogBundle/Resources/public/css/vendor/bootstrap/bootstrap.css'
+    '@BlogBundle/Resources/public/css/vendor/bootstrap/bootstrap-theme.css'
+    '@BlogBundle/Resources/public/css/vendor/fontawesome/fontawesome.css'
     filter='?uglifycss' filter='cssrewrite' %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
@@ -64,13 +65,17 @@
             <a href="{{ path('_new_blog') }}">Enviar</a>
           </li>
           {% if not app.user %}
-            <li class="{% if route == 'fos_user_registration_register' %}active{% endif %}">
-              <a href="{{ path('fos_user_registration_register') }}">Registro</a>
-            </li>
             <li class="{% if route == 'fos_user_security_login' %}active{% endif %}">
-              <a href="{{ path('fos_user_security_login') }}">Login</a>
+              <a href="{{ path('fos_user_security_login') }}">Entra</a>
+            </li>
+            <li class="{% if route == 'fos_user_registration_register' %}active{% endif %}">
+              <a href="{{ path('fos_user_registration_register') }}">Regístrate</a>
             </li>
           {% else %}
+
+            <li class="{% if route == '_blog_profile_edit' %}active{% endif %}">
+              <a href="{{ path('_blog_profile_edit') }}">Perfil</a>
+            </li>
             <li class="{% if route == 'fos_user_security_logout' %}active{% endif %}">
               <a href="{{ path('fos_user_security_logout') }}">Salir</a>
             </li>
@@ -81,17 +86,25 @@
   </div>
 {% endblock %}
 {% block flash %}{% include "BlogBundle::layout.flash.html.twig" %}{% endblock %}
-{% block content %}{% endblock %}
-<div class="container">
-  <div class="col-md-8">
-    {% block main %}{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-8">
+        {% block main %}Main{% endblock %}
+      </div>
+      <div class="col-md-4 hidden-xs">
+        {% block sidebar %}Sidebar{% endblock %}
+      </div>
+    </div>
   </div>
-  <div class="col-md-4">
-    {% block sidebar %}{% endblock %}
-  </div>
-</div>
+{% endblock %}
 {% block footer %}{% endblock %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+  {% javascripts
+  '@BlogBundle/Resources/public/js/vendor/jquery/jquery.js'
+  '@BlogBundle/Resources/public/js/vendor/bootstrap/bootstrap.js' %}
+  <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}{% endblock %}
 {% block analytics %}
   {% if ga_tracking is defined and blog_google_tracking is not empty %}
     <script type="text/javascript">

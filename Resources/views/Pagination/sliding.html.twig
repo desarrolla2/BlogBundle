@@ -1,5 +1,5 @@
 {% if pageCount > 1 %}
-  <ul class="pagination">
+  <ul class="pagination pagination-lg">
     {% if first is defined and current != first %}
       <li class="first">
         <a href="{{ url(route, query|merge({(pageParameterName): first})) }}">&lt;&lt;</a>
