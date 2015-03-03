@@ -1,9 +1,20 @@
 <?php
 
+/*
+ * This file is part of the BlogBundle package.
+ *
+ * Copyright (c) daniel@desarrolla2.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
+ */
+
 namespace Desarrolla2\Bundle\BlogBundle\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use Desarrolla2\Bundle\BlogBundle\Entity\Banner;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * BannerRepository
@@ -23,7 +34,7 @@ class BannerRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT b FROM BlogBundle:Banner b ' .
+            ' SELECT b FROM BlogBundle:Banner b '.
             ' WHERE b.isPublished = 1 '
         );
 

@@ -1,11 +1,22 @@
 <?php
 
+/*
+ * This file is part of the BlogBundle package.
+ *
+ * Copyright (c) daniel@desarrolla2.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
+ */
+
 namespace Desarrolla2\Bundle\BlogBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Post
@@ -184,7 +195,7 @@ class Post
      */
     public function setContent($content)
     {
-        $this->content = (string)$content;
+        $this->content = (string) $content;
 
         return $this;
     }
@@ -420,7 +431,7 @@ class Post
      */
     public function setIntro($intro)
     {
-        $this->intro = (string)$intro;
+        $this->intro = (string) $intro;
 
         return $this;
     }
@@ -522,7 +533,7 @@ class Post
      */
     public function hasSource()
     {
-        return (bool)$this->getSource();
+        return (bool) $this->getSource();
     }
 
     /**
@@ -580,7 +591,7 @@ class Post
      */
     public function isPublished()
     {
-        return (bool)($this->status == PostStatus::PUBLISHED);
+        return (bool) ($this->status == PostStatus::PUBLISHED);
     }
 
     /**

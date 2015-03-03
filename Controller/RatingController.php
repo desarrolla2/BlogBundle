@@ -1,17 +1,21 @@
 <?php
-/**
- * This file is part of the desarrolla2/blog-bundle package.
+
+/*
+ * This file is part of the BlogBundle package.
  *
- * (c) Daniel González <daniel@desarrolla2.com>
+ * Copyright (c) daniel@desarrolla2.com
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
  */
+
 namespace Desarrolla2\Bundle\BlogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

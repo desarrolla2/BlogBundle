@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="BlogBundle" basedir=".">
+
+    <target name="cs" description="Analyzes some PHP source code and tries to fix coding standards issues ">
+        <parallel>
+            <exec executable="php-cs-fixer">
+                <arg line="fix ."/>
+            </exec>
+            <exec executable="php-formatter">
+                <arg line="formatter:header:fix ."/>
+            </exec>
+            <exec executable="php-formatter">
+                <arg line="formatter:use:sort ."/>
+            </exec>
+        </parallel>
+    </target>
+</project>

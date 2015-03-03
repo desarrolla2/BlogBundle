@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the BlogBundle package.
+ *
+ * Copyright (c) daniel@desarrolla2.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
+ */
+
 namespace Desarrolla2\Bundle\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -96,7 +107,7 @@ class Tag
     /**
      * Set name
      *
-     * @param  string $name
+     * @param string $name
      *
      * @return Tag
      */
@@ -118,7 +129,7 @@ class Tag
     /**
      * Set created_at
      *
-     * @param  \DateTime $createdAt
+     * @param \DateTime $createdAt
      *
      * @return Tag
      */
@@ -140,7 +151,7 @@ class Tag
     /**
      * Set updated_at
      *
-     * @param  \DateTime $updatedAt
+     * @param \DateTime $updatedAt
      *
      * @return Tag
      */
@@ -162,7 +173,7 @@ class Tag
     /**
      * Set slug
      *
-     * @param  string $slug
+     * @param string $slug
      *
      * @return Tag
      */
@@ -184,7 +195,7 @@ class Tag
     /**
      * Add posts
      *
-     * @param  Desarrolla2\Bundle\BlogBundle\Entity\Post $post
+     * @param Desarrolla2\Bundle\BlogBundle\Entity\Post $post
      *
      * @return Tag
      */
@@ -217,13 +228,13 @@ class Tag
     /**
      * Set items
      *
-     * @param  int $items
+     * @param int $items
      *
      * @return Tag
      */
     public function setItems($items)
     {
-        $this->items = (int)$items;
+        $this->items = (int) $items;
     }
 
     /**
@@ -235,5 +246,4 @@ class Tag
     {
         return $this->items;
     }
-
 }

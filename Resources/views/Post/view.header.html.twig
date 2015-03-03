@@ -1,18 +1,6 @@
 <header>
-  <span class="rating">
-        {{ rating }}
-    <span class="rate">
-        <a class="rating" href="#"
-           data-url="{{ path('_blog_rate', {'entity': 'Post', 'id': post.id , 'rate': '+1'}) }}">
-          me gusta
-        </a>
-      </span>
-  </span>
-
   <h1>
     <a id="post-view" href="{{ path('_blog_view', { 'slug' : post.slug }) }}" title="{{ post }}"
-       data-id="{{ post.id }}">
-      {{ post }}
-    </a>
+       data-id="{{ post.id }}"> {{ post }} </a>
   </h1>
 </header>

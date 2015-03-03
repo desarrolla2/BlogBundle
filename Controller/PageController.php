@@ -1,20 +1,21 @@
 <?php
 
-/**
- * This file is part of the desarrolla2 project.
+/*
+ * This file is part of the BlogBundle package.
  *
- * Copyright (c)
- * Daniel González Cerviño <daniel.gonzalez@freelancemadrid.es>
+ * Copyright (c) daniel@desarrolla2.com
  *
- * This source file is subject to the MIT license that is bundled
- * with this package in the file LICENSE.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
  */
 
 namespace Desarrolla2\Bundle\BlogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * PageController
@@ -40,7 +41,6 @@ class PageController extends Controller
         return array();
     }
 
-
     /**
      * @Route("/cookies-policy",  name="_cookies")
      * @Template()
@@ -49,5 +49,4 @@ class PageController extends Controller
     {
         return array();
     }
-
 }

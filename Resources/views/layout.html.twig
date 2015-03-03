@@ -14,10 +14,6 @@
     <meta property="og:locale" content="{{ locale }}"/>
     <meta property="og:type" content="website"/>
   {% endblock %}
-  {% block meta_twiter %}
-    <meta property=":card" content="summary"/>
-    <meta name="twitter:title" content="{{ blog_name }}"/>
-  {% endblock %}
   {% block meta_other %}{% endblock %}
   {% block favicon %}
     <meta name="msapplication-TileColor" content="#FFFFFF"/>
@@ -41,7 +37,7 @@
 </head>
 <body>
 {% block header %}
-  <div class="navbar navbar-inverse" role="navigation">
+  <nav class="navbar navbar-inverse" role="navigation">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -83,18 +79,18 @@
         </ul>
       </div>
     </div>
-  </div>
+  </nav>
 {% endblock %}
 {% block flash %}{% include "BlogBundle::layout.flash.html.twig" %}{% endblock %}
 {% block content %}
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 col-md-8">
+      <section class="col-xs-12 col-md-8">
         {% block main %}Main{% endblock %}
-      </div>
-      <div class="col-md-4 hidden-xs">
+      </section>
+      <aside class="col-md-4 hidden-xs">
         {% block sidebar %}Sidebar{% endblock %}
-      </div>
+      </aside>
     </div>
   </div>
 {% endblock %}

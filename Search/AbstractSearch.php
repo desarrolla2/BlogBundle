@@ -1,24 +1,26 @@
 <?php
-/**
- * This file is part of the desarrolla2/blog-bundle project.
+
+/*
+ * This file is part of the BlogBundle package.
  *
- * Copyright (c)
+ * Copyright (c) daniel@desarrolla2.com
  *
- * This source file is subject to the MIT license that is bundled
- * with this package in the file LICENSE.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
  */
 
 namespace Desarrolla2\Bundle\BlogBundle\Search;
 
-use Knp\Component\Pager\Paginator;
 use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\Paginator;
 
 /**
  * Class AbstractSearch
  *
  * @author Daniel González <daniel@desarrolla2.com>
  */
-
 abstract class AbstractSearch implements SearchInterface
 {
 

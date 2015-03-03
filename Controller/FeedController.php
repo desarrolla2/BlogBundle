@@ -1,20 +1,21 @@
 <?php
 
-/**
- * This file is part of the desarrolla2 project.
+/*
+ * This file is part of the BlogBundle package.
  *
- * Copyright (c)
- * Daniel González <daniel@desarrolla2.com>
+ * Copyright (c) daniel@desarrolla2.com
  *
- * This source file is subject to the MIT license that is bundled
- * with this package in the file LICENSE.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
  */
 
 namespace Desarrolla2\Bundle\BlogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -71,7 +72,7 @@ class FeedController extends Controller
         return $this->render(
             'BlogBundle:/Feed:index.xml.twig',
             array(
-                'title' => $this->container->getParameter('blog.rss.title') . ' :: ' . $tag->getName(),
+                'title' => $this->container->getParameter('blog.rss.title').' :: '.$tag->getName(),
                 'description' => $this->container->getParameter('blog.rss.description'),
                 'language' => $this->container->getParameter('blog.rss.language'),
                 'ttl' => $this->container->getParameter('blog.rss.ttl'),
@@ -79,5 +80,4 @@ class FeedController extends Controller
             )
         );
     }
-
 }

@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the BlogBundle package.
+ *
+ * Copyright (c) daniel@desarrolla2.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
+ */
+
 namespace Desarrolla2\Bundle\BlogBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
@@ -27,9 +38,9 @@ class RatingRepository extends EntityRepository
 
         return (int) $this->getEntityManager()
             ->createNativeQuery(
-                ' SELECT SUM(r.rating) as n ' .
-                ' FROM rating AS r' .
-                ' WHERE r.entity_name = :entityName ' .
+                ' SELECT SUM(r.rating) as n '.
+                ' FROM rating AS r'.
+                ' WHERE r.entity_name = :entityName '.
                 ' AND r.entity_id = :entityId ',
                 $rsm
             )
@@ -51,9 +62,9 @@ class RatingRepository extends EntityRepository
 
         return (int) $this->getEntityManager()
             ->createNativeQuery(
-                ' SELECT COUNT(*) as n ' .
-                ' FROM rating AS r' .
-                ' WHERE r.entity_name = :entityName ' .
+                ' SELECT COUNT(*) as n '.
+                ' FROM rating AS r'.
+                ' WHERE r.entity_name = :entityName '.
                 ' AND r.entity_id = :entityId ',
                 $rsm
             )

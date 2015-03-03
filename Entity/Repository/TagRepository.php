@@ -1,10 +1,21 @@
 <?php
 
+/*
+ * This file is part of the BlogBundle package.
+ *
+ * Copyright (c) daniel@desarrolla2.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
+ */
+
 namespace Desarrolla2\Bundle\BlogBundle\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use Desarrolla2\Bundle\BlogBundle\Entity\Tag;
 use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * TagRepository
@@ -37,8 +48,8 @@ class TagRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT t FROM BlogBundle:Tag t ' .
-            ' WHERE t.items >= 1 ' .
+            ' SELECT t FROM BlogBundle:Tag t '.
+            ' WHERE t.items >= 1 '.
             ' ORDER BY t.items DESC '
         );
 
@@ -86,10 +97,10 @@ class TagRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT COUNT(p) FROM BlogBundle:Post p ' .
-            ' JOIN p.tags t ' .
-            ' WHERE p.status = ' . PostStatus::PUBLISHED .
-            ' AND t = :t ' .
+            ' SELECT COUNT(p) FROM BlogBundle:Post p '.
+            ' JOIN p.tags t '.
+            ' WHERE p.status = '.PostStatus::PUBLISHED.
+            ' AND t = :t '.
             ' ORDER BY p.createdAt DESC '
         )
             ->setParameter('t', $t);
@@ -144,8 +155,8 @@ class TagRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT t FROM BlogBundle:Tag t ' .
-            ' WHERE t.slug = :slug' .
+            ' SELECT t FROM BlogBundle:Tag t '.
+            ' WHERE t.slug = :slug'.
             ' ORDER BY t.createdAt DESC '
         )
             ->setParameter('slug', $slug);
@@ -163,7 +174,7 @@ class TagRepository extends EntityRepository
         $em = $this->getEntityManager();
         $name = strtolower($tagName);
         $query = $em->createQuery(
-            ' SELECT t FROM BlogBundle:Tag t ' .
+            ' SELECT t FROM BlogBundle:Tag t '.
             ' WHERE t.name = :name'
         )
             ->setParameter('name', $name);

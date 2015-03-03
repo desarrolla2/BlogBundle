@@ -1,38 +1,29 @@
 {% extends "BlogBundle::layout.html.twig" %}
-{% block title %} {{ parent() }} {% if page != 1 %}| Página {{ page }} {% endif %}{% endblock %}
+{% set title %}{% if page == 1 %}{{ blog_description }} :: {{ blog_name }}{% else %}{{ blog_name }} :: Página {{ page }}{% endif %}{% endset %}
+{% set description %}{% if pagination.current %}{{ pagination.current.intro | striptags | truncate(150) }}{% endif %}{% endset %}
+{% block title %}{{ title }}{% endblock %}
+{% block meta_description %}{{ description }}{% endblock %}
 {% block canonical %}
   <link rel="canonical" href="{{ url('_blog_default', { 'page' : page }) }}"/>
 {% endblock %}
-{% block meta_description %}{% if pagination.current %}{{ pagination.current.intro | striptags | truncate(150) }}{% endif %}{% endblock %}
-{% block meta_keywords %}{% if pagination.current %}{% for tag in pagination.current.tags %}{{ tag }} {% endfor %}{% endif %}{% endblock %}
 {% block meta_og %}
-  {{ parent() }}
   {% if pagination.current %}
-    <meta property="og:title" content="{{ pagination.current }}"/>
-    <meta property="og:url" content="{{ path('_blog_default', { 'page' : page }) }}"/>
-    <meta property="og:description" content="{{ pagination.current.intro | striptags | raw | truncate(150) }}"/>
+    <meta property="og:title" content="{{ title }}"/>
+    <meta property="og:description" content="{{ description }}"/>
     {% if pagination.current.hasImage %}
       <meta property="og:image" content="{{ pagination.current.image }}"/>
+    {% else %}
+      <meta property="og:image" content="{{ asset('bundles/app/ico/favicon-154.png') }}"/>
     {% endif %}
-  {% endif %}
-{% endblock %}
-{% block meta_twiter %}
-  {% if pagination.current %}
-    {{ parent() }}
-    <meta property="twitter:title" content="{{ pagination.current }}"/>
-    <meta property="twitter:description" content="{{ pagination.current.intro | striptags | raw | truncate(150) }}"/>
-    {% if pagination.current.hasImage %}
-      <meta property="twitter:image:src" content="{{ pagination.current.image }}"/>
-    {% endif %}
+    <meta property="og:locale" content="{{ locale }}"/>
+    <meta property="og:type" content="website"/>
   {% endif %}
 {% endblock %}
 {% block main %}
-  <section>
-    {% for post in pagination %}
-      {% include 'BlogBundle:Post:index.item.html.twig' with {'post': post} %}
-    {% else %}
-      <p>No hay elementos</p>
-    {% endfor %}
-    <div>{{ knp_pagination_render(pagination) }}</div>
-  </section>
+  {% for post in pagination %}
+    {% include 'BlogBundle:Post:index.item.html.twig' with {'post': post} %}
+  {% else %}
+    <p>No hay elementos</p>
+  {% endfor %}
+  <div class="row center-block">{{ knp_pagination_render(pagination) }}</div>
 {% endblock %}

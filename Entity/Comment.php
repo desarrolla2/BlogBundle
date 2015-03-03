@@ -1,20 +1,31 @@
 <?php
 
+/*
+ * This file is part of the BlogBundle package.
+ *
+ * Copyright (c) daniel@desarrolla2.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
+ */
+
 namespace Desarrolla2\Bundle\BlogBundle\Entity;
 
+use Desarrolla2\Bundle\BlogBundle\Model\CommentStatus;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Desarrolla2\Bundle\BlogBundle\Model\Gravatar;
 
 /**
- * Desarrolla2\Bundle\BlogBundle\Entity\Comment
+ * Comment
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="Desarrolla2\Bundle\BlogBundle\Entity\Repository\CommentRepository")
  */
 class Comment
 {
-
     /**
      * @var integer $id
      *
@@ -25,25 +36,20 @@ class Comment
     protected $id;
 
     /**
-     * @var string $userName
+     * @var Post
      *
-     * @ORM\Column(name="user_name", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
-    protected $userName;
+    protected $post;
 
     /**
-     * @var string $userEmail
+     * @var User
      *
-     * @ORM\Column(name="user_email", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    protected $userEmail;
-
-    /**
-     * @var string $userWeb
-     *
-     * @ORM\Column(name="user_web", type="string", length=255)
-     */
-    protected $userWeb;
+    protected $user;
 
     /**
      * @var string $content
@@ -58,15 +64,6 @@ class Comment
      * @ORM\Column(name="status", type="integer")
      */
     protected $status;
-
-    /**
-     *
-     * @var Post
-     *
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
-     */
-    protected $post;
 
     /**
      * @var \DateTime $createdAt
@@ -85,16 +82,19 @@ class Comment
     protected $updatedAt;
 
     /**
-     * Constructor
+     * @param Post $post
+     * @param User $user
      */
-    public function __construct()
+    public function __construct(Post $post, User $user = null)
     {
-        $this->userName = '';
-        $this->userEmail = '';
-        $this->userWeb = '';
-        $this->status = 0;
+        $this->post = $post;
+        $this->user = $user;
+        $this->status = CommentStatus::PENDING;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getContent();
@@ -113,12 +113,13 @@ class Comment
     /**
      * Set content
      *
-     * @param  string  $content
+     * @param string $content
+     *
      * @return Comment
      */
     public function setContent($content)
     {
-        $this->content = (string) $content;
+        $this->content = $content;
 
         return $this;
     }
@@ -136,7 +137,8 @@ class Comment
     /**
      * Set published
      *
-     * @param  boolean $published
+     * @param boolean $published
+     *
      * @return Comment
      */
     public function setPublished($published)
@@ -159,7 +161,8 @@ class Comment
     /**
      * Set createdAt
      *
-     * @param  \DateTime $createdAt
+     * @param \DateTime $createdAt
+     *
      * @return Comment
      */
     public function setCreatedAt($createdAt)
@@ -182,7 +185,8 @@ class Comment
     /**
      * Set updatedAt
      *
-     * @param  \DateTime $updatedAt
+     * @param \DateTime $updatedAt
+     *
      * @return Comment
      */
     public function setUpdatedAt($updatedAt)
@@ -200,130 +204,5 @@ class Comment
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Set post
-     *
-     * @param  Desarrolla2\Bundle\BlogBundle\Entity\Post $post
-     * @return Comment
-     */
-    public function setPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post = null)
-    {
-        $this->post = $post;
-
-        return $this;
-    }
-
-    /**
-     * Get post
-     *
-     * @return Desarrolla2\Bundle\BlogBundle\Entity\Post
-     */
-    public function getPost()
-    {
-        return $this->post;
-    }
-
-    /**
-     * Set userEmail
-     *
-     * @param  string  $userEmail
-     * @return Comment
-     */
-    public function setUserEmail($userEmail)
-    {
-        $this->userEmail = $userEmail;
-
-        return $this;
-    }
-
-    /**
-     * Get userEmail
-     *
-     * @return string
-     */
-    public function getUserEmail()
-    {
-        return $this->userEmail;
-    }
-
-    /**
-     * Set user
-     *
-     * @param  string  $user
-     * @return Comment
-     */
-    public function setUserName($userName)
-    {
-        $this->userName = $userName;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return string
-     */
-    public function getUserName()
-    {
-        return $this->userName;
-    }
-
-    /**
-     * Set userWeb
-     *
-     * @param  string  $userWeb
-     * @return Comment
-     */
-    public function setUserWeb($userWeb)
-    {
-        $this->userWeb = $userWeb;
-
-        return $this;
-    }
-
-    /**
-     * Get userWeb
-     *
-     * @return string
-     */
-    public function getUserWeb()
-    {
-        return $this->userWeb;
-    }
-
-    /**
-     * Set status
-     *
-     * @param  integer $status
-     * @return Comment
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return integer
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * get Avatar URL
-     *
-     * @return string
-     */
-    public function getAvatarUrl()
-    {
-        return Gravatar::URL . md5(strtolower(trim($this->getUserEmail())));
     }
 }

@@ -1,11 +1,22 @@
 <?php
 
+/*
+ * This file is part of the BlogBundle package.
+ *
+ * Copyright (c) daniel@desarrolla2.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
+ */
+
 namespace Desarrolla2\Bundle\BlogBundle\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use DateTime;
 use Desarrolla2\Bundle\BlogBundle\Entity\Post;
 use Desarrolla2\Bundle\BlogBundle\Model\CommentStatus;
-use DateTime;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * CommentRepository
@@ -22,9 +33,9 @@ class CommentRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                ' SELECT c FROM BlogBundle:Comment c ' .
-                ' WHERE c.status = ' . CommentStatus::PENDING .
-                ' OR c.status = ' . CommentStatus::APPROVED .
+                ' SELECT c FROM BlogBundle:Comment c '.
+                ' WHERE c.status = '.CommentStatus::PENDING.
+                ' OR c.status = '.CommentStatus::APPROVED.
                 ' ORDER BY c.createdAt DESC '
                 )
         ;
@@ -43,13 +54,13 @@ class CommentRepository extends EntityRepository
         $limit = (int) $limit;
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                        ' SELECT c FROM BlogBundle:Comment c ' .
-                        ' JOIN c.post p ' .
-                        ' JOIN p.tags t ' .
-                        ' JOIN t.posts p1 ' .
-                        ' WHERE c.status = ' . CommentStatus::PENDING .
-                        ' OR c.status = ' . CommentStatus::APPROVED .
-                        ' AND p1 = :post ' .
+                        ' SELECT c FROM BlogBundle:Comment c '.
+                        ' JOIN c.post p '.
+                        ' JOIN p.tags t '.
+                        ' JOIN t.posts p1 '.
+                        ' WHERE c.status = '.CommentStatus::PENDING.
+                        ' OR c.status = '.CommentStatus::APPROVED.
+                        ' AND p1 = :post '.
                         ' ORDER BY c.createdAt DESC '
                 )
                 ->setParameter('post', $post)
@@ -85,9 +96,9 @@ class CommentRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                        ' SELECT c FROM BlogBundle:Comment c ' .
-                        ' WHERE ( c.status = ' . CommentStatus::PENDING . ' OR c.status = ' . CommentStatus::APPROVED . ' ) ' .
-                        ' AND c.post = :post ' .
+                        ' SELECT c FROM BlogBundle:Comment c '.
+                        ' WHERE ( c.status = '.CommentStatus::PENDING.' OR c.status = '.CommentStatus::APPROVED.' ) '.
+                        ' AND c.post = :post '.
                         ' ORDER BY c.createdAt ASC '
                 )
                 ->setParameter('post', $post)
@@ -140,8 +151,8 @@ class CommentRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                ' SELECT COUNT(c) FROM BlogBundle:Comment c ' .
-                ' WHERE c.status = ' . CommentStatus::APPROVED
+                ' SELECT COUNT(c) FROM BlogBundle:Comment c '.
+                ' WHERE c.status = '.CommentStatus::APPROVED
                 )
         ;
 
@@ -156,8 +167,8 @@ class CommentRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                ' SELECT c FROM BlogBundle:Comment c ' .
-                ' WHERE c.status = ' . CommentStatus::PENDING .
+                ' SELECT c FROM BlogBundle:Comment c '.
+                ' WHERE c.status = '.CommentStatus::PENDING.
                 ' ORDER BY c.createdAt DESC '
                 )
         ;
@@ -174,7 +185,7 @@ class CommentRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-                        ' DELETE  BlogBundle:Comment c ' .
+                        ' DELETE  BlogBundle:Comment c '.
                         ' WHERE c.id = :id '
                 )
                 ->setParameter('id', $id)
@@ -192,8 +203,8 @@ class CommentRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-        ' SELECT COUNT(c) FROM BlogBundle:Comment c ' .
-        ' WHERE c.status = ' . CommentStatus::APPROVED .
+        ' SELECT COUNT(c) FROM BlogBundle:Comment c '.
+        ' WHERE c.status = '.CommentStatus::APPROVED.
         ' AND c.createdAt >= :date '
         )
         ->setParameter('date', $date)
@@ -201,5 +212,4 @@ class CommentRepository extends EntityRepository
 
         return $query->getSingleScalarResult();
     }
-
 }

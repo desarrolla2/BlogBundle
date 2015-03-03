@@ -1,21 +1,25 @@
 <?php
-/**
- * This file is part of the planetubuntu package.
+
+/*
+ * This file is part of the BlogBundle package.
  *
- * (c) Daniel González <daniel@desarrolla2.com>
+ * Copyright (c) daniel@desarrolla2.com
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
  */
+
 namespace Desarrolla2\Bundle\BlogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Request;
-use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Desarrolla2\Bundle\BlogBundle\Entity\PostClick;
+use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * RedirectController
@@ -37,7 +41,6 @@ class RedirectController extends Controller
      */
     public function postSourceAction(Request $request)
     {
-
         $post = $this->getDoctrine()->getManager()
             ->getRepository('BlogBundle:Post')->find($request->get('id', false));
 

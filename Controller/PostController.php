@@ -1,19 +1,30 @@
 <?php
 
+/*
+ * This file is part of the BlogBundle package.
+ *
+ * Copyright (c) daniel@desarrolla2.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
+ */
+
 namespace Desarrolla2\Bundle\BlogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Desarrolla2\Bundle\BlogBundle\Entity\Comment;
+use Desarrolla2\Bundle\BlogBundle\Entity\Post;
+use Desarrolla2\Bundle\BlogBundle\Form\Model\CommentModel;
+use Desarrolla2\Bundle\BlogBundle\Form\Type\CommentType;
+use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
+use Doctrine\ORM\Query\QueryException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Request;
-use Desarrolla2\Bundle\BlogBundle\Entity\Post;
-use Desarrolla2\Bundle\BlogBundle\Entity\Comment;
-use Desarrolla2\Bundle\BlogBundle\Form\Type\CommentType;
-use Desarrolla2\Bundle\BlogBundle\Form\Model\CommentModel;
-use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Doctrine\ORM\Query\QueryException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -26,12 +37,12 @@ class PostController extends Controller
      * @Method({"GET"})
      * @Template()
      *
-     * @param  Request $request
+     * @param int $page
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return array
      */
-    public function indexAction(Request $request)
+    public function indexAction($page)
     {
         $paginator = $this->get('knp_paginator');
         $query = $this->getDoctrine()->getManager()
@@ -40,7 +51,7 @@ class PostController extends Controller
         try {
             $pagination = $paginator->paginate(
                 $query,
-                $this->getPage(),
+                $page,
                 $this->container->getParameter('blog.items')
             );
         } catch (QueryException $e) {
@@ -48,7 +59,7 @@ class PostController extends Controller
         }
 
         return [
-            'page' => $this->getPage(),
+            'page' => $page,
             'pagination' => $pagination,
             'title' => $this->container->getParameter('blog.title'),
             'description' => $this->container->getParameter('blog.description'),
@@ -61,7 +72,7 @@ class PostController extends Controller
      * @Method({"GET"})
      * @Template()
      *
-     * @param  Request $request
+     * @param Request $request
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -96,7 +107,7 @@ class PostController extends Controller
      * @Route("/view/post/{slug}" , name="_blog_post_view", requirements={"slug" = "[\w\d\-]+"})
      * @Method({"POST"})
      *
-     * @param  Request $request
+     * @param Request $request
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return Response
@@ -117,7 +128,7 @@ class PostController extends Controller
     }
 
     /**
-     * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
+     * @param \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
      *
      * @return \Desarrolla2\Bundle\BlogBundle\Entity\Comment
      */
@@ -127,19 +138,5 @@ class PostController extends Controller
         $comment->setPost($post);
 
         return $comment;
-    }
-
-    /**
-     * @return int
-     */
-    protected function getPage()
-    {
-        $request = $this->getRequest();
-        $page = (int)$request->get('page', 1);
-        if ($page < 1) {
-            $this->createNotFoundException('Page number is not valid'.$page);
-        }
-
-        return $page;
     }
 }

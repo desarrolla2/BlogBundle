@@ -1,24 +1,25 @@
 <?php
 
-/**
- * This file is part of the desarrolla2/blog-bundle project.
+/*
+ * This file is part of the BlogBundle package.
  *
- * Copyright (c)
- * Daniel González Cerviño <daniel@desarrolla2.com>
+ * Copyright (c) daniel@desarrolla2.com
  *
- * This source file is subject to the MIT license that is bundled
- * with this package in the file LICENSE.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
  */
 
 namespace Desarrolla2\Bundle\BlogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use DateTime;
+use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
-use DateTime;
 
 /**
  *
@@ -94,11 +95,11 @@ class ReportController extends Controller
         $from = $this->getFrom($request->get('period'));
 
         $items = $em->createQuery(
-            ' SELECT r.entityId as id, SUM(r.rating) as rating ' .
-            ' FROM BlogBundle:Rating r ' .
-            ' WHERE r.entityName = \'Post\' ' .
-            ' AND r.createdAt >= :from' .
-            ' GROUP BY r.entityId ' .
+            ' SELECT r.entityId as id, SUM(r.rating) as rating '.
+            ' FROM BlogBundle:Rating r '.
+            ' WHERE r.entityName = \'Post\' '.
+            ' AND r.createdAt >= :from'.
+            ' GROUP BY r.entityId '.
             ' ORDER by rating DESC '
         )
             ->setParameter('from', $from)
@@ -122,7 +123,7 @@ class ReportController extends Controller
             'BlogBundle:/Report:mostRated.html.twig',
             array(
                 'items' => $items,
-                'period' => $this->getPeriod($request->get('period'))
+                'period' => $this->getPeriod($request->get('period')),
             )
         );
     }
@@ -139,11 +140,11 @@ class ReportController extends Controller
         $from = $this->getFrom($request->get('period'));
 
         $items = $em->createQuery(
-            ' SELECT r.entityId as id, SUM(r.rating) as rating ' .
-            ' FROM BlogBundle:Rating r ' .
-            ' WHERE r.entityName = \'Post\' ' .
-            ' AND r.createdAt >= :from' .
-            ' GROUP BY r.entityId ' .
+            ' SELECT r.entityId as id, SUM(r.rating) as rating '.
+            ' FROM BlogBundle:Rating r '.
+            ' WHERE r.entityName = \'Post\' '.
+            ' AND r.createdAt >= :from'.
+            ' GROUP BY r.entityId '.
             ' ORDER by rating DESC '
         )
             ->setParameter('from', $from)
@@ -167,7 +168,7 @@ class ReportController extends Controller
             'BlogBundle:/Report:mostViewed.html.twig',
             array(
                 'items' => $items,
-                'period' => $this->getPeriod($request->get('period'))
+                'period' => $this->getPeriod($request->get('period')),
             )
         );
     }
@@ -184,11 +185,11 @@ class ReportController extends Controller
         $from = $this->getFrom($request->get('period'));
 
         $items = $em->createQuery(
-            ' SELECT c, p.id as id, COUNT(c.id) as comments ' .
-            ' FROM BlogBundle:Comment c ' .
-            ' JOIN c.post p ' .
-            ' WHERE c.createdAt >= :from' .
-            ' GROUP BY c.post ' .
+            ' SELECT c, p.id as id, COUNT(c.id) as comments '.
+            ' FROM BlogBundle:Comment c '.
+            ' JOIN c.post p '.
+            ' WHERE c.createdAt >= :from'.
+            ' GROUP BY c.post '.
             ' ORDER by comments DESC '
         )
             ->setParameter('from', $from)
@@ -212,11 +213,10 @@ class ReportController extends Controller
             'BlogBundle:/Report:mostViewed.html.twig',
             array(
                 'items' => $items,
-                'period' => $this->getPeriod($request->get('period'))
+                'period' => $this->getPeriod($request->get('period')),
             )
         );
     }
-
 
     /**
      * @param $period

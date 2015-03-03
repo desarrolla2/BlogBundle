@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the BlogBundle package.
+ *
+ * Copyright (c) daniel@desarrolla2.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
+ */
+
 namespace Desarrolla2\Bundle\BlogBundle\Search;
 
 use Desarrolla2\Bundle\BlogBundle\Entity\Post;
@@ -66,7 +77,6 @@ class Sphinx extends AbstractSearch
      * @param  int   $limit
      * @return array
      */
-
     public function related(Post $post, $limit = 3)
     {
         $this->sphinx->SetMatchMode(SPH_MATCH_ANY);
@@ -89,7 +99,6 @@ class Sphinx extends AbstractSearch
      */
     public function search($query, $page)
     {
-
         $this->sphinx->SetLimits(0, $this->maxSearchResults);
         $this->sphinx->SetMatchMode(SPH_MATCH_ALL);
         $ids = $this->sphinxSearch($query);
@@ -136,7 +145,7 @@ class Sphinx extends AbstractSearch
         $query = $this->sphinx->escapeString($query);
         $response = $this->sphinx->Query($query, $this->index);
         if ($response === false) {
-            throw new \RuntimeException('Sphinx Query failed: ' . $this->sphinx->GetLastError());
+            throw new \RuntimeException('Sphinx Query failed: '.$this->sphinx->GetLastError());
         } else {
             if (empty($response['matches'])) {
                 return;

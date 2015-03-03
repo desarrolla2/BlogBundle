@@ -1,7 +1,7 @@
-<ul class="tags">
-  {% for tag in tags %}
-    <li><a href="{{ path('_blog_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a></li>
-  {% else %}
-    <li>No tiene etiquetas</li>
-  {% endfor %}
-</ul>
+{% if tags | length %}
+  <ul class="tags">
+    {% for tag in tags %}
+      <li><a href="{{ path('_blog_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a></li>
+    {% endfor %}
+  </ul>
+{% endif %}

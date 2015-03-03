@@ -1,24 +1,25 @@
 <?php
 
-/**
- * This file is part of the desarrolla2/blog-bundle project.
+/*
+ * This file is part of the BlogBundle package.
  *
- * Copyright (c)
- * Daniel González <daniel@desarrolla2.com>
+ * Copyright (c) daniel@desarrolla2.com
  *
- * This source file is subject to the MIT license that is bundled
- * with this package in the file LICENSE.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
  */
 
 namespace Desarrolla2\Bundle\BlogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\ORM\Query\QueryException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\Query\QueryException;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  *
@@ -99,10 +100,9 @@ class TagController extends Controller
         $request = $this->getRequest();
         $page = (int) $request->get('page', 1);
         if ($page < 1) {
-            $this->createNotFoundException('Page number is not valid' . $page);
+            $this->createNotFoundException('Page number is not valid'.$page);
         }
 
         return $page;
     }
-
 }

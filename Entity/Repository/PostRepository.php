@@ -1,12 +1,23 @@
 <?php
 
+/*
+ * This file is part of the BlogBundle package.
+ *
+ * Copyright (c) daniel@desarrolla2.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
+ */
+
 namespace Desarrolla2\Bundle\BlogBundle\Entity\Repository;
 
-use \Doctrine\ORM\EntityRepository;
-use \Desarrolla2\Bundle\BlogBundle\Entity\Post;
-use \Desarrolla2\Bundle\BlogBundle\Entity\Tag;
+use DateTime;
+use Desarrolla2\Bundle\BlogBundle\Entity\Post;
+use Desarrolla2\Bundle\BlogBundle\Entity\Tag;
+use Doctrine\ORM\EntityRepository;
 use Desarrolla2\Bundle\BlogBundle\Model\PostStatus;
-use \DateTime;
 use Doctrine\ORM\Query;
 
 /**
@@ -29,9 +40,9 @@ class PostRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT p FROM BlogBundle:Post p ' .
-            ' WHERE p.id IN (:ids) ' .
-            ' AND p.status = ' . PostStatus::PUBLISHED
+            ' SELECT p FROM BlogBundle:Post p '.
+            ' WHERE p.id IN (:ids) '.
+            ' AND p.status = '.PostStatus::PUBLISHED
         )
             ->setParameter('ids', $ids);
 
@@ -63,7 +74,7 @@ class PostRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT p FROM BlogBundle:Post p ' .
+            ' SELECT p FROM BlogBundle:Post p '.
             ' WHERE p.slug = :slug '
         )
             ->setParameter('slug', $slug);
@@ -110,8 +121,8 @@ class PostRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT p FROM BlogBundle:Post p ' .
-            ' WHERE p.status = ' . PostStatus::PUBLISHED .
+            ' SELECT p FROM BlogBundle:Post p '.
+            ' WHERE p.status = '.PostStatus::PUBLISHED.
             ' ORDER BY p.promotion DESC, p.publishedAt DESC '
         );
 
@@ -141,10 +152,10 @@ class PostRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT p FROM BlogBundle:Post p ' .
-            ' JOIN p.tags t ' .
-            ' WHERE p.status = ' . PostStatus::PUBLISHED .
-            ' AND t.slug  = :slug ' .
+            ' SELECT p FROM BlogBundle:Post p '.
+            ' JOIN p.tags t '.
+            ' WHERE p.status = '.PostStatus::PUBLISHED.
+            ' AND t.slug  = :slug '.
             ' ORDER BY p.publishedAt DESC '
         )
             ->setParameter('slug', $tag->getSlug());
@@ -162,10 +173,10 @@ class PostRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT p FROM BlogBundle:Post p ' .
-            ' JOIN p.tags t ' .
-            ' WHERE p.status = ' . PostStatus::PUBLISHED .
-            ' AND t.slug = :slug ' .
+            ' SELECT p FROM BlogBundle:Post p '.
+            ' JOIN p.tags t '.
+            ' WHERE p.status = '.PostStatus::PUBLISHED.
+            ' AND t.slug = :slug '.
             ' ORDER BY p.publishedAt DESC '
         )
             ->setParameter('slug', $slug);
@@ -185,12 +196,12 @@ class PostRepository extends EntityRepository
         $limit = (int) $limit;
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT p FROM BlogBundle:Post p ' .
-            ' JOIN p.tags t ' .
-            ' JOIN t.posts p1 ' .
-            ' WHERE p.status = ' . PostStatus::PUBLISHED .
-            ' AND p1 = :post ' .
-            ' AND p != :post ' .
+            ' SELECT p FROM BlogBundle:Post p '.
+            ' JOIN p.tags t '.
+            ' JOIN t.posts p1 '.
+            ' WHERE p.status = '.PostStatus::PUBLISHED.
+            ' AND p1 = :post '.
+            ' AND p != :post '.
             ' ORDER BY p.publishedAt DESC '
         )
             ->setParameter('post', $post)
@@ -254,8 +265,8 @@ class PostRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT COUNT(p) FROM BlogBundle:Post p ' .
-            ' WHERE p.status = ' . PostStatus::PUBLISHED
+            ' SELECT COUNT(p) FROM BlogBundle:Post p '.
+            ' WHERE p.status = '.PostStatus::PUBLISHED
         );
 
         return $query->getSingleScalarResult();
@@ -271,8 +282,8 @@ class PostRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT p FROM BlogBundle:Post p ' .
-            ' WHERE p.status != ' . PostStatus::PUBLISHED .
+            ' SELECT p FROM BlogBundle:Post p '.
+            ' WHERE p.status != '.PostStatus::PUBLISHED.
             ' ORDER BY p.createdAt DESC '
         )
             ->setMaxResults($limit);
@@ -291,8 +302,8 @@ class PostRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT COUNT(p) FROM BlogBundle:Post p ' .
-            ' WHERE p.status = ' . PostStatus::PUBLISHED .
+            ' SELECT COUNT(p) FROM BlogBundle:Post p '.
+            ' WHERE p.status = '.PostStatus::PUBLISHED.
             ' AND p.createdAt >= :date '
         )
             ->setParameter('date', $date);
@@ -309,8 +320,8 @@ class PostRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT COUNT(p) FROM BlogBundle:Post p ' .
-            ' WHERE p.status = ' . PostStatus::PUBLISHED .
+            ' SELECT COUNT(p) FROM BlogBundle:Post p '.
+            ' WHERE p.status = '.PostStatus::PUBLISHED.
             ' AND p.source != :source '
         )
             ->setParameter('source', '');
@@ -328,8 +339,8 @@ class PostRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT p FROM BlogBundle:Post p ' .
-            ' WHERE p.status = ' . PostStatus::PUBLISHED .
+            ' SELECT p FROM BlogBundle:Post p '.
+            ' WHERE p.status = '.PostStatus::PUBLISHED.
             ' ORDER BY p.createdAt DESC '
         )
             ->setMaxResults($limit);
@@ -347,8 +358,8 @@ class PostRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT p FROM BlogBundle:Post p ' .
-            ' WHERE p.status = ' . PostStatus::PRE_PUBLISHED .
+            ' SELECT p FROM BlogBundle:Post p '.
+            ' WHERE p.status = '.PostStatus::PRE_PUBLISHED.
             ' ORDER BY p.createdAt DESC '
         )
             ->setMaxResults($limit);
@@ -443,12 +454,12 @@ class PostRepository extends EntityRepository
     {
         $query = $this->getEntityManager()
             ->createQuery(
-                ' SELECT COUNT(p) as n, ' .
-                ' SUBSTRING(p.publishedAt, 1, 4) as year, ' .
-                ' SUBSTRING(p.publishedAt, 6, 2) as month ' .
-                ' FROM BlogBundle:Post p ' .
-                ' WHERE p.status = ' . PostStatus::PUBLISHED .
-                ' GROUP BY year, month ' .
+                ' SELECT COUNT(p) as n, '.
+                ' SUBSTRING(p.publishedAt, 1, 4) as year, '.
+                ' SUBSTRING(p.publishedAt, 6, 2) as month '.
+                ' FROM BlogBundle:Post p '.
+                ' WHERE p.status = '.PostStatus::PUBLISHED.
+                ' GROUP BY year, month '.
                 ' ORDER BY year DESC, month DESC '
             );
         $results = $query->getResult();
@@ -467,7 +478,7 @@ class PostRepository extends EntityRepository
                 $items[$item['year']],
                 array(
                     'n' => $item['n'],
-                    'date' => new \DateTime($item['year'] . '-' . $item['month'] . '-01')
+                    'date' => new \DateTime($item['year'].'-'.$item['month'].'-01'),
                 )
             );
         }

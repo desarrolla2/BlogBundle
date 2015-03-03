@@ -1,17 +1,21 @@
 <?php
-/**
- * This file is part of the planetubuntu package.
+
+/*
+ * This file is part of the BlogBundle package.
  *
- * (c) Daniel González <daniel@desarrolla2.com>
+ * Copyright (c) daniel@desarrolla2.com
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
  */
+
 namespace Desarrolla2\Bundle\BlogBundle\Manager;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Doctrine\ORM\EntityManager;
 
 /**
  * AbstractManager

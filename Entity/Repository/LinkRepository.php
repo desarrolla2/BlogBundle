@@ -1,10 +1,21 @@
 <?php
 
+/*
+ * This file is part of the BlogBundle package.
+ *
+ * Copyright (c) daniel@desarrolla2.com
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
+ */
+
 namespace Desarrolla2\Bundle\BlogBundle\Entity\Repository;
 
-use Doctrine\ORM\EntityRepository;
-use Desarrolla2\Bundle\BlogBundle\Model\LinkStatus;
 use DateTime;
+use Desarrolla2\Bundle\BlogBundle\Model\LinkStatus;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * LinkRepository
@@ -34,8 +45,8 @@ class LinkRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT l FROM BlogBundle:Link l ' .
-            ' WHERE l.isPublished = ' . LinkStatus::PUBLISHED .
+            ' SELECT l FROM BlogBundle:Link l '.
+            ' WHERE l.isPublished = '.LinkStatus::PUBLISHED.
             ' ORDER BY l.createdAt DESC '
         );
 
@@ -61,8 +72,8 @@ class LinkRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT l FROM BlogBundle:Link l ' .
-            ' WHERE l.isPublished = ' . LinkStatus::PUBLISHED .
+            ' SELECT l FROM BlogBundle:Link l '.
+            ' WHERE l.isPublished = '.LinkStatus::PUBLISHED.
             ' ORDER BY l.name ASC '
         );
 
@@ -89,7 +100,7 @@ class LinkRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT l FROM BlogBundle:Link l ' .
+            ' SELECT l FROM BlogBundle:Link l '.
             ' WHERE l.slug = :slug '
         )
             ->setParameter('slug', $slug);
@@ -107,8 +118,8 @@ class LinkRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT COUNT(l) FROM BlogBundle:Link l ' .
-            ' WHERE l.isPublished = ' . LinkStatus::PUBLISHED .
+            ' SELECT COUNT(l) FROM BlogBundle:Link l '.
+            ' WHERE l.isPublished = '.LinkStatus::PUBLISHED.
             ' AND l.createdAt >= :date '
         )
             ->setParameter('date', $date);
@@ -126,12 +137,12 @@ class LinkRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery(
-            ' SELECT l ' .
-            ' FROM BlogBundle:Link l ' .
-            ' JOIN l.Post p ' .
-            ' WHERE l.isPublished = ' . LinkStatus::PUBLISHED .
-            ' AND l.createdAt >= :date ' .
-            ' GROUP BY l ' .
+            ' SELECT l '.
+            ' FROM BlogBundle:Link l '.
+            ' JOIN l.Post p '.
+            ' WHERE l.isPublished = '.LinkStatus::PUBLISHED.
+            ' AND l.createdAt >= :date '.
+            ' GROUP BY l '.
             ' ORDER BY n DESC '
         )
             ->setParameter('date', $date)

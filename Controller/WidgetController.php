@@ -1,21 +1,21 @@
 <?php
 
 /*
- * This file is part of the desarrolla2 package.
+ * This file is part of the BlogBundle package.
  *
- * Short description
- *
- * @author Daniel González <daniel@desarrolla2.com>
+ * Copyright (c) daniel@desarrolla2.com
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @author Daniel González <daniel@desarrolla2.com>
  */
 
 namespace Desarrolla2\Bundle\BlogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Desarrolla2\Bundle\BlogBundle\Entity\Post;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * WidgetController
@@ -28,8 +28,7 @@ class WidgetController extends Controller
     public function latestCommentAction()
     {
         return [
-            'comments' =>
-                $this->getDoctrine()->getManager()
+            'comments' => $this->getDoctrine()->getManager()
                     ->getRepository('BlogBundle:Comment')->getLatest(4)
         ];
     }
@@ -40,8 +39,7 @@ class WidgetController extends Controller
     public function latestCommentRelatedAction(Post $post, $items = 3)
     {
         return [
-            'comments' =>
-                $this->getDoctrine()->getManager()
+            'comments' => $this->getDoctrine()->getManager()
                     ->getRepository('BlogBundle:Comment')->getLatestRelated($post, $items)
         ];
     }
@@ -52,8 +50,7 @@ class WidgetController extends Controller
     public function latestPostAction()
     {
         return [
-            'posts' =>
-                $this->getDoctrine()->getManager()
+            'posts' => $this->getDoctrine()->getManager()
                     ->getRepository('BlogBundle:Post')->getLatest(4)
         ];
     }
@@ -66,8 +63,7 @@ class WidgetController extends Controller
         return [];
 
         return [
-            'posts' =>
-                $this->getDoctrine()->getManager()
+            'posts' => $this->getDoctrine()->getManager()
                     ->getRepository('BlogBundle:Post')->getLatestRelated($post, 4)
         ];
     }
@@ -78,8 +74,7 @@ class WidgetController extends Controller
     public function tagsAction()
     {
         return [
-            'tags' =>
-                $this->getDoctrine()->getManager()
+            'tags' => $this->getDoctrine()->getManager()
                     ->getRepository('BlogBundle:Tag')->get()
         ];
     }
@@ -90,8 +85,7 @@ class WidgetController extends Controller
     public function linksAction()
     {
         return [
-            'links' =>
-                $this->getDoctrine()->getManager()
+            'links' => $this->getDoctrine()->getManager()
                     ->getRepository('BlogBundle:Link')->getActiveOrdered()
         ];
     }
@@ -120,7 +114,6 @@ class WidgetController extends Controller
             'banner' => $this->getDoctrine()->getManager()
                 ->getRepository('BlogBundle:Banner')->getRandomActive()
         ];
-
     }
 
     /**
