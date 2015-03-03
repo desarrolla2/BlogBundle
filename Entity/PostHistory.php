@@ -17,14 +17,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Desarrolla2\Bundle\BlogBundle\Entity\PostHistory
+ * PostHistory
  *
  * @ORM\Table(name="post_history")
  * @ORM\Entity(repositoryClass="Desarrolla2\Bundle\BlogBundle\Entity\Repository\PostHistoryRepository")
  */
 class PostHistory
 {
-
     /**
      * @var integer $id
      *
@@ -33,6 +32,14 @@ class PostHistory
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @var Post
+     *
+     * @ORM\ManyToOne(targetEntity="Post")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     */
+    protected $post;
 
     /**
      * @var string $name
@@ -64,15 +71,6 @@ class PostHistory
     protected $createdAt;
 
     /**
-     *
-     * @var Post
-     *
-     * @ORM\ManyToOne(targetEntity="Post")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
-     */
-    protected $post;
-
-    /**
      * Constructor
      */
     public function __construct()
@@ -100,14 +98,15 @@ class PostHistory
     /**
      * Set name
      *
-     * @param  string      $name
+     * @param  string $name
+     *
      * @return PostHistory
      */
     public function setName($name)
     {
         $this->name = $name;
 
-        return $this;
+
     }
 
     /**
@@ -123,14 +122,15 @@ class PostHistory
     /**
      * Set intro
      *
-     * @param  string      $intro
+     * @param  string $intro
+     *
      * @return PostHistory
      */
     public function setIntro($intro)
     {
         $this->intro = $intro;
 
-        return $this;
+
     }
 
     /**
@@ -146,14 +146,15 @@ class PostHistory
     /**
      * Set content
      *
-     * @param  string      $content
+     * @param  string $content
+     *
      * @return PostHistory
      */
     public function setContent($content)
     {
         $this->content = $content;
 
-        return $this;
+
     }
 
     /**
@@ -169,14 +170,15 @@ class PostHistory
     /**
      * Set createdAt
      *
-     * @param  \DateTime   $createdAt
+     * @param  \DateTime $createdAt
+     *
      * @return PostHistory
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
 
-        return $this;
+
     }
 
     /**
@@ -193,6 +195,7 @@ class PostHistory
      * Set post
      *
      * @param  \Desarrolla2\Bundle\BlogBundle\Entity\Post $post
+     *
      * @return PostHistory
      */
     public function setPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post = null)
@@ -202,7 +205,7 @@ class PostHistory
         $this->setIntro($post->getIntro());
         $this->setContent($post->getContent());
 
-        return $this;
+
     }
 
     /**

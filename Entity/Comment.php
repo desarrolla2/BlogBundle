@@ -15,7 +15,6 @@ namespace Desarrolla2\Bundle\BlogBundle\Entity;
 
 use Desarrolla2\Bundle\BlogBundle\Model\CommentStatus;
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Model\User;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
@@ -46,7 +45,7 @@ class Comment
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
@@ -121,7 +120,7 @@ class Comment
     {
         $this->content = $content;
 
-        return $this;
+
     }
 
     /**
@@ -145,7 +144,7 @@ class Comment
     {
         $this->published = $published;
 
-        return $this;
+
     }
 
     /**
@@ -169,7 +168,7 @@ class Comment
     {
         $this->createdAt = $createdAt;
 
-        return $this;
+
     }
 
     /**
@@ -193,7 +192,7 @@ class Comment
     {
         $this->updatedAt = $updatedAt;
 
-        return $this;
+
     }
 
     /**

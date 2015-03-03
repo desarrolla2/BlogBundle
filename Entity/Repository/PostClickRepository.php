@@ -31,15 +31,13 @@ class PostClickRepository extends EntityRepository
      */
     public function add(Post $post)
     {
-        $em = $this->getEntityManager();
-
         $date = new DateTime();
 
         $click = $this->findOneBy(
-            array(
+            [
                 'post_id' => $post->getId(),
                 'date' => $date,
-            )
+            ]
         );
         if (!$click) {
             $click = new PostClick();
@@ -49,6 +47,7 @@ class PostClickRepository extends EntityRepository
 
         $click->increment();
 
+        $em = $this->getEntityManager();
         $em->persist($click);
         $em->flush();
     }

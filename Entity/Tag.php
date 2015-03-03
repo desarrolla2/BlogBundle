@@ -34,11 +34,6 @@ class Tag
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="tag")
-     */
-    protected $posts;
-
-    /**
      * @var string $name
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -82,11 +77,9 @@ class Tag
     public function __construct()
     {
         $this->items = 0;
-        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     *
      * @return string
      */
     public function __toString()
@@ -190,39 +183,6 @@ class Tag
     public function getSlug()
     {
         return $this->slug;
-    }
-
-    /**
-     * Add posts
-     *
-     * @param Desarrolla2\Bundle\BlogBundle\Entity\Post $post
-     *
-     * @return Tag
-     */
-    public function addPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post)
-    {
-        $post->addTag($this);
-        $this->posts[] = $posts;
-    }
-
-    /**
-     * Remove posts
-     *
-     * @param Desarrolla2\Bundle\BlogBundle\Entity\Post $post
-     */
-    public function removePost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post)
-    {
-        $this->posts->removeElement($post);
-    }
-
-    /**
-     * Get posts
-     *
-     * @return Doctrine\Common\Collections\Collection
-     */
-    public function getPosts()
-    {
-        return $this->posts;
     }
 
     /**

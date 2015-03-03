@@ -51,8 +51,6 @@ class Profile
      */
     protected $description;
 
-    protected $avatar;
-
     /**
      * Constructor
      */

@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Desarrolla2\Bundle\BlogBundle\Entity\Author
+ * Author
  *
  * @ORM\Table(name="author")
  * @ORM\Entity(repositoryClass="Desarrolla2\Bundle\BlogBundle\Entity\Repository\AuthorRepository")
@@ -56,14 +56,6 @@ class Author
     protected $slug;
 
     /**
-     *
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="author")
-     */
-    protected $posts;
-
-    /**
      * @var \DateTime $createdAt
      *
      * @Gedmo\Timestampable(on="create")
@@ -80,13 +72,8 @@ class Author
     protected $updatedAt;
 
     /**
-     * Constructor
+     * @return string
      */
-    public function __construct()
-    {
-        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
     public function __toString()
     {
         return $this->getName();
@@ -106,13 +93,12 @@ class Author
      * Set name
      *
      * @param  string $name
+     *
      * @return Author
      */
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -129,13 +115,14 @@ class Author
      * Set created_at
      *
      * @param  \DateTime $createdAt
+     *
      * @return Author
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
 
-        return $this;
+
     }
 
     /**
@@ -152,13 +139,14 @@ class Author
      * Set updated_at
      *
      * @param  \DateTime $updatedAt
+     *
      * @return Author
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
-        return $this;
+
     }
 
     /**
@@ -172,49 +160,15 @@ class Author
     }
 
     /**
-     * Add posts
-     *
-     * @param  Desarrolla2\Bundle\BlogBundle\Entity\Post $posts
-     * @return Author
-     */
-    public function addPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $posts)
-    {
-        $this->posts[] = $posts;
-
-        return $this;
-    }
-
-    /**
-     * Remove posts
-     *
-     * @param Desarrolla2\Bundle\BlogBundle\Entity\Post $posts
-     */
-    public function removePost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $posts)
-    {
-        $this->posts->removeElement($posts);
-    }
-
-    /**
-     * Get posts
-     *
-     * @return Doctrine\Common\Collections\Collection
-     */
-    public function getPosts()
-    {
-        return $this->posts;
-    }
-
-    /**
      * Set slug
      *
      * @param  string $slug
+     *
      * @return Author
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
-
-        return $this;
     }
 
     /**
@@ -227,11 +181,21 @@ class Author
         return $this->slug;
     }
 
+    /**
+     * Get email
+     *
+     * @return string
+     */
     public function getEmail()
     {
         return $this->email;
     }
 
+    /**
+     * set email
+     *
+     * @param string $email
+     */
     public function setEmail($email)
     {
         $this->email = $email;

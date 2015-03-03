@@ -36,6 +36,28 @@ class Post
     protected $id;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Tag")
+     * @ORM\JoinTable(name="post_tag")
+     */
+    protected $tags;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post", cascade={"remove"})
+     */
+    protected $comments;
+
+    /**
+     * @var Author
+     *
+     * @ORM\ManyToOne(targetEntity="Author")
+     */
+    protected $author;
+
+    /**
      * @var string $name
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -83,57 +105,14 @@ class Post
      *
      * @ORM\Column(name="status", type="integer")
      */
-    protected $status = 0;
+    protected $status;
 
     /**
      * @var int $promotion
      *
      * @ORM\Column(name="promotion", type="integer")
      */
-    protected $promotion = 0;
-
-    /**
-     * @var int $rating
-     *
-     * @ORM\Column(name="rating", type="integer")
-     */
-    protected $rating = 0;
-
-    /**
-     * @var int $votes
-     *
-     * @ORM\Column(name="votes", type="integer")
-     */
-    protected $votes = 0;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Tag",inversedBy="tags")
-     * @ORM\JoinTable(name="post_tag")
-     */
-    protected $tags;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post", cascade={"remove"})
-     */
-    protected $comments;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\OneToMany(targetEntity="PostHistory", mappedBy="post", cascade={"remove"})
-     */
-    protected $history;
-
-    /**
-     * @var Author
-     *
-     * @ORM\ManyToOne(targetEntity="Author")
-     */
-    protected $author;
+    protected $promotion;
 
     /**
      * @var \DateTime $created_at
@@ -195,9 +174,9 @@ class Post
      */
     public function setContent($content)
     {
-        $this->content = (string) $content;
+        $this->content = (string)$content;
 
-        return $this;
+
     }
 
     /**
@@ -221,7 +200,7 @@ class Post
     {
         $this->slug = $slug;
 
-        return $this;
+
     }
 
     /**
@@ -245,7 +224,7 @@ class Post
     {
         $this->createdAt = $createdAt;
 
-        return $this;
+
     }
 
     /**
@@ -269,7 +248,7 @@ class Post
     {
         $this->updatedAt = $updatedAt;
 
-        return $this;
+
     }
 
     /**
@@ -293,7 +272,7 @@ class Post
     {
         $this->author = $author;
 
-        return $this;
+
     }
 
     /**
@@ -317,7 +296,7 @@ class Post
     {
         $this->name = $name;
 
-        return $this;
+
     }
 
     /**
@@ -341,13 +320,12 @@ class Post
     {
         $this->tags[] = $tags;
 
-        return $this;
+
     }
 
     /**
      * Remove tags
      *
-     * @param Tag $tags
      * @param Tag $tags
      */
     public function removeTag(Tag $tags)
@@ -398,13 +376,12 @@ class Post
     {
         $this->comments[] = $comments;
 
-        return $this;
+
     }
 
     /**
      * Remove comments
      *
-     * @param Comment $comments
      * @param Comment $comments
      */
     public function removeComment(Comment $comments)
@@ -431,9 +408,7 @@ class Post
      */
     public function setIntro($intro)
     {
-        $this->intro = (string) $intro;
-
-        return $this;
+        $this->intro = $intro;
     }
 
     /**
@@ -457,7 +432,7 @@ class Post
     {
         $this->publishedAt = $publishedAt;
 
-        return $this;
+
     }
 
     /**
@@ -481,7 +456,7 @@ class Post
     {
         $this->history[] = $history;
 
-        return $this;
+
     }
 
     /**
@@ -514,8 +489,6 @@ class Post
     public function setSource($source)
     {
         $this->source = $source;
-
-        return $this;
     }
 
     /**
@@ -533,7 +506,7 @@ class Post
      */
     public function hasSource()
     {
-        return (bool) $this->getSource();
+        return $this->getSource() ? true : false;
     }
 
     /**
@@ -556,8 +529,6 @@ class Post
     public function setStatus($status)
     {
         $this->status = $status;
-
-        return $this;
     }
 
     /**
@@ -581,7 +552,7 @@ class Post
     {
         $this->image = $image;
 
-        return $this;
+
     }
 
     /**
@@ -591,7 +562,7 @@ class Post
      */
     public function isPublished()
     {
-        return (bool) ($this->status == PostStatus::PUBLISHED);
+        return $this->status == PostStatus::PUBLISHED ? true : false;
     }
 
     /**
@@ -625,53 +596,5 @@ class Post
     public function getPromotion()
     {
         return $this->promotion;
-    }
-
-    /**
-     * Set rating
-     *
-     * @param integer $rating
-     *
-     * @return Post
-     */
-    public function setRating($rating)
-    {
-        $this->rating = $rating;
-
-        return $this;
-    }
-
-    /**
-     * Get rating
-     *
-     * @return integer
-     */
-    public function getRating()
-    {
-        return $this->rating;
-    }
-
-    /**
-     * Set votes
-     *
-     * @param integer $votes
-     *
-     * @return Post
-     */
-    public function setVotes($votes)
-    {
-        $this->votes = $votes;
-
-        return $this;
-    }
-
-    /**
-     * Get votes
-     *
-     * @return integer
-     */
-    public function getVotes()
-    {
-        return $this->votes;
     }
 }

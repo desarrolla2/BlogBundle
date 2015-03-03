@@ -1,5 +1,5 @@
 {% if tags | length %}
-  <ul class="tags">
+  <ul class="tags row">
     {% for tag in tags %}
       <li><a href="{{ path('_blog_tag', { 'slug' : tag.slug }) }}">{{ tag }}</a></li>
     {% endfor %}

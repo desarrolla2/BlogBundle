@@ -17,8 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- *
- * Description of Link
+ * Link
  *
  * @ORM\Table(name="link")
  * @ORM\Entity(repositoryClass="Desarrolla2\Bundle\BlogBundle\Entity\Repository\LinkRepository")
@@ -26,7 +25,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Link
 {
-
     /**
      * @var integer $id
      *
@@ -61,33 +59,33 @@ class Link
     /**
      * @var string $rss
      *
-     * @ORM\Column(name="rss", type="string", length=255, nullable=true)
+     * @ORM\Column(name="feed", type="string", length=255, nullable=true)
      */
-    protected $rss = null;
+    protected $feed;
 
     /**
      * @var string $mail
      *
      * @ORM\Column(name="mail", type="string", length=255, nullable=true)
      */
-    protected $mail = null;
+    protected $mail;
 
     /**
      * @var string $description
      *
      * @ORM\Column(name="description", type="text")
      */
-    protected $description = '';
+    protected $description;
 
     /**
      * @var string $content
      *
      * @ORM\Column(name="notes", type="text")
      */
-    protected $notes = '';
+    protected $notes;
 
     /**
-     * @var string $isPublished
+     * @var bool $isPublished
      *
      * @ORM\Column(name="is_published", type="boolean")
      */
@@ -114,8 +112,13 @@ class Link
      */
     public function __construct()
     {
+        $this->description = '';
+        $this->notes = '';
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getName();
@@ -135,13 +138,14 @@ class Link
      * Set name
      *
      * @param  string $name
+     *
      * @return Link
      */
     public function setName($name)
     {
         $this->name = $name;
 
-        return $this;
+
     }
 
     /**
@@ -158,13 +162,14 @@ class Link
      * Set createdAt
      *
      * @param  \DateTime $createdAt
+     *
      * @return Link
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
 
-        return $this;
+
     }
 
     /**
@@ -181,13 +186,14 @@ class Link
      * Set isPublished
      *
      * @param  boolean $isPublished
+     *
      * @return Link
      */
     public function setIsPublished($isPublished)
     {
         $this->isPublished = $isPublished;
 
-        return $this;
+
     }
 
     /**
@@ -204,13 +210,14 @@ class Link
      * Set updatedAt
      *
      * @param  \DateTime $updatedAt
+     *
      * @return Link
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
-        return $this;
+
     }
 
     /**
@@ -227,13 +234,14 @@ class Link
      * Set url
      *
      * @param  string $url
+     *
      * @return Link
      */
     public function setUrl($url)
     {
         $this->url = $url;
 
-        return $this;
+
     }
 
     /**
@@ -247,42 +255,37 @@ class Link
     }
 
     /**
-     * Set rss
+     * Set feed
      *
-     * @param  string $rss
+     * @param  string $feed
+     *
      * @return Link
      */
-    public function setRss($rss)
+    public function setFeed($feed)
     {
-        if (!$rss) {
-            $rss = null;
-        }
-        $this->rss = $rss;
-
-        return $this;
+        $this->feed = $feed;
     }
 
     /**
-     * Get rss
+     * Get feed
      *
      * @return string
      */
-    public function getRss()
+    public function getFeed()
     {
-        return $this->rss;
+        return $this->feed;
     }
 
     /**
      * Set description
      *
-     * @param  string $description
+     * @param string $description
+     *
      * @return Link
      */
     public function setDescription($description)
     {
-        $this->description = (string) $description;
-
-        return $this;
+        $this->description = $description;
     }
 
     /**
@@ -316,7 +319,7 @@ class Link
      */
     public function setNotes($notes)
     {
-        $this->notes = (string) $notes;
+        $this->notes = (string)$notes;
     }
 
     /**
@@ -331,13 +334,14 @@ class Link
      * Set slug
      *
      * @param  string $slug
+     *
      * @return Link
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
 
-        return $this;
+
     }
 
     /**

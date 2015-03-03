@@ -101,7 +101,7 @@ class PostView
     {
         $this->postId = $postId;
 
-        return $this;
+
     }
 
     /**
@@ -125,7 +125,7 @@ class PostView
     {
         $this->postSlug = $postSlug;
 
-        return $this;
+
     }
 
     /**
@@ -149,7 +149,7 @@ class PostView
     {
         $this->count = $count;
 
-        return $this;
+
     }
 
     /**
@@ -173,7 +173,7 @@ class PostView
     {
         $this->date = $date;
 
-        return $this;
+
     }
 
     /**
@@ -197,7 +197,7 @@ class PostView
     {
         $this->createdAt = $createdAt;
 
-        return $this;
+
     }
 
     /**
@@ -221,7 +221,7 @@ class PostView
     {
         $this->updatedAt = $updatedAt;
 
-        return $this;
+
     }
 
     /**
@@ -246,7 +246,7 @@ class PostView
         $this->postId = $post->getId();
         $this->postSlug = $post->getSlug();
 
-        return $this;
+
     }
 
     /**

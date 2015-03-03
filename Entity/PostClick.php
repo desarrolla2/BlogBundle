@@ -18,6 +18,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * PostClick
+ *
  * @ORM\Table(name="post_click",indexes={@ORM\Index(name="post_click_idx", columns={"post_id", "date"})})
  * @ORM\Entity(repositoryClass="Desarrolla2\Bundle\BlogBundle\Entity\Repository\PostClickRepository")
  */
@@ -33,23 +34,20 @@ class PostClick
     protected $id;
 
     /**
-     *
      * @var Post
      *
      * @ORM\Column(name="post_id", type="integer")
      */
-    protected $post_id;
+    protected $postId;
 
     /**
-     *
      * @var Post
      *
      * @ORM\Column(name="post_slug", type="string")
      */
-    protected $post_slug;
+    protected $postSlug;
 
     /**
-     *
      * @var Post
      *
      * @ORM\Column(name="count", type="integer")
@@ -98,9 +96,9 @@ class PostClick
      */
     public function setPostId($postId)
     {
-        $this->post_id = $postId;
+        $this->postId = $postId;
 
-        return $this;
+
     }
 
     /**
@@ -110,7 +108,7 @@ class PostClick
      */
     public function getPostId()
     {
-        return $this->post_id;
+        return $this->postId;
     }
 
     /**
@@ -122,9 +120,9 @@ class PostClick
      */
     public function setPostSlug($postSlug)
     {
-        $this->post_slug = $postSlug;
+        $this->postSlug = $postSlug;
 
-        return $this;
+
     }
 
     /**
@@ -134,7 +132,7 @@ class PostClick
      */
     public function getPostSlug()
     {
-        return $this->post_slug;
+        return $this->postSlug;
     }
 
     /**
@@ -148,7 +146,7 @@ class PostClick
     {
         $this->createdAt = $createdAt;
 
-        return $this;
+
     }
 
     /**
@@ -172,7 +170,7 @@ class PostClick
     {
         $this->updatedAt = $updatedAt;
 
-        return $this;
+
     }
 
     /**
@@ -194,10 +192,10 @@ class PostClick
      */
     public function setPost(\Desarrolla2\Bundle\BlogBundle\Entity\Post $post = null)
     {
-        $this->post_id = $post->getId();
-        $this->post_slug = $post->getSlug();
+        $this->postId = $post->getId();
+        $this->postSlug = $post->getSlug();
 
-        return $this;
+
     }
 
     /**
@@ -211,7 +209,7 @@ class PostClick
     {
         $this->count = $count;
 
-        return $this;
+
     }
 
     /**
@@ -235,7 +233,7 @@ class PostClick
     {
         $this->date = $date;
 
-        return $this;
+
     }
 
     /**

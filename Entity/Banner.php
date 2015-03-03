@@ -98,8 +98,6 @@ class Banner
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -122,8 +120,6 @@ class Banner
     public function setContent($content)
     {
         $this->content = $content;
-
-        return $this;
     }
 
     /**
@@ -147,7 +143,7 @@ class Banner
     {
         $this->isPublished = $isPublished;
 
-        return $this;
+
     }
 
     /**
@@ -171,7 +167,7 @@ class Banner
     {
         $this->createdAt = $createdAt;
 
-        return $this;
+
     }
 
     /**
@@ -195,7 +191,7 @@ class Banner
     {
         $this->updatedAt = $updatedAt;
 
-        return $this;
+
     }
 
     /**
@@ -219,7 +215,7 @@ class Banner
     {
         $this->weight = $weight;
 
-        return $this;
+
     }
 
     /**

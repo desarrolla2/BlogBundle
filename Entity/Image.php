@@ -29,12 +29,19 @@ class Image
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    protected $id;
+
+    /**
+     * @var string $name
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    protected $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    public $file;
+    protected $file;
 
     /**
      * @var \DateTime $created_at
@@ -72,7 +79,7 @@ class Image
     {
         $this->file = $file;
 
-        return $this;
+
     }
 
     /**
@@ -95,7 +102,7 @@ class Image
     {
         $this->createdAt = $createdAt;
 
-        return $this;
+
     }
 
     /**
@@ -118,7 +125,7 @@ class Image
     {
         $this->updatedAt = $updatedAt;
 
-        return $this;
+
     }
 
     /**

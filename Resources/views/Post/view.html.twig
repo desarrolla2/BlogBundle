@@ -31,6 +31,6 @@
     {% include 'BlogBundle:Post:view.tags.html.twig' with {'tags': post.tags } %}
     {% include 'BlogBundle:Post:view.social.html.twig' with {'url': url('_blog_view', { 'slug' : post.slug }) } %}
     {% include 'BlogBundle:Post:view.related.html.twig' with {'post': post  } %}
-    {% include 'BlogBundle:Post:view.comment.html.twig' with {'form': form, 'comments': comments } %}
+    {#{% include 'BlogBundle:Post:view.comment.html.twig' with {'form': form, 'comments': comments } %}#}
   </article>
 {% endblock %}

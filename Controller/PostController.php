@@ -67,21 +67,19 @@ class PostController extends Controller
     }
 
     /**
-     *
      * @Route("/post/{slug}" , name="_blog_view", requirements={"slug" = "[\w\d\-]+"})
      * @Method({"GET"})
      * @Template()
      *
-     * @param Request $request
+     * @param string $slug
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function viewAction(Request $request)
+    public function viewAction($slug)
     {
-        $post = $this->getDoctrine()->getManager()
-            ->getRepository('BlogBundle:Post')
-            ->getOneBySlug($request->get('slug', false));
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository('BlogBundle:Post')->findOneBySlug($slug);
 
         if (!$post) {
             throw $this->createNotFoundException('The post does not exist');
@@ -90,15 +88,17 @@ class PostController extends Controller
             return new RedirectResponse($this->generateUrl('_blog_default'), 302);
         }
 
-        $comments = $this->getDoctrine()->getManager()
+        /*
+         $comments = $this->getDoctrine()->getManager()
             ->getRepository('BlogBundle:Comment')->getForPost($post);
 
-        $form = $this->createForm(new CommentType(), new CommentModel($this->createCommentForPost($post)));
+            $form = $this->createForm(new CommentType(), new CommentModel($this->createCommentForPost($post)));
+        */
 
         return [
             'post' => $post,
-            'comments' => $comments,
-            'form' => $form->createView(),
+            /*'comments' => $comments,
+            'form' => $form->createView(),*/
         ];
     }
 
